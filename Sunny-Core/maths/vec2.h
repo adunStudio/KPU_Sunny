@@ -5,12 +5,13 @@
 #pragma once
 
 #include "../sunny.h"
+#include "vec3.h"
 
 namespace sunny
 {
     namespace maths
     {
-        class vec2
+        struct vec2
         {
             float x, y;
 
