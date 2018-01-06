@@ -4,6 +4,8 @@
 
 #pragma once
 
+// 필요한 내부 라이브러리들을 Include 한다.
+
 #include <algorithm>
 #include <functional>
 #include <iostream>
