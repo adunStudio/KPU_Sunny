@@ -17,6 +17,5 @@ Sunny Engine 어렵지 않아요!
 
 ### Step 01. Maths
 [Sunny-Core/maths](https://github.com/adunStudio/Sunny/Sunny-Core/maths)
-- Vec2
-- Vec3
-- Mat3
+- Vectors
+- Matrices
