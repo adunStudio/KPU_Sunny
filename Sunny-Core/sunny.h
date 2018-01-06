@@ -18,5 +18,6 @@
 #include <unordered_map>
 
 #include <cstddef>
-#include <stdio.h>
-#include <math.h>
+#include <cstdio>
+#include <cmath>
+#include <cstring>

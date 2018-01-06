@@ -5,18 +5,17 @@
 #include "vec2.h"
 #include "vec3.h"
 #include "vec4.h"
+#include "mat4.h"
 
 namespace sunny
 {
     namespace maths
     {
-        vec3::vec3()
-                : x(0.0f), y(0.0f), z(0.0f)
+        vec3::vec3() : x(0.0f), y(0.0f), z(0.0f)
         {
         }
 
-        vec3::vec3(float scalar)
-                : x(scalar), y(scalar), z(scalar)
+        vec3::vec3(float scalar) : x(scalar), y(scalar), z(scalar)
         {
         }
 
@@ -25,18 +24,15 @@ namespace sunny
         {
         }
 
-        vec3::vec3(const vec2& other)
-                : x(other.x), y(other.y), z(0.0f)
+        vec3::vec3(const vec2& other) : x(other.x), y(other.y), z(0.0f)
         {
         }
 
-        vec3::vec3(float x, float y)
-                : x(x), y(y), z(0.0f)
+        vec3::vec3(float x, float y) : x(x), y(y), z(0.0f)
         {
         }
 
-        vec3::vec3(const vec4& other)
-                : x(other.x), y(other.y), z(other.z)
+        vec3::vec3(const vec4& other) : x(other.x), y(other.y), z(other.z)
         {
         }
 
@@ -150,6 +146,15 @@ namespace sunny
             z /= other;
 
             return *this;
+        }
+
+        vec3 vec3::Multiply(const mat4& transform) const
+        {
+            return vec3(
+                    transform.rows[0].x * x + transform.rows[0].y * y + transform.rows[0].z * z + transform.rows[0].w,
+                    transform.rows[1].x * x + transform.rows[1].y * y + transform.rows[1].z * z + transform.rows[1].w,
+                    transform.rows[2].x * x + transform.rows[2].y * y + transform.rows[2].z * z + transform.rows[2].w
+            );
         }
 
         vec3 operator+(vec3 left, const vec3& right)

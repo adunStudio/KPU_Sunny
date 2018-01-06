@@ -3,6 +3,7 @@
 //
 
 #include "vec4.h"
+#include "mat4.h"
 
 namespace sunny
 {
@@ -58,6 +59,16 @@ namespace sunny
             w /= other.w;
 
             return *this;
+        }
+
+        vec4 vec4::Multiply(const mat4& transform) const
+        {
+            return vec4(
+                    transform.rows[0].x * x + transform.rows[0].y * y + transform.rows[0].z * z + transform.rows[0].w * w,
+                    transform.rows[1].x * x + transform.rows[1].y * y + transform.rows[1].z * z + transform.rows[1].w * w,
+                    transform.rows[2].x * x + transform.rows[2].y * y + transform.rows[2].z * z + transform.rows[2].w * w,
+                    transform.rows[3].x * x + transform.rows[3].y * y + transform.rows[3].z * z + transform.rows[3].w * w
+            );
         }
 
         vec4 operator+(vec4 left, const vec4& right)

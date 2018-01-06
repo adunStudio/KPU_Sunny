@@ -94,7 +94,24 @@ void mat4::SetColumn(uint index, const vec4& column)
 
 ---
 
-- 크기 변환
+행렬에서의 가장 기본 적인 변환 행렬은 다음 3가지입니다.
+
+크기 변환
+```cpp
+mat4 mat4::Scale(const vec3& scale)
+	{
+		mat4 result(1.0f);
+
+		result.elements[0 + 0 * 4] = scale.x;
+		result.elements[1 + 1 * 4] = scale.y;
+		result.elements[2 + 2 * 4] = scale.z;
+
+		return result;
+	}
+```
+
+[회전 변환](http://www.songho.ca/opengl/gl_anglestoaxes.html)
+
 ```cpp
 mat4 mat4::Rotate(float angle, const vec3& axis)
 {
@@ -125,8 +142,45 @@ mat4 mat4::Rotate(float angle, const vec3& axis)
 }
 ```
 
-회전 변환
-```cpp
+이동 변환
 
+```cpp
+mat4 mat4::Translate(const vec3& translation)
+{
+    mat4 result(1.0f);
+
+    result.elements[3 + 0 * 4] = translation.x;
+    result.elements[3 + 1 * 4] = translation.y;
+    result.elements[3 + 2 * 4] = translation.z;
+
+    return result;
+}
 ```
-- 이동 변환
+
+---
+
+행렬 곱(Multiply)과 정점 변환에서 사용할 직교 투영, 원근 투영, 뷰 변환을 구현합니다.
+
+- [직교 투영 변환](https://www.safaribooksonline.com/library/view/opengl-es-2/9781941222560/f_0137.html)
+- [원근 투영 변환](http://ogldev.atspace.org/www/tutorial12/tutorial12.html)
+- 뷰 변환
+
+```cpp
+mat4& Multiply(const mat4& other);
+friend mat4 operator*(mat4 left, const mat4& right);
+mat4& operator*=(const mat4& other);
+
+vec3 Multiply(const vec3& other) const;
+friend vec3 operator*(const mat4& left, const vec3& right);
+
+vec4 Multiply(const vec4& other) const;
+friend vec4 operator*(const mat4& left, const vec4& right)
+
+static mat4 Orthographic(float left, float right, float bottom, float top, float near, float far);
+static mat4 Perspective(float fov, float aspectRatio, float near, float far);
+static mat4 LookAt(const vec3& camera, const vec3& object, const vec3& up);
+```
+---
+
+### Commit
+[Step 01. Maths - Matrix]()
