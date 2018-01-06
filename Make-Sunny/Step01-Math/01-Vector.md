@@ -14,7 +14,7 @@ Sunney Engine은 아래와 같이 물리량의 벡터를 추상화한 구조체�
 vec2(float x, float y);
 tvec(T x, T y);
 vec3(float x, float y, float z);
-vec4(float x, float y, flaot z, float w);
+vec4(float x, float y, float z, float w);
 ```
 
 ---
@@ -122,4 +122,5 @@ float vec3::Distance(const vec3& other) const
 ```
 ---
 
-### UML
+### Commit
+[Step 01. Maths - Vectors](https://github.com/adunStudio/Sunny/commit/564b17b4fecb0f3c1a431c4169518e528cde8d29)

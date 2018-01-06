@@ -21,4 +21,4 @@ Sunny Engine 어렵지 않아요!
 ### Step 01. Maths
 [Sunny-Core/maths](https://github.com/adunStudio/Sunny/tree/master/Sunny-Core/maths)
 - [Vectors](https://github.com/adunStudio/Sunny/blob/master/Make-Sunny/Step01-Math/01-Vector.md)
-- Matrices
+- [Matrix](https://github.com/adunStudio/Sunny/blob/master/Make-Sunny/Step01-Math/02-Matrix.md)
