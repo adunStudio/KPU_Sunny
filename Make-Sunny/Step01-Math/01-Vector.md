@@ -11,10 +11,12 @@
 Sunney Engine은 아래와 같이 물리량의 벡터를 추상화한 구조체가 존재합니다.
 
 ```cpp
-vec2(float x, float y);
-tvec(T x, T y);
-vec3(float x, float y, float z);
-vec4(float x, float y, float z, float w);
+struct vec2 { float x; float y; };
+struct vec3 { float x; float y; float z; };
+struct vec4 { float x; float y; float z; float w; };
+
+template<typename T>
+struct tvec { T x; T y; };
 ```
 
 ---
