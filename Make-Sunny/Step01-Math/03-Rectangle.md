@@ -34,7 +34,7 @@ struct Rectangle
             float height;
         };
     };
-}     
+};
 ```
 
 ---
@@ -64,4 +64,4 @@ bool Rectangle::Contains(const vec3& point) const
 ---
 
 ### Commit
-[Step 01. Maths - Rectangle]()
+[Step 01. Maths - Rectangle](https://github.com/adunStudio/Sunny/commit/d66443b2c31cf981508041ab9fa2fb6177263e31)
