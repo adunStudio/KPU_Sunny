@@ -7,10 +7,6 @@
 
 위에서의 값들은 독립적인 값들이 아닌 서로가 서로에게 영향을 미칠 수 있는 값들입니다. 이러한 값들을 수학과 좀 더 연계한 동차좌표계(homogeneous coordinate)를 이용하여 이동, 축소확대, 회전 변환 모두 4 × 4 행렬 하나로 표현이 가능합니다.
 
-- 크기 변환 행렬
-- 회전 변환 행렬
-- 이동 변환 행렬
-
 ---
 
 Sunney Engine은 동차좌표계의 행렬을 추상화한 구조체가 존재합니다.
@@ -21,12 +17,13 @@ struct mat4 { float elements[4 * 4]; };
 
 ---
 
-오버로딩된 3가지 생성자와 함께 단위 행렬을 반환하는 Identity() 스태틱 함수를 가지고 있습니다.
+오버로딩된 4가지 생성자와 함께 단위 행렬을 반환하는 Identity() 스태틱 함수를 가지고 있습니다.
 
 ```cpp
 mat4();
 mat4(float diagonal);
 mat4(float* elements);
+mat4(const vec4& row0, const vec4& row1, const vec4& row2, const vec4& row3)
 static mat4 Identity();
 
 // mat4.cpp
@@ -57,7 +54,7 @@ mat4 mat4::Identity()
 
 ---
 
-mat4 구조체는 4 x 4 행렬을 추상화 하였으므로 총 16개의 원소를 가지고있습니다. 원소 데이터를 float[16] : 1차원 배열로 할당하고, C++ 공용체(union) 키워드를 사용하여 행(row)에 접근합니다.
+mat4 구조체는 4 x 4 행렬을 추상화 하였으므로 총 16개의 원소를 가지고있습니다. 원소 데이터를 float[16] : 1차원 배열로 할당하고, C++ 공용체(union) 키워드를 사용하여 행(row)과 열(column)에 접근합니다.
 
 | 1 row |     |     |     | 2 row |     |     |     | 3 row |     |      |      | 4row |     |      |      |
 |:-----:|:---:|:---:|:---:|:-----:|:---:|:---:|:---:|:-----:|:---:|:----:|:----:|:----:|:---:|:----:|:----:|
@@ -96,3 +93,40 @@ void mat4::SetColumn(uint index, const vec4& column)
 ```
 
 ---
+
+- 크기 변환
+```cpp
+mat4 mat4::Rotate(float angle, const vec3& axis)
+{
+    mat4 result(1.0f);
+
+    float r = toRadians(angle);
+    float c = cos(r);
+    float s = sin(r);
+    float omc = 1.0f - c;
+
+    float x = axis.x;
+    float y = axis.y;
+    float z = axis.z;
+
+    result.elements[0 + 0 * 4] = x * x * omc + c;
+    result.elements[0 + 1 * 4] = y * x * omc + z * s;
+    result.elements[0 + 2 * 4] = x * z * omc - y * s;
+
+    result.elements[1 + 0 * 4] = x * y * omc - z * s;
+    result.elements[1 + 1 * 4] = y * y * omc + c;
+    result.elements[1 + 2 * 4] = y * z * omc + x * s;
+
+    result.elements[2 + 0 * 4] = x * z * omc + y * s;
+    result.elements[2 + 1 * 4] = y * z * omc - x * s;
+    result.elements[2 + 2 * 4] = z * z * omc + c;
+
+    return result;
+}
+```
+
+회전 변환
+```cpp
+
+```
+- 이동 변환
