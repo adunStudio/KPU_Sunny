@@ -12,7 +12,7 @@ namespace sunny
 {
     namespace maths
     {
-        class Rectangle
+        struct Rectangle
         {
             union
             {

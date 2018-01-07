@@ -27,7 +27,7 @@ namespace sunny
 
         bool Rectangle::Contains(const vec2& point) const
         {
-            return point > GetMinimumBound() && point < GetMaximumBound();
+            return GetMinimumBound() < point && point < GetMaximumBound();
         }
 
         bool Rectangle::Contains(const vec3& point) const
