@@ -7,6 +7,8 @@ set(SOURCE_FILES main.cpp sunny.h)
 
 file(GLOB SUNNY_FILES
         maths/*.h
-        maths/*.cpp)
+        maths/*.cpp
+        app/*.h
+        app/*.cpp)
 
 add_executable(Sunny_Core ${SOURCE_FILES} ${SUNNY_FILES})
