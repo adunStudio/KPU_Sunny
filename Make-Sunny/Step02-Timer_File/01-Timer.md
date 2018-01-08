@@ -64,4 +64,4 @@ Hello, Sunny Project!
 ---
 
 ### Commit
-[Step 02. Timer & File - Timer]()
+[Step 02. Timer & File - Timer](https://github.com/adunStudio/Sunny/commit/2625e48f792d47de2b6f93f59dedd1d898336d08)
