@@ -9,6 +9,8 @@ file(GLOB SUNNY_FILES
         maths/*.h
         maths/*.cpp
         utils/*.h
-        utils/*.cpp)
+        utils/*.cpp
+        system/*.h
+        system/*.cpp)
 
 add_executable(Sunny_Core ${SOURCE_FILES} ${SUNNY_FILES})

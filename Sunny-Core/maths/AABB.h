@@ -1,6 +1,7 @@
 //
 // Created by adunstudio on 2018-01-07.
 //
+#pragma once
 
 #include "../sunny.h"
 #include "vec2.h"

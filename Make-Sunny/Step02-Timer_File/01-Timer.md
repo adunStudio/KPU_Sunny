@@ -18,7 +18,7 @@ Sunny Engine은 C++ STL chrono를 사용한 Timer 클래스가 존재합니다.
 class Timer { };
 ```
 
-> Timer 클래스를 분석하기 위해서는 chrono 라이브러이에 대한 선행지식이 필요합니다.
+> Timer 클래스를 분석하기 위해서는 chrono 라이브러리에 대한 선행지식이 필요합니다.
 
 ---
 

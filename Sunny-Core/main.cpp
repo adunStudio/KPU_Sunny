@@ -1,19 +1,36 @@
 #include <iostream>
-#include "utils/Timer.h"
+
+#include "system/FileSystem.h"
 
 int main()
 {
     std::cout << "Hello, Sunny Project!" << std::endl;
 
-    sunny::utils::Timer timer;
+    std::string file_path = "read_test.txt";
 
-    for(int i = 0; i < 1000000; ++i) { /* 필요한 작업 수행 */ }
+    bool exist =  sunny::system::FileSystem::FileExists(file_path);
 
-    float elapsed_s  = timer.Elapsed();
-    float elapsed_ms = timer.ElapsedMillis();
+    if(exist)
+    {
+        long size = sunny::system::FileSystem::GetFileSize(file_path);
 
-    std::cout << elapsed_s  << std::endl;
-    std::cout << elapsed_ms << std::endl;
+        char* data = new char[size];
+
+        sunny::system::FileSystem::ReadFile(file_path, data, size - 5);
+        char* binary = sunny::system::FileSystem::ReadFile(file_path);
+        std::string str = sunny::system::FileSystem::ReadTextFile(file_path);
+
+        std::cout << data << std::endl;
+
+        for(int i = 0; i < size; ++i)
+            std::cout << binary[i];
+        std::cout << std::endl;
+
+        std::cout << str << std::endl;
+
+        // write
+        std::cout << "Write: " << sunny::system::FileSystem::WriteTextFile("write_test.txt", str) << std::endl;
+    }
 
     return 0;
 }
