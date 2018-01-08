@@ -8,7 +8,7 @@
 
 ---
 
-##### Required knowledge
+#### Required knowledge
 > - ######  High School Math / Pysics
 > - ###### Game Math
 > - ###### C++ 11 Grammer
