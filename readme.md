@@ -9,9 +9,9 @@
 ---
 
 #### Required knowledge
-> - ######  High School Math / Pysics
+> - ######  High School Math / Physics
 > - ###### Game Math
-> - ###### C++ 11 Grammer
+> - ###### C++ 11 Grammar
 > - ###### STL (Standard Template Library)
 > - ###### And DirectX 11 Basic knowledge..
 
