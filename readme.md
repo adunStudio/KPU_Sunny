@@ -10,10 +10,10 @@
 
 ##### Required knowledge
 > - ######  High School Math / Pysics
-- ###### Game Math
-- ###### C++ 11 Grammer
-- ###### STL (Standard Template Library)
-- ###### And DirectX 11 Basic knowledge..
+> - ###### Game Math
+> - ###### C++ 11 Grammer
+> - ###### STL (Standard Template Library)
+> - ###### And DirectX 11 Basic knowledge..
 
 ----
 
