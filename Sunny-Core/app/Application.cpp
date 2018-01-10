@@ -111,6 +111,7 @@ namespace sunny
 
         void Application::OnUpdate(const utils::Timestep& ts)
         {
+            
         }
 
         void Application::OnRender()
