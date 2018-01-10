@@ -13,6 +13,7 @@
 > - ###### Game Math
 > - ###### C++ 11 Grammar
 > - ###### STL (Standard Template Library)
+> - ###### Window Programming
 > - ###### And DirectX 11 Basic knowledge..
 
 ----
