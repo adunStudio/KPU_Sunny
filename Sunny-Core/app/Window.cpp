@@ -112,23 +112,20 @@ namespace sunny
             return true;
         }
 
-        void Window::Run()
+        void Window::Update()
         {
             MSG message;
 
-            while (true)
+            while(PeekMessage(&message, nullptr, 0, 0, PM_REMOVE) > 0)
             {
-                if(PeekMessage(&message, nullptr, 0, 0, PM_REMOVE))
+                if (message.message == WM_QUIT)
                 {
-                    if (message.message == WM_QUIT)
-                    {
-                        m_closed = true;
-                        return;
-                    }
-
-                    TranslateMessage(&message);
-                    DispatchMessage(&message);
+                    m_closed = true;
+                    return;
                 }
+
+                TranslateMessage(&message);
+                DispatchMessage(&message);
             }
         }
 

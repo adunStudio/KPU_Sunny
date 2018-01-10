@@ -25,13 +25,13 @@ namespace sunny
         float Timer::Elapsed()
         {
             // 나노 초 단위가 아닌 시간 단위로 표현할 때엔 duraction_cast를 통해 명시적 캐스팅을 해주어야 한다.
-            return duration_cast<fs>(clock::now() - m_start).count();
+            return duration_cast<fs>(clock::now() - m_start).count() / 1000.0f;
         }
 
         // 경과된 시간을 milli second 단위로 반환한다.
         float Timer::ElapsedMillis()
         {
-            return Elapsed() * 1000.0f;
+            return Elapsed()  * 1000.0f;
         }
     }
 }

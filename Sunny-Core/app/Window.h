@@ -41,12 +41,14 @@ namespace sunny
             Window(const std::string title, const WindowProperties& properties);
             ~Window();
 
-            void Run();
+            void Update();
             void Clear() const;
             bool Closed() const;
 
             void SetTitle(const std::string title);
 
+            inline int GetWidth()  const { return m_properties.width;  }
+            inline int GetHeight() const { return m_properties.height; }
 
             friend LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
             friend void ResizeCallback(Window* window, int width, int height);
