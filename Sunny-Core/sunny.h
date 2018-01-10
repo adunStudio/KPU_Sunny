@@ -22,3 +22,8 @@
 #include <cstdio>
 #include <cmath>
 #include <cstring>
+
+// Common defines
+
+// 비트를 반환한다.
+#define BIT(x) (1 << x)

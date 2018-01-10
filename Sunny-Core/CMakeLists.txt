@@ -11,6 +11,8 @@ file(GLOB SUNNY_FILES
         utils/*.h
         utils/*.cpp
         system/*.h
-        system/*.cpp)
+        system/*.cpp
+        app/*.h
+        app/*.cpp)
 
 add_executable(Sunny_Core ${SOURCE_FILES} ${SUNNY_FILES})
