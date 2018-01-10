@@ -192,4 +192,4 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 ---
 
 ### Commit
-[Step 03. Window & Events]()
+[Step 03. Window & Events - Window](https://github.com/adunStudio/Sunny/commit/b38069ade4cf082971b71c6cdaa1c8d368f0a602)
