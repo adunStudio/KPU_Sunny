@@ -7,7 +7,7 @@ int main()
 {
     std::cout << "Hello, Sunny Project!" << std::endl;
 
-    sunny::app::Application game("Test", {800, 600, false, false});
+    sunny::Application game("Test", {800, 600, false, false});
 
     game.Start();
 

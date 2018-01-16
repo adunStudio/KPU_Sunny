@@ -13,6 +13,8 @@ file(GLOB SUNNY_FILES
         system/*.h
         system/*.cpp
         app/*.h
-        app/*.cpp)
+        app/*.cpp
+        events/*.h
+        events/*.cpp)
 
 add_executable(Sunny_Core ${SOURCE_FILES} ${SUNNY_FILES})

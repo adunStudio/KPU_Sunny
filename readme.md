@@ -44,6 +44,6 @@ Sunny Engine 어렵지 않아요!
 - [Virtual File]()
 
 
-### Step 03. Window & Events
-- [Window](https://github.com/adunStudio/Sunny/blob/master/Make-Sunny/Step03-Window_Events/01-WIndow.md)
-- [Application (basic framework)](https://github.com/adunStudio/Sunny/blob/master/Make-Sunny/Step03-Window_Events/02-Application.md)
+### Step 03. Window & Application
+- [Window](https://github.com/adunStudio/Sunny/blob/master/Make-Sunny/Step03-Window_Application/01-WIndow.md)
+- [Application (basic framework)](https://github.com/adunStudio/Sunny/blob/master/Make-Sunny/Step03-Window_Application/02-Application.md)
