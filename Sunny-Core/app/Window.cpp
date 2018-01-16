@@ -49,13 +49,13 @@ namespace sunny
     {
         hInstance = (HINSTANCE)&__ImageBase;
 
-        WNDCLASS winClass      = {};                                      // 생성하려는 윈도우의 속성 값을 저장해 등록하는 구조체
-        winClass.hInstance     = hInstance;                               //
+        WNDCLASS winClass      = {};                                 // 생성하려는 윈도우의 속성 값을 저장해 등록하는 구조체
+        winClass.hInstance     = hInstance;                          //
         winClass.style         = CS_HREDRAW | CS_VREDRAW | CS_OWNDC; // 윈도우가 출력되는 형태
-        winClass.lpfnWndProc   = (WNDPROC)WndProc;                        // 메시지 처리에 사용될 함수
-        winClass.lpszClassName = "Sunny Win32 Window";                 // 윈도우 클래스의 이름 (윈도우를 만들 때 이 이름을 이용한다.)
-        winClass.hCursor       = LoadCursor(nullptr, IDC_ARROW);      // 기본 커서
-        winClass.hIcon         = LoadIcon(nullptr, IDI_WINLOGO);      // 기본 아이콘
+        winClass.lpfnWndProc   = (WNDPROC)WndProc;                   // 메시지 처리에 사용될 함수
+        winClass.lpszClassName = (LPCTSTR)"Sunny Win32 Window";               // 윈도우 클래스의 이름 (윈도우를 만들 때 이 이름을 이용한다.)
+        winClass.hCursor       = LoadCursor(nullptr, IDC_ARROW);     // 기본 커서
+        winClass.hIcon         = LoadIcon(nullptr, IDI_WINLOGO);     // 기본 아이콘
 
         /*
         winClass.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);          // 윈도우의 배경 색
@@ -64,7 +64,7 @@ namespace sunny
         */
 
         // 윈도우 클래스를 커널에 등록한다.
-        if(!RegisterClassA(&winClass))
+        if(!RegisterClass(&winClass))
         {
             // TODO: Debug System
             return false;
@@ -78,11 +78,11 @@ namespace sunny
         // ... 검색
 
         AdjustWindowRect(&size, style, false);
-
-        hWnd = CreateWindowExA(
+		// TODO: 한글 처리 
+        hWnd = CreateWindowEx(
                 WS_EX_APPWINDOW | WS_EX_WINDOWEDGE,                             // 태스크바에 나타낸다.
                 winClass.lpszClassName,                                         // 윈도우 클래스의 이름
-                _T(m_title.c_str()),                                                // 만들어질 윈도우의 타이틀 바에 나타내는 문자열
+                (LPCWSTR)m_title.c_str(),                                                // 만들어질 윈도우의 타이틀 바에 나타내는 문자열
                 WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,        // 윈도우 스타일 조합
                 GetSystemMetrics(SM_CXSCREEN) / 2 - m_properties.width / 2,     // 윈도우 생성 위치 x
                 GetSystemMetrics(SM_CYSCREEN) / 2 - m_properties.height / 2,    // 윈도우 생성 위치 y
@@ -141,12 +141,12 @@ namespace sunny
     void Window::SetTitle(const std::string title)
     {
         m_title = title;
-        SetWindowText(hWnd, _T(m_title.c_str()));
+        SetWindowText(hWnd, (LPCWSTR)m_title.c_str());
     }
 
     LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
-        LRESULT result;
+		LRESULT result = NULL;
 
         Window* window = Window::GetWindowClass(hWnd);
 

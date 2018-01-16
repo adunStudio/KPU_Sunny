@@ -2,7 +2,6 @@
 
 #include "app/Application.h"
 
-
 int main()
 {
     std::cout << "Hello, Sunny Project!" << std::endl;
