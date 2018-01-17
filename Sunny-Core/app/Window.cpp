@@ -3,6 +3,7 @@
 //
 
 #include "Window.h"
+#include "../directx/Context.h"
 
 EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 
@@ -103,6 +104,8 @@ namespace sunny
 
         RegisterWindowClass(hWnd, this);
 
+		directx::Context::Create(m_properties, hWnd);
+
         ShowWindow(hWnd, SW_SHOW);
         SetFocus(hWnd);
 
@@ -126,6 +129,8 @@ namespace sunny
             TranslateMessage(&message);
             DispatchMessage(&message);
         }
+
+		directx::Context::GetContext()->Present();
     }
 
     void Window::Clear() const
