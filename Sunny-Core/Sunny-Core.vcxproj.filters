@@ -48,6 +48,9 @@
     <ClCompile Include="utils\Timer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="directx\Context.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\Application.h">
@@ -93,6 +96,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="sunny.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="directx\Context.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="directx\Common.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
