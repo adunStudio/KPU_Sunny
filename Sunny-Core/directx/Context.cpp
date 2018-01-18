@@ -218,6 +218,7 @@ namespace sunny
 
 			devcon->ClearRenderTargetView(m_renderTargetView, fClearColor);
 
+			// 이중 버퍼링을 사용할 때 후면 버퍼의 내용을 전면 버퍼로 복사하는 것을 프레젠테이션이라고 한다.
 			swapchain->Present(m_properties.vsync, 0);
 		}
 	}
