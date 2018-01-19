@@ -54,7 +54,10 @@ Sunny Engine 어렵지 않아요!
 - [DirectX 11 Init](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step04-DirectX_11_Initialize/01-DirectX_11_Init.md)
 - [Context](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step04-DirectX_11_Initialize/02-Context.md)
 
-### Step 05. Buffers
+### Step 05. Rendering Pipeline
+- [Rendering pipeline](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step05-Rendering_pipeline/05-Rendering_pipeline.md)
+
+### Step 06. Buffers
 - VertexBuffer
 - VertexArray
 - IndexBuffer
