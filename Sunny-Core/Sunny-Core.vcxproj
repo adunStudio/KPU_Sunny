@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -21,7 +21,9 @@
   <ItemGroup>
     <ClCompile Include="app\Application.cpp" />
     <ClCompile Include="app\Window.cpp" />
+    <ClCompile Include="directx\BufferLayout.cpp" />
     <ClCompile Include="directx\Context.cpp" />
+    <ClCompile Include="directx\VertexBuffer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="maths\AABB.cpp" />
     <ClCompile Include="maths\mat4.cpp" />
@@ -35,8 +37,10 @@
   <ItemGroup>
     <ClInclude Include="app\Application.h" />
     <ClInclude Include="app\Window.h" />
+    <ClInclude Include="directx\BufferLayout.h" />
     <ClInclude Include="directx\Common.h" />
     <ClInclude Include="directx\Context.h" />
+    <ClInclude Include="directx\VertexBuffer.h" />
     <ClInclude Include="maths\AABB.h" />
     <ClInclude Include="maths\mat4.h" />
     <ClInclude Include="maths\maths.h" />

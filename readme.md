@@ -58,6 +58,6 @@ Sunny Engine 어렵지 않아요!
 - [Rendering pipeline](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step05-Rendering_pipeline/05-Rendering_pipeline.md)
 
 ### Step 06. Buffers
-- VertexBuffer
-- VertexArray
-- IndexBuffer
+- [VertexBuffer](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step06-Buffers/01-Vertex_Buffer.md)
+- [IndexBuffer](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step06-Buffers/02-Index_Buffer.md)
+- [VertexArray](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step06-Buffers/03-Vertex_Array.md)
