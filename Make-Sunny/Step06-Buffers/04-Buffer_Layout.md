@@ -76,10 +76,40 @@ struct BufferElement
   unsigned int offset; // 오프셋    (m_size += size * count) (AlignedByteOffset)
 };
 
-class BufferLayout { ... };
+class BufferLayout
+{
+private:
+	unsigned int m_size;
+	std::vector<BufferElement> m_layout;
+
+public:
+	BufferLayout();
+
+	inline const std::vector<BufferElement>& GetLayout() const { return m_layout; }
+	inline unsigned int GetStride() const { return m_size; }
+
+	/* 코드 생략 */
+
+	// vec3
+	template<>
+	void Push<maths::vec3>(const std::string& name, unsigned int count)
+	{
+		Push(name, DXGI_FORMAT_R32G32B32_FLOAT, sizeof(maths::vec3), count);
+	}
+
+	// vec4
+	template<>
+	void Push<maths::vec4>(const std::string& name, unsigned int count)
+	{
+		Push(name, DXGI_FORMAT_R32G32B32A32_FLOAT, sizeof(maths::vec4), count);
+	}
+
+private:
+	void Push(const std::string& name, unsigned int type, unsigned int size, unsigned int count);
+};
 ```
 
-입력 배치를 설정하는 방법은 다음과 같습니다.
+입력 배치를 설정하고, 생성하는 방법은 다음과 같습니다.
 
 ```cpp
 void VertexBuffer::SetLayout(const BufferLayout& bufferLayout)
@@ -119,7 +149,7 @@ void VertexBuffer::SetLayout(const BufferLayout& bufferLayout)
 }
 ```
 
-입력 배치를 생성합니다.
+입력 배치를 정점에 묶습니다.
 
 ```cpp
 void VertexBuffer::Bind()
