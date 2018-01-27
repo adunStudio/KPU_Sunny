@@ -51,6 +51,18 @@
     <ClCompile Include="directx\Context.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="directx\VertexBuffer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="directx\BufferLayout.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="directx\IndexBuffer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="directx\VertexArray.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\Application.h">
@@ -102,6 +114,18 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="directx\Common.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="directx\VertexBuffer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="directx\BufferLayout.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="directx\IndexBuffer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="directx\VertexArray.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

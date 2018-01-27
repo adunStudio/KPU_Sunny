@@ -23,6 +23,8 @@
     <ClCompile Include="app\Window.cpp" />
     <ClCompile Include="directx\BufferLayout.cpp" />
     <ClCompile Include="directx\Context.cpp" />
+    <ClCompile Include="directx\IndexBuffer.cpp" />
+    <ClCompile Include="directx\VertexArray.cpp" />
     <ClCompile Include="directx\VertexBuffer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="maths\AABB.cpp" />
@@ -40,6 +42,8 @@
     <ClInclude Include="directx\BufferLayout.h" />
     <ClInclude Include="directx\Common.h" />
     <ClInclude Include="directx\Context.h" />
+    <ClInclude Include="directx\IndexBuffer.h" />
+    <ClInclude Include="directx\VertexArray.h" />
     <ClInclude Include="directx\VertexBuffer.h" />
     <ClInclude Include="maths\AABB.h" />
     <ClInclude Include="maths\mat4.h" />
