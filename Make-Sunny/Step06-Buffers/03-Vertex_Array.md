@@ -30,7 +30,7 @@ public:
 };
 ```
 
-```
+```cpp
 void VertexArray::Draw(unsigned int count) const
 {
 	for (unsigned int i = 0; i < m_buffers.size(); ++i)
