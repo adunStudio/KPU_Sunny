@@ -37,7 +37,6 @@ Sunny Engine 어렵지 않아요!
 - [Matrix](https://github.com/adunStudio/Sunny/blob/master/Make-Sunny/Step01-Math/02-Matrix.md)
 - [Rectangle](https://github.com/adunStudio/Sunny/blob/master/Make-Sunny/Step01-Math/03-Rectangle.md)
 - [AABB](https://github.com/adunStudio/Sunny/blob/master/Make-Sunny/Step01-Math/04-AABB.md)
-- [Quaternion](https://github.com/adunStudio/Sunny/blob/master/Make-Sunny/Step01-Math/05-Quaternion.md)
 
 ### Step 02. Timer & File
 - [Timer](https://github.com/adunStudio/Sunny/blob/master/Make-Sunny/Step02-Timer_File/01-Timer.md)
@@ -61,3 +60,4 @@ Sunny Engine 어렵지 않아요!
 - [VertexBuffer](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step06-Buffers/01-Vertex_Buffer.md)
 - [IndexBuffer](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step06-Buffers/02-Index_Buffer.md)
 - [VertexArray](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step06-Buffers/03-Vertex_Array.md)
+- [BufferLayout](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step06-Buffers/04-Buffer_Layout.md)
