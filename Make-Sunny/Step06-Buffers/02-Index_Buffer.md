@@ -70,4 +70,4 @@ private:
 ---
 
 ### Commit
-[Step 06. Buffers]()
+[Step 06. Buffers](https://github.com/adunStudio/KPU_Sunny/commit/2848ec848c487c0be9d535ecc81add5c8f61f9ba)
