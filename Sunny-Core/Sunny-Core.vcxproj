@@ -24,6 +24,9 @@
     <ClCompile Include="directx\BufferLayout.cpp" />
     <ClCompile Include="directx\Context.cpp" />
     <ClCompile Include="directx\IndexBuffer.cpp" />
+    <ClCompile Include="directx\Shader.cpp" />
+    <ClCompile Include="directx\ShaderResource.cpp" />
+    <ClCompile Include="directx\ShaderUniform.cpp" />
     <ClCompile Include="directx\VertexArray.cpp" />
     <ClCompile Include="directx\VertexBuffer.cpp" />
     <ClCompile Include="main.cpp" />
@@ -34,6 +37,8 @@
     <ClCompile Include="maths\vec3.cpp" />
     <ClCompile Include="maths\vec4.cpp" />
     <ClCompile Include="system\FileSystem.cpp" />
+    <ClCompile Include="system\VFS.cpp" />
+    <ClCompile Include="utils\String.cpp" />
     <ClCompile Include="utils\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +48,9 @@
     <ClInclude Include="directx\Common.h" />
     <ClInclude Include="directx\Context.h" />
     <ClInclude Include="directx\IndexBuffer.h" />
+    <ClInclude Include="directx\Shader.h" />
+    <ClInclude Include="directx\ShaderResource.h" />
+    <ClInclude Include="directx\ShaderUniform.h" />
     <ClInclude Include="directx\VertexArray.h" />
     <ClInclude Include="directx\VertexBuffer.h" />
     <ClInclude Include="maths\AABB.h" />
@@ -55,7 +63,11 @@
     <ClInclude Include="maths\vec3.h" />
     <ClInclude Include="maths\vec4.h" />
     <ClInclude Include="sunny.h" />
+    <ClInclude Include="aa2.h" />
+    <ClInclude Include="aa.h" />
     <ClInclude Include="system\FileSystem.h" />
+    <ClInclude Include="system\VFS.h" />
+    <ClInclude Include="utils\String.h" />
     <ClInclude Include="utils\Timer.h" />
     <ClInclude Include="utils\Timestep.h" />
   </ItemGroup>

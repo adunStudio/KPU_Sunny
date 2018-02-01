@@ -9,7 +9,7 @@ namespace sunny
     Application* Application::s_instance = nullptr;
 
     Application::Application(const std::string& name, const WindowProperties& properties)
-            : m_name(name), m_properties(properties), m_running(false), m_paused(false)
+    : m_name(name), m_properties(properties), m_running(false), m_paused(false)
     {
         s_instance = this;
     }

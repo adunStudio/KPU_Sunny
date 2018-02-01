@@ -25,7 +25,7 @@ namespace sunny
         }
 
         /* Read */
-        char* FileSystem::ReadFile(const std::string& path)
+        unsigned char* FileSystem::ReadFile(const std::string& path)
         {
             long length = GetFileSize(path);
 
@@ -38,7 +38,7 @@ namespace sunny
             char* buffer = new char[length];
 
             if(ReadFile(path, buffer, length))
-                return buffer;
+                return (unsigned char*)(buffer);
 
             delete[] buffer;
 
@@ -46,7 +46,7 @@ namespace sunny
         }
 
 
-        bool FileSystem::ReadFile(const std::string& path, char* buffer, long length)
+        bool FileSystem::ReadFile(const std::string& path, void* buffer, long length)
         {
             std::ifstream file(path, std::ifstream::in | std::ifstream::binary);
 
@@ -59,8 +59,8 @@ namespace sunny
                 length = file.tellg();
 
             file.seekg(0, file.beg);
-
-            file.read(buffer, length);
+			
+            file.read(static_cast<char*>(buffer), length);
 
             file.close();
 
@@ -80,7 +80,7 @@ namespace sunny
         }
 
         /* Write */
-        bool FileSystem::WriteFile(const std::string& path, char* buffer, bool overwrite)
+        bool FileSystem::WriteFile(const std::string& path, void* buffer, bool overwrite)
         {
 
             if(!overwrite && FileExists(path))
@@ -88,7 +88,7 @@ namespace sunny
 
             std::ofstream file(path.c_str(), std::ifstream::binary);
 
-            file.write(buffer, strlen(buffer));
+            file.write(static_cast<char*>(buffer), strlen(static_cast<char*>(buffer)));
 
             file.close();
 
