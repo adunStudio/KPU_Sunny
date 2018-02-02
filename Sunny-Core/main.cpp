@@ -5,13 +5,13 @@
 
 int main()
 {
-	//std::cout << "Hello, Sunny Project!" << std::endl;
+	std::cout << "Hello, Sunny Project!" << std::endl;
 
-	//sunny::Application game("Test", {800, 600, false, false});
+	sunny::Application game("Test", {800, 600, false, false});
 
-	//game.Start();
+	game.Start();
 
-//	std::string a = "dd// dd ";
+	//std::string a = "dd// dd ";
 
 	//std::cout << sunny::utils::FindToken(a, "dd");// << std::endl;
 
@@ -20,12 +20,16 @@ int main()
 	//std::string b = std::string(ad, 5);
 
 	//std::cout << b;// << std::endl;
-	sunny::VFS::Init();
+
+
+	/*sunny::VFS::Init();
 
 	const std::string path = "sunny.h";
 
-	std::string a = sunny::VFS::Get()->ReadTextFile(path);
-	unsigned char* a2 = sunny::VFS::Get()->ReadFile(path);
+	sunny::VFS::Get()->Mount("test", "sunny.h");
+
+	std::string a = sunny::VFS::Get()->ReadTextFile("/test");
+	unsigned char* a2 = sunny::VFS::Get()->ReadFile("/test");
 	std::cout << a << std::endl;
 	std::cout << a2 << std::endl;
 
@@ -45,7 +49,10 @@ int main()
 	else
 	{
 		std::cout << "쓰기 성공2" << std::endl;
-	}
+	}*/
+
+	
 
     return 0;
 }
+

@@ -78,6 +78,18 @@
     <ClCompile Include="system\VFS.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="events\Event.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="events\KeyEvent.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="events\MouseEvent.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="events\ResizeEvent.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\Application.h">
@@ -158,10 +170,25 @@
     <ClInclude Include="system\VFS.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="aa2.h">
+    <ClInclude Include="events\Event.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="aa.h">
+    <ClInclude Include="events\EventDispatcher.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="events\Events.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="events\IEventListener.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="events\KeyEvent.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="events\MouseEvent.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="events\ResizeEvent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
