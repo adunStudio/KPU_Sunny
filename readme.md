@@ -61,3 +61,7 @@ Sunny Engine 어렵지 않아요!
 - [IndexBuffer](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step06-Buffers/02-Index_Buffer.md)
 - [VertexArray](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step06-Buffers/03-Vertex_Array.md)
 - [BufferLayout](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step06-Buffers/04-Buffer_Layout.md)
+
+### Step 07. Shaders
+- [Introduction to Shader](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step07-Shaders/01-Intro.md)
+- [Shader](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step07-Shaders/02-Shader.md)
