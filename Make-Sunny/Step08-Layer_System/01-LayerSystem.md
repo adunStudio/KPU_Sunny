@@ -1,6 +1,6 @@
 # Layer System
 
-Layer는 한 화면위에 겹쳐져서 놓일 수 있는 투명한 판 정도로 이해하면 된다.
+#### Layer는 한 화면위에 겹쳐져서 놓일 수 있는 투명한 판 정도로 이해하면 된다.
 
 Sunny Engine은 Layer 클래스가 존재한다.
 ```cpp
