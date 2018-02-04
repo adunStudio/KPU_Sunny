@@ -9,6 +9,7 @@
 #include "../utils/Timer.h"
 #include "../utils/Timestep.h"
 #include "../maths/vec2.h"
+#include "../graphics/layers/Layer.h"
 
 namespace sunny
 {
@@ -31,16 +32,27 @@ namespace sunny
         std::string m_name;
         WindowProperties m_properties;
 
+		std::vector<graphics::Layer*> m_layerStack;
+		std::vector<graphics::Layer*> m_overlayStack;
+
     public:
         Application(const std::string& name, const WindowProperties& properties);
         ~Application();
 
-        void Init();
+        virtual void Init();
 
         void Start();
         void Pause();
         void Resume();
         void Stop();
+
+		void PushLayer(graphics::Layer* layer);
+		graphics::Layer* PopLayer();
+		graphics::Layer* PopLayer(graphics::Layer* layer);
+
+		void PushOverlay(graphics::Layer* layer);
+		graphics::Layer* PopOverlay();
+		graphics::Layer* PopOverlay(graphics::Layer* layer);
 
         inline int GetFPS() const { return m_framesPerSecond;   }
         inline int GetUPS() const { return m_updatesPerSecond;  }

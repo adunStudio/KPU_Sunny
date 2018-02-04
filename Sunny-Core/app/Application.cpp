@@ -49,6 +49,60 @@ namespace sunny
         m_running = true;
     }
 
+	void Application::PushLayer(graphics::Layer* layer)
+	{
+		m_layerStack.push_back(layer);
+		layer->Init();
+	}
+
+	graphics::Layer* Application::PopLayer()
+	{
+		graphics::Layer* layer = m_layerStack.back();
+		m_layerStack.pop_back();
+
+		return layer;
+	}
+
+	graphics::Layer* Application::PopLayer(graphics::Layer* layer)
+	{
+		for (unsigned int i = 0; i < m_layerStack.size(); ++i)
+		{
+			if (m_layerStack[i] == layer)
+			{
+				m_layerStack.erase(m_layerStack.begin() + i);
+			}
+		}
+
+		return layer;
+	}
+
+	void Application::PushOverlay(graphics::Layer* layer)
+	{
+		m_overlayStack.push_back(layer);
+		layer->Init();
+	}
+
+	graphics::Layer* Application::PopOverlay()
+	{
+		graphics::Layer* layer = m_overlayStack.back();
+		m_overlayStack.pop_back();
+
+		return layer;
+	}
+
+	graphics::Layer* Application::PopOverlay(graphics::Layer* layer)
+	{
+		for (unsigned int i = 0; i < m_overlayStack.size(); ++i)
+		{
+			if (m_overlayStack[i] == layer)
+			{
+				m_overlayStack.erase(m_overlayStack.begin() + i);
+			}
+		}
+
+		return layer;
+	}
+
     void Application::Run()
     {
         m_timer = new utils::Timer();
@@ -103,17 +157,30 @@ namespace sunny
 
     void Application::OnTick()
     {
-        std::cout <<"UPS: " << GetUPS() << std::endl;
-        std::cout <<"FPS: " << GetFPS() << std::endl;
-    }
+		for (unsigned int i = 0; i < m_overlayStack.size(); ++i)
+			m_overlayStack[i]->OnTick();
+		
+		for (unsigned int i = 0; i < m_layerStack.size(); ++i)
+			m_layerStack[i]->OnTick();
+	}
 
     void Application::OnUpdate(const utils::Timestep& ts)
     {
+		for (unsigned int i = 0; i < m_overlayStack.size(); ++i)
+			m_overlayStack[i]->OnUpdateInternal(ts);
 
+		for (unsigned int i = 0; i < m_layerStack.size(); ++i)
+			m_layerStack[i]->OnUpdateInternal(ts);
     }
 
     void Application::OnRender()
     {
-        //std::cout << "render" << std::endl;
+		for (unsigned int i = 0; i < m_layerStack.size(); ++i)
+			if (m_layerStack[i]->IsVisible())
+				m_layerStack[i]->OnRender();
+
+		for (unsigned int i = 0; i < m_overlayStack.size(); ++i)
+			if (m_overlayStack[i]->IsVisible())
+				m_overlayStack[i]->OnRender();
     }
 }

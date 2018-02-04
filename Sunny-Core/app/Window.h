@@ -23,7 +23,6 @@ namespace sunny
         static std::map<void*, Window*> s_handles;
 
         static void RegisterWindowClass(void* handle, Window* window);
-        static Window* GetWindowClass(void* handle);
 
     private:
         std::string m_title;
@@ -32,6 +31,9 @@ namespace sunny
         void* m_handle;
 
         //EventCallback m_eventCallback;
+
+	public:
+		static Window* GetWindowClass(void* handle);
 
     private:
         bool Init();
