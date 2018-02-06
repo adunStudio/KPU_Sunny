@@ -11,7 +11,7 @@ namespace sunny
 			const char* found = strstr(str, search.c_str()); // strstr(대상문자열, 검색할문자열);
 			                                                 // 찾고자 하는 문자열이 발견된 첫번째 위치의 포인터를 반환 / 찾이 못하면 NULL 반환
 			
-			return found == nullptr ? -1 : static_cast<int>((found - str) + offset);
+			return found == nullptr ? -1 : ((int)(found - str) + offset);
 		}
 
 
@@ -33,14 +33,14 @@ namespace sunny
 		const char* FindToken(const char* str, const std::string& token)
 		{
 			const char* t = str;
-			
+
 			while (t = strstr(t, token.c_str()))
 			{
 				// isspace: 문자가 공백 문자인지를 판별
 
 				// 첫(막)글자 or 공백 앞뒤
-				bool left  =  (  (str == t)     || isspace(t[-1])             ); 
-				bool right =  (!t[token.size()] || isspace(t[token.size()])   );
+				bool left  = str == t || isspace(t[-1]);
+				bool right = !t[token.size()] || isspace(t[token.size()]);
 
 				if (left && right)
 					return t;
@@ -72,7 +72,6 @@ namespace sunny
 			unsigned int length = end - str + 1;
 
 			return std::string(str, length);
-
 		}
 
 		std::string GetBlock(const std::string& string, unsigned int offset)
@@ -103,20 +102,19 @@ namespace sunny
 		/* SplitString */
 		std::vector<std::string> SplitString(const std::string& string, const std::string& delimiters)
 		{
-			unsigned int start = 0;
-			unsigned int end = string.find_first_of(delimiters);
+			size_t start = 0;
+			size_t end = string.find_first_of(delimiters);
 			// find()          주어진 부분문자열이 처음으로 나타나는 곳을 찾는다
 			// find_first_of() find()와 같으나 주어진 문자가 처음으로 나타나는 위치를 찾는다	
 
-
 			std::vector<std::string> result;
-
+			
 			while (end <= std::string::npos)
 			{
 				std::string token = string.substr(start, end - start);
-				
+
 				if (!token.empty())
-				result.push_back(token);
+					result.push_back(token);
 
 				if (end == std::string::npos)
 					break;

@@ -69,7 +69,7 @@ namespace sunny
 
         std::string FileSystem::ReadTextFile(const std::string& path)
         {
-            std::ifstream file(path, std::ifstream::in);
+            std::ifstream file(path);
 
             if(!file )
                 return std::string("");

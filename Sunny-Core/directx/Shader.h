@@ -14,11 +14,15 @@ namespace sunny
 	namespace directx
 	{
 #define SHADER_VERTEX_INDEX   0
-#define SHADER_COLOR_INDEX    1
+#define SHADER_UV_INDEX       1
+#define SHADER_MASK_UV_INDEX  2
+#define SHADER_TID_INDEX      3 
+#define SHADER_MID_INDEX      4
+#define SHADER_COLOR_INDEX    5
 
-#define SHADER_UNIFORM_PROJECTION_MATRIX_NAME	"sunny_ProjectionMatrix"              // 투영
-#define SHADER_UNIFORM_VIEW_MATRIX_NAME			"sunny_ViewMatrix"                    //   뷰
-#define SHADER_UNIFORM_MODEL_MATRIX_NAME		"sunny_ModelMatrix"                   // 모델
+#define SHADER_UNIFORM_PROJECTION_MATRIX_NAME	"sys_ProjectionMatrix"              // 투영
+#define SHADER_UNIFORM_VIEW_MATRIX_NAME			"sys_ViewMatrix"                    //   뷰
+#define SHADER_UNIFORM_MODEL_MATRIX_NAME		"sys_ModelMatrix"                   // 모델
 
 		struct ShaderErrorInfo
 		{
@@ -45,21 +49,21 @@ namespace sunny
 			std::string m_filePath;
 			mutable Data m_data;
 
-			ShaderUniformBufferList m_VSUniformBuffers;                // 정점 셰이더 상수 버퍼에 대한 정보 (sunny_)
-			ShaderUniformBufferList m_PSUniformBuffers;                // 픽셀 셰이더 상수 버퍼에 대한 정보 (sunny_)
+			ShaderUniformBufferList m_VSUniformBuffers;                // 정점 셰이더 상수 버퍼에 대한 정보 (SUNNY_)
+			ShaderUniformBufferList m_PSUniformBuffers;                // 픽셀 셰이더 상수 버퍼에 대한 정보 (SUNNY_)
 
-			ShaderUniformBufferDeclaration* m_VSUserUniformBuffer;     // 정점 셰이더 유저 상수 버퍼에 대한 정보
-			ShaderUniformBufferDeclaration* m_PSUserUniformBuffer;     // 필셀 셰이더 유저 상수 버퍼에 대한 정보
+			ShaderUniformBufferDeclaration* m_VSUserUniformBuffer;     // 정점 셰이더 유저 상수 버퍼에 대한 정보 (Not SUNNY_)
+			ShaderUniformBufferDeclaration* m_PSUserUniformBuffer;     // 필셀 셰이더 유저 상수 버퍼에 대한 정보 (Not SUNNY_)
 
-			ShaderResourceList m_resources;                            // 텍스처등의 자원
+			ShaderResourceList m_resources;                            // 텍스처등의 자원 정보
 
-			ShaderStructList m_structs;                                // 구조체 정보
+			ShaderStructList   m_structs;                              // 구조체 정보
 
 			ID3D11Buffer** m_VSConstantBuffers;                        // 정점 셰이더 상수 버퍼들
-			unsigned int m_VSConstantBuffersCount;
+			unsigned int   m_VSConstantBuffersCount;
 
 			ID3D11Buffer** m_PSConstantBuffers;                        // 픽셀 셰이더 상수 버퍼들
-			unsigned int m_PSConstantBuffersCount;
+			unsigned int   m_PSConstantBuffersCount;
 
 		public:
 			Shader(const std::string& name, const std::string& source);
@@ -78,6 +82,12 @@ namespace sunny
 			inline const std::string& GetName()     const { return m_name;     };
 			inline const std::string& GetFilePath() const { return m_filePath; };
 
+			inline const ShaderUniformBufferList& GetVSSystemUniforms()           const  { return m_VSUniformBuffers; }
+			inline const ShaderUniformBufferList& GetPSSystemUniforms()           const  { return m_PSUniformBuffers; }
+			inline const ShaderUniformBufferDeclaration* GetVSUserUniformBuffer() const  { return m_VSUserUniformBuffer; }
+			inline const ShaderUniformBufferDeclaration* GetPSUserUniformBuffer() const  { return m_PSUserUniformBuffer; }
+			inline const ShaderResourceList& GetResources()                       const  { return m_resources; }
+		
 		private:
 			static ID3DBlob* Compile(const std::string& source, const std::string& profile, const std::string& main, ShaderErrorInfo& info);
 
@@ -96,8 +106,8 @@ namespace sunny
 			ShaderStruct* FindStruct(const std::string& name);
 
 		public:
-			friend static Shader* CreateFromFile  (const std::string& name, const std::string& filepath, void* address = nullptr);
-			friend static Shader* CreateFromSource(const std::string& name, const std::string& source);
+			static Shader* CreateFromFile  (const std::string& name, const std::string& filepath, void* address = nullptr);
+			static Shader* CreateFromSource(const std::string& name, const std::string& source);
 
 			static bool TryCompile        (const std::string& source  , std::string& error);
 			static bool TryCompileFromFile(const std::string& filepath, std::string& error);

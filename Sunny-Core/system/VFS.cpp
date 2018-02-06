@@ -36,6 +36,7 @@ namespace sunny
 
 	bool VFS::ResolvePhysicalPath(const std::string& path, std::string& outPhysicalPath)
 	{
+
 		if (path[0] != '/')
 		{
 			outPhysicalPath = path;
@@ -45,6 +46,8 @@ namespace sunny
 		std::vector<std::string> dirs = utils::SplitString(path, '/');
 
 		const std::string& virtualDir = dirs.front();
+
+		std::cout << virtualDir << std::endl;
 
 		if (m_mountPoints.find(virtualDir) == m_mountPoints.end() || m_mountPoints[virtualDir].empty())
 			return false;

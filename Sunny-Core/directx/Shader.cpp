@@ -7,9 +7,9 @@ namespace sunny
 		/* STATIC */
 		const Shader* Shader::s_currentlyBound = nullptr;
 
-		Shader* CreateFromFile(const std::string& name, const std::string& filepath, void* address)
+		Shader* Shader::CreateFromFile(const std::string& name, const std::string& filepath, void* address)
 		{
-			std::string source = system::FileSystem::ReadTextFile(source);
+			std::string source = system::FileSystem::ReadTextFile(filepath);
 	
 			Shader* result = address ? new(address) Shader(name, source) : new Shader(name, source);
 			result->m_filePath = filepath;
@@ -17,7 +17,7 @@ namespace sunny
 			return result;
 		}
 
-		Shader* CreateFromSource(const std::string& name, const std::string& source)
+		Shader* Shader::CreateFromSource(const std::string& name, const std::string& source)
 		{
 			return new Shader(name, source);
 		}
@@ -86,6 +86,9 @@ namespace sunny
 		/* PUBLIC */
 		Shader::Shader(const std::string& name, const std::string& source) : m_name(name)
 		{
+			m_VSUserUniformBuffer = nullptr;
+			m_PSUserUniformBuffer = nullptr;
+
 			Load(source);       // 셰이더를 생성한다.
 			Parse(source);      // 셰이더 프로그램을 파싱한다.
 			CreateBuffers();    // 상수 버퍼를 생성한다.
@@ -227,21 +230,20 @@ namespace sunny
 			while ((startPos = utils::FindStringPosition(result, "/*")) != -1)
 			{
 				int endPos = utils::FindStringPosition(result, "*/");
-				
-				if (endPos == 1)
+
+				if (endPos == -1)
 				{
 					std::cout << "DEBUG : Shader::RemoveComments-3" << std::endl;
 					// TODO: Debug System
 				}
-				
+
 				result = utils::RemoveStringRange(result, startPos, endPos - startPos + 2);
 			}
 
 			while ((startPos = utils::FindStringPosition(result, "//")) != -1)
 			{
-				int endPos = utils::FindStringPosition(result, "\n");
-
-				if (endPos == 1)
+				int endPos = utils::FindStringPosition(result, "\n", startPos);
+				if (endPos == -1)
 				{
 					std::cout << "DEBUG : Shader::RemoveComments-4" << std::endl;
 					// TODO: Debug System
@@ -249,7 +251,7 @@ namespace sunny
 
 				result = utils::RemoveStringRange(result, startPos, endPos - startPos + 1);
 			}
-
+			
 			return result;
 		}
 
@@ -262,31 +264,32 @@ namespace sunny
 			std::string src = RemoveComments(source);
 
 			str = src.c_str();
+
 			while (token = utils::FindToken(str, "struct"))
-				ParseStruct(utils::GetBlock(token, &str));
+				ParseStruct(utils::GetBlock(token, &str));         // m_structs 생성
 
 			str = src.c_str();
 			while (token = utils::FindToken(str, "cbuffer"))
-				ParseCBuffer(utils::GetBlock(token, &str));
+				ParseCBuffer(utils::GetBlock(token, &str));        // m_VSUserUniformBuffer, m_PSUserUniformBuffer, m_VSUserUniformBuffer, m_PSUserUniformBuffer
 
 			str = src.c_str();
 			while (token = utils::FindToken(str, "Texture2D"))
-				ParseTexture(utils::GetStatement(token, &str));
+				ParseTexture(utils::GetStatement(token, &str));    // m_resources
 
 			str = src.c_str();
 			while (token = utils::FindToken(str, "TextureCube"))
-				ParseTexture(utils::GetStatement(token, &str));
+				ParseTexture(utils::GetStatement(token, &str));    // m_resources
 
 			str = src.c_str();
 			while (token = utils::FindToken(str, "SamplerState"))
-				ParseSamplerState(utils::GetStatement(token, &str));
+				ParseSamplerState(utils::GetStatement(token, &str)); // TODO : 샘플러 처리
 		}
 
 		// 구조체 파싱
 		void Shader::ParseStruct(const std::string& block)
 		{
 			std::vector<std::string> tokens = utils::Tokenize(block);
-			
+	
 			unsigned int index = 0;
 			index++; // "struct"
 
@@ -301,8 +304,8 @@ namespace sunny
 				if (tokens[index] == "}")
 					break;
 
-				std::string type = tokens[index++];
-				std::string name = tokens[index++];
+				std::string type = tokens[index++];  //ex) float4
+				std::string name = tokens[index++];  //ex) position
 
 				if (type == ":")
 					continue;
@@ -363,12 +366,11 @@ namespace sunny
 				if (const char* s = strstr(name.c_str(), ";"))
 					name = std::string(name.c_str(), s - name.c_str());
 
-
 				if (buffer == nullptr)
 				{
 					buffer = new  ShaderUniformBufferDeclaration(bufferName, reg, shaderType);
 
-					if (utils::StartsWith(name, "sunny_"))
+					if (utils::StartsWith(name, "SUNNY_"))
 					{
 						switch (shaderType)
 						{
@@ -409,6 +411,7 @@ namespace sunny
 
 				if (t == ShaderUniformDeclaration::Type::NONE)
 				{
+					// ex) 타입 : VSInput
 					ShaderStruct* s = FindStruct(type);
 					if (!s)
 					{
@@ -469,7 +472,6 @@ namespace sunny
 				std::string sampleRegister = tokens[index++];
 				reg = utils::NextInt(sampleRegister);
 			}
-
 		}
 
 		
