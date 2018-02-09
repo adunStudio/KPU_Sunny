@@ -15,7 +15,7 @@ namespace sunny
 
 			unsigned int m_count;
 
-		private:
+		public:
 			IndexBuffer(unsigned int* data, unsigned int count);
 
 			void Bind() const;

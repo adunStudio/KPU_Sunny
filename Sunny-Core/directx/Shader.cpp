@@ -43,7 +43,7 @@ namespace sunny
 
 		bool Shader::TryCompileFromFile(const std::string& filepath, std::string& error)
 		{
-			std::string source = system::FileSystem::ReadTextFile(source);
+			std::string source = system::FileSystem::ReadTextFile(filepath);
 			return TryCompile(source, error);
 		}
 
@@ -418,6 +418,8 @@ namespace sunny
 						// Debug System
 						std::cout << "DEBUG : Shader::ParseCBuffer-3" << std::endl;
 					}
+
+					// s(구조체) 의 사이즈만큼 늘린다.
 					declaration = new ShaderUniformDeclaration(s, name);
 				}
 				else

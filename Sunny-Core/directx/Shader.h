@@ -73,9 +73,9 @@ namespace sunny
 
 			void Bind() const;
 
+			/* 데이터 바꾸는 메서드 */
 			void SetVSSystemUniformBuffer(unsigned char* data, unsigned int size, unsigned int slot = 0);
 			void SetPSSystemUniformBuffer(unsigned char* data, unsigned int size, unsigned int slot = 0);
-
 			void SetVSUserUniformBuffer(unsigned char* data, unsigned int size);
 			void SetPSUserUniformBuffer(unsigned char* data, unsigned int size);
 
