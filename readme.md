@@ -68,3 +68,9 @@ Sunny Engine 어렵지 않아요!
 
 ### Step 08. LayerSystem
 - [Layer](https://github.com/adunStudio/KPU_Sunny/blob/master/Make-Sunny/Step08-Layer_System/01-LayerSystem.md)
+
+### Step 09. Textures
+- [FreeImage Library]()
+- [Texture]()
+
+## Step 10. Rendering

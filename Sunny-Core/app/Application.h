@@ -10,6 +10,7 @@
 #include "../utils/Timestep.h"
 #include "../maths/vec2.h"
 #include "../graphics/layers/Layer.h"
+#include "../system/VFS.h"
 
 namespace sunny
 {
@@ -58,8 +59,8 @@ namespace sunny
         inline int GetUPS() const { return m_updatesPerSecond;  }
         inline float GetFrameTime() const { return m_frameTime; }
 
-        inline int GetWindowWidth()  const { window->GetWidth();  }
-        inline int GetWindowHeight() const { window->GetHeight(); }
+        inline int GetWindowWidth()  const { return window->GetWidth();  }
+        inline int GetWindowHeight() const { return window->GetHeight(); }
         inline maths::vec2 GetWindowSize() const
         {
             return maths::vec2(static_cast<float>(window->GetWidth()), static_cast<float>(window->GetHeight()));

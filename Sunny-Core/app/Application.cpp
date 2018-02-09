@@ -21,6 +21,7 @@ namespace sunny
 
     void Application::Init()
     {
+		VFS::Init();
         window = new Window(m_name, m_properties);
     }
 

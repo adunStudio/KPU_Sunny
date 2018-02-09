@@ -24,7 +24,6 @@ namespace sunny
 		{
 			m_size = size;
 			m_bufferDesc.ByteWidth = size;                                                                                 // ByteWidth : 생성할 정점 버퍼의 크기(바이트 단위)
-                                                                          
 
 			// 버퍼를 생성하기 위해서 ID3D11Device::CreateBuffer() 함수를 사용한다.
 			Context::GetContext()->GetDevice()->CreateBuffer(&m_bufferDesc, NULL, &m_bufferHandle);
@@ -65,11 +64,11 @@ namespace sunny
 				// InstanceDataStepRate : 보통 0의 값을 가진다.
 			}
 
-			//const Shader* shader = Shader::CurrentlyBound();
+			const Shader* shader = Shader::CurrentlyBound();
 			
 			// 입력 배치 서술 구조체 배열을 완성하고 입력 배치를 위한 ID3D11InputLayout 인터페이스를 얻었다면, 
 			// 이제 ID3D11Device::CreateInputLayout 메서드를 호출해서 입력 배치를 생성한다.
-			//Context::GetDevice()->CreateInputLayout(desc, layout.size(), shader->GetData().vs->GetBufferPointer(), shader->GetData().vs->GetBufferSize(), &m_inputLayout));
+			Context::GetDevice()->CreateInputLayout(desc, layout.size(), shader->GetData().vs->GetBufferPointer(), shader->GetData().vs->GetBufferSize(), &m_inputLayout);
 			// pInputElementDescs                : 정점 구조체를 서술하는 D3D11_INPUT_ELEMENT_DESC 들의 배열.
 			// NumElements                       : 그 D3D11_INPUT_ELEMENT_DESC 배열의 원소 개수.
 			// pShaderBytecodeWithInputSignature : 정점 셰이더(입력 서명을 포함한)를 컴파일해서 얻은 바이트 코드를 가리키는 포인터.

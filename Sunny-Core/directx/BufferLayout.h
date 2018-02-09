@@ -40,8 +40,7 @@ namespace sunny
 			template<>
 			void Push<float>(const std::string& name, unsigned int count)
 			{
-				Push(name, DXGI_FORMAT_R32_FLOAT_X8X24_TYPELESS, sizeof(float), count);
-				// 
+				Push(name, DXGI_FORMAT_R32_FLOAT, sizeof(float), count);
 			}
 
 			// unsigned int
@@ -70,7 +69,7 @@ namespace sunny
 			void Push<maths::vec3>(const std::string& name, unsigned int count)
 			{
 				Push(name, DXGI_FORMAT_R32G32B32_FLOAT, sizeof(maths::vec3), count);
-			}
+			}			  
 
 			// vec4
 			template<>

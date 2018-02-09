@@ -135,7 +135,7 @@ namespace sunny
 			// MapFlags        : GPU가 리로스에 접근하고 있을 때 CPU가 어떻게 할 것인가를 나타내는 상수다.
 			// pMappedResource : 맵핑된 서브 리소스에 대한 포인터다.
 			
-			memcpy(msr.pData, &data, size);
+			memcpy(msr.pData, data, size);
 			Context::GetDeviceContext()->Unmap(cbuffer, NULL);
 		}
 

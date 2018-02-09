@@ -4,6 +4,7 @@
 #include "Common.h"
 #include "Context.h"
 #include "BufferLayout.h"
+#include "Shader.h"
 
 /*
 GPU가 정점 배열에 접근할 수 있으려면 배열의 정점들을 버퍼(buffer)라고 부르는 특별한 자원에 담아 두어야 한다.
