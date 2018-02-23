@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app\Application.cpp" />
+    <ClCompile Include="app\Input.cpp" />
     <ClCompile Include="app\Window.cpp" />
     <ClCompile Include="directx\BufferLayout.cpp" />
     <ClCompile Include="directx\Context.cpp" />
@@ -73,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\Application.h" />
+    <ClInclude Include="app\Input.h" />
     <ClInclude Include="app\Window.h" />
     <ClInclude Include="dependency\freeimage\x32\FreeImage.h" />
     <ClInclude Include="directx\BufferLayout.h" />

@@ -101,8 +101,9 @@ Sunny Engine 어렵지 않아요!
 - [.FBX]()
 - [.SUN]()
 
-### Step13. Events
+### Step13. Events & Input
 - [Event]()
+- [Resize]()
+- [Input]()
 - [Keboard]()
 - [Mouse]()
-- [Resize]()
