@@ -199,10 +199,23 @@ namespace sunny
         return result;
     }
 
+	void Window::SetVsnyc(bool enabled)
+	{
+		m_properties.vsync = enabled;
+	}
+
+	void  Window::SetEventCallback(const WindowEventCallback& callback)
+	{
+		m_eventCallback = callback;
+	}
+
     void ResizeCallback(Window* window, int width, int height)
     {
         window->m_properties.width  = width;
         window->m_properties.height = height;
+
+		if (window->m_eventCallback)
+			window->m_eventCallback(events::ResizeEvent((unsigned int)width, (unsigned int)height));
     }
 
     void FocusCallback(Window* window, bool focused)

@@ -23,6 +23,7 @@ namespace sunny
     {
 		VFS::Init();
         window = new Window(m_name, m_properties);
+		window->SetEventCallback(METHOD(&Application::OnEvent));
     }
 
     void Application::Start()
@@ -184,4 +185,25 @@ namespace sunny
 			if (m_overlayStack[i]->IsVisible())
 				m_overlayStack[i]->OnRender();
     }
+
+	void Application::OnEvent(events::Event& event)
+	{
+		if (event.isHandled()) return;
+
+		// 거꾸로
+		for (int i = m_overlayStack.size() - 1; i >= 0; --i)
+		{
+			//m_overlayStack[i]->OnEvent(event);
+
+			if (event.isHandled()) return;
+		}
+		
+
+		for (int i = m_layerStack.size() - 1; i >= 0; --i)
+		{
+			//m_layerStack[i]->OnEvent(event);
+
+			if (event.isHandled()) return;
+		}
+	}
 }

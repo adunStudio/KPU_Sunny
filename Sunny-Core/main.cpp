@@ -36,8 +36,8 @@ public:
 		VFS::Get()->Mount("objs",      "resource/objs");
 		VFS::Get()->Mount("textures",  "resource/textures");
 
-		PushLayer(new TestLayer3D());
-		//PushLayer(new TestLayer2D());
+		//PushLayer(new TestLayer3D());
+		PushLayer(new TestLayer2D());
 	}
 };
 

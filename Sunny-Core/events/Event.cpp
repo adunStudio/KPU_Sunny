@@ -11,7 +11,7 @@ namespace sunny
         Event::Event(Type type)
         : m_type(type), m_handled(false)
         {
-
+			
         }
 
         std::string Event::ToString() const
@@ -33,6 +33,8 @@ namespace sunny
                     return "SUNNY_MOUSE_RELEASED";
                 case Type::SUNNY_MOUSE_MOVED:
                     return "SUNNY_MOUSE_MOVED";
+				case Type::SUNNY_WINDOW_RESIZE:
+					return "SUNNY_WINDOW_RESIZE";
             }
             return "SUNNY_INVALID";
         }

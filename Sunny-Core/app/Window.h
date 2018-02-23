@@ -7,6 +7,7 @@
 #include <tchar.h>
 #include <Windows.h>
 #include "../sunny.h"
+#include "../events/Events.h"
 
 namespace sunny
 {
@@ -16,6 +17,9 @@ namespace sunny
         bool fullscreen;
         bool vsync;
     };
+
+	// std::function<리턴타입(입력 파라미터들)>
+	typedef std::function<void(events::Event& event)> WindowEventCallback;
 
     class Window
     {
@@ -30,7 +34,7 @@ namespace sunny
         bool m_closed;
         void* m_handle;
 
-        //EventCallback m_eventCallback;
+        WindowEventCallback m_eventCallback;
 
 	public:
 		static Window* GetWindowClass(void* handle);
@@ -50,6 +54,11 @@ namespace sunny
 
         inline int GetWidth()  const { return m_properties.width;  }
         inline int GetHeight() const { return m_properties.height; }
+
+		void         SetVsnyc(bool enabled);
+		inline bool  GetVsnyc() const { return m_properties.vsync; }
+
+		void SetEventCallback(const WindowEventCallback& callback);
 
         friend LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
         friend void ResizeCallback(Window* window, int width, int height);

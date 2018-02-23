@@ -11,6 +11,7 @@
 #include "../maths/vec2.h"
 #include "../graphics/layers/Layer.h"
 #include "../system/VFS.h"
+#include "../events/Events.h"
 
 namespace sunny
 {
@@ -72,5 +73,7 @@ namespace sunny
         void OnTick();
         void OnUpdate(const utils::Timestep& ts);
         void OnRender();
+
+		void OnEvent(events::Event& event);
     };
 }
