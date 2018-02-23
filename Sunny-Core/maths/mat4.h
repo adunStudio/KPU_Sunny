@@ -13,6 +13,8 @@ namespace sunny
 {
     namespace maths
     {
+		struct Quaternion;
+
         struct mat4
         {
             union
@@ -52,7 +54,8 @@ namespace sunny
 
             static mat4 Translate(const vec3& translation);
             static mat4 Rotate(float angle, const vec3& axis);
-            static mat4 Scale(const vec3& scale);
+			static mat4 Rotate(const Quaternion& quat);
+			static mat4 Scale(const vec3& scale);
             static mat4 Invert(const mat4& matrix);
 
             static mat4 Transpose(const mat4& matrix);

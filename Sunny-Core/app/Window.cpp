@@ -4,6 +4,7 @@
 
 #include "Window.h"
 #include "../directx/Context.h"
+#include "../directx/Renderer.h"
 
 EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 
@@ -109,6 +110,8 @@ namespace sunny
         ShowWindow(hWnd, SW_SHOW);
         SetFocus(hWnd);
 
+		directx::Renderer::Init();
+
         SetTitle(m_title);
 
         return true;
@@ -130,13 +133,14 @@ namespace sunny
             DispatchMessage(&message);
         }
 
-		directx::Context::GetContext()->Present();
+		directx::Renderer::Present();
     }
 
     void Window::Clear() const
     {
         // 화면을 지워주는 작업
-    }
+		directx::Renderer::Clear(RENDERER_BUFFER_COLOR | RENDERER_BUFFER_DEPTH);
+	}
 
     bool Window::Closed() const
     {
@@ -146,7 +150,8 @@ namespace sunny
     void Window::SetTitle(const std::string title)
     {
         m_title = title;
-        SetWindowText(hWnd, (LPCWSTR)m_title.c_str());
+		std::wstring wstr(title.begin(), title.end());
+        SetWindowText(hWnd, wstr.c_str());
     }
 
     LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

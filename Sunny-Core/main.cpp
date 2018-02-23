@@ -1,18 +1,29 @@
 #include <iostream>
 
 #include "app/Application.h"
-#include "test/TestLayer.h"
 #include "utils/LoadImage.h"
 #include "system/VFS.h"
 #include "directx/Texture2D.h"
 #include "directx/Shader.h"
+#include "directx/Renderer.h"
+#include "graphics/shaders/ShaderFactory.h";
+#include "graphics/shaders/ShaderManager.h";
+#include "graphics/renderables/Renderable2D.h"
+#include "graphics/renderers/Renderer2D.h"
+#include "graphics/Model.h"
+
+
+#include "test/TestLayer2D.h"
+#include "test/TestLayer3D.h"
+
 using namespace sunny;
+using namespace graphics;
 using namespace directx;
 
 class Game : public Application
 {
 public:
-	Game() : Application("Test", { 800, 600, false, false })
+	Game() : Application("Sunny", { 800, 600, false, true })
 	{}
 
 	~Game()
@@ -23,11 +34,15 @@ public:
 		Application::Init();
 		//Texture2D* texture = Texture2D::FromFile("time.png");
 		//texture->Bind();
-		Shader* shader =  Shader::CreateFromFile("test", "sunny.hlsl");
-		PushLayer(new TestLayer());
-		PushLayer(new TestLayer());
-
+		//Shader* shader = sunny::graphics::ShaderFactory::DefaultShader();
 		
+		//Shader* shader = Shader::CreateFromFile("default", "sunny.hlsl");
+		//Material* m = new Material(shader);
+		//MaterialInstance* ml = new MaterialInstance(m);
+	
+
+		PushLayer(new TestLayer3D());
+		//PushLayer(new TestLayer2D());
 	}
 };
 

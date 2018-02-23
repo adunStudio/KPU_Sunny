@@ -31,7 +31,7 @@ namespace sunny
 		
 		void Layer::OnUpdateInternal(const utils::Timestep& ts)
 		{
-			OnUpdate(ts);
+			
 		}
 		
 		void Layer::OnRender()

@@ -21,6 +21,7 @@ namespace sunny
 			void PushBuffer(VertexBuffer* buffer);
 
 			void Draw(unsigned int count) const;
+			void DrawOne(unsigned int count, unsigned char frame) const;
 		};
 	}
 }

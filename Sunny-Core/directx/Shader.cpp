@@ -134,17 +134,20 @@ namespace sunny
 			//    ㄴ             D3D11_MAP_WRITE_DISCARD → 리소스에 쓰려고 맵핑한다. 리소스의 이전 내용은 보존되지 않는다.
 			// MapFlags        : GPU가 리로스에 접근하고 있을 때 CPU가 어떻게 할 것인가를 나타내는 상수다.
 			// pMappedResource : 맵핑된 서브 리소스에 대한 포인터다.
-			
 			memcpy(msr.pData, data, size);
 			Context::GetDeviceContext()->Unmap(cbuffer, NULL);
 		}
 
 		void Shader::SetPSSystemUniformBuffer(unsigned char* data, unsigned int size, unsigned int slot)
 		{
-			if (m_PSUserUniformBuffer || slot == m_PSUserUniformBuffer->GetRegister())
+
+			if (m_PSUserUniformBuffer)
 			{
-				std::cout << "DEBUG : Shader::SetPSSystemUniformBuffer-1" << std::endl;
-				// Debug System
+				if (slot == m_PSUserUniformBuffer->GetRegister())
+				{
+					// Debug System
+					std::cout << "DEBUG : Shader::SetPSSystemUniformBuffer-1" << std::endl;
+				}
 			}
 
 			ID3D11Buffer* cbuffer = m_PSConstantBuffers[slot];
@@ -160,7 +163,7 @@ namespace sunny
 			// MapFlags        : GPU가 리로스에 접근하고 있을 때 CPU가 어떻게 할 것인가를 나타내는 상수다.
 			// pMappedResource : 맵핑된 서브 리소스에 대한 포인터다.
 
-			memcpy(msr.pData, &data, size);
+			memcpy(msr.pData, data, size);
 			Context::GetDeviceContext()->Unmap(cbuffer, NULL);
 		}
 

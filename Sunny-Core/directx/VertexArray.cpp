@@ -38,5 +38,14 @@ namespace sunny
 			}
 		}
 
+		void VertexArray::DrawOne(unsigned int count, unsigned char frame) const
+		{
+			VertexBuffer* buffer = static_cast<VertexBuffer*>(m_buffers[frame]);
+
+			buffer->Bind();
+
+			Context::GetDeviceContext()->DrawIndexed(count, 0, 0);
+		}
+
 	}
 }
