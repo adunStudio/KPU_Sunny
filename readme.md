@@ -105,5 +105,5 @@ Sunny Engine 어렵지 않아요!
 - [Event]()
 - [Resize]()
 - [Input]()
-- [Keboard]()
-- [Mouse]()
+- [Keboard & Mouse]()
+- [EventDispatcher]()

@@ -13,6 +13,10 @@ namespace sunny
     // 메시지를 처리하는 함수
     LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
+	// Input.cpp
+	extern void KeyCallback(InputManager* inputManager, int flags, int key, unsigned int message);
+	extern void MouseButtonCallback(InputManager* inputManager, int button, int x, int y);
+
     HINSTANCE hInstance;   // 윈도우 핸들 인스턴스 식별자
     HDC hDc;               // 윈도우 핸들 디바이스 컨텍스트
     HWND hWnd;             // 윈도우 핸들 (번호)
@@ -40,6 +44,8 @@ namespace sunny
             // TODO: Debug System
             return;
         }
+
+		m_inputManager = new InputManager();
     }
 
     Window::~Window()
@@ -132,7 +138,7 @@ namespace sunny
             TranslateMessage(&message);
             DispatchMessage(&message);
         }
-
+		m_inputManager->Update();
 		directx::Renderer::Present();
     }
 
@@ -163,6 +169,8 @@ namespace sunny
         if(window == nullptr)
             return DefWindowProc(hWnd, message, wParam, lParam);
 
+		InputManager* inputManager = window->GetInputManager();
+
         switch(message)
         {
             case WM_SETFOCUS:
@@ -179,7 +187,7 @@ namespace sunny
             case WM_KEYUP:
             case WM_SYSKEYDOWN:
             case WM_SYSKEYUP:
-                // KeyBoard
+				KeyCallback(inputManager, lParam, wParam, message);
                 break;
             case WM_LBUTTONDOWN:
             case WM_LBUTTONUP:
@@ -187,7 +195,7 @@ namespace sunny
             case WM_RBUTTONUP:
             case WM_MBUTTONDOWN:
             case WM_MBUTTONUP:
-                // Mouse
+				MouseButtonCallback(inputManager, message, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
                 break;
             case WM_SIZE:
                 ResizeCallback(window, LOWORD(lParam), HIWORD(lParam));
@@ -207,6 +215,7 @@ namespace sunny
 	void  Window::SetEventCallback(const WindowEventCallback& callback)
 	{
 		m_eventCallback = callback;
+		m_inputManager->SetEventCallback(m_eventCallback);
 	}
 
     void ResizeCallback(Window* window, int width, int height)

@@ -190,6 +190,8 @@ namespace sunny
 	{
 		if (event.isHandled()) return;
 
+		std::cout << event.TypeToString(event.GetType()) <<std::endl;
+
 		// 거꾸로
 		for (int i = m_overlayStack.size() - 1; i >= 0; --i)
 		{

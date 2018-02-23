@@ -6,8 +6,10 @@
 
 #include <tchar.h>
 #include <Windows.h>
+#include <Windowsx.h>
 #include "../sunny.h"
 #include "../events/Events.h"
+#include "input.h"
 
 namespace sunny
 {
@@ -36,6 +38,8 @@ namespace sunny
 
         WindowEventCallback m_eventCallback;
 
+		InputManager* m_inputManager;
+
 	public:
 		static Window* GetWindowClass(void* handle);
 
@@ -57,6 +61,8 @@ namespace sunny
 
 		void         SetVsnyc(bool enabled);
 		inline bool  GetVsnyc() const { return m_properties.vsync; }
+
+		inline InputManager* GetInputManager() const { return m_inputManager; }
 
 		void SetEventCallback(const WindowEventCallback& callback);
 

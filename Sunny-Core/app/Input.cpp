@@ -202,5 +202,14 @@ namespace sunny
 			down = false;
 			break;
 		}
+
+		inputManager->m_mouseButtons[button] = down;
+		inputManager->m_mousePosition.x = (float)x;
+		inputManager->m_mousePosition.y = (float)y;
+
+		if (down)
+			inputManager->m_eventCallback(events::MousePressedEvent(button, (float)x, (float)y));
+		else
+			inputManager->m_eventCallback(events::MouseReleasedEvent(button, (float)x, (float)y));
 	}
 }
