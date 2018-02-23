@@ -213,7 +213,7 @@ namespace sunny
 						maths::vec2 uv;
 						int result = sscanf(cstr, "%*s %f %f", &uv.x, &uv.y);
 						if (result == 0) continue;
-						//uv.y = 1.0f - uv.y;
+						uv.y = 1.0f - uv.y;
 						inputVertices.uvs.push_back(uv);
 					}
 					else if (strstr(cstr, "vn")) // 노말
@@ -221,7 +221,7 @@ namespace sunny
 						maths::vec3 normal;
 						int result = sscanf(cstr, "%*s %f %f %f", &normal.x, &normal.y, &normal.z);
 						if (result == 0) continue;
-						//normal.z = normal.z * -1.0f;
+						normal.z = normal.z * -1.0f;
 						inputVertices.normals.push_back(normal);
 					}
 					else                        // 위치

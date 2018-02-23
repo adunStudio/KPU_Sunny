@@ -32,14 +32,9 @@ public:
 	void Init() override
 	{
 		Application::Init();
-		//Texture2D* texture = Texture2D::FromFile("time.png");
-		//texture->Bind();
-		//Shader* shader = sunny::graphics::ShaderFactory::DefaultShader();
-		
-		//Shader* shader = Shader::CreateFromFile("default", "sunny.hlsl");
-		//Material* m = new Material(shader);
-		//MaterialInstance* ml = new MaterialInstance(m);
-	
+
+		VFS::Get()->Mount("objs",      "resource/objs");
+		VFS::Get()->Mount("textures",  "resource/textures");
 
 		PushLayer(new TestLayer3D());
 		//PushLayer(new TestLayer2D());

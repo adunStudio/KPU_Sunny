@@ -52,18 +52,23 @@ namespace sunny
 		if (m_mountPoints.find(virtualDir) == m_mountPoints.end() || m_mountPoints[virtualDir].empty())
 			return false;
 
+
 		std::string remainder = path.substr(virtualDir.size() + 1, path.size() - virtualDir.size());
 
+		std::cout << "remainder: " << remainder << std::endl;
 		for (const std::string& physicalPath : m_mountPoints[virtualDir])
 		{
 			std::string path = physicalPath + remainder;
+
+			std::cout << path << std::endl;
 			if (system::FileSystem::FileExists(path))
 			{
 				outPhysicalPath = path;
+
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 

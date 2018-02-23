@@ -15,7 +15,7 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 {
 	cout << "TestLayer::OnInit()" << endl;
 	Add(new Sprite(0.0f, 0.0f, 0.9f,0.9f, RGBA(1, 0, 0, 1)));
-	Add(new Sprite(-5, -5, 3, 3, directx::Texture2D::CreateFromFIle("time.png")));
+	Add(new Sprite(-5, -5, 3, 3, directx::Texture2D::CreateFromFIle("/textures/time.png")));
 }
 
 void TestLayer2D::OnTick()

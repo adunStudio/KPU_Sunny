@@ -358,7 +358,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="time.PNG">
+    <Image Include="resource\textures\time.PNG">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>
