@@ -22,7 +22,7 @@ namespace sunny
             inline const int GetHeight() const { return m_size.y; }
 
         public:
-            inline static Type GetStaticType() { return Event::Type::WINDOW_RESIZE; }
+            inline static Type GetStaticType() { return Event::Type::SUNNY_WINDOW_RESIZE; }
         };
     }
 }

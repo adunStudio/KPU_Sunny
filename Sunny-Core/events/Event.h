@@ -18,14 +18,14 @@ namespace sunny
         public:
             enum class Type
             {
-                KEY_PRESSED    = BIT(0),
-                KEY_RELEASED   = BIT(1),
+                SUNNY_KEY_PRESSED    = BIT(0),
+				SUNNY_KEY_RELEASED   = BIT(1),
 
-                MOUSE_PRESSED  = BIT(2),
-                MOUSE_RELEASED = BIT(3),
-                MOUSE_MOVED     = BIT(4),
+				SUNNY_MOUSE_PRESSED  = BIT(2),
+				SUNNY_MOUSE_RELEASED = BIT(3),
+				SUNNY_MOUSE_MOVED    = BIT(4),
 
-                WINDOW_RESIZE = BIT(5)
+				SUNNY_WINDOW_RESIZE  = BIT(5)
             };
 
         protected:

@@ -23,18 +23,18 @@ namespace sunny
         {
             switch (type)
             {
-                case Type::KEY_PRESSED:
-                    return "KEY_PRESSED";
-                case Type::KEY_RELEASED:
-                    return "KEY_RELEASED";
-                case Type::MOUSE_PRESSED:
-                    return "MOUSE_PRESSED";
-                case Type::MOUSE_RELEASED:
-                    return "MOUSE_RELEASED";
-                case Type::MOUSE_MOVED:
-                    return "MOUSE_MOVED";
+                case Type::SUNNY_KEY_PRESSED:
+                    return "SUNNY_KEY_PRESSED";
+                case Type::SUNNY_KEY_RELEASED:
+                    return "SUNNY_KEY_RELEASED";
+                case Type::SUNNY_MOUSE_PRESSED:
+                    return "SUNNY_MOUSE_PRESSED";
+                case Type::SUNNY_MOUSE_RELEASED:
+                    return "SUNNY_MOUSE_RELEASED";
+                case Type::SUNNY_MOUSE_MOVED:
+                    return "SUNNY_MOUSE_MOVED";
             }
-            return "INVALID";
+            return "SUNNY_INVALID";
         }
     }
 }

@@ -20,7 +20,7 @@ namespace sunny
             KeyEvent(int keyCode, Event::Type type);
 
             inline int GetKeyCode() const { return m_keyCode; }
-            inline static int GetStaticType() { return static_cast<int>(Event::Type::KEY_PRESSED) | static_cast<int>(Event::Type::KEY_RELEASED); }
+            inline static int GetStaticType() { return static_cast<int>(Event::Type::SUNNY_KEY_PRESSED) | static_cast<int>(Event::Type::SUNNY_KEY_RELEASED); }
         };
 
         class KeyPressedEvent : public KeyEvent
@@ -36,7 +36,7 @@ namespace sunny
             inline int GetModifiers() const { return m_modifiers;}
             inline bool isModifier(int modifier) const { return static_cast<bool>(m_modifiers & modifier); }
 
-            inline static Event::Type GetStaticType() { return Event::Type::KEY_PRESSED; }
+            inline static Event::Type GetStaticType() { return Event::Type::SUNNY_KEY_PRESSED; }
         };
 
         class KeyReleasedEvent : public KeyEvent
@@ -44,7 +44,7 @@ namespace sunny
         public:
             KeyReleasedEvent(int button);
 
-            inline static Event::Type GetStaticType() { return Event::Type::KEY_PRESSED; }
+            inline static Event::Type GetStaticType() { return Event::Type::SUNNY_KEY_PRESSED; }
         };
     }
 }

@@ -25,7 +25,7 @@ namespace sunny
             inline const float GetY() const { return m_position.y; }
             inline const maths::vec2& GetPosition() const { return m_position; }
 
-            inline static int GetStaticType() { return static_cast<int>(Event::Type::MOUSE_PRESSED) | static_cast<int>(Event::Type::MOUSE_RELEASED); }
+            inline static int GetStaticType() { return static_cast<int>(Event::Type::SUNNY_MOUSE_PRESSED) | static_cast<int>(Event::Type::SUNNY_MOUSE_RELEASED); }
         };
 
         class MousePressedEvent : public MouseButtonEvent
@@ -35,7 +35,7 @@ namespace sunny
 
             std::string ToString() const override;
 
-            inline static Type GetStaticType() { return Event::Type::MOUSE_PRESSED; }
+            inline static Type GetStaticType() { return Event::Type::SUNNY_MOUSE_PRESSED; }
         };
 
         class MouseReleasedEvent : public MouseButtonEvent
@@ -43,7 +43,7 @@ namespace sunny
         public:
             MouseReleasedEvent(int button, float x, float y);
 
-            inline static Type GetStaticType() { return Event::Type::MOUSE_RELEASED; }
+            inline static Type GetStaticType() { return Event::Type::SUNNY_MOUSE_RELEASED; }
         };
 
         class MouseMovedEvent : public Event
@@ -60,7 +60,7 @@ namespace sunny
             inline const maths::vec2& GetPosition() const { return m_position; }
             inline const bool IsDragged() const { return m_dragged; }
 
-            inline static Type GetStaticType() { return Event::Type::MOUSE_MOVED; }
+            inline static Type GetStaticType() { return Event::Type::SUNNY_MOUSE_MOVED; }
         };
     }
 }
