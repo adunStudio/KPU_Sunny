@@ -190,12 +190,12 @@ namespace sunny
 	{
 		if (event.isHandled()) return;
 
-		std::cout << event.TypeToString(event.GetType()) <<std::endl;
+		//std::cout << event.TypeToString(event.GetType()) <<std::endl;
 
 		// 거꾸로
 		for (int i = m_overlayStack.size() - 1; i >= 0; --i)
 		{
-			//m_overlayStack[i]->OnEvent(event);
+			m_overlayStack[i]->OnEvent(event);
 
 			if (event.isHandled()) return;
 		}
@@ -203,7 +203,7 @@ namespace sunny
 
 		for (int i = m_layerStack.size() - 1; i >= 0; --i)
 		{
-			//m_layerStack[i]->OnEvent(event);
+			m_layerStack[i]->OnEvent(event);
 
 			if (event.isHandled()) return;
 		}

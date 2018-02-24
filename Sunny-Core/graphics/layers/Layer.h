@@ -3,12 +3,14 @@
 #include "../../sunny.h"
 #include "../../app/Window.h"
 #include "../../utils/Timestep.h"
+#include "../../events/Event.h"
+#include "../../events/IEventListener.h"
 
 namespace sunny
 {
 	namespace graphics
 	{
-		class Layer
+		class Layer : public events::IEventListener
 		{
 		protected:
 			Window* m_window;
@@ -27,6 +29,11 @@ namespace sunny
 			virtual void OnUpdate(const utils::Timestep& ts);
 			virtual void OnUpdateInternal(const utils::Timestep& ts);
 			virtual void OnRender();
+
+			virtual void OnEvent(events::Event& event);
+
+		protected:
+			virtual bool OnResize(unsigned int width, unsigned int height);
 		};
 	}
 }

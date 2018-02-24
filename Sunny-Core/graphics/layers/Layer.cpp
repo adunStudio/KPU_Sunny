@@ -38,5 +38,16 @@ namespace sunny
 		{
 
 		}
+
+		void Layer::OnEvent(events::Event& event)
+		{
+			events::EventDispatcher dispatcher(event);
+			dispatcher.Dispatch <events::ResizeEvent>([this](events::ResizeEvent& e) { return OnResize(e.GetWidth(), e.GetHeight()); });
+		}
+
+		bool Layer::OnResize(unsigned int width, unsigned int height)
+		{
+			return false;
+		}
 	}
 }

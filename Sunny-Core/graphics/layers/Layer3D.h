@@ -39,6 +39,9 @@ namespace sunny
 
 			virtual void OnRender(Renderer3D& renderer);
 			void OnRender() override;
+
+		protected:
+			bool OnResize(unsigned int whdith, unsigned int height) override;
 		};
 	}
 }

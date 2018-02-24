@@ -70,5 +70,11 @@ namespace sunny
 
 			//m_renderables.clear();
 		}
+
+		bool Layer2D::OnResize(unsigned int width, unsigned int height)
+		{
+			m_renderer->SetScreenSize(maths::tvec2<unsigned int>(width, height));
+			return false;
+		}
 	}
 }

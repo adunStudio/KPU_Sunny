@@ -77,5 +77,11 @@ namespace sunny
 
 			OnRender(*m_renderer);
 		}
+
+		bool Layer3D::OnResize(unsigned int width, unsigned int height)
+		{
+			m_renderer->SetScreenBufferSize(width, height);
+			return false;
+		}
 	}
 }
