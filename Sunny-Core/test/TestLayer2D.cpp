@@ -15,7 +15,9 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 {
 	cout << "TestLayer::OnInit()" << endl;
 	Add(new Sprite(0.0f, 0.0f, 0.9f,0.9f, RGBA(1, 0, 0, 1)));
-	Add(new Sprite(-5, -5, 3, 3, directx::Texture2D::CreateFromFIle("/textures/time.png")));
+
+	m_timeTable = new Sprite(-5, -5, 3, 3, directx::Texture2D::CreateFromFIle("/textures/time.png"));
+	Add(m_timeTable);
 }
 
 void TestLayer2D::OnTick()
@@ -36,4 +38,36 @@ void TestLayer2D::OnRender(Renderer2D& renderer)
 	renderer.DrawLine(0, 0, 3, 3, maths::vec4(0, 0, 1, 0.3), 0.1);
 	renderer.DrawRect(0, 0, 3, 3, maths::vec4(0, 0, 1, 0.3));
 	renderer.FillRect(0, 0, 3, 3, maths::vec4(0, 0, 1, 0.3));
+}
+
+void TestLayer2D::OnEvent(Event& event)
+{
+	Layer2D::OnEvent(event);
+	EventDispatcher dispatcher(event);
+	dispatcher.Dispatch<KeyPressedEvent>(METHOD(&TestLayer2D::OnKeyPressedEvent));
+}
+
+bool TestLayer2D::OnKeyPressedEvent(KeyPressedEvent& event)
+{
+	if (event.GetRepeat())
+		return false;
+
+	switch (event.GetKeyCode())
+	{
+	case SUNNY_KEY_LEFT:
+		m_timeTable->SetPosition(maths::vec2(m_timeTable->GetPosition().x - 1, m_timeTable->GetPosition().y));
+		break;
+	case SUNNY_KEY_RIGHT:
+		m_timeTable->SetPosition(maths::vec2(m_timeTable->GetPosition().x + 1, m_timeTable->GetPosition().y));
+		break;
+	case SUNNY_KEY_UP:
+		m_timeTable->SetPosition(maths::vec2(m_timeTable->GetPosition().x , m_timeTable->GetPosition().y + 1));
+		break;
+	case SUNNY_KEY_DOWN:
+		m_timeTable->SetPosition(maths::vec2(m_timeTable->GetPosition().x, m_timeTable->GetPosition().y - 1));
+		break;
+	}
+
+
+	return false;
 }
