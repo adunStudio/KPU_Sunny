@@ -23,7 +23,7 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 void TestLayer2D::OnTick()
 {
 	cout << "TestLayer::OnTick()" << endl;
-	std::cout << "TPS: " << Application::GetApplication().GetUPS() << std::endl;
+	std::cout << "TPS: " << Application::GetApplication().GetTPS() << std::endl;
 	std::cout << "FPS: " << Application::GetApplication().GetFPS() << std::endl;
 }
 

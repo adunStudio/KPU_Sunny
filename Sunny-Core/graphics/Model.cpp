@@ -43,7 +43,6 @@ namespace sunny
 			if (ext == "obj") { LoadOBJ(path); return; }
 
 			// Debug System
-			std::cout << "Model::Model() " << std::endl;
 			exit(1);
 		}
 
@@ -90,8 +89,6 @@ namespace sunny
 				byte buffer[1];
 				ReadBytes(f, buffer, 1);
 				format.nameLength = *buffer;
-				std::cout << format.nameLength << std::endl;
-
 			}
 
 			// ÀÌ¸§ ÆÄ½Ì
@@ -106,7 +103,6 @@ namespace sunny
 				byte buffer[1];
 				ReadBytes(f, buffer, 1);
 				format.animationLength= *buffer;
-				std::cout << format.animationLength << std::endl;
 				m_vertexDatas.resize(format.animationLength);
 				format.vertexData = new unsigned char*[format.animationLength];
 			}

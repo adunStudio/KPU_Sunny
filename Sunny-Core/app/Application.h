@@ -57,7 +57,7 @@ namespace sunny
 		graphics::Layer* PopOverlay(graphics::Layer* layer);
 
         inline int GetFPS() const { return m_framesPerSecond;   }
-        inline int GetUPS() const { return m_updatesPerSecond;  }
+        inline int GetTPS() const { return m_updatesPerSecond;  }
         inline float GetFrameTime() const { return m_frameTime; }
 
         inline int GetWindowWidth()  const { return window->GetWidth();  }
