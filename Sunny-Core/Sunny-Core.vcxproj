@@ -38,6 +38,7 @@
     <ClCompile Include="events\MouseEvent.cpp" />
     <ClCompile Include="events\ResizeEvent.cpp" />
     <ClCompile Include="graphics\cameras\Camera.cpp" />
+    <ClCompile Include="graphics\cameras\FPSCamera.cpp" />
     <ClCompile Include="graphics\cameras\MayaCamera.cpp" />
     <ClCompile Include="graphics\cameras\OrthographicCamera.cpp" />
     <ClCompile Include="graphics\Entity.cpp" />
@@ -97,6 +98,7 @@
     <ClInclude Include="events\MouseEvent.h" />
     <ClInclude Include="events\ResizeEvent.h" />
     <ClInclude Include="graphics\cameras\Camera.h" />
+    <ClInclude Include="graphics\cameras\FPSCamera.h" />
     <ClInclude Include="graphics\cameras\MayaCamera.h" />
     <ClInclude Include="graphics\cameras\OrthographicCamera.h" />
     <ClInclude Include="graphics\Entity.h" />

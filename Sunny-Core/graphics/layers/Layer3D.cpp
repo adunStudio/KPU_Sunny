@@ -1,7 +1,5 @@
 #include "Layer3D.h"
 
-#include "../cameras/MayaCamera.h"
-
 namespace sunny
 {
 	namespace graphics

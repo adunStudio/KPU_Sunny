@@ -23,6 +23,8 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 
 
 	Add(entity);
+
+	SetCamera(new FPSCamera(maths::mat4::Perspective(65.0f, 16.0f / 9.0f, 0.1f, 1000.0f)));
 }
 
 void TestLayer3D::OnTick()

@@ -14,7 +14,7 @@ namespace sunny
 			m_rotationSpeed = 0.002f;
 			m_zoomSpeed = 0.2f;
 
-			m_position = maths::vec3( 0.0f, 25.0f, -25.0f);
+			m_position = maths::vec3( 0.0f, 0.0f, -25.0f);
 			m_rotation = maths::vec3(90.0f,  0.0f,   0.0f);
 
 			m_focalPoint = maths::vec3::Zero();
