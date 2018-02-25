@@ -1,5 +1,8 @@
 #include "MayaCamera.h"
 
+#include "../../app/Window.h"
+#include "../../app/Input.h"
+
 namespace sunny
 {
 	namespace graphics
@@ -24,17 +27,57 @@ namespace sunny
 
 		void MayaCamera::Focus()
 		{
-
+			Input::GetInputManager()->SetMouseCursor(1);
+			std::cout << 1 << std::endl;
 		}
 
 		void MayaCamera::Update()
 		{
+			if (Input::IsKeyPressed(SUNNY_KEY_ALT))
+			{
+				const maths::vec2& mouse = Input::GetMousePosition();
+				maths::vec2 delta = mouse - m_initialMousePosition;
+				m_initialMousePosition = mouse;
+
+				if (Input::IsMouseButtonPressed(SUNNY_MOUSE_MIDDLE))
+					MousePan(delta);
+				else if (Input::IsMouseButtonPressed(SUNNY_MOUSE_LEFT))
+					MouseRotate(delta);
+				else if (Input::IsMouseButtonPressed(SUNNY_MOUSE_RIGHT))
+					MouseZoom(delta.y);
+			}
+
 			m_position = CalcuatePosition();
 
 			maths::Quaternion orientation = GetOrientation();
 			m_rotation = orientation.ToEulerAngles() * (180.0f / maths::SUNNY_PI);
 		
 			m_viewMatrix = maths::mat4::Translate(maths::vec3(0, 0, 1)) * maths::mat4::Rotate(orientation.Conjugate()) * maths::mat4::Translate(-m_position);
+		}
+
+		void MayaCamera::MousePan(const maths::vec2& delta)
+		{
+			m_focalPoint += -GetRightDirection() * delta.x * m_panSpeed * m_distance;
+			m_focalPoint += GetUpDirection() * delta.y * m_panSpeed * m_distance;
+		}
+
+		void MayaCamera::MouseRotate(const maths::vec2& delta)
+		{
+			float yawSign = GetUpDirection().y < 0 ? -1.0f : 1.0f;
+			
+			m_yaw += yawSign * delta.x * m_rotationSpeed;
+			m_pitch += delta.y * m_rotationSpeed;
+		}
+
+		void MayaCamera::MouseZoom(float delta)
+		{
+			m_distance -= delta * m_zoomSpeed;
+			
+			if (m_distance < 1.0f)
+			{
+				m_focalPoint += GetForwardDirection();
+				m_distance = 1.0f;
+			}
 		}
 
 		maths::vec3 MayaCamera::GetUpDirection()
@@ -47,14 +90,14 @@ namespace sunny
 			return maths::Quaternion::Rotate(GetOrientation(), maths::vec3::XAxis());
 		}
 
-		maths::vec3 MayaCamera::GetForwardDiretion()
+		maths::vec3 MayaCamera::GetForwardDirection()
 		{
 			return maths::Quaternion::Rotate(GetOrientation(), -maths::vec3::ZAxis());
 		}
 
 		maths::vec3 MayaCamera::CalcuatePosition()
 		{
-			return m_focalPoint - GetForwardDiretion() * m_distance;
+			return m_focalPoint - GetForwardDirection() * m_distance;
 		}
 
 		maths::Quaternion MayaCamera::GetOrientation()

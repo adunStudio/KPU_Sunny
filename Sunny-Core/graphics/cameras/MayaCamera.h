@@ -35,9 +35,13 @@ namespace sunny
 			inline void SetDistance(float distance) { m_distance; }
 
 		private:
+			void MousePan(const maths::vec2& delta);
+			void MouseRotate(const maths::vec2& delta);
+			void MouseZoom(float delta);
+
 			maths::vec3 GetUpDirection();
 			maths::vec3 GetRightDirection();
-			maths::vec3 GetForwardDiretion();
+			maths::vec3 GetForwardDirection();
 
 			maths::vec3 CalcuatePosition();
 			maths::Quaternion GetOrientation();

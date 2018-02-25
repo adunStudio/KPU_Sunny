@@ -14,7 +14,6 @@ TestLayer2D::~TestLayer2D()
 void TestLayer2D::OnInit(Renderer2D& renderer)
 {
 	cout << "TestLayer::OnInit()" << endl;
-	Add(new Sprite(0.0f, 0.0f, 0.9f,0.9f, RGBA(1, 0, 0, 1)));
 
 	m_timeTable = new Sprite(-5, -5, 3, 3, directx::Texture2D::CreateFromFIle("/textures/time.png"));
 	Add(m_timeTable);
@@ -35,9 +34,7 @@ void TestLayer2D::OnUpdate(const utils::Timestep& ts)
 void TestLayer2D::OnRender(Renderer2D& renderer)
 {
 	//cout << "TestLayer::OnRender()" << endl;
-	renderer.DrawLine(0, 0, 3, 3, maths::vec4(0, 0, 1, 0.3), 0.1);
-	renderer.DrawRect(0, 0, 3, 3, maths::vec4(0, 0, 1, 0.3));
-	renderer.FillRect(0, 0, 3, 3, maths::vec4(0, 0, 1, 0.3));
+	//renderer.DrawLine(0, 0, 0, 10, maths::vec4(0, 0, 1, 0.3), 0.3);
 }
 
 void TestLayer2D::OnEvent(Event& event)

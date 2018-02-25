@@ -1,18 +1,6 @@
 #include <iostream>
 
 #include "app/Application.h"
-#include "utils/LoadImage.h"
-#include "system/VFS.h"
-#include "directx/Texture2D.h"
-#include "directx/Shader.h"
-#include "directx/Renderer.h"
-#include "graphics/shaders/ShaderFactory.h";
-#include "graphics/shaders/ShaderManager.h";
-#include "graphics/renderables/Renderable2D.h"
-#include "graphics/renderers/Renderer2D.h"
-#include "graphics/Model.h"
-
-
 #include "test/TestLayer2D.h"
 #include "test/TestLayer3D.h"
 
@@ -42,11 +30,9 @@ public:
 	}
 };
 
-
 int main()
 {
 	std::cout << "Hello, Sunny Project!" << std::endl;
-	std::cout << "Hello, Sunny Project2!" << std::endl;
 
 	Game game;
 

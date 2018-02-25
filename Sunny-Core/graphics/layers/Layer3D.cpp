@@ -7,9 +7,9 @@ namespace sunny
 	namespace graphics
 	{
 		Layer3D::Layer3D(Renderer3D * renderer)
-		: m_renderer(renderer), m_camera(new MayaCamera(maths::mat4::Perspective(65.0f, 16.0f / 9.0f, 0.1f, 1000.0f)))
+		: m_renderer(renderer), m_camera(new MayaCamera(maths::mat4::Perspective(65.0f, 800.0f / 600.0f, 0.1f, 1000.0f)))
 		{
-
+			m_camera->Focus();
 		}
 
 		Layer3D::~Layer3D()

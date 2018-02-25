@@ -70,6 +70,8 @@ namespace sunny
 
 			m_camera = camera;
 
+			m_camera->Focus();
+
 			memcpy(m_systemUniforms[SUNNY_ProjectionMatrixIndex].buffer.buffer + m_systemUniforms[SUNNY_ProjectionMatrixIndex].offset, &camera->GetProjectionMatrix(), sizeof(mat4));
 			memcpy(m_systemUniforms[SUNNY_ViewMatrixIndex].buffer.buffer + m_systemUniforms[SUNNY_ViewMatrixIndex].offset, &camera->GetViewMatrix(), sizeof(mat4));
 		}
@@ -108,7 +110,7 @@ namespace sunny
 			}
 
 			// 시계 방향
-			/*vec3 vertex = *m_transformationBack * min;
+			vec3 vertex = *m_transformationBack * min;
 			m_buffer->vertex = vertex;
 			m_buffer->uv = uv[0];
 			m_buffer->mask_uv = maskTransform * vertex;
@@ -142,11 +144,11 @@ namespace sunny
 			m_buffer->tid = textureSlot;
 			m_buffer->mid = ms;
 			m_buffer->color = color;
-			m_buffer++;*/
+			m_buffer++;
 
 
 			// 반시계 방향
-			vec3 vertex = *m_transformationBack * vec3(min.x, max.y);
+			/*vec3 vertex = *m_transformationBack * vec3(min.x, max.y);
 			m_buffer->vertex = vertex;
 			m_buffer->uv = uv[3];
 			m_buffer->mask_uv = maskTransform * vertex;
@@ -180,7 +182,7 @@ namespace sunny
 			m_buffer->tid = textureSlot;
 			m_buffer->mid = ms;
 			m_buffer->color = color;
-			m_buffer++;
+			m_buffer++;*/
 
 			m_indexCount += 6;
 		}
@@ -343,7 +345,7 @@ namespace sunny
 			vec2 normal = vec2(y1 - y0, -(x1 - x0)).Normalise() * thickness;
 
 			// 시계 방향
-			/*vec3 vertex = *m_transformationBack * vec3(x0 + normal.x, y0 + normal.y, 0.0f);
+			vec3 vertex = *m_transformationBack * vec3(x0 + normal.x, y0 + normal.y, 0.0f);
 			m_buffer->vertex = vertex;
 			m_buffer->uv = uv[0];
 			m_buffer->mask_uv = maskTransform * vertex;
@@ -377,11 +379,11 @@ namespace sunny
 			m_buffer->tid = ts;
 			m_buffer->mid = ms;
 			m_buffer->color = color;
-			m_buffer++;*/
+			m_buffer++;
 
 
 			// 반시계 방향
-			vec3 vertex = *m_transformationBack * vec3(x0 - normal.x, y0 - normal.y, 0.0f);
+			/*vec3 vertex = *m_transformationBack * vec3(x0 - normal.x, y0 - normal.y, 0.0f);
 			m_buffer->vertex = vertex;
 			m_buffer->uv = uv[3];
 			m_buffer->mask_uv = maskTransform * vertex;
@@ -415,7 +417,7 @@ namespace sunny
 			m_buffer->tid = ts;
 			m_buffer->mid = ms;
 			m_buffer->color = color;
-			m_buffer++;
+			m_buffer++;*/
 
 			
 
@@ -466,7 +468,7 @@ namespace sunny
 			}
 
 			// 시계 방향
-			/*vec3 vertex = *m_transformationBack * position;
+			vec3 vertex = *m_transformationBack * position;
 			m_buffer->vertex = vertex;
 			m_buffer->uv = uv[0];
 			m_buffer->mask_uv = maskTransform * vertex;
@@ -500,10 +502,10 @@ namespace sunny
 			m_buffer->tid = ts;
 			m_buffer->mid = ms;
 			m_buffer->color = color;
-			m_buffer++;*/
+			m_buffer++;
 
 			// 반 시계 방향
-			vec3 vertex = *m_transformationBack * vec3(position.x, position.y + size.y, position.z);
+			/*vec3 vertex = *m_transformationBack * vec3(position.x, position.y + size.y, position.z);
 			m_buffer->vertex = vertex;
 			m_buffer->uv = uv[3];
 			m_buffer->mask_uv = maskTransform * vertex;
@@ -537,7 +539,7 @@ namespace sunny
 			m_buffer->tid = ts;
 			m_buffer->mid = ms;
 			m_buffer->color = color;
-			m_buffer++;
+			m_buffer++;*/
 
 			m_indexCount += 6;
 		}
