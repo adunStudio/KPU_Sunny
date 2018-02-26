@@ -47,8 +47,9 @@
     <ClCompile Include="graphics\layers\Layer3D.cpp" />
     <ClCompile Include="graphics\Light.cpp" />
     <ClCompile Include="graphics\LightSetup.cpp" />
-    <ClCompile Include="graphics\Mesh.cpp" />
-    <ClCompile Include="graphics\MeshFactory.cpp" />
+    <ClCompile Include="graphics\meshs\AnimationMesh.cpp" />
+    <ClCompile Include="graphics\meshs\Mesh.cpp" />
+    <ClCompile Include="graphics\meshs\MeshFactory.cpp" />
     <ClCompile Include="graphics\Model.cpp" />
     <ClCompile Include="graphics\renderables\Renderable2D.cpp" />
     <ClCompile Include="graphics\renderables\Renderable3D.cpp" />
@@ -98,6 +99,7 @@
     <ClInclude Include="events\KeyEvent.h" />
     <ClInclude Include="events\MouseEvent.h" />
     <ClInclude Include="events\ResizeEvent.h" />
+    <ClInclude Include="graphics\meshs\AnimationMesh.h" />
     <ClInclude Include="graphics\cameras\Camera.h" />
     <ClInclude Include="graphics\cameras\FPSCamera.h" />
     <ClInclude Include="graphics\cameras\MayaCamera.h" />
@@ -106,8 +108,8 @@
     <ClInclude Include="graphics\layers\Layer3D.h" />
     <ClInclude Include="graphics\Light.h" />
     <ClInclude Include="graphics\LightSetup.h" />
-    <ClInclude Include="graphics\Mesh.h" />
-    <ClInclude Include="graphics\MeshFactory.h" />
+    <ClInclude Include="graphics\meshs\Mesh.h" />
+    <ClInclude Include="graphics\meshs\MeshFactory.h" />
     <ClInclude Include="graphics\Model.h" />
     <ClInclude Include="graphics\layers\Layer.h" />
     <ClInclude Include="graphics\layers\Layer2D.h" />

@@ -174,8 +174,10 @@ namespace sunny
 
 			directx::IndexBuffer* ib = new directx::IndexBuffer((unsigned int*)format.indexData, format.indexBufferSize / sizeof(unsigned int));
 
-			m_mesh = new Mesh(va, ib, format.animationLength);
-
+			if (format.animationLength > 0)
+				m_mesh = new AnimationMesh(va, ib, format.animationLength);
+			else
+				m_mesh = new Mesh(va, ib);
 		}
 
 		void Model::LoadOBJ(const std::string& path)

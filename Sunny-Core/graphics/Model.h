@@ -3,7 +3,8 @@
 #include "../sunny.h"
 #include "../maths/maths.h"
 
-#include "Mesh.h"
+#include "meshs/Mesh.h"
+#include "meshs/AnimationMesh.h"
 
 namespace sunny
 {

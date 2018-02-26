@@ -208,11 +208,7 @@ namespace sunny
 			}
 
 			ID3D11RasterizerState* rs;
-			//dev->CreateRasterizerState(&rasterDesc, &rs);
-			if (dev->CreateRasterizerState(&rasterDesc, &rs) == S_OK)
-			{
-				std::cout << "S_OK";
-			} 
+			dev->CreateRasterizerState(&rasterDesc, &rs);
 			devcon->RSSetState(rs);
 
 			ReleaseCOM(rs);

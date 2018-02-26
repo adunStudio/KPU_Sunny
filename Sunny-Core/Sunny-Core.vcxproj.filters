@@ -132,9 +132,6 @@
     <ClCompile Include="graphics\renderables\Renderable2D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Mesh.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="maths\Quaternion.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -174,7 +171,13 @@
     <ClCompile Include="graphics\cameras\FPSCamera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\MeshFactory.cpp">
+    <ClCompile Include="graphics\meshs\Mesh.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\meshs\MeshFactory.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\meshs\AnimationMesh.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -329,9 +332,6 @@
     <ClInclude Include="graphics\renderables\Renderable2D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Mesh.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="maths\Quaternion.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -371,7 +371,13 @@
     <ClInclude Include="graphics\cameras\FPSCamera.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\MeshFactory.h">
+    <ClInclude Include="graphics\meshs\AnimationMesh.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\meshs\Mesh.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\meshs\MeshFactory.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

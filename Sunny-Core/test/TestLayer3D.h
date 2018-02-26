@@ -12,6 +12,9 @@ using namespace directx;
 class TestLayer3D : public Layer3D
 {
 public:
+	Entity* m_entity;
+
+public:
 	TestLayer3D();
 	~TestLayer3D();
 

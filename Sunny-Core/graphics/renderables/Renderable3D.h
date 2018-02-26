@@ -2,8 +2,8 @@
 
 #include "../../maths/maths.h"
 
-#include "../Mesh.h"
-#include "../MeshFactory.h"
+#include "../meshs/Mesh.h"
+#include "../meshs/MeshFactory.h"
 #include "../../directx/Texture2D.h";
 #include "../../directx/VertexBuffer.h"
 #include "../../directx/IndexBuffer.h"

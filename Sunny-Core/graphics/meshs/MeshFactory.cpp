@@ -1,6 +1,6 @@
 #include "MeshFactory.h"
 
-#include "shaders/ShaderFactory.h"
+#include "../shaders/ShaderFactory.h"
 
 namespace sunny
 {
