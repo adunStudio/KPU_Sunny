@@ -30,7 +30,7 @@ namespace sunny
 		void FPSCamera::Update()
 		{
 			maths::vec2 windowSize = Application::GetApplication().GetWindowSize();
-			maths::vec2 windowCenter = maths::vec2((float)(windowSize.x / 2.0f), (float)(windowSize.y / 2.0f));
+			maths::vec2 windowCenter = maths::vec2((float)(int)(windowSize.x / 2.0f), (float)(int)(windowSize.y / 2.0f));
 		
 			if (Input::IsMouseButtonPressed(SUNNY_MOUSE_RIGHT))
 			{

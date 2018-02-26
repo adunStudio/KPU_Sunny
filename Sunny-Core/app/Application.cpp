@@ -13,7 +13,7 @@ namespace sunny
     {
         s_instance = this;
     }
-
+	
     Application::~Application()
     {
         delete window;
