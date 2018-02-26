@@ -259,7 +259,7 @@ namespace sunny
 
 			m_shader->Bind();
 
-			directx::VertexBuffer* buffer = new directx::VertexBuffer(directx::BufferUsage::DYNAMIC);
+			directx::VertexBuffer* buffer = new directx::VertexBuffer();
 			buffer->Resize(RENDERER_BUFFER_SIZE);
 
 			// 입력레이아웃 설정

@@ -4,12 +4,12 @@ namespace sunny
 {
 	namespace directx
 	{
-		VertexBuffer::VertexBuffer(BufferUsage usage) : m_usage(usage), m_size(0)
+		VertexBuffer::VertexBuffer() : m_size(0)
 		{
 			ZeroMemory(&m_bufferDesc, sizeof(D3D11_BUFFER_DESC));
 
 			                                                                                                               // ByteWidth : 생성할 정점 버퍼의 크기(바이트 단위)
-			m_bufferDesc.Usage = (D3D11_USAGE)(usage == BufferUsage::DEFAULT ? D3D11_USAGE_DEFAULT : D3D11_USAGE_DYNAMIC); // Usage     : 버퍼가 쓰이는 방식
+			m_bufferDesc.Usage          = D3D11_USAGE_DYNAMIC;															   // Usage     : 버퍼가 쓰이는 방식 (D3D11_USAGE_DEFAULT  vs ..)
 			m_bufferDesc.BindFlags      = D3D11_BIND_VERTEX_BUFFER;                                                        // BindFlags : 정점 버퍼의 경우에는 D3D11_BIND_VERTEX_BUFFER를 지정한다.
 			m_bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;                                                          // CPUAccessFlags : CPU가 버퍼에 접근하는 방식을 결정하는 플래그 (CPU가 자료를 기록해서 버퍼를 갱신해야 한다면 D3D11_CPU_ACCESS_WRITE)
 			                                                                                                               // MiscFlags : 정점 버퍼에 대해서는 이 기타 플래그들을 사용할 필요가 없다. (그냥 0)

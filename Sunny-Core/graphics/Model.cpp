@@ -158,7 +158,7 @@ namespace sunny
 
 			for (int i = 0; i < format.animationLength; ++i)
 			{
-				directx::VertexBuffer* buffer = new directx::VertexBuffer(directx::BufferUsage::DYNAMIC);
+				directx::VertexBuffer* buffer = new directx::VertexBuffer();
 				buffer->SetData(format.vertexBufferSize, format.vertexData[i]);
 
 				directx::BufferLayout layout;
@@ -274,7 +274,7 @@ namespace sunny
 			
 			ShaderFactory::Default3DShader()->Bind();
 
-			directx::VertexBuffer* buffer = new directx::VertexBuffer(directx::BufferUsage::DYNAMIC);
+			directx::VertexBuffer* buffer = new directx::VertexBuffer();
 			buffer->SetData(vertices.size() * sizeof(Vertex3D), &vertices[0]);
 
 			directx::BufferLayout layout;

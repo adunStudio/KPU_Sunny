@@ -43,16 +43,7 @@ namespace sunny
 {
 	namespace directx
 	{
-		enum class BufferUsage
-		{
-			// D3D11_USAGE 열거형 상수
-			DEFAULT, DYNAMIC
-			// DEFAULT : D3D11_USAGE_DEFAULT (GPU가 리소스를 읽고 쓸 수 있음을 나타낸다. 가장 일반적으로 사용하는 상수다.)
-			// DYNAMIC : D3D11_USAGE_DYNAMIC (CPU는 쓰기만 할 수 있고 GPU는 읽기만 할 수 있는 리소스를 나타낸다.)
-			//       ㄴ: CPU가 자주 리소스의 내용을 변경해야 하는 리소스를생성할 때 사용한다. 이러한 리소스를 동적 리소스라고 한다.
-			//       ㄴ: 응용 프로그램이 동적 리소스의 내용을 변경하기 위하여 ID3D11DeviceContext::Map() 함수를 사용한다.
-		};
-
+		
 		class VertexBuffer
 		{
 		private:
@@ -63,8 +54,6 @@ namespace sunny
 			ID3D11Buffer* m_bufferHandle;                    // 정점 데이터를 저장하기 위한 정점 버퍼 인터페인스 포인터
 			
 			ID3D11InputLayout* m_inputLayout;                // 입력 레이아웃 인터페이스 포인터
-
-			BufferUsage m_usage;                
 			
 			unsigned int m_size;                             // 정점 크기
 
@@ -74,7 +63,7 @@ namespace sunny
 			void* GetPointerInternal();
 
 		public:
-			VertexBuffer(BufferUsage usage = BufferUsage::DEFAULT);
+			VertexBuffer();
 			~VertexBuffer();
 
 			void Resize(unsigned int size);
