@@ -21,11 +21,11 @@ namespace sunny
 
 			void Render() override;
 
-			void SetFrame(unsigned int frame);
+			void SetFrame(unsigned int frame) override;
 
-			unsigned int GetAnimationLength() const { return m_animationLength; }
+			unsigned int GetAnimationLength() const override { return m_animationLength; };
 
-			inline MESH_TYPE GetType() const { return MESH_TYPE::ANIMATION; };
+			inline MESH_TYPE GetType() const override { return MESH_TYPE::ANIMATION; };
 		};
 	}
 }
