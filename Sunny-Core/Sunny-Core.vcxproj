@@ -48,6 +48,7 @@
     <ClCompile Include="graphics\Light.cpp" />
     <ClCompile Include="graphics\LightSetup.cpp" />
     <ClCompile Include="graphics\Mesh.cpp" />
+    <ClCompile Include="graphics\MeshFactory.cpp" />
     <ClCompile Include="graphics\Model.cpp" />
     <ClCompile Include="graphics\renderables\Renderable2D.cpp" />
     <ClCompile Include="graphics\renderables\Renderable3D.cpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="graphics\Light.h" />
     <ClInclude Include="graphics\LightSetup.h" />
     <ClInclude Include="graphics\Mesh.h" />
+    <ClInclude Include="graphics\MeshFactory.h" />
     <ClInclude Include="graphics\Model.h" />
     <ClInclude Include="graphics\layers\Layer.h" />
     <ClInclude Include="graphics\layers\Layer2D.h" />

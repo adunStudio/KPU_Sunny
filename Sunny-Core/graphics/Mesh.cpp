@@ -24,7 +24,6 @@ namespace sunny
 
 		void Mesh::Render()
 		{
-			
 			if (m_animationLength > 0)
 			{
 				m_frame++;

@@ -209,7 +209,7 @@ namespace sunny
 						maths::vec2 uv;
 						int result = sscanf(cstr, "%*s %f %f", &uv.x, &uv.y);
 						if (result == 0) continue;
-						//uv.y = 1.0f - uv.y;
+						uv.y = 1.0f - uv.y;
 						inputVertices.uvs.push_back(uv);
 					}
 					else if (strstr(cstr, "vn")) // ³ë¸»

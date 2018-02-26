@@ -11,7 +11,7 @@ using namespace directx;
 class Game : public Application
 {
 public:
-	Game() : Application("Sunny", { 800, 600, false, true })
+	Game() : Application("Sunny", { 1280, 720, false, false})
 	{}
 
 	~Game()
@@ -26,7 +26,7 @@ public:
 		VFS::Get()->Mount("suns",     "resource/suns");
 
 		PushLayer(new TestLayer3D());
-		PushLayer(new TestLayer2D());
+	//	PushLayer(new TestLayer2D());
 	}
 };
 
