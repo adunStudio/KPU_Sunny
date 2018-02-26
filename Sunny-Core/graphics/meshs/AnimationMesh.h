@@ -23,7 +23,7 @@ namespace sunny
 
 			void SetFrame(unsigned int frame) override;
 
-			unsigned int GetAnimationLength() const override { return m_animationLength; };
+			inline unsigned int GetAnimationLength() const override { return m_animationLength; };
 
 			inline MESH_TYPE GetType() const override { return MESH_TYPE::ANIMATION; };
 		};
