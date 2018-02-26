@@ -21,7 +21,7 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 
 	
 	Entity* entity = new Entity(model->GetMesh(), texture, position);
-	//Entity* entity  = new Entity(MeshFactory::CreateCube(10), RGBA(1, 0, 0, 1), position);
+//	Entity* entity  = new Entity(MeshFactory::CreateCube(10), RGBA(1, 0, 0, 1), position);
 
 
 	Add(entity);

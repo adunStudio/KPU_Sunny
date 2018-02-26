@@ -26,7 +26,7 @@ public:
 		VFS::Get()->Mount("suns",     "resource/suns");
 
 		PushLayer(new TestLayer3D());
-	//	PushLayer(new TestLayer2D());
+		PushLayer(new TestLayer2D());
 	}
 };
 

@@ -48,7 +48,7 @@ namespace sunny
 		// 깊이/스텐실 상태를 출력 병합기 단계에 묶는다.
 		void Renderer::SetDepthTestingInternal(bool enabled)
 		{
-			Context::GetDeviceContext()->OMSetDepthStencilState(enabled ? s_depthStencilStates[0] : s_depthStencilStates[1], NULL);
+			//Context::GetDeviceContext()->OMSetDepthStencilState(enabled ? s_depthStencilStates[0] : s_depthStencilStates[1], NULL);
 		}
 
 		// 혼합 상태를 출력 병합기 단계에 묶는다.
