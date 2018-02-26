@@ -13,6 +13,14 @@ namespace sunny
 		namespace MeshFactory
 		{
 			Mesh* CreateCube(float size);
+
+			Mesh* CreateQuad(float x, float y, float width, float height);
+
+			Mesh* CreatePlane(float width, float height, const maths::vec3& normal);
+
+			Mesh* CreateXAxis();
+			Mesh* CreateYAxis();
+			Mesh* CreateZAxis();
 		}
 	}
 }

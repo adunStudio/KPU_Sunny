@@ -201,7 +201,7 @@ namespace sunny
 				rasterDesc.DepthBiasClamp = 0.0f;
 				rasterDesc.DepthClipEnable = true;
 				rasterDesc.FillMode = D3D11_FILL_SOLID;        // 와이어 프레임 or 솔리드 프레임
-				rasterDesc.FrontCounterClockwise = true;      // 시계 방향 삼각형 전면(true), 반시계 방향 삼각형 전면(false)
+				rasterDesc.FrontCounterClockwise = false;       // 시계 방향 삼각형 전면(true), 반시계 방향 삼각형 전면(false)
 				rasterDesc.MultisampleEnable = false;
 				rasterDesc.ScissorEnable = false;
 				rasterDesc.SlopeScaledDepthBias = 0.0f;
