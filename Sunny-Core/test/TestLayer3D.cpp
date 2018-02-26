@@ -18,7 +18,8 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 	
 	Texture2D* texture = Texture2D::CreateFromFIle("/textures/boss.png");
 	
-	mat4 position = mat4::Identity() *mat4::Scale(vec3(0.1, 0.1, 0.1))*mat4::Rotate(270, vec3(1, 0, 0));// * // *mat4::Translate(vec3(100, 0, 0));// *mat4::Rotate(45, vec3(0, 1, 0));
+	// TRS
+	mat4 position = mat4::Identity() * mat4::Translate(vec3(0, 0, 0)) * mat4::Rotate(-90, vec3(1, 0, 0)) * mat4::Scale(vec3(0.1, 0.1, 0.1)) ;
 
 	
 	m_entity = new Entity(model->GetMesh(), texture, position);
@@ -35,7 +36,8 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 
 	Add(a);
 	Add(m_entity);
-	//SetCamera(new FPSCamera(maths::mat4::Perspective(65.0f, 16.0f / 9.0f, 0.1f, 1000.0f)));
+	
+	SetCamera(new FPSCamera(maths::mat4::Perspective(65.0f, 16.0f / 9.0f, 0.1f, 1000.0f)));
 }
 
 void TestLayer3D::OnTick()

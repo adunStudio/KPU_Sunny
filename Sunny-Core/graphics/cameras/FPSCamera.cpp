@@ -10,10 +10,11 @@ namespace sunny
 		FPSCamera::FPSCamera(const maths::mat4& projectionMatrix)
 		: Camera(projectionMatrix), m_mouseSensitivity(0.002f), m_speed(0.4f), m_sprintSpeed(m_speed * 4.0f), m_mouseWasGrabbed(false)
 		{
-			m_position = maths::vec3(0.0f, 25.0f, -25.0f);
-			m_rotation = maths::vec3(90.0f, 0.0f, 0.0f);
-			m_yaw = 2.4f;
-			m_pitch = 0.7f;
+			// http://www.teamliquid.net/forum/sc2-maps/513741-create-your-own-camera-map
+			m_position = maths::vec3(0.0f, 25.0f, 65.0f);
+			m_rotation = maths::vec3(0.0f, 0.0f, 0.0f);
+			m_yaw = 0.0f;
+			m_pitch = 0.3f;
 		}
 
 		FPSCamera::~FPSCamera()
