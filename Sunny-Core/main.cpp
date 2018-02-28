@@ -2,7 +2,6 @@
 
 #include "app/Application.h"
 #include "test/TestLayer2D.h"
-#include "test/TestLayer3D.h"
 
 using namespace sunny;
 using namespace graphics;
@@ -25,8 +24,7 @@ public:
 		VFS::Get()->Mount("textures", "resource/textures");
 		VFS::Get()->Mount("suns",     "resource/suns");
 
-		PushLayer(new TestLayer3D());
-		PushLayer(new TestLayer2D());
+		PushOverlay(new TestLayer2D());
 	}
 };
 

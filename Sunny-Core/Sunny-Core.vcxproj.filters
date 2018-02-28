@@ -156,9 +156,6 @@
     <ClCompile Include="test\TestLayer2D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="test\TestLayer3D.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="graphics\renderables\Renderable3D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -199,6 +196,21 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="graphics\Label.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\ui\Panel.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\ui\Widget.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\ui\Button.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="test\NPCLayer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="test\BossLayer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -377,9 +389,6 @@
     <ClInclude Include="test\TestLayer2D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="test\TestLayer3D.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="graphics\renderables\Renderable3D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -429,6 +438,21 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="graphics\Label.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\ui\Panel.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\ui\Widget.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\ui\Button.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="test\NPCLayer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="test\BossLayer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

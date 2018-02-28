@@ -3,18 +3,30 @@
 #include <iostream>
 #include "../graphics/layers/Layer2D.h"
 #include "../app/Application.h"
+#include "../graphics/ui/Panel.h"
+#include "../graphics/ui/Button.h"
+
+#include "NPCLayer.h"
+#include "BossLayer.h"
 
 using namespace std;
 using namespace sunny;
 using namespace graphics;
 using namespace events;
+using namespace ui;
 
 class TestLayer2D : public Layer2D
 {
 private:
-	Sprite* m_timeTable;
+	Sprite* m_logo;
 
 	Label*  m_fps;
+
+	Panel* m_panel;
+
+	std::vector<Layer*> m_layers;
+	
+	int m_layerIndex;
 
 public:
 	TestLayer2D();
@@ -27,4 +39,6 @@ public:
 	void OnEvent(Event& event) override;
 
 	bool OnKeyPressedEvent(KeyPressedEvent& event);
+
+	void ButtonEvent1();
 };

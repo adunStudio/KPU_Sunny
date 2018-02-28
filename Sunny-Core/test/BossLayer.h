@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 
 #include <iostream>
 #include "../graphics/layers/Layer3D.h"
@@ -9,14 +10,14 @@ using namespace std;
 using namespace sunny;
 using namespace graphics;
 using namespace directx;
-class TestLayer3D : public Layer3D
+class BossLayer : public Layer3D
 {
 public:
 	Entity* m_entity;
 
 public:
-	TestLayer3D();
-	~TestLayer3D();
+	BossLayer();
+	~BossLayer();
 
 	void OnInit(Renderer3D& renderer) override;
 	void OnTick() override;

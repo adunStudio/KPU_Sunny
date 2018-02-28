@@ -1,16 +1,16 @@
-#include "TestLayer3D.h"
+#include "NPCLayer.h"
 
-TestLayer3D::TestLayer3D()
+NPCLayer::NPCLayer()
 {
 
 }
 
-TestLayer3D::~TestLayer3D()
+NPCLayer::~NPCLayer()
 {
 
 }
 
-void TestLayer3D::OnInit(Renderer3D& renderer)
+void NPCLayer::OnInit(Renderer3D& renderer)
 {
 	//Model* model = new Model("/suns/boss_idle.sun");
 	Model* model = new Model("/suns/npc_idle.sun");
@@ -37,15 +37,15 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 	Add(a);
 	Add(m_entity);
 	
-	SetCamera(new FPSCamera(maths::mat4::Perspective(65.0f, 16.0f / 9.0f, 0.1f, 1000.0f)));
+	//SetCamera(new FPSCamera(maths::mat4::Perspective(65.0f, 16.0f / 9.0f, 0.1f, 1000.0f)));
 }
 
-void TestLayer3D::OnTick()
+void NPCLayer::OnTick()
 {
 
 }
 
-void TestLayer3D::OnUpdate(const utils::Timestep& ts)
+void NPCLayer::OnUpdate(const utils::Timestep& ts)
 {
 	m_entity->PlayAnimation();
 }

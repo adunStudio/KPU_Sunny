@@ -4,7 +4,7 @@ namespace sunny
 {
 	namespace graphics
 	{
-		Layer::Layer() : m_window(Window::GetWindowClass(nullptr)), m_visible(true)
+		Layer::Layer() : m_window(Window::GetWindowClass(nullptr)), m_visible(true), m_active(true)
 		{
 
 		}

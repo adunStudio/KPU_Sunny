@@ -160,19 +160,23 @@ namespace sunny
     void Application::OnTick()
     {
 		for (unsigned int i = 0; i < m_overlayStack.size(); ++i)
-			m_overlayStack[i]->OnTick();
+			if(m_overlayStack[i]->IsActive())
+				m_overlayStack[i]->OnTick();
 		
 		for (unsigned int i = 0; i < m_layerStack.size(); ++i)
-			m_layerStack[i]->OnTick();
+			if (m_layerStack[i]->IsActive())
+				m_layerStack[i]->OnTick();
 	}
 
     void Application::OnUpdate(const utils::Timestep& ts)
     {
 		for (unsigned int i = 0; i < m_overlayStack.size(); ++i)
-			m_overlayStack[i]->OnUpdateInternal(ts);
+			if (m_overlayStack[i]->IsActive())
+				m_overlayStack[i]->OnUpdateInternal(ts);
 
 		for (unsigned int i = 0; i < m_layerStack.size(); ++i)
-			m_layerStack[i]->OnUpdateInternal(ts);
+			if (m_layerStack[i]->IsActive())
+				m_layerStack[i]->OnUpdateInternal(ts);
     }
 
     void Application::OnRender()
@@ -190,20 +194,19 @@ namespace sunny
 	{
 		if (event.isHandled()) return;
 
-		//std::cout << event.TypeToString(event.GetType()) <<std::endl;
-
 		// 거꾸로
 		for (int i = m_overlayStack.size() - 1; i >= 0; --i)
 		{
-			m_overlayStack[i]->OnEvent(event);
+			if (m_overlayStack[i]->IsActive())
+				m_overlayStack[i]->OnEvent(event);
 
 			if (event.isHandled()) return;
 		}
-		
 
 		for (int i = m_layerStack.size() - 1; i >= 0; --i)
 		{
-			m_layerStack[i]->OnEvent(event);
+			if (m_layerStack[i]->IsActive())
+				m_layerStack[i]->OnEvent(event);
 
 			if (event.isHandled()) return;
 		}

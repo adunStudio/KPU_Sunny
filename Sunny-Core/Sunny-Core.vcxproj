@@ -66,6 +66,9 @@
     <ClCompile Include="graphics\shaders\ShaderManager.cpp" />
     <ClCompile Include="graphics\Sprite.cpp" />
     <ClCompile Include="graphics\TextureManager.cpp" />
+    <ClCompile Include="graphics\ui\Button.cpp" />
+    <ClCompile Include="graphics\ui\Panel.cpp" />
+    <ClCompile Include="graphics\ui\Widget.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="maths\AABB.cpp" />
     <ClCompile Include="maths\mat4.cpp" />
@@ -76,8 +79,9 @@
     <ClCompile Include="maths\vec4.cpp" />
     <ClCompile Include="system\FileSystem.cpp" />
     <ClCompile Include="system\VFS.cpp" />
+    <ClCompile Include="test\BossLayer.cpp" />
     <ClCompile Include="test\TestLayer2D.cpp" />
-    <ClCompile Include="test\TestLayer3D.cpp" />
+    <ClCompile Include="test\NPCLayer.cpp" />
     <ClCompile Include="utils\LoadImage.cpp" />
     <ClCompile Include="utils\String.cpp" />
     <ClCompile Include="utils\Timer.cpp" />
@@ -140,6 +144,9 @@
     <ClInclude Include="graphics\shaders\Shaders.h" />
     <ClInclude Include="graphics\Sprite.h" />
     <ClInclude Include="graphics\TextureManager.h" />
+    <ClInclude Include="graphics\ui\Button.h" />
+    <ClInclude Include="graphics\ui\Panel.h" />
+    <ClInclude Include="graphics\ui\Widget.h" />
     <ClInclude Include="maths\AABB.h" />
     <ClInclude Include="maths\mat4.h" />
     <ClInclude Include="maths\maths.h" />
@@ -154,7 +161,8 @@
     <ClInclude Include="system\FileSystem.h" />
     <ClInclude Include="system\VFS.h" />
     <ClInclude Include="test\TestLayer2D.h" />
-    <ClInclude Include="test\TestLayer3D.h" />
+    <ClInclude Include="test\NPCLayer.h" />
+    <ClInclude Include="test\BossLayer.h" />
     <ClInclude Include="utils\LoadImage.h" />
     <ClInclude Include="utils\String.h" />
     <ClInclude Include="utils\Timer.h" />

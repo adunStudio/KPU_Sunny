@@ -15,20 +15,43 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 {
 	cout << "TestLayer::OnInit()" << endl;
 
-	m_timeTable = new Sprite(-5, -5, 3, 3, directx::Texture2D::CreateFromFIle("/textures/time.png"));
+	m_layerIndex = 0;
+
+	m_layers.push_back(new NPCLayer());
+	m_layers.push_back(new BossLayer());
+
+	m_layers[1]->SetVisible(false);
+	m_layers[1]->SetActive(false);
+
+	Application::GetApplication().PushLayer(m_layers[0]);
+	Application::GetApplication().PushLayer(m_layers[1]);
+	
+	m_panel = new Panel();
+	
+	m_logo = new Sprite(-5, -5, 5, 2.5, directx::Texture2D::CreateFromFIle("/textures/logo.png"));
 	m_fps = new Label("fps", 15.7, 8.5, RGBA(1, 1, 1, 0.8));
 	m_fps->SetAlignment(Label::Alignment::RIGHT);
 
-	Add(m_timeTable);
+	
+	Button* button = new Button("Test Button", maths::Rectangle(-14.83, -7.8, 1, 1));
+
+	button->SetAction([&]() {
+		ButtonEvent1();
+	});
+
+	Add(m_logo);
+
 	Add(m_fps);
+	m_panel->Add(button);
+
 }
 
 void TestLayer2D::OnTick()
 {
 	m_fps->SetText(std::to_string(Application::GetApplication().GetFPS()) + "fps");
-	cout << "TestLayer::OnTick()" << endl;
-	std::cout << "TPS: " << Application::GetApplication().GetTPS() << std::endl;
-	std::cout << "FPS: " << Application::GetApplication().GetFPS() << std::endl;
+	//cout << "TestLayer::OnTick()" << endl;
+	//std::cout << "TPS: " << Application::GetApplication().GetTPS() << std::endl;
+	//std::cout << "FPS: " << Application::GetApplication().GetFPS() << std::endl;
 }
 
 void TestLayer2D::OnUpdate(const utils::Timestep& ts)
@@ -58,19 +81,28 @@ bool TestLayer2D::OnKeyPressedEvent(KeyPressedEvent& event)
 	switch (event.GetKeyCode())
 	{
 	case SUNNY_KEY_LEFT:
-		m_timeTable->SetPosition(maths::vec2(m_timeTable->GetPosition().x - 1, m_timeTable->GetPosition().y));
+		m_logo->SetPosition(maths::vec2(m_logo->GetPosition().x - 1, m_logo->GetPosition().y));
 		break;
 	case SUNNY_KEY_RIGHT:
-		m_timeTable->SetPosition(maths::vec2(m_timeTable->GetPosition().x + 1, m_timeTable->GetPosition().y));
+		m_logo->SetPosition(maths::vec2(m_logo->GetPosition().x + 1, m_logo->GetPosition().y));
 		break;
 	case SUNNY_KEY_UP:
-		m_timeTable->SetPosition(maths::vec2(m_timeTable->GetPosition().x , m_timeTable->GetPosition().y + 1));
+		m_logo->SetPosition(maths::vec2(m_logo->GetPosition().x , m_logo->GetPosition().y + 1));
 		break;
 	case SUNNY_KEY_DOWN:
-		m_timeTable->SetPosition(maths::vec2(m_timeTable->GetPosition().x, m_timeTable->GetPosition().y - 1));
+		m_logo->SetPosition(maths::vec2(m_logo->GetPosition().x, m_logo->GetPosition().y - 1));
 		break;
 	}
 
 
 	return false;
+}
+
+void TestLayer2D::ButtonEvent1()
+{
+	m_layers[m_layerIndex]->SetVisible(false);
+	m_layers[m_layerIndex]->SetActive(false);
+	m_layerIndex = m_layerIndex == 0 ? 1 : 0;
+	m_layers[m_layerIndex]->SetVisible(true);
+	m_layers[m_layerIndex]->SetActive(true);
 }
