@@ -180,6 +180,27 @@
     <ClCompile Include="graphics\meshs\AnimationMesh.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="dependency\freetype\freetype-gl\platform.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="dependency\freetype\freetype-gl\texture-atlas.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="dependency\freetype\freetype-gl\texture-font.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="dependency\freetype\freetype-gl\vector.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\fonts\Font.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\fonts\FontManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\Label.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\Application.h">
@@ -378,6 +399,36 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="graphics\meshs\MeshFactory.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="dependency\freetype\freetype-gl\common.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="dependency\freetype\freetype-gl\freetype-gl.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="dependency\freetype\freetype-gl\platform.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="dependency\freetype\freetype-gl\texture-atlas.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="dependency\freetype\freetype-gl\texture-font.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="dependency\freetype\freetype-gl\vec234.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="dependency\freetype\freetype-gl\vector.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\fonts\Font.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\fonts\FontManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Label.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

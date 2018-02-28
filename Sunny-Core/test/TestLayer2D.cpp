@@ -16,11 +16,16 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 	cout << "TestLayer::OnInit()" << endl;
 
 	m_timeTable = new Sprite(-5, -5, 3, 3, directx::Texture2D::CreateFromFIle("/textures/time.png"));
+	m_fps = new Label("fps", 15.7, 8.5, RGBA(1, 1, 1, 0.8));
+	m_fps->SetAlignment(Label::Alignment::RIGHT);
+	
 	Add(m_timeTable);
+	Add(m_fps);
 }
 
 void TestLayer2D::OnTick()
 {
+	m_fps->SetText(std::to_string(Application::GetApplication().GetFPS()) + "fps");
 	cout << "TestLayer::OnTick()" << endl;
 	std::cout << "TPS: " << Application::GetApplication().GetTPS() << std::endl;
 	std::cout << "FPS: " << Application::GetApplication().GetFPS() << std::endl;

@@ -22,6 +22,10 @@
     <ClCompile Include="app\Application.cpp" />
     <ClCompile Include="app\Input.cpp" />
     <ClCompile Include="app\Window.cpp" />
+    <ClCompile Include="dependency\freetype\freetype-gl\platform.c" />
+    <ClCompile Include="dependency\freetype\freetype-gl\texture-atlas.c" />
+    <ClCompile Include="dependency\freetype\freetype-gl\texture-font.c" />
+    <ClCompile Include="dependency\freetype\freetype-gl\vector.c" />
     <ClCompile Include="directx\BufferLayout.cpp" />
     <ClCompile Include="directx\Context.cpp" />
     <ClCompile Include="directx\IndexBuffer.cpp" />
@@ -42,6 +46,9 @@
     <ClCompile Include="graphics\cameras\MayaCamera.cpp" />
     <ClCompile Include="graphics\cameras\OrthographicCamera.cpp" />
     <ClCompile Include="graphics\Entity.cpp" />
+    <ClCompile Include="graphics\fonts\Font.cpp" />
+    <ClCompile Include="graphics\fonts\FontManager.cpp" />
+    <ClCompile Include="graphics\Label.cpp" />
     <ClCompile Include="graphics\layers\Layer.cpp" />
     <ClCompile Include="graphics\layers\Layer2D.cpp" />
     <ClCompile Include="graphics\layers\Layer3D.cpp" />
@@ -80,6 +87,13 @@
     <ClInclude Include="app\Input.h" />
     <ClInclude Include="app\Window.h" />
     <ClInclude Include="dependency\freeimage\x32\FreeImage.h" />
+    <ClInclude Include="dependency\freetype\freetype-gl\common.h" />
+    <ClInclude Include="dependency\freetype\freetype-gl\freetype-gl.h" />
+    <ClInclude Include="dependency\freetype\freetype-gl\platform.h" />
+    <ClInclude Include="dependency\freetype\freetype-gl\texture-atlas.h" />
+    <ClInclude Include="dependency\freetype\freetype-gl\texture-font.h" />
+    <ClInclude Include="dependency\freetype\freetype-gl\vec234.h" />
+    <ClInclude Include="dependency\freetype\freetype-gl\vector.h" />
     <ClInclude Include="directx\BufferLayout.h" />
     <ClInclude Include="directx\Common.h" />
     <ClInclude Include="directx\Context.h" />
@@ -99,6 +113,9 @@
     <ClInclude Include="events\KeyEvent.h" />
     <ClInclude Include="events\MouseEvent.h" />
     <ClInclude Include="events\ResizeEvent.h" />
+    <ClInclude Include="graphics\fonts\Font.h" />
+    <ClInclude Include="graphics\fonts\FontManager.h" />
+    <ClInclude Include="graphics\Label.h" />
     <ClInclude Include="graphics\meshs\AnimationMesh.h" />
     <ClInclude Include="graphics\cameras\Camera.h" />
     <ClInclude Include="graphics\cameras\FPSCamera.h" />
@@ -226,6 +243,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\adunstudio\Desktop\Sunny\Sunny-Core\dependency\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -241,11 +259,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\adunstudio\Desktop\Sunny\Sunny-Core\dependency\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -258,6 +277,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\adunstudio\Desktop\Sunny\Sunny-Core\dependency\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -277,14 +297,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\adunstudio\Desktop\Sunny\Sunny-Core\dependency\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

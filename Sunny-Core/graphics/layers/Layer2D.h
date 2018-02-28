@@ -7,6 +7,7 @@
 #include "../renderables/Renderable2D.h"
 #include "../Mask.h"
 #include "../Sprite.h"
+#include "../Label.h"
 #include "../../utils/Timestep.h"
 #include "../cameras/OrthographicCamera.h"
 

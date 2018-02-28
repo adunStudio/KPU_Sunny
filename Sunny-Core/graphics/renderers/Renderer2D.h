@@ -6,6 +6,7 @@
 #include "../Mask.h"
 #include "../cameras/Camera.h"
 #include "../shaders/ShaderFactory.h"
+#include "../fonts/FontManager.h"
 
 #include "../../directx/Renderer.h"
 #include "../../directx/VertexBuffer.h"
@@ -98,6 +99,8 @@ namespace sunny
 			void FillRect(float x, float y, float width, float height, const maths::vec4& color = maths::vec4(1, 1, 1, 1));
 			void FillRect(const maths::vec2& position, const maths::vec2& size, const maths::vec4& color = maths::vec4(1, 1, 1, 1));
 			void FillRect(const maths::Rectangle& rectangle, const maths::vec4& color = maths::vec4(1, 1, 1, 1));
+
+			void DrawString(const std::string& text, const maths::vec2& position, const Font& font = *FontManager::Get(), const maths::vec4 color = maths::vec4(1, 1, 1, 1));
 
 			inline void SetMask(const Mask* mask) { m_mask = mask; }
 

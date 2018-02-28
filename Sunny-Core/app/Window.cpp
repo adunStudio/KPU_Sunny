@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "../directx/Context.h"
 #include "../directx/Renderer.h"
+#include "../graphics/fonts/FontManager.h"
 
 EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 
@@ -44,6 +45,12 @@ namespace sunny
             // TODO: Debug System
             return;
         }
+
+		using namespace graphics;
+
+		FontManager::SetScale(maths::vec2(m_properties.width / 32.0f, m_properties.height / 18.0f));
+		FontManager::Add(new Font("consola", "graphics/fonts/default/consola.ttf", 32));
+		FontManager::Add(new Font("SourceSansPro", "graphics/fonts/default/SourceSansPro-Light.ttf", 32));
 
 		m_inputManager = new InputManager();
     }

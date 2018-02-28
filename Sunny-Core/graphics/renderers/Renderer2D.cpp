@@ -1,5 +1,7 @@
 #include "Renderer2D.h"
 
+#include "../../dependency/freetype/freetype-gl/freetype-gl.h"
+
 namespace sunny
 {
 	namespace graphics
@@ -550,6 +552,75 @@ namespace sunny
 		void Renderer2D::FillRect(const maths::Rectangle& rectangle, const maths::vec4& color)
 		{
 			FillRect(rectangle.GetMinimumBound(), rectangle.size * 2.0f, color);
+		}
+
+		void Renderer2D::DrawString(const std::string& text, const maths::vec2& position, const Font& font, const maths::vec4 color)
+		{
+			using namespace ftgl;
+
+			directx::Texture2D* texture = font.GetTexture();
+
+			float ts = SubmitTexture(texture);
+
+			const vec2& scale = font.GetScale();
+
+			float x = position.x;
+
+			texture_font_t* ftFont = font.GetFTFont();
+
+			for (unsigned int i = 0; i < text.length(); ++i)
+			{
+				char c = text[i];
+
+				texture_glyph_t* glyph = texture_font_get_glyph(ftFont, c);
+
+				if (glyph)
+				{
+					if (i > 0)
+					{
+						float kerning = texture_glyph_get_kerning(glyph, text[i - 1]);
+						x += kerning / scale.x;
+					}
+
+					float x0 = x + glyph->offset_x / scale.x;
+					float y0 = position.y + glyph->offset_y / scale.y;
+					float x1 = x0 + glyph->width  / scale.x;
+					float y1 = y0 - glyph->height / scale.y;
+
+					float u0 = glyph->s0;
+					float v0 = glyph->t0;
+					float u1 = glyph->s1;
+					float v1 = glyph->t1;
+
+					m_buffer->vertex = *m_transformationBack * maths::vec3(x0, y0, 0);
+					m_buffer->uv = vec2(u0, v0);
+					m_buffer->tid = ts;
+					m_buffer->color = color;
+					m_buffer++;
+
+					m_buffer->vertex = *m_transformationBack * maths::vec3(x0, y1, 0);
+					m_buffer->uv = vec2(u0, v1);
+					m_buffer->tid = ts;
+					m_buffer->color = color;
+					m_buffer++;
+
+					m_buffer->vertex = *m_transformationBack * maths::vec3(x1, y1, 0);
+					m_buffer->uv = vec2(u1, v1);
+					m_buffer->tid = ts;
+					m_buffer->color = color;
+					m_buffer++;
+
+					m_buffer->vertex = *m_transformationBack * maths::vec3(x1, y0, 0);
+					m_buffer->uv = vec2(u1, v0);
+					m_buffer->tid = ts;
+					m_buffer->color = color;
+					m_buffer++;
+
+					m_indexCount += 6;
+
+					x += glyph->advance_x / scale.x;
+				}
+			}
 		}
 	}
 }

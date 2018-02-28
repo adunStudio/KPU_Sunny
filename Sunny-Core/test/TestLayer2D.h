@@ -14,6 +14,8 @@ class TestLayer2D : public Layer2D
 private:
 	Sprite* m_timeTable;
 
+	Label*  m_fps;
+
 public:
 	TestLayer2D();
 	~TestLayer2D();
