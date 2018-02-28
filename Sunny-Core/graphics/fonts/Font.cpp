@@ -44,6 +44,7 @@ namespace sunny
 
 		maths::vec2 Font::GetOffsets(const std::string& text) const
 		{
+			
 			if (text.empty())
 				return maths::vec2(0.0f, 0.0f);
 

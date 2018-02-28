@@ -49,6 +49,7 @@ namespace sunny
 		using namespace graphics;
 
 		FontManager::SetScale(maths::vec2(m_properties.width / 32.0f, m_properties.height / 18.0f));
+		FontManager::Add(new Font("nanum", "graphics/fonts/default/NanumGothic.ttf", 32));
 		FontManager::Add(new Font("consola", "graphics/fonts/default/consola.ttf", 32));
 		FontManager::Add(new Font("SourceSansPro", "graphics/fonts/default/SourceSansPro-Light.ttf", 32));
 

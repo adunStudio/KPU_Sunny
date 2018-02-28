@@ -18,7 +18,7 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 	m_timeTable = new Sprite(-5, -5, 3, 3, directx::Texture2D::CreateFromFIle("/textures/time.png"));
 	m_fps = new Label("fps", 15.7, 8.5, RGBA(1, 1, 1, 0.8));
 	m_fps->SetAlignment(Label::Alignment::RIGHT);
-	
+
 	Add(m_timeTable);
 	Add(m_fps);
 }
