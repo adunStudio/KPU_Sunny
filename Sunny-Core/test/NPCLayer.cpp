@@ -12,16 +12,12 @@ NPCLayer::~NPCLayer()
 
 void NPCLayer::OnInit(Renderer3D& renderer)
 {
-	//Model* model = new Model("/suns/boss_idle.sun");
 	Model* model = new Model("/suns/npc_idle.sun");
-	//Model* cube = ;
 	
 	Texture2D* texture = Texture2D::CreateFromFIle("/textures/npc_idle.png");
 	
-	// TRS
 	mat4 position = mat4::Identity() * mat4::Translate(vec3(0, 0, 0)) * mat4::Rotate(-90, vec3(1, 0, 0)) * mat4::Scale(vec3(0.1, 0.1, 0.1)) ;
 
-	
 	m_entity = new Entity(model->GetMesh(), texture, position);
 
 	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 1), mat4::Identity());
