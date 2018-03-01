@@ -85,7 +85,7 @@ namespace sunny
 
 			bool Panel::OnMousePressedEvent(events::MousePressedEvent& e)
 			{
-				maths::vec2 mouse(e.GetX() * (32.0f / Window::GetWindowClass(nullptr)->GetWidth()) - 16.0f, 18.0f - e.GetY() * (18.0f / Window::GetWindowClass(nullptr)->GetHeight()) - 9.0f);
+				maths::vec2 mouse(e.GetX(), Window::GetWindowClass(nullptr)->GetHeight() - e.GetY());
 
 				for (unsigned int i = 0; i < m_widgets.size(); ++i)
 				{
@@ -103,7 +103,7 @@ namespace sunny
 
 			bool Panel::OnMouseReleasedEvent(events::MouseReleasedEvent& e)
 			{
-				maths::vec2 mouse(e.GetX() * (32.0f / Window::GetWindowClass(nullptr)->GetWidth()) - 16.0f, 18.0f - e.GetY() * (18.0f / Window::GetWindowClass(nullptr)->GetHeight()) - 9.0f);
+				maths::vec2 mouse(e.GetX(), Window::GetWindowClass(nullptr)->GetHeight() - e.GetY());
 
 				for (unsigned int i = 0; i < m_widgets.size(); ++i)
 				{

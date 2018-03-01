@@ -1,7 +1,7 @@
 #include "TestLayer2D.h"
 
 TestLayer2D::TestLayer2D()
-: Layer2D(maths::mat4::Orthographic(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f))
+: Layer2D(maths::mat4::Orthographic(0.0f, Application::GetApplication().GetWindowWidth(), 0.0f, Application::GetApplication().GetWindowHeight(), -1.0f, 1.0f))
 {
 
 }
@@ -13,6 +13,9 @@ TestLayer2D::~TestLayer2D()
 
 void TestLayer2D::OnInit(Renderer2D& renderer)
 {
+	int windowWidth =  Application::GetApplication().GetWindowWidth();
+	int windowHeight = Application::GetApplication().GetWindowHeight();
+
 	m_layerIndex = 0;
 
 	m_layers.push_back(new NPCLayer());
@@ -24,24 +27,27 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 	Application::GetApplication().PushLayer(m_layers[0]);
 	Application::GetApplication().PushLayer(m_layers[1]);
 	
-	m_panel = new Panel();
-	
-	m_logo = new Sprite(-5, -5, 5, 2.5, directx::Texture2D::CreateFromFIle("/textures/logo.png"));
-	m_fps = new Label("fps", 15.7, 8.5, RGBA(1, 1, 1, 0.8));
+	m_logo  = new Sprite(230, 368/4 + 520, 1037/4, 368/4, directx::Texture2D::CreateFromFIle("/textures/logo.png"));
+	m_fps   = new Label("fps", windowWidth - 5,  windowHeight - 15, RGBA(1, 1, 1, 0.8));
 	m_fps->SetAlignment(Label::Alignment::RIGHT);
-
 	
-	Button* button = new Button("Test Button", maths::Rectangle(-14.83, -7.8, 1, 1));
+	m_panel = new Panel();
+	Slider* slider = new Slider(maths::Rectangle(200, 200, 30, 100), true);
+	Button* button = new Button("Test Button", maths::Rectangle(40, 40, 20, 20));
 
 	button->SetAction([&]() {
-		ButtonEvent1();
+		//ButtonEvent1();
+		m_layers[m_layerIndex]->SetVisible(false);
+		m_layers[m_layerIndex]->SetActive(false);
+		m_layerIndex = m_layerIndex == 0 ? 1 : 0;
+		m_layers[m_layerIndex]->SetVisible(true);
+		m_layers[m_layerIndex]->SetActive(true);
 	});
 
 	Add(m_logo);
-
 	Add(m_fps);
 	m_panel->Add(button);
-
+	m_panel->Add(slider);
 }
 
 void TestLayer2D::OnTick()

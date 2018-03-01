@@ -11,7 +11,7 @@ namespace sunny
 			Button::Button(const std::string& label, const maths::Rectangle& bounds, const ActionHandler handler)
 			: Widget(bounds), m_label(label), m_actionHandler(handler), m_state(ButtonState::UNPRESSED)
 			{
-				m_font = FontManager::Get();
+				m_font = FontManager::Get(16);
 			}
 
 			bool Button::OnMousePressed(events::MousePressedEvent& e)
@@ -33,8 +33,8 @@ namespace sunny
 
 			bool Button::OnMouseMoved(events::MouseMovedEvent& e)
 			{
-				maths::vec2 mouse(e.GetX() * (32.0f / Window::GetWindowClass(nullptr)->GetWidth()), 18.0f - e.GetY() * (18.0f / Window::GetWindowClass(nullptr)->GetHeight()));
-			
+				maths::vec2 mouse(e.GetX(), Window::GetWindowClass(nullptr)->GetHeight() - e.GetY());
+
 				if (m_state == ButtonState::PRESSED && !m_bounds.Contains(mouse))
 					m_state = ButtonState::UNPRESSED;
 
@@ -55,6 +55,7 @@ namespace sunny
 			{
 				renderer.DrawRect(m_bounds);
 				renderer.FillRect(m_bounds, m_state == ButtonState::PRESSED ? RGBA(0.81f, 0.73f, 0.94f, 1) : RGBA(0.81f, 0.37f, 0.37f, 1));
+				renderer.DrawString(m_label, m_bounds.position - maths::vec2(m_bounds.width, m_font->GetHeight(m_label) * 0.5f), *m_font);
 			}
 		}
 	}

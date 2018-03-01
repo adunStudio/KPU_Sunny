@@ -89,8 +89,8 @@ namespace sunny
 			void Present();
 
 			// 그리기 연산
-			void DrawLine(float x0, float y0, float x1, float y1, const maths::vec4& color = maths::vec4(1, 1, 1, 1), float thickness = 0.02f);
-			void DrawLine(const maths::vec2& start, const maths::vec2& end, const maths::vec4& color = maths::vec4(1, 1, 1, 1), float thickness = 0.02f);
+			void DrawLine(float x0, float y0, float x1, float y1, const maths::vec4& color = maths::vec4(1, 1, 1, 1), float thickness = 1.0f);
+			void DrawLine(const maths::vec2& start, const maths::vec2& end, const maths::vec4& color = maths::vec4(1, 1, 1, 1), float thickness = 1.0f);
 			
 			void DrawRect(float x, float y, float width, float height, const maths::vec4& color = maths::vec4(1, 1, 1, 1));
 			void DrawRect(const maths::vec2& position, const maths::vec2& size, const maths::vec4& color = maths::vec4(1, 1, 1, 1));

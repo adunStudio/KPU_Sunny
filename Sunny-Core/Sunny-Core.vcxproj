@@ -68,6 +68,7 @@
     <ClCompile Include="graphics\TextureManager.cpp" />
     <ClCompile Include="graphics\ui\Button.cpp" />
     <ClCompile Include="graphics\ui\Panel.cpp" />
+    <ClCompile Include="graphics\ui\Slider.cpp" />
     <ClCompile Include="graphics\ui\Widget.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="maths\AABB.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="graphics\TextureManager.h" />
     <ClInclude Include="graphics\ui\Button.h" />
     <ClInclude Include="graphics\ui\Panel.h" />
+    <ClInclude Include="graphics\ui\Slider.h" />
     <ClInclude Include="graphics\ui\Widget.h" />
     <ClInclude Include="maths\AABB.h" />
     <ClInclude Include="maths\mat4.h" />

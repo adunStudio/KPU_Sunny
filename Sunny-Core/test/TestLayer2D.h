@@ -5,6 +5,7 @@
 #include "../app/Application.h"
 #include "../graphics/ui/Panel.h"
 #include "../graphics/ui/Button.h"
+#include "../graphics/ui/Slider.h"
 
 #include "NPCLayer.h"
 #include "BossLayer.h"

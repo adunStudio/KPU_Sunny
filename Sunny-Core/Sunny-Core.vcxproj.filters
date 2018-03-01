@@ -213,6 +213,9 @@
     <ClCompile Include="test\BossLayer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="graphics\ui\Slider.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\Application.h">
@@ -453,6 +456,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="test\BossLayer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\ui\Slider.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

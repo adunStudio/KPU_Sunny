@@ -14,7 +14,7 @@ namespace sunny
 			float aspect = width / height;
 
 			//m_camera = new OrthographicCamera(maths::mat4::Orthographic(-10.0f * aspect, 10.0f * aspect, -10.0f, 10.0f, -1.0f, 1.0f));
-			m_camera = new OrthographicCamera(maths::mat4::Orthographic(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
+			m_camera = new OrthographicCamera(maths::mat4::Orthographic(0.0f, width, 0, height, -1.0f, 1.0f));
 			m_renderer = new Renderer2D(width, height);
 			
 			m_renderer->SetCamera(m_camera);
