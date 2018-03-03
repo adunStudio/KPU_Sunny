@@ -40,6 +40,9 @@ namespace sunny
     Window::Window(const std::string title, const WindowProperties& properties)
             : m_title(title), m_properties(properties), m_handle(nullptr), m_closed(false)
     {
+		m_resolutionWidth  = m_properties.width ;
+		m_resolutionHeight = m_properties.height;
+
         if(!Init())
         {
             // TODO: Debug System

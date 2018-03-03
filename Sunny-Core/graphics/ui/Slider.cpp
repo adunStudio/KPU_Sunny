@@ -22,7 +22,10 @@ namespace sunny
 
 			bool Slider::OnMousePressed(events::MousePressedEvent&  e)
 			{
-				maths::vec2 mouse(e.GetX(), Window::GetWindowClass(nullptr)->GetHeight() - e.GetY());
+				float scaleX = Window::GetWindowClass()->GetResolutionWidth()  / Window::GetWindowClass()->GetWidth();
+				float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
+
+				maths::vec2 mouse(e.GetX() * scaleX, (Window::GetWindowClass()->GetHeight() - e.GetY()) * scaleY);
 
 				if (m_headBounds.Contains(mouse))
 				{
@@ -46,14 +49,17 @@ namespace sunny
 
 			bool Slider::OnMouseMoved(events::MouseMovedEvent&    e)
 			{
-				maths::vec2 mouse(e.GetX(), Window::GetWindowClass(nullptr)->GetHeight() - e.GetY());
+				float scaleX = Window::GetWindowClass()->GetResolutionWidth() / Window::GetWindowClass()->GetWidth();
+				float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
+
+				maths::vec2 mouse(e.GetX() * scaleX, (Window::GetWindowClass()->GetHeight() - e.GetY()) * scaleY);
 
 				if (m_state == SliderState::PRESSEDHEAD)
 				{
 					if (m_vertical)
-						SetValue((mouse.y - m_bounds.GetMinimumBound().y - m_headOffset - m_headBounds.height) / (m_bounds.GetMinimumBound().y));
+						SetValue((mouse.y - m_bounds.GetMinimumBound().y + m_headOffset) / (m_bounds.GetMaximumBound().y - m_bounds.GetMinimumBound().y));
 					else
-						SetValue((mouse.x - m_bounds.GetMinimumBound().x - m_headOffset - m_headBounds.width)  / (m_bounds.GetMinimumBound().x / 2));
+						SetValue((mouse.x - m_bounds.GetMinimumBound().x - m_headOffset) / (m_bounds.GetMaximumBound().x - m_bounds.GetMinimumBound().x));
 				}
 
 				return true;
@@ -67,7 +73,7 @@ namespace sunny
 				if (m_vertical)
 					m_headBounds.y = m_bounds.GetMinimumBound().y + m_headBounds.height + m_value * (m_bounds.height * 2.0f - m_headBounds.height * 2.0f);
 				else
-					m_headBounds.x = m_bounds.GetMinimumBound().x + m_headBounds.width + m_value * (m_bounds.width * 2.0f - m_headBounds.width * 2.0f);
+					m_headBounds.x = m_bounds.GetMinimumBound().x + m_headBounds.width  + m_value * (m_bounds.width  * 2.0f - m_headBounds.width * 2.0f);
 			}
 
 			void Slider::OnRender(Renderer2D& renderer)

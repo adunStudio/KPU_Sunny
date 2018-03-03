@@ -40,8 +40,11 @@ namespace sunny
 
 		InputManager* m_inputManager;
 
+		// ÇØ»óµµ
+		int m_resolutionWidth, m_resolutionHeight;
+
 	public:
-		static Window* GetWindowClass(void* handle);
+		static Window* GetWindowClass(void* handle = nullptr);
 
     private:
         bool Init();
@@ -56,8 +59,11 @@ namespace sunny
 
         void SetTitle(const std::string title);
 
-        inline int GetWidth()  const { return m_properties.width;  }
-        inline int GetHeight() const { return m_properties.height; }
+        inline float GetWidth()  const { return m_properties.width;  }
+        inline float GetHeight() const { return m_properties.height; }
+
+		inline float GetResolutionWidth()  const { return m_resolutionWidth;  }
+		inline float GetResolutionHeight() const { return m_resolutionHeight; }
 
 		void         SetVsnyc(bool enabled);
 		inline bool  GetVsnyc() const { return m_properties.vsync; }

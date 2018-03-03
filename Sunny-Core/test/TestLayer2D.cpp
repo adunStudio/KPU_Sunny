@@ -32,8 +32,8 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 	m_fps->SetAlignment(Label::Alignment::RIGHT);
 	
 	m_panel = new Panel();
-	Slider* slider = new Slider(maths::Rectangle(200, 200, 30, 100), true);
-	Slider* slider2 = new Slider(maths::Rectangle(340, 240, 100, 30), false);
+	Slider* slider = new Slider(maths::Rectangle(140, 400, 20, 300), true);
+	Slider* slider2 = new Slider(maths::Rectangle(540, 240, 100, 20), false);
 	Button* button = new Button("Test Button", maths::Rectangle(40, 40, 20, 20));
 
 	button->SetAction([&]() {

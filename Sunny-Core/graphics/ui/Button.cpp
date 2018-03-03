@@ -33,7 +33,10 @@ namespace sunny
 
 			bool Button::OnMouseMoved(events::MouseMovedEvent& e)
 			{
-				maths::vec2 mouse(e.GetX(), Window::GetWindowClass(nullptr)->GetHeight() - e.GetY());
+				float scaleX = Window::GetWindowClass()->GetResolutionWidth()  / Window::GetWindowClass()->GetWidth();
+				float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
+
+				maths::vec2 mouse(e.GetX() * scaleX, (Window::GetWindowClass()->GetHeight() - e.GetY()) * scaleY);
 
 				if (m_state == ButtonState::PRESSED && !m_bounds.Contains(mouse))
 					m_state = ButtonState::UNPRESSED;
@@ -48,7 +51,6 @@ namespace sunny
 
 			void Button::OnUpdate()
 			{
-
 			}
 
 			void Button::OnRender(Renderer2D& renderer)
