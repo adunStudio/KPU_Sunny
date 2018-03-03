@@ -33,6 +33,7 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 	
 	m_panel = new Panel();
 	Slider* slider = new Slider(maths::Rectangle(200, 200, 30, 100), true);
+	Slider* slider2 = new Slider(maths::Rectangle(340, 240, 100, 30), false);
 	Button* button = new Button("Test Button", maths::Rectangle(40, 40, 20, 20));
 
 	button->SetAction([&]() {
@@ -47,7 +48,9 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 	Add(m_logo);
 	Add(m_fps);
 	m_panel->Add(button);
+	m_panel->Add(slider2);
 	m_panel->Add(slider);
+
 }
 
 void TestLayer2D::OnTick()

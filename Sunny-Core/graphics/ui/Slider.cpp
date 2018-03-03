@@ -48,13 +48,12 @@ namespace sunny
 			{
 				maths::vec2 mouse(e.GetX(), Window::GetWindowClass(nullptr)->GetHeight() - e.GetY());
 
-				
 				if (m_state == SliderState::PRESSEDHEAD)
 				{
 					if (m_vertical)
-						SetValue((mouse.y - m_bounds.GetMinimumBound().y - m_headOffset) / (m_bounds.GetMaximumBound().y));
+						SetValue((mouse.y - m_bounds.GetMinimumBound().y - m_headOffset - m_headBounds.height) / (m_bounds.GetMinimumBound().y));
 					else
-						SetValue((mouse.x - m_bounds.GetMinimumBound().x - m_headOffset) / (m_bounds.GetMaximumBound().x));
+						SetValue((mouse.x - m_bounds.GetMinimumBound().x - m_headOffset - m_headBounds.width)  / (m_bounds.GetMinimumBound().x / 2));
 				}
 
 				return true;

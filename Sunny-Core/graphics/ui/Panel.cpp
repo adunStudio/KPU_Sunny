@@ -125,8 +125,7 @@ namespace sunny
 				{
 					Widget* widget = m_widgets[i];
 
-					if (widget->OnMouseMoved(e))
-						return true;
+					widget->OnMouseMoved(e);
 				}
 
 				return false;
