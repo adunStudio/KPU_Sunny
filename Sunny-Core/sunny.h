@@ -31,3 +31,6 @@
 // 함수를 바인딩한다.
 #define METHOD_1(x) std::bind(x, this, std::placeholders::_1)
 #define METHOD(x)   METHOD_1(x)
+
+// 캡쳐 람다식
+#define LAMBDA(x) [&](){ x(); }

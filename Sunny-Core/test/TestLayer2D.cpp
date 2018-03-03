@@ -36,14 +36,7 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 	Slider* slider2 = new Slider(maths::Rectangle(540, 240, 100, 20), false);
 	Button* button = new Button("Test Button", maths::Rectangle(40, 40, 20, 20));
 
-	button->SetAction([&]() {
-		//ButtonEvent1();
-		m_layers[m_layerIndex]->SetVisible(false);
-		m_layers[m_layerIndex]->SetActive(false);
-		m_layerIndex = m_layerIndex == 0 ? 1 : 0;
-		m_layers[m_layerIndex]->SetVisible(true);
-		m_layers[m_layerIndex]->SetActive(true);
-	});
+	button->SetAction(LAMBDA(this->ButtonEvent1));
 
 	Add(m_logo);
 	Add(m_fps);
