@@ -2,7 +2,7 @@
 
 #include "Widget.h"
 
-#include "../../app/Application.h"
+#include "../app/Application.h"
 
 namespace sunny
 {

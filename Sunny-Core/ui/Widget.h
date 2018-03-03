@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Panel.h"
-#include "../../maths/maths.h"
+#include "../maths/maths.h"
 
 namespace sunny
 {

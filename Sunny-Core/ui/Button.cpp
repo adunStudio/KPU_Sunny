@@ -1,6 +1,6 @@
 #include "Button.h"
 
-#include "../fonts/FontManager.h"
+#include "../graphics/fonts/FontManager.h"
 
 namespace sunny
 {

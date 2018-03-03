@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../sunny.h"
+#include "../sunny.h"
 #include "Widget.h"
 
 namespace sunny

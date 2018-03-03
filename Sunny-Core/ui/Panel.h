@@ -1,11 +1,7 @@
 #pragma once
 
-#include "../../sunny.h"
-
-//#include "../renderers/Renderer2D.h"
-//#include "../../maths/maths.h"
-//#include "../shaders/ShaderFactory.h"
-#include "../layers/Layer2D.h"
+#include "../sunny.h"
+#include "../graphics/layers/Layer2D.h"
 
 namespace sunny
 {
