@@ -67,6 +67,7 @@
     <ClCompile Include="graphics\Sprite.cpp" />
     <ClCompile Include="graphics\TextureManager.cpp" />
     <ClCompile Include="ui\Button.cpp" />
+    <ClCompile Include="ui\Dialog.cpp" />
     <ClCompile Include="ui\Panel.cpp" />
     <ClCompile Include="ui\Slider.cpp" />
     <ClCompile Include="ui\Widget.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="graphics\Sprite.h" />
     <ClInclude Include="graphics\TextureManager.h" />
     <ClInclude Include="ui\Button.h" />
+    <ClInclude Include="ui\Dialog.h" />
     <ClInclude Include="ui\Panel.h" />
     <ClInclude Include="ui\Slider.h" />
     <ClInclude Include="ui\Widget.h" />

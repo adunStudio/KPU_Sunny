@@ -32,18 +32,40 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 	m_fps->SetAlignment(Label::Alignment::RIGHT);
 	
 	m_panel = new Panel();
-	Slider* slider = new Slider(maths::Rectangle(140, 400, 10, 300), true);
-	Slider* slider2 = new Slider(maths::Rectangle(540, 240, 100, 10), false);
-	Button* button = new Button("Test Button", maths::Rectangle(40, 40, 20, 20));
-
+	
+	Button* button = new Button(" Change Button", maths::Rectangle(65, 25, 60, 20));
 	button->SetAction(LAMBDA(this->ButtonEvent1));
+
+	m_slider1 = new Slider(maths::Rectangle(20, 200, 10, 100), true);
+	m_slider2 = new Slider(maths::Rectangle(640, 25, 300, 20), false);
+
+	Dialog* dialog1 = new Dialog(maths::Rectangle(1150, 500, 100, 100), "   Basic Dialog", "Test");
+	dialog1->SetCloseAction([&, dialog1]() {
+		m_panel->Remove(dialog1);
+	});
+
+	std::vector<std::string> texts;
+	texts.push_back("Hello!");
+	texts.push_back("This is KPU Sunny Engine!");
+	texts.push_back("Sunny is designed who make");
+	texts.push_back("gradution project with DirectX 11");
+	texts.push_back("Thanks!");
+	texts.push_back(" ");
+	texts.push_back("Created By Adunstudio");
+
+	Dialog* dialog2 = new Dialog(maths::Rectangle(1000, 200, 125, 115), "   Sunny Game Engine", texts);
+	dialog2->SetCloseAction([&, dialog2]() {
+		m_panel->Remove(dialog2);
+	});
 
 	Add(m_logo);
 	Add(m_fps);
-	m_panel->Add(button);
-	m_panel->Add(slider2);
-	m_panel->Add(slider);
 
+	m_panel->Add(button);
+	m_panel->Add(m_slider1);
+	m_panel->Add(m_slider2);
+	m_panel->Add(dialog1);
+	m_panel->Add(dialog2);
 }
 
 void TestLayer2D::OnTick()
@@ -53,6 +75,20 @@ void TestLayer2D::OnTick()
 
 void TestLayer2D::OnUpdate(const utils::Timestep& ts)
 {
+	float length, frame;
+
+	if (dynamic_cast<NPCLayer*>(m_layers[m_layerIndex]))
+	{
+		length = dynamic_cast<NPCLayer*>(m_layers[m_layerIndex])->m_entity->GetMesh()->GetAnimationLength();
+		frame = dynamic_cast<NPCLayer*>(m_layers[m_layerIndex])->m_entity->GetMesh()->GetCurrentFrame();
+	}
+	else if (dynamic_cast<BossLayer*>(m_layers[m_layerIndex]))
+	{
+		length = dynamic_cast<BossLayer*>(m_layers[m_layerIndex])->m_entity->GetMesh()->GetAnimationLength();
+		frame = dynamic_cast<BossLayer*>(m_layers[m_layerIndex])->m_entity->GetMesh()->GetCurrentFrame();
+	}
+	
+	m_slider2->SetValue( frame / length);
 }
 
 void TestLayer2D::OnRender(Renderer2D& renderer)

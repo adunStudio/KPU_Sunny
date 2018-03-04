@@ -6,6 +6,7 @@
 #include "../ui/Panel.h"
 #include "../ui/Button.h"
 #include "../ui/Slider.h"
+#include "../ui/Dialog.h"
 
 #include "NPCLayer.h"
 #include "BossLayer.h"
@@ -24,10 +25,13 @@ private:
 	Label*  m_fps;
 
 	Panel* m_panel;
-
+	
 	std::vector<Layer*> m_layers;
 	
 	int m_layerIndex;
+
+	Slider* m_slider1;
+	Slider* m_slider2;
 
 public:
 	TestLayer2D();

@@ -42,6 +42,8 @@ namespace sunny
 
 			virtual inline unsigned int GetAnimationLength() const { return 0; }
 
+			virtual inline unsigned int GetCurrentFrame() const { return 0; };
+
 			virtual inline MESH_TYPE GetType() const { return MESH_TYPE::STATIC; };
 		};
 	}

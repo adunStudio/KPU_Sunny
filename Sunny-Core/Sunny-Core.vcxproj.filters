@@ -216,6 +216,9 @@
     <ClCompile Include="ui\Widget.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="ui\Dialog.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\Application.h">
@@ -459,6 +462,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ui\Widget.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\Dialog.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

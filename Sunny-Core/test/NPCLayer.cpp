@@ -24,7 +24,7 @@ void NPCLayer::OnInit(Renderer3D& renderer)
 	Entity* yAxis = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 1), mat4::Identity());
 	Entity* zAxis = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 1), mat4::Identity());
 
-	Entity* a = new Entity(MeshFactory::CreateQuad(0, 0, 10, 10), directx::Texture2D::CreateFromFIle("/textures/time.png"), mat4::Identity() );
+	Entity* a = new Entity(MeshFactory::CreateQuad(0, 0, 10, 20), directx::Texture2D::CreateFromFIle("/textures/time.jpg"), mat4::Identity() );
 
 	Add(xAxis);
 	Add(yAxis);
