@@ -12,7 +12,7 @@ BossLayer::~BossLayer()
 
 void BossLayer::OnInit(Renderer3D& renderer)
 {
-	Model* model1 = new Model("/suns/boss_idle.sun");
+	Model* model1 = new Model("/suns/boss_attack2.sun");
 	Model* model2 = new Model("/suns/boss_attack1.sun");
 	Model* model3 = new Model("/suns/boss_attack2.sun");
 	Model* model4 = new Model("/suns/boss_attack3.sun");

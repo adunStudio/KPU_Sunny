@@ -39,7 +39,7 @@ namespace sunny
 		{
 			const std::string ext = utils::SplitString(path, ".")[1];
 			
-			if (ext == "sun" || ext == "spm") { LoadSUN(path); return; }
+			if (ext == "sun") { LoadSUN(path); return; }
 			if (ext == "obj") { LoadOBJ(path); return; }
 
 			// Debug System
