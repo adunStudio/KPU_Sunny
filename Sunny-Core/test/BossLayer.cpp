@@ -12,29 +12,40 @@ BossLayer::~BossLayer()
 
 void BossLayer::OnInit(Renderer3D& renderer)
 {
-	//Model* model = new Model("/suns/boss_idle.sun");
-	Model* model = new Model("/suns/boss_idle.sun");
-	//Model* cube = ;
+	Model* model1 = new Model("/suns/boss_idle.sun");
+	Model* model2 = new Model("/suns/boss_attack1.sun");
+	Model* model3 = new Model("/suns/boss_attack2.sun");
+	Model* model4 = new Model("/suns/boss_attack3.sun");
 
 	Texture2D* texture = Texture2D::CreateFromFIle("/textures/boss.png");
 
 	// TRS
-	mat4 position = mat4::Identity() * mat4::Translate(vec3(0, 0, 0)) * mat4::Rotate(-90, vec3(1, 0, 0)) * mat4::Scale(vec3(0.1, 0.1, 0.1));
+	mat4 position = mat4::Identity()*mat4::Translate(vec3(0, 0, 0)) * mat4::Rotate(-90, vec3(1, 0, 0)) *mat4::Scale(vec3(0.1, 0.1, 0.1));
 
 
-	m_entity = new Entity(model->GetMesh(), texture, position);
+	Entity* e1 = new Entity(model1->GetMesh(), texture, position);
+	Entity* e2 = new Entity(model2->GetMesh(), texture, position);
+	Entity* e3 = new Entity(model3->GetMesh(), texture, position);
+	Entity* e4 = new Entity(model4->GetMesh(), texture, position);
+
+	m_entity = e1;
+
+	entities.push_back(e1);
+	entities.push_back(e2);
+	entities.push_back(e3);
+	entities.push_back(e4);
+
+
 
 	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 1), mat4::Identity());
 	Entity* yAxis = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 1), mat4::Identity());
 	Entity* zAxis = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 1), mat4::Identity());
 
-	Entity* a = new Entity(MeshFactory::CreateQuad(0, 0, 10, 10), directx::Texture2D::CreateFromFIle("/textures/time.png"), mat4::Identity());
 
 	Add(xAxis);
 	Add(yAxis);
 	Add(zAxis);
 
-	Add(a);
 	Add(m_entity);
 
 	//SetCamera(new FPSCamera(maths::mat4::Perspective(65.0f, 16.0f / 9.0f, 0.1f, 1000.0f)));
@@ -50,3 +61,7 @@ void BossLayer::OnUpdate(const utils::Timestep& ts)
 	m_entity->PlayAnimation();
 }
 
+void BossLayer::SetEntity(unsigned int index)
+{
+	
+}

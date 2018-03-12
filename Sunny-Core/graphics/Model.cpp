@@ -1,7 +1,7 @@
 #include "Model.h"
 
 #include "shaders/ShaderFactory.h"
-#include "../../system/VFS.h"
+#include "../system/VFS.h"
 
 template<>
 struct std::hash<sunny::graphics::Model::IndexSet>

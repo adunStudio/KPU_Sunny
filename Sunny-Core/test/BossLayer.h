@@ -15,6 +15,9 @@ class BossLayer : public Layer3D
 public:
 	Entity* m_entity;
 
+private:
+	std::vector<Entity*> entities;
+
 public:
 	BossLayer();
 	~BossLayer();
@@ -22,4 +25,6 @@ public:
 	void OnInit(Renderer3D& renderer) override;
 	void OnTick() override;
 	void OnUpdate(const utils::Timestep& ts) override;
+
+	void SetEntity(unsigned int index);
 };
