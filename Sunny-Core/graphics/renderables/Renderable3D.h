@@ -52,6 +52,10 @@ namespace sunny
 			void Rotate(float angle, const maths::vec3& axis);
 			void Scale(const maths::vec3& scale);
 
+			inline const maths::vec3& GetPosition() const { return m_position; }
+			inline const maths::mat4& GetRotation() const { return m_rotation; }
+			inline const maths::vec3& GetScale()    const { return m_scale;    }
+
 			virtual void Render() = 0;
 		};
 	}
