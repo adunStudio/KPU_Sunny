@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include "app/Application.h"
-#include "test/TestLayer2D.h"
-#include "test/ChessLayer.h"
+#include "game/TestLayer2D.h"
+#include "game/ChessLayer.h"
 
 using namespace sunny;
 using namespace graphics;

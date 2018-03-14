@@ -67,7 +67,7 @@
     <ClCompile Include="graphics\shaders\ShaderManager.cpp" />
     <ClCompile Include="graphics\Sprite.cpp" />
     <ClCompile Include="graphics\TextureManager.cpp" />
-    <ClCompile Include="test\ChessLayer.cpp" />
+    <ClCompile Include="game\ChessLayer.cpp" />
     <ClCompile Include="ui\Button.cpp" />
     <ClCompile Include="ui\Dialog.cpp" />
     <ClCompile Include="ui\Panel.cpp" />
@@ -83,9 +83,9 @@
     <ClCompile Include="maths\vec4.cpp" />
     <ClCompile Include="system\FileSystem.cpp" />
     <ClCompile Include="system\VFS.cpp" />
-    <ClCompile Include="test\BossLayer.cpp" />
-    <ClCompile Include="test\TestLayer2D.cpp" />
-    <ClCompile Include="test\NPCLayer.cpp" />
+    <ClCompile Include="game\BossLayer.cpp" />
+    <ClCompile Include="game\TestLayer2D.cpp" />
+    <ClCompile Include="game\NPCLayer.cpp" />
     <ClCompile Include="utils\LoadImage.cpp" />
     <ClCompile Include="utils\String.cpp" />
     <ClCompile Include="utils\Timer.cpp" />
@@ -149,7 +149,7 @@
     <ClInclude Include="graphics\shaders\Shaders.h" />
     <ClInclude Include="graphics\Sprite.h" />
     <ClInclude Include="graphics\TextureManager.h" />
-    <ClInclude Include="test\ChessLayer.h" />
+    <ClInclude Include="game\ChessLayer.h" />
     <ClInclude Include="ui\Button.h" />
     <ClInclude Include="ui\Dialog.h" />
     <ClInclude Include="ui\Panel.h" />
@@ -168,9 +168,9 @@
     <ClInclude Include="sunny.h" />
     <ClInclude Include="system\FileSystem.h" />
     <ClInclude Include="system\VFS.h" />
-    <ClInclude Include="test\TestLayer2D.h" />
-    <ClInclude Include="test\NPCLayer.h" />
-    <ClInclude Include="test\BossLayer.h" />
+    <ClInclude Include="game\TestLayer2D.h" />
+    <ClInclude Include="game\NPCLayer.h" />
+    <ClInclude Include="game\BossLayer.h" />
     <ClInclude Include="utils\LoadImage.h" />
     <ClInclude Include="utils\String.h" />
     <ClInclude Include="utils\Timer.h" />

@@ -153,9 +153,6 @@
     <ClCompile Include="graphics\Entity.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="test\TestLayer2D.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="graphics\renderables\Renderable3D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -198,12 +195,6 @@
     <ClCompile Include="graphics\Label.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="test\NPCLayer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="test\BossLayer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="ui\Button.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -222,7 +213,16 @@
     <ClCompile Include="graphics\Material.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="test\ChessLayer.cpp">
+    <ClCompile Include="game\BossLayer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="game\ChessLayer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="game\NPCLayer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="game\TestLayer2D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -398,9 +398,6 @@
     <ClInclude Include="graphics\Entity.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="test\TestLayer2D.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="graphics\renderables\Renderable3D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -452,12 +449,6 @@
     <ClInclude Include="graphics\Label.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="test\NPCLayer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="test\BossLayer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="ui\Button.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -476,7 +467,16 @@
     <ClInclude Include="graphics\Material.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="test\ChessLayer.h">
+    <ClInclude Include="game\BossLayer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="game\ChessLayer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="game\NPCLayer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="game\TestLayer2D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
