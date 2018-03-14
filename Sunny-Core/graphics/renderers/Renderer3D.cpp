@@ -78,6 +78,14 @@ namespace sunny
 			m_renderables.push_back(renderable);
 		}
 
+		void Renderer3D::SubmitLight(const LightSetup& lightSetup)
+		{
+			const auto& lights = lightSetup.GetLights();
+
+			for (unsigned int i = 0; i < lights.size(); ++i)
+				memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Lights], lights[i], sizeof(Light));
+		}
+
 		void Renderer3D::EndScene()
 		{
 

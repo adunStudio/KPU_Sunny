@@ -12,6 +12,14 @@ NPCLayer::~NPCLayer()
 
 void NPCLayer::OnInit(Renderer3D& renderer)
 {
+	LightSetup* lights = new LightSetup();
+	Light* light = new Light(vec3(0.8f));
+	
+	lights->Add(light);
+	
+	PushLightSetup(lights);
+
+
 	Model* model = new Model("/suns/npc_idle.sun");
 	
 

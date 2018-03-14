@@ -31,8 +31,14 @@ namespace sunny
 			int  m_renderFlags;
 			bool m_visible;
 
+			maths::vec3 m_position;
+			maths::mat4 m_rotation;
+			maths::vec3 m_scale;
+
 		protected:
 			Renderable3D();
+
+			void SetTransform();
 
 		public:
 
@@ -41,6 +47,10 @@ namespace sunny
 			inline const maths::mat4& GetTransform() const { return m_transform; }
 			inline const maths::vec4& GetColor()     const { return m_color;     }
 			inline const float& GetHasTexture() const { return m_texture ? 1.0f : 0.0f; }
+
+			void Translate(const maths::vec3& translation);
+			void Rotate(float angle, const maths::vec3& axis);
+			void Scale(const maths::vec3& scale);
 
 			virtual void Render() = 0;
 		};

@@ -54,6 +54,7 @@
     <ClCompile Include="graphics\layers\Layer3D.cpp" />
     <ClCompile Include="graphics\Light.cpp" />
     <ClCompile Include="graphics\LightSetup.cpp" />
+    <ClCompile Include="graphics\Material.cpp" />
     <ClCompile Include="graphics\meshs\AnimationMesh.cpp" />
     <ClCompile Include="graphics\meshs\Mesh.cpp" />
     <ClCompile Include="graphics\meshs\MeshFactory.cpp" />
@@ -66,6 +67,7 @@
     <ClCompile Include="graphics\shaders\ShaderManager.cpp" />
     <ClCompile Include="graphics\Sprite.cpp" />
     <ClCompile Include="graphics\TextureManager.cpp" />
+    <ClCompile Include="test\ChessLayer.cpp" />
     <ClCompile Include="ui\Button.cpp" />
     <ClCompile Include="ui\Dialog.cpp" />
     <ClCompile Include="ui\Panel.cpp" />
@@ -122,6 +124,7 @@
     <ClInclude Include="graphics\fonts\Font.h" />
     <ClInclude Include="graphics\fonts\FontManager.h" />
     <ClInclude Include="graphics\Label.h" />
+    <ClInclude Include="graphics\Material.h" />
     <ClInclude Include="graphics\meshs\AnimationMesh.h" />
     <ClInclude Include="graphics\cameras\Camera.h" />
     <ClInclude Include="graphics\cameras\FPSCamera.h" />
@@ -146,6 +149,7 @@
     <ClInclude Include="graphics\shaders\Shaders.h" />
     <ClInclude Include="graphics\Sprite.h" />
     <ClInclude Include="graphics\TextureManager.h" />
+    <ClInclude Include="test\ChessLayer.h" />
     <ClInclude Include="ui\Button.h" />
     <ClInclude Include="ui\Dialog.h" />
     <ClInclude Include="ui\Panel.h" />
@@ -180,7 +184,7 @@
     <ProjectGuid>{AAB474A1-A034-48B7-9834-E7EBD9703DB9}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>SunnyCore</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -199,13 +203,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -271,7 +275,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\adunstudio\Desktop\Sunny\Sunny-Core\dependency\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VC_SourcePath)dependency\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -310,7 +314,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\adunstudio\Desktop\Sunny\Sunny-Core\dependency\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VC_SourcePath)dependency\freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

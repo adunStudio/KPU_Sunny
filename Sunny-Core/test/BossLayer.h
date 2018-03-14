@@ -10,6 +10,8 @@ using namespace std;
 using namespace sunny;
 using namespace graphics;
 using namespace directx;
+using namespace events;
+
 class BossLayer : public Layer3D
 {
 public:
@@ -27,4 +29,8 @@ public:
 	void OnUpdate(const utils::Timestep& ts) override;
 
 	void SetEntity(unsigned int index);
+
+	void OnEvent(Event& event) override;
+
+	bool OnKeyPressedEvent(KeyPressedEvent& event);
 };

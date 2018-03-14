@@ -2,6 +2,7 @@
 
 #include "app/Application.h"
 #include "test/TestLayer2D.h"
+#include "test/ChessLayer.h"
 
 using namespace sunny;
 using namespace graphics;
@@ -10,7 +11,7 @@ using namespace directx;
 class Game : public Application
 {
 public:
-	Game() : Application("Sunny", { 1280, 720, false, true })
+	Game() : Application("Sunny", { 1280, 720, false, false })
 	{}
 
 	~Game()
@@ -25,6 +26,7 @@ public:
 		VFS::Get()->Mount("suns",     "resource/suns");
 
 		PushOverlay(new TestLayer2D());
+		//PushOverlay(new ChessLayer());
 	}
 };
 

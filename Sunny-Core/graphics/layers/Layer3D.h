@@ -7,6 +7,7 @@
 #include "../renderables/Renderable3D.h"
 #include "../Model.h"
 #include "../Entity.h"
+#include "../LightSetup.h"
 
 #include "../cameras/MayaCamera.h"
 #include "../cameras/FPSCamera.h"
@@ -23,6 +24,8 @@ namespace sunny
 			Camera* m_camera;
 
 			std::vector<Renderable3D*> m_renderables;
+
+			std::vector<LightSetup*> m_lightSetupStack;
 
 		protected:
 			Renderer3D* m_renderer;
@@ -42,6 +45,9 @@ namespace sunny
 
 			virtual void OnRender(Renderer3D& renderer);
 			void OnRender() override;
+
+			void PushLightSetup(LightSetup* lightSetup);
+			LightSetup* PopLightSetup();
 
 		protected:
 			bool OnResize(unsigned int whdith, unsigned int height) override;

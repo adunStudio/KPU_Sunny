@@ -63,6 +63,11 @@ namespace sunny
 			m_renderer->Begin();
 			m_renderer->BeginScene(m_camera);
 
+			for (LightSetup* lightSetup : m_lightSetupStack)
+			{
+				m_renderer->SubmitLight(*lightSetup);
+			}
+
 			for (Renderable3D* renderable : m_renderables)
 			{
 				m_renderer->Submit(renderable);
@@ -74,6 +79,19 @@ namespace sunny
 			m_renderer->Present();
 
 			OnRender(*m_renderer);
+		}
+
+		void Layer3D::PushLightSetup(LightSetup* lightSetup)
+		{
+			m_lightSetupStack.push_back(lightSetup);
+		}
+
+		LightSetup* Layer3D::PopLightSetup()
+		{
+			LightSetup* lightSetup = m_lightSetupStack.back();
+			m_lightSetupStack.pop_back();
+
+			return lightSetup;
 		}
 
 		bool Layer3D::OnResize(unsigned int width, unsigned int height)
