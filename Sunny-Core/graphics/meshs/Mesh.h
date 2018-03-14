@@ -32,7 +32,6 @@ namespace sunny
 
 		public:
 			Mesh(directx::VertexArray* vertexArray, directx::IndexBuffer* indexBuffer);
-			Mesh(directx::VertexArray* vertexArray, directx::IndexBuffer* indexBuffer, unsigned char animationLength);
 
 			virtual ~Mesh();
 
