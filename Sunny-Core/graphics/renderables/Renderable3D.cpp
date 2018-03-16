@@ -36,7 +36,21 @@ namespace sunny
 			SetTransform();
 		}
 
-		void Renderable3D::Scale(const maths::vec3& scale)
+		void Renderable3D::SetPosition(const maths::vec3& position)
+		{
+			m_position = position;
+
+			SetTransform();
+		}
+
+		void Renderable3D::SetRotation(const maths::mat4& rotation)
+		{
+			m_rotation = rotation;
+
+			SetTransform();
+		}
+
+		void Renderable3D::SetScale(const maths::vec3& scale)
 		{
 			m_scale = scale;
 

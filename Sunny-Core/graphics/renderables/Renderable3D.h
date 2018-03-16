@@ -50,7 +50,10 @@ namespace sunny
 
 			void Translate(const maths::vec3& translation);
 			void Rotate(float angle, const maths::vec3& axis);
-			void Scale(const maths::vec3& scale);
+
+			void SetPosition(const maths::vec3& position);
+			void SetRotation(const maths::mat4& rotation);
+			void SetScale(const maths::vec3& scale);
 
 			inline const maths::vec3& GetPosition() const { return m_position; }
 			inline const maths::mat4& GetRotation() const { return m_rotation; }

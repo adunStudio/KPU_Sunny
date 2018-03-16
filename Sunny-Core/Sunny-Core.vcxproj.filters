@@ -225,6 +225,15 @@
     <ClCompile Include="game\TestLayer2D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="ui\Progressbar.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\Terrain.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\MouseCursor.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\Application.h">
@@ -477,6 +486,18 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="game\TestLayer2D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\Progressbar.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\UIs.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Terrain.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\MouseCursor.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

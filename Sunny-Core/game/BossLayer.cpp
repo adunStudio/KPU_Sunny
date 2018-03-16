@@ -20,12 +20,13 @@ void BossLayer::OnInit(Renderer3D& renderer)
 	Texture2D* texture = Texture2D::CreateFromFIle("/textures/boss.png");
 
 	// TRS
-	mat4 position = mat4::Identity()*mat4::Translate(vec3(0, 0, 0)) * mat4::Rotate(-90, vec3(1, 0, 0)) *mat4::Scale(vec3(0.1, 0.1, 0.1));
+	mat4 position = mat4::Identity()*mat4::Translate(vec3(0, 0, 0)) * mat4::Rotate(-90, vec3(1, 0, 0))  *mat4::Scale(vec3(0.1, 0.1, 0.1));
 
 	Entity* e1 = new Entity(model1->GetMesh(), texture);
-	e1->Translate({ 0, 0, 0 });
+	e1->Translate({ 0, 10, 0 });
 	e1->Rotate(-90.f, vec3(1, 0, 0));
-	e1->Scale(vec3(0.1, 0.1, 0.1));
+	e1->Rotate(90.f, vec3(0, 0, 1));
+	e1->SetScale(vec3(0.1, 0.1, 0.1));
 
 	//Entity* e1 = new Entity(model1->GetMesh(), RGBA(1,1,0, 1), position);
 	Entity* e2 = new Entity(model2->GetMesh(), texture, position);
@@ -39,7 +40,8 @@ void BossLayer::OnInit(Renderer3D& renderer)
 	entities.push_back(e3);
 	entities.push_back(e4);
 
-
+	Entity* plane = new Entity(MeshFactory::CreatePlane(200, 200, vec3(0, 0, 1)), RGBA(0.1, 0.86, 0.1, 0.5), mat4::Identity());
+	Add(plane);
 
 	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 1), mat4::Identity());
 	Entity* yAxis = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 1), mat4::Identity());
@@ -80,21 +82,28 @@ void BossLayer::OnEvent(Event& event)
 
 bool BossLayer::OnKeyPressedEvent(KeyPressedEvent& event)
 {
-	switch (event.GetKeyCode())
+
+
+	if (event.GetKeyCode() == SUNNY_KEY_A)		m_entity->Translate(vec3(-2, 0, 0));
+	if (event.GetKeyCode() == SUNNY_KEY_D)		m_entity->Translate(vec3(2, 0, 0));
+	if (event.GetKeyCode() == SUNNY_KEY_W)		m_entity->Translate(vec3(0, 0, -2));
+	if (event.GetKeyCode() == SUNNY_KEY_S)		m_entity->Translate(vec3(0, 0, 2));
+
+	/*switch (event.GetKeyCode())
 	{
-	case SUNNY_KEY_LEFT:
+	case SUNNY_KEY_A:
 		m_entity->Translate(vec3(-2, 0, 0));
 		break;
-	case SUNNY_KEY_RIGHT:
+	case SUNNY_KEY_D:
 		m_entity->Translate(vec3(2, 0, 0));
 		break;
-	case SUNNY_KEY_UP:
+	case SUNNY_KEY_W:
 		m_entity->Translate(vec3(0, 0, -2));
 		break;
-	case SUNNY_KEY_DOWN:
+	case SUNNY_KEY_S:
 		m_entity->Translate(vec3(0, 0, 2));
 		break;
-	}
+	}*/
 
 	return false;
 }

@@ -59,6 +59,7 @@
     <ClCompile Include="graphics\meshs\Mesh.cpp" />
     <ClCompile Include="graphics\meshs\MeshFactory.cpp" />
     <ClCompile Include="graphics\Model.cpp" />
+    <ClCompile Include="graphics\MouseCursor.cpp" />
     <ClCompile Include="graphics\renderables\Renderable2D.cpp" />
     <ClCompile Include="graphics\renderables\Renderable3D.cpp" />
     <ClCompile Include="graphics\renderers\Renderer2D.cpp" />
@@ -66,11 +67,13 @@
     <ClCompile Include="graphics\shaders\ShaderFactory.cpp" />
     <ClCompile Include="graphics\shaders\ShaderManager.cpp" />
     <ClCompile Include="graphics\Sprite.cpp" />
+    <ClCompile Include="graphics\Terrain.cpp" />
     <ClCompile Include="graphics\TextureManager.cpp" />
     <ClCompile Include="game\ChessLayer.cpp" />
     <ClCompile Include="ui\Button.cpp" />
     <ClCompile Include="ui\Dialog.cpp" />
     <ClCompile Include="ui\Panel.cpp" />
+    <ClCompile Include="ui\Progressbar.cpp" />
     <ClCompile Include="ui\Slider.cpp" />
     <ClCompile Include="ui\Widget.cpp" />
     <ClCompile Include="main.cpp" />
@@ -140,6 +143,7 @@
     <ClInclude Include="graphics\layers\Layer.h" />
     <ClInclude Include="graphics\layers\Layer2D.h" />
     <ClInclude Include="graphics\Mask.h" />
+    <ClInclude Include="graphics\MouseCursor.h" />
     <ClInclude Include="graphics\renderables\Renderable2D.h" />
     <ClInclude Include="graphics\renderables\Renderable3D.h" />
     <ClInclude Include="graphics\renderers\Renderer2D.h" />
@@ -148,12 +152,15 @@
     <ClInclude Include="graphics\shaders\ShaderManager.h" />
     <ClInclude Include="graphics\shaders\Shaders.h" />
     <ClInclude Include="graphics\Sprite.h" />
+    <ClInclude Include="graphics\Terrain.h" />
     <ClInclude Include="graphics\TextureManager.h" />
     <ClInclude Include="game\ChessLayer.h" />
     <ClInclude Include="ui\Button.h" />
     <ClInclude Include="ui\Dialog.h" />
     <ClInclude Include="ui\Panel.h" />
+    <ClInclude Include="ui\Progressbar.h" />
     <ClInclude Include="ui\Slider.h" />
+    <ClInclude Include="ui\UIs.h" />
     <ClInclude Include="ui\Widget.h" />
     <ClInclude Include="maths\AABB.h" />
     <ClInclude Include="maths\mat4.h" />

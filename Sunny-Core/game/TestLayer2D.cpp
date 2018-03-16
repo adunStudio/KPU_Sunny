@@ -38,6 +38,11 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 
 	m_slider1 = new Slider(maths::Rectangle(20, 200, 10, 100), true);
 	m_slider2 = new Slider(maths::Rectangle(640, 25, 300, 20), false);
+	m_progressbar = new Progressbar(maths::Rectangle(640, 75, 300, 20));
+
+	m_progressbar->SetCallback([](float) {
+		//std::cout << "Complete" << std::endl;
+	});
 
 	Dialog* dialog1 = new Dialog(maths::Rectangle(1150, 500, 100, 100), "   Basic Dialog", "Test");
 	dialog1->SetCloseAction([&, dialog1]() {
@@ -66,6 +71,7 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 	m_panel->Add(m_slider2);
 	m_panel->Add(dialog1);
 	m_panel->Add(dialog2);
+	m_panel->Add(m_progressbar);
 }
 
 void TestLayer2D::OnTick()
@@ -88,7 +94,8 @@ void TestLayer2D::OnUpdate(const utils::Timestep& ts)
 		frame = dynamic_cast<BossLayer*>(m_layers[m_layerIndex])->m_entity->GetMesh()->GetCurrentFrame();
 	}
 	
-	m_slider2->SetValue( frame / length);
+	m_progressbar->SetValue((frame+1) / length);
+	m_slider2->SetValue( (frame+1) / length);
 }
 
 void TestLayer2D::OnRender(Renderer2D& renderer)
@@ -106,8 +113,8 @@ void TestLayer2D::OnEvent(Event& event)
 
 bool TestLayer2D::OnKeyPressedEvent(KeyPressedEvent& event)
 {
-	if (event.GetRepeat())
-		return false;
+	//if (event.GetRepeat())
+		//return false;
 
 	switch (event.GetKeyCode())
 	{

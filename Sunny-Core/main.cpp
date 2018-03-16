@@ -30,6 +30,25 @@ public:
 	}
 };
 
+#include <thread>
+
+int s_data;
+bool flag = false;
+
+void thread_recv()
+{
+	while (false == flag)
+		std::cout << "I receive [ " << s_data << " ] " << std::endl;
+}
+
+void thread_send()
+{
+	s_data = 999;
+	flag = true;
+	std::cout << "I havesent [ " << s_data << " ]" << std::endl;
+}
+
+
 int main()
 {
 	std::cout << "Hello, Sunny Project!" << std::endl;
@@ -38,6 +57,13 @@ int main()
 
 	game.Start();
 
-    return 0;
+	thread rt{ thread_recv };
+	thread st{ thread_send };
+	rt.join();
+	st.join();
+
+
+
+	return 0;
 }
 

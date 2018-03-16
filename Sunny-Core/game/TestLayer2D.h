@@ -3,10 +3,7 @@
 #include <iostream>
 #include "../graphics/layers/Layer2D.h"
 #include "../app/Application.h"
-#include "../ui/Panel.h"
-#include "../ui/Button.h"
-#include "../ui/Slider.h"
-#include "../ui/Dialog.h"
+#include "../ui/UIs.h"
 
 #include "NPCLayer.h"
 #include "BossLayer.h"
@@ -32,6 +29,8 @@ private:
 
 	Slider* m_slider1;
 	Slider* m_slider2;
+
+	Progressbar* m_progressbar;
 
 public:
 	TestLayer2D();

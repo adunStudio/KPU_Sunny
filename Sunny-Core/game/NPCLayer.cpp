@@ -20,7 +20,9 @@ void NPCLayer::OnInit(Renderer3D& renderer)
 	PushLightSetup(lights);
 
 
+	//Model* model = new Model("/suns/npc_idle.sun");
 	Model* model = new Model("/suns/npc_idle.sun");
+	//Model* model = new Model("/objs/Terrain.obj");
 	
 
 	Texture2D* texture = Texture2D::CreateFromFIle("/textures/npc_idle.png");
@@ -36,6 +38,9 @@ void NPCLayer::OnInit(Renderer3D& renderer)
 	Entity* a = new Entity(MeshFactory::CreateQuad(0, 0, 10, 20), directx::Texture2D::CreateFromFIle("/textures/time.jpg"), mat4::Identity());
 	Entity* b = new Entity(MeshFactory::CreateCube(20), directx::Texture2D::CreateFromFIle("/textures/time.jpg"), mat4::Identity() * mat4::Translate(maths::vec3(-20, 0, 0)));
 
+	
+
+
 	Add(xAxis);
 	Add(yAxis);
 	Add(zAxis);
@@ -44,6 +49,7 @@ void NPCLayer::OnInit(Renderer3D& renderer)
 	//Add(b);
 	Add(m_entity);
 	
+
 	//SetCamera(new FPSCamera(maths::mat4::Perspective(65.0f, 16.0f / 9.0f, 0.1f, 1000.0f)));
 }
 
