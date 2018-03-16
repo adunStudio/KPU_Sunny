@@ -12,6 +12,14 @@ BossLayer::~BossLayer()
 
 void BossLayer::OnInit(Renderer3D& renderer)
 {
+	
+	LightSetup* lights = new LightSetup();
+	Light* light = new Light(vec3(0.5, 0.5, 0.5), 1, vec4(1.f, 1.f, 1.f, 1.f));
+
+	lights->Add(light);
+
+	PushLightSetup(lights);
+
 	Model* model1 = new Model("/suns/boss_attack2.sun");
 	Model* model2 = new Model("/suns/boss_attack1.sun");
 	Model* model3 = new Model("/suns/boss_attack2.sun");

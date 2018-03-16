@@ -70,15 +70,19 @@ namespace sunny
 
 				data[0].position = maths::vec3(x, y, 0);
 				data[0].uv = maths::vec2(0, 1);
+				data[0].normal = maths::vec3(0, 1, 0);
 
 				data[1].position = maths::vec3(x + width, y, 0);
 				data[1].uv = maths::vec2(1, 1);
+				data[1].normal = maths::vec3(0, 1, 0);
 
 				data[2].position = maths::vec3(x + width, y + height, 0);
 				data[2].uv = maths::vec2(1, 0);
+				data[2].normal = maths::vec3(0, 1, 0);
 
 				data[3].position = maths::vec3(x, y + height, 0);
 				data[3].uv = maths::vec2(0, 0);
+				data[3].normal = maths::vec3(0, 1, 0);
 
 				directx::VertexBuffer* buffer = new directx::VertexBuffer();
 				buffer->SetData(sizeof(Vertex3D) * 4, data);
@@ -167,15 +171,19 @@ namespace sunny
 
 				data[0].position = maths::vec3(0, 0, 0);
 				data[0].uv = maths::vec2(0, 1);
+				data[0].normal = maths::vec3(0, 1, 1);
 
 				data[1].position = maths::vec3(15, 0, 0);
 				data[1].uv = maths::vec2(1, 1);
+				data[1].normal = maths::vec3(0, 1, 1);
 
 				data[2].position = maths::vec3(15, 0.1, 0);
 				data[2].uv = maths::vec2(1, 0);
+				data[2].normal = maths::vec3(0, 1, 1);
 
 				data[3].position = maths::vec3(0, 0.1, 0);
 				data[3].uv = maths::vec2(0, 0);
+				data[3].normal = maths::vec3(0, 1, 1);
 
 				directx::VertexBuffer* buffer = new directx::VertexBuffer();
 				buffer->SetData(sizeof(Vertex3D) * 4, data);
@@ -204,15 +212,19 @@ namespace sunny
 
 				data[0].position = maths::vec3(0, 0, 0);
 				data[0].uv = maths::vec2(0, 1);
+				data[0].normal = maths::vec3(0, 1, 1);
 
 				data[1].position = maths::vec3(0.1, 0, 0);
 				data[1].uv = maths::vec2(1, 1);
+				data[1].normal = maths::vec3(0, 1, 1);
 
 				data[2].position = maths::vec3(0.1, 15, 0);
 				data[2].uv = maths::vec2(1, 0);
+				data[2].normal = maths::vec3(0, 1, 1);
 
 				data[3].position = maths::vec3(0, 15, 0);
 				data[3].uv = maths::vec2(0, 0);
+				data[3].normal = maths::vec3(0, 1, 1);
 
 				directx::VertexBuffer* buffer = new directx::VertexBuffer();
 				buffer->SetData(sizeof(Vertex3D) * 4, data);
@@ -241,15 +253,19 @@ namespace sunny
 
 				data[0].position = maths::vec3(0, 0, 0);
 				data[0].uv = maths::vec2(0, 1);
+				data[0].normal = maths::vec3(0, 1, 1);
 
 				data[1].position = maths::vec3(0.1, 0, 0);
 				data[1].uv = maths::vec2(1, 1);
+				data[1].normal = maths::vec3(0, 1, 1);
 
 				data[2].position = maths::vec3(0.1, 0, 15);
 				data[2].uv = maths::vec2(1, 0);
+				data[2].normal = maths::vec3(0, 1, 1);
 
 				data[3].position = maths::vec3(0.1, 0, 15);
 				data[3].uv = maths::vec2(0, 0);
+				data[3].normal = maths::vec3(0, 1, 1);
 
 				directx::VertexBuffer* buffer = new directx::VertexBuffer();
 				buffer->SetData(sizeof(Vertex3D) * 4, data);

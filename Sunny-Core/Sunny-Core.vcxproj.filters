@@ -141,9 +141,6 @@
     <ClCompile Include="graphics\Model.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Light.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="graphics\LightSetup.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -232,6 +229,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="graphics\MouseCursor.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\Light.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -395,9 +395,6 @@
     <ClInclude Include="graphics\Model.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Light.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="graphics\LightSetup.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -498,6 +495,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="graphics\MouseCursor.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Light.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

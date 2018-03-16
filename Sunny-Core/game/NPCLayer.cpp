@@ -13,7 +13,7 @@ NPCLayer::~NPCLayer()
 void NPCLayer::OnInit(Renderer3D& renderer)
 {
 	LightSetup* lights = new LightSetup();
-	Light* light = new Light(vec3(0.8f));
+	Light* light = new Light(vec3(0.5, 0.5, 0.5), 1, vec4(1.f, 1.f, 1.f, 1.f));
 	
 	lights->Add(light);
 	
