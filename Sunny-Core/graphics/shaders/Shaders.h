@@ -281,7 +281,7 @@ float4 PSMain(in VSOutput input) : SV_TARGET
 	float3 finalColor = CalcAmbient(normal, texColor.rgb);
 	finalColor += CalcDirectional(input.position, normal, texColor, input.cameraPosition);
 
-	return float4(finalColor, 1.0f);
+	return float4(finalColor, texColor.a);
 
 	//return texColor;
 })";

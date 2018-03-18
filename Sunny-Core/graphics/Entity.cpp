@@ -7,14 +7,14 @@ namespace sunny
 		Entity::Entity() : Renderable3D() {}
 
 		Entity::Entity(Mesh* mesh, directx::Texture2D* texture, const mat4& transform)
-		: Renderable3D(transform), m_frame(0)
+		: Renderable3D(transform), m_frame(0), m_materialInstance(nullptr)
 		{
 			m_mesh = mesh;
 			m_texture = texture;
 		}
 
 		Entity::Entity(Mesh* mesh, const maths::vec4& color, const mat4& transform)
-		: Renderable3D(transform), m_frame(0)
+		: Renderable3D(transform), m_frame(0), m_materialInstance(nullptr)
 		{
 			m_mesh = mesh;
 			m_color = color;

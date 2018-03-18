@@ -2,6 +2,7 @@
 
 #include "../../sunny.h"
 #include "../renderables/Renderable3D.h"
+#include "../Entity.h"
 #include "../cameras/Camera.h"
 #include "../LightSetup.h"
 #include "../../directx/Shader.h"
@@ -18,10 +19,22 @@ namespace sunny
 			unsigned char* value;
 		};
 
+		struct RenderCommand
+		{
+			Entity* entity;
+			maths::mat4 transform;
+			maths::vec4 color;
+			float hasTexture;
+			directx::Shader* shader;
+			std::vector<RendererUniform> uniforms;
+		};
+
 		class Renderer3D
 		{
 		private:
-			directx::Shader* m_shader;
+			directx::Shader* m_default_shader;
+
+			std::vector<RenderCommand> m_commandQueue;
 
 			std::vector<RendererUniform> m_sunnyUniforms;
 
@@ -46,6 +59,8 @@ namespace sunny
 			void Begin();
 			void BeginScene(Camera* camera);
 			void Submit(Renderable3D* renderable);
+			void Submit(const RenderCommand& command);
+			void SubmitEntity(Entity* entity);
 			void SubmitLight(const LightSetup& lightSetup);
 			void EndScene();
 			void End();
@@ -54,7 +69,7 @@ namespace sunny
 			inline const void SetScreenBufferSize(unsigned int width, unsigned int height) { m_screenBufferWidth = width; m_screenBufferHeight = height; }
 		
 		private:
-			void SetSunnyUniforms();
+			void SetSunnyUniforms(directx::Shader* shader);
 		};
 	}
 }

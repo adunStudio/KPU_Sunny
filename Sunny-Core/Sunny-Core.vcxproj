@@ -35,6 +35,7 @@
     <ClCompile Include="directx\ShaderUniform.cpp" />
     <ClCompile Include="directx\Texture2D.cpp" />
     <ClCompile Include="directx\Texture.cpp" />
+    <ClCompile Include="directx\TextureCube.cpp" />
     <ClCompile Include="directx\VertexArray.cpp" />
     <ClCompile Include="directx\VertexBuffer.cpp" />
     <ClCompile Include="events\Event.cpp" />
@@ -54,12 +55,14 @@
     <ClCompile Include="graphics\layers\Layer3D.cpp" />
     <ClCompile Include="graphics\Light.cpp" />
     <ClCompile Include="graphics\LightSetup.cpp" />
-    <ClCompile Include="graphics\Material.cpp" />
+    <ClCompile Include="graphics\materials\Material.cpp" />
+    <ClCompile Include="graphics\materials\MaterialInstance.cpp" />
+    <ClCompile Include="graphics\materials\PBRMaterial.cpp" />
+    <ClCompile Include="graphics\materials\PBRMaterialInstance.cpp" />
     <ClCompile Include="graphics\meshs\AnimationMesh.cpp" />
     <ClCompile Include="graphics\meshs\Mesh.cpp" />
     <ClCompile Include="graphics\meshs\MeshFactory.cpp" />
     <ClCompile Include="graphics\Model.cpp" />
-    <ClCompile Include="graphics\MouseCursor.cpp" />
     <ClCompile Include="graphics\renderables\Renderable2D.cpp" />
     <ClCompile Include="graphics\renderables\Renderable3D.cpp" />
     <ClCompile Include="graphics\renderers\Renderer2D.cpp" />
@@ -67,7 +70,6 @@
     <ClCompile Include="graphics\shaders\ShaderFactory.cpp" />
     <ClCompile Include="graphics\shaders\ShaderManager.cpp" />
     <ClCompile Include="graphics\Sprite.cpp" />
-    <ClCompile Include="graphics\Terrain.cpp" />
     <ClCompile Include="graphics\TextureManager.cpp" />
     <ClCompile Include="game\ChessLayer.cpp" />
     <ClCompile Include="ui\Button.cpp" />
@@ -115,6 +117,7 @@
     <ClInclude Include="directx\ShaderUniform.h" />
     <ClInclude Include="directx\Texture2D.h" />
     <ClInclude Include="directx\Texture.h" />
+    <ClInclude Include="directx\TextureCube.h" />
     <ClInclude Include="directx\VertexArray.h" />
     <ClInclude Include="directx\VertexBuffer.h" />
     <ClInclude Include="events\Event.h" />
@@ -127,7 +130,11 @@
     <ClInclude Include="graphics\fonts\Font.h" />
     <ClInclude Include="graphics\fonts\FontManager.h" />
     <ClInclude Include="graphics\Label.h" />
-    <ClInclude Include="graphics\Material.h" />
+    <ClInclude Include="graphics\materials\Material.h" />
+    <ClInclude Include="graphics\materials\MaterialInstance.h" />
+    <ClInclude Include="graphics\materials\Materials.h" />
+    <ClInclude Include="graphics\materials\PBRMaterial.h" />
+    <ClInclude Include="graphics\materials\PBRMaterialInstance.h" />
     <ClInclude Include="graphics\meshs\AnimationMesh.h" />
     <ClInclude Include="graphics\cameras\Camera.h" />
     <ClInclude Include="graphics\cameras\FPSCamera.h" />
@@ -143,7 +150,6 @@
     <ClInclude Include="graphics\layers\Layer.h" />
     <ClInclude Include="graphics\layers\Layer2D.h" />
     <ClInclude Include="graphics\Mask.h" />
-    <ClInclude Include="graphics\MouseCursor.h" />
     <ClInclude Include="graphics\renderables\Renderable2D.h" />
     <ClInclude Include="graphics\renderables\Renderable3D.h" />
     <ClInclude Include="graphics\renderers\Renderer2D.h" />
@@ -152,7 +158,6 @@
     <ClInclude Include="graphics\shaders\ShaderManager.h" />
     <ClInclude Include="graphics\shaders\Shaders.h" />
     <ClInclude Include="graphics\Sprite.h" />
-    <ClInclude Include="graphics\Terrain.h" />
     <ClInclude Include="graphics\TextureManager.h" />
     <ClInclude Include="game\ChessLayer.h" />
     <ClInclude Include="ui\Button.h" />

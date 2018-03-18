@@ -20,7 +20,7 @@ namespace sunny
 			delete m_camera;
 		}
 
-		Renderable3D* Layer3D::Add(Renderable3D* renderable)
+		Entity* Layer3D::Add(Entity* renderable)
 		{
 			m_renderables.push_back(renderable);
 
@@ -68,9 +68,9 @@ namespace sunny
 				m_renderer->SubmitLight(*lightSetup);
 			}
 
-			for (Renderable3D* renderable : m_renderables)
+			for (Entity* entity : m_renderables)
 			{
-				m_renderer->Submit(renderable);
+				m_renderer->SubmitEntity(entity);
 			}
 
 			m_renderer->EndScene();

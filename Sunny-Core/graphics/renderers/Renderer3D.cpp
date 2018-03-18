@@ -38,7 +38,9 @@ namespace sunny
 
 		void Renderer3D::Init()
 		{
-			m_shader = ShaderFactory::Default3DShader();
+			m_commandQueue.reserve(1000);
+
+			m_default_shader = ShaderFactory::Default3DShader();
 
 			m_VSSunnyUniformBufferSize = sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::vec3);
 			m_VSSunnyUniformBuffer = new unsigned char[m_VSSunnyUniformBufferSize];
@@ -63,6 +65,7 @@ namespace sunny
 		void Renderer3D::Begin()
 		{
 			//directx::Renderer::SetViewport(0, 0, m_screenBufferWidth, m_screenBufferHeight);
+			m_commandQueue.clear();
 			m_sunnyUniforms.clear();
 		}
 
@@ -78,9 +81,33 @@ namespace sunny
 			m_renderables.push_back(renderable);
 		}
 
+		void Renderer3D::Submit(const RenderCommand& command)
+		{
+			m_commandQueue.push_back(command);
+		}
+
+		void Renderer3D::SubmitEntity(Entity* entity)
+		{
+			RenderCommand command;
+			command.entity     = entity;
+			command.color      = entity->GetColor();
+			command.transform  = entity->GetTransform();
+			command.hasTexture = entity->GetHasTexture();
+			command.shader     = entity->GetShader() ? entity->GetShader() : m_default_shader;
+
+			Submit(command);
+		}
+
 		void Renderer3D::SubmitLight(const LightSetup& lightSetup)
 		{
 			const auto& lights = lightSetup.GetLights();
+
+			if (lights.size() != 1)
+			{
+				// debug system
+				std::cout << "one light is needed" << std::endl;
+				exit(1);
+			}
 
 			for (unsigned int i = 0; i < lights.size(); ++i)
 				memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Lights], lights[i], sizeof(Light));
@@ -100,27 +127,26 @@ namespace sunny
 		{
 			directx::Renderer::SetDepthTesting(true);
 			
-			m_shader->Bind();
-
-			for (unsigned int i = 0; i < m_renderables.size(); ++i)
+			for (unsigned int i = 0; i < m_commandQueue.size(); ++i)
 			{
-				memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &m_renderables[i]->GetTransform() , sizeof(maths::mat4));
-				memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Color]      , &m_renderables[i]->GetColor()     , sizeof(maths::vec4));
-				float hasTexture = m_renderables[i]->GetHasTexture();
-				memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_HasTexture], &hasTexture, sizeof(float));
+				RenderCommand& command = m_commandQueue[i];
 
-				SetSunnyUniforms();
+				memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
+				memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Color], &command.color, sizeof(maths::vec4));
+				memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_HasTexture], &command.hasTexture, sizeof(float));
+			
+				command.shader->Bind();
 
-				m_renderables[i]->Render();
+				SetSunnyUniforms(command.shader);
+
+				command.entity->Render();
 			}
-
-			m_renderables.clear();
 		}
 
-		void Renderer3D::SetSunnyUniforms()
+		void Renderer3D::SetSunnyUniforms(directx::Shader* shader)
 		{
-			m_shader->SetVSSystemUniformBuffer(m_VSSunnyUniformBuffer, m_VSSunnyUniformBufferSize, 0);
-			m_shader->SetPSSystemUniformBuffer(m_PSSunnyUniformBuffer, m_PSSunnyUniformBufferSize, 0);
+			shader->SetVSSystemUniformBuffer(m_VSSunnyUniformBuffer, m_VSSunnyUniformBufferSize, 0);
+			shader->SetPSSystemUniformBuffer(m_PSSunnyUniformBuffer, m_PSSunnyUniformBufferSize, 0);
 		}
 	}
 }

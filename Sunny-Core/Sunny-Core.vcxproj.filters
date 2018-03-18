@@ -207,9 +207,6 @@
     <ClCompile Include="ui\Dialog.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Material.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="game\BossLayer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -225,13 +222,22 @@
     <ClCompile Include="ui\Progressbar.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Terrain.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\MouseCursor.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="graphics\Light.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\materials\Material.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\materials\MaterialInstance.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\materials\PBRMaterial.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\materials\PBRMaterialInstance.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="directx\TextureCube.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -470,9 +476,6 @@
     <ClInclude Include="ui\Dialog.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Material.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="game\BossLayer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -491,13 +494,25 @@
     <ClInclude Include="ui\UIs.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Terrain.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\MouseCursor.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="graphics\Light.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\materials\Material.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\materials\MaterialInstance.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\materials\PBRMaterial.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\materials\PBRMaterialInstance.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\materials\Materials.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="directx\TextureCube.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
