@@ -57,13 +57,6 @@ int main()
 
 	game.Start();
 
-	thread rt{ thread_recv };
-	thread st{ thread_send };
-	rt.join();
-	st.join();
-
-
-
 	return 0;
 }
 

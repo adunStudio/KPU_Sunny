@@ -12,7 +12,12 @@ BossLayer::~BossLayer()
 
 void BossLayer::OnInit(Renderer3D& renderer)
 {
-	
+	ShaderManager::Add(Shader::CreateFromFile("basic_light", std::string("resource/hlsl/basic_light.hlsl")));
+	Material* lightMaterial = new Material(ShaderManager::Get("basic_light"));
+	MaterialInstance* lightMaterialInstance = new MaterialInstance(lightMaterial);
+
+
+
 	LightSetup* lights = new LightSetup();
 	Light* light = new Light(vec3(0.5, 0.5, 0.5), 1, vec4(1.f, 1.f, 1.f, 1.f));
 
@@ -20,33 +25,23 @@ void BossLayer::OnInit(Renderer3D& renderer)
 
 	PushLightSetup(lights);
 
-	Model* model1 = new Model("/suns/boss_attack2.sun");
-	Model* model2 = new Model("/suns/boss_attack1.sun");
-	Model* model3 = new Model("/suns/boss_attack2.sun");
-	Model* model4 = new Model("/suns/boss_attack3.sun");
+	Model* model = new Model("/suns/boss_attack2.sun");
+
 
 	Texture2D* texture = Texture2D::CreateFromFile("/textures/boss.png");
 
 	// TRS
 	mat4 position = mat4::Identity()*mat4::Translate(vec3(0, 0, 0)) * mat4::Rotate(-90, vec3(1, 0, 0))  *mat4::Scale(vec3(0.1, 0.1, 0.1));
 
-	Entity* e1 = new Entity(model1->GetMesh(), texture);
-	e1->Translate({ 0, 10, 0 });
-	e1->Rotate(-90.f, vec3(1, 0, 0));
-	e1->Rotate(90.f, vec3(0, 0, 1));
-	e1->SetScale(vec3(0.1, 0.1, 0.1));
+	m_entity = new Entity(model->GetMesh(), texture);
 
-	//Entity* e1 = new Entity(model1->GetMesh(), RGBA(1,1,0, 1), position);
-	Entity* e2 = new Entity(model2->GetMesh(), texture, position);
-	Entity* e3 = new Entity(model3->GetMesh(), texture, position);
-	Entity* e4 = new Entity(model4->GetMesh(), texture, position);
+	m_entity->SetMaterial(lightMaterialInstance);
+	m_entity->Translate({ 0, 10, 0 });
+	m_entity->Rotate(-90.f, vec3(1, 0, 0));
+	m_entity->Rotate(90.f, vec3(0, 0, 1));
+	m_entity->SetScale(vec3(0.1, 0.1, 0.1));
 
-	m_entity = e1;
 
-	entities.push_back(e1);
-	entities.push_back(e2);
-	entities.push_back(e3);
-	entities.push_back(e4);
 
 	Entity* plane = new Entity(MeshFactory::CreatePlane(200, 200, vec3(0, 0, 1)), RGBA(0.1, 0.86, 0.1, 0.5), mat4::Identity());
 	Add(plane);

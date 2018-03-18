@@ -521,4 +521,7 @@
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\hlsl\basic_light.hlsl" />
+  </ItemGroup>
 </Project>

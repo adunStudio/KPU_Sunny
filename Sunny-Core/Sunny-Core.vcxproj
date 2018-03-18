@@ -191,6 +191,9 @@
   <ItemGroup>
     <Image Include="resource\textures\time.PNG" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\hlsl\basic_light.hlsl" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{AAB474A1-A034-48B7-9834-E7EBD9703DB9}</ProjectGuid>

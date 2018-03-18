@@ -22,6 +22,9 @@ namespace sunny
 
 		void Entity::Render()
 		{
+			if (m_materialInstance)
+				m_materialInstance->Bind();
+
 			if (m_texture)
 				m_texture->Bind();
 
@@ -29,6 +32,9 @@ namespace sunny
 
 			if (m_texture)
 				m_texture->UnBind();
+
+			if (m_materialInstance)
+				m_materialInstance->UnBind();
 		}
 
 		void Entity::PlayAnimation()

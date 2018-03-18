@@ -8,7 +8,9 @@ namespace sunny
 		{
 			AllocateStorage();
 
-			memcpy(m_VSUserUniformBuffer, m_material->m_VSUserUniformBuffer, m_VSUserUniformBufferSize);
+			if (m_VSUserUniformBuffer)
+				memcpy(m_VSUserUniformBuffer, m_material->m_VSUserUniformBuffer, m_VSUserUniformBufferSize);
+			if (m_PSUserUniformBuffer)
 			memcpy(m_PSUserUniformBuffer, m_material->m_PSUserUniformBuffer, m_PSUserUniformBufferSize);
 
 			m_resources = &m_material->m_shader->GetResources();
@@ -75,6 +77,13 @@ namespace sunny
 
 		void MaterialInstance::AllocateStorage()
 		{
+			m_VSUserUniformBuffer = nullptr;
+			m_VSUserUniformBufferSize = 0;
+			m_PSUserUniformBuffer = nullptr;
+			m_PSUserUniformBufferSize = 0;
+			m_VSUserUniforms = nullptr;
+			m_PSUserUniforms = nullptr;
+
 			// 버텍스 상수 버퍼
 			const directx::ShaderUniformBufferDeclaration* vsBuffer = m_material->m_shader->GetVSUserUniformBuffer();
 			if (vsBuffer)
