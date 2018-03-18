@@ -13,10 +13,10 @@ namespace sunny
 		{
 		public:
 			static Texture2D* Create(unsigned int width, unsigned int height, TextureParameters parameters = TextureParameters(), TextureLoadOptions loadOptions = TextureLoadOptions());
-			static Texture2D* CreateFromFIle(const std::string& filepath, TextureParameters parameters = TextureParameters(), TextureLoadOptions loadOptions = TextureLoadOptions());
-			static Texture2D* CreateFromFIle(const std::string& filepath, TextureLoadOptions loadOptions);
-			static Texture2D* CreateFromFIle(const std::string& name, const std::string& filepath, TextureParameters parameters = TextureParameters(), TextureLoadOptions loadOptions = TextureLoadOptions());
-			static Texture2D* CreateFromFIle(const std::string& name, const std::string& filepath, TextureLoadOptions loadOptions);
+			static Texture2D* CreateFromFile(const std::string& filepath, TextureParameters parameters = TextureParameters(), TextureLoadOptions loadOptions = TextureLoadOptions());
+			static Texture2D* CreateFromFile(const std::string& filepath, TextureLoadOptions loadOptions);
+			static Texture2D* CreateFromFile(const std::string& name, const std::string& filepath, TextureParameters parameters = TextureParameters(), TextureLoadOptions loadOptions = TextureLoadOptions());
+			static Texture2D* CreateFromFile(const std::string& name, const std::string& filepath, TextureLoadOptions loadOptions);
 		
 			static Texture2D* FromFile(const std::string&  filepath);
 

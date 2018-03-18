@@ -11,22 +11,22 @@ namespace sunny
 			return new Texture2D(width, height, parameters, loadOptions);
 		}
 
-		Texture2D* Texture2D::CreateFromFIle(const std::string& filepath, TextureParameters parameters, TextureLoadOptions loadOptions)
+		Texture2D* Texture2D::CreateFromFile(const std::string& filepath, TextureParameters parameters, TextureLoadOptions loadOptions)
 		{
 			return new Texture2D(filepath, filepath, parameters, loadOptions);
 		}
 
-		Texture2D* Texture2D::CreateFromFIle(const std::string& filepath, TextureLoadOptions loadOptions)
+		Texture2D* Texture2D::CreateFromFile(const std::string& filepath, TextureLoadOptions loadOptions)
 		{
 			return new Texture2D(filepath, filepath, TextureParameters(), loadOptions);
 		}
 		
-		Texture2D* Texture2D::CreateFromFIle(const std::string& name, const std::string& filepath, TextureParameters parameters, TextureLoadOptions loadOptions)
+		Texture2D* Texture2D::CreateFromFile(const std::string& name, const std::string& filepath, TextureParameters parameters, TextureLoadOptions loadOptions)
 		{
 			return new Texture2D(name, filepath, parameters, loadOptions);
 		}
 		
-		Texture2D* Texture2D::CreateFromFIle(const std::string& name, const std::string& filepath, TextureLoadOptions loadOptions)
+		Texture2D* Texture2D::CreateFromFile(const std::string& name, const std::string& filepath, TextureLoadOptions loadOptions)
 		{
 			return new Texture2D(name, filepath, TextureParameters(), loadOptions);
 		}

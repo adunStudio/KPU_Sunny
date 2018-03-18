@@ -76,7 +76,7 @@ namespace sunny
 			if (height)
 				*height = h;
 			if (bits)
-				*bits = b;
+				*bits = b; // Returns the size of one pixel in the bitmap in bits.
 
 			unsigned int size = w * h * (b / 8);
 			

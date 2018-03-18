@@ -25,7 +25,7 @@ void BossLayer::OnInit(Renderer3D& renderer)
 	Model* model3 = new Model("/suns/boss_attack2.sun");
 	Model* model4 = new Model("/suns/boss_attack3.sun");
 
-	Texture2D* texture = Texture2D::CreateFromFIle("/textures/boss.png");
+	Texture2D* texture = Texture2D::CreateFromFile("/textures/boss.png");
 
 	// TRS
 	mat4 position = mat4::Identity()*mat4::Translate(vec3(0, 0, 0)) * mat4::Rotate(-90, vec3(1, 0, 0))  *mat4::Scale(vec3(0.1, 0.1, 0.1));
