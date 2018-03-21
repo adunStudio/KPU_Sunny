@@ -13,6 +13,7 @@ BossLayer::~BossLayer()
 void BossLayer::OnInit(Renderer3D& renderer)
 {
 	ShaderManager::Add(Shader::CreateFromFile("basic_light", std::string("resource/hlsl/basic_light.hlsl")));
+	
 	Material* lightMaterial = new Material(ShaderManager::Get("basic_light"));
 	MaterialInstance* lightMaterialInstance = new MaterialInstance(lightMaterial);
 
@@ -28,7 +29,7 @@ void BossLayer::OnInit(Renderer3D& renderer)
 	Model* model = new Model("/suns/boss_attack2.sun");
 
 
-	Texture2D* texture = Texture2D::CreateFromFile("/textures/boss.png");
+	Texture2D* texture = new Texture2D("/textures/boss.png");
 
 	// TRS
 	mat4 position = mat4::Identity()*mat4::Translate(vec3(0, 0, 0)) * mat4::Rotate(-90, vec3(1, 0, 0))  *mat4::Scale(vec3(0.1, 0.1, 0.1));
@@ -44,13 +45,11 @@ void BossLayer::OnInit(Renderer3D& renderer)
 
 
 	Entity* plane = new Entity(MeshFactory::CreatePlane(200, 200, vec3(0, 0, 1)), RGBA(0.1, 0.86, 0.1, 0.5), mat4::Identity());
-	Add(plane);
-
 	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 1), mat4::Identity());
 	Entity* yAxis = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 1), mat4::Identity());
 	Entity* zAxis = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 1), mat4::Identity());
 
-
+	Add(plane);
 	Add(xAxis);
 	Add(yAxis);
 	Add(zAxis);

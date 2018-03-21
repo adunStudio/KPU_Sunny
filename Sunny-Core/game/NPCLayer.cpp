@@ -13,7 +13,7 @@ NPCLayer::~NPCLayer()
 void NPCLayer::OnInit(Renderer3D& renderer)
 {
 	LightSetup* lights = new LightSetup();
-	Light* light = new Light(vec3(0.5, 0.5, 0.5), 1, vec4(1.f, 1.f, 1.f, 1.f));
+	Light* light = new Light(vec3(0.5, 0.5, 0.5), 10, vec4(1.f, 1.f, 1.f, 1.f));
 	
 	lights->Add(light);
 	
@@ -25,7 +25,7 @@ void NPCLayer::OnInit(Renderer3D& renderer)
 	//Model* model = new Model("/objs/Terrain.obj");
 	
 
-	Texture2D* texture = Texture2D::CreateFromFile("/textures/npc_idle.png");
+	Texture2D* texture = new Texture2D("/textures/npc_idle.png");
 	
 	mat4 position = mat4::Identity() * mat4::Translate(vec3(0, 0, 0)) * mat4::Rotate(-90, vec3(1, 0, 0)) * mat4::Scale(vec3(0.1, 0.1, 0.1));
 
@@ -35,8 +35,8 @@ void NPCLayer::OnInit(Renderer3D& renderer)
 	Entity* yAxis = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 1), mat4::Identity());
 	Entity* zAxis = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 1), mat4::Identity());
 
-	Entity* a = new Entity(MeshFactory::CreateQuad(0, 0, 10, 20), directx::Texture2D::CreateFromFile("/textures/time.jpg"), mat4::Identity());
-	Entity* b = new Entity(MeshFactory::CreateCube(20), directx::Texture2D::CreateFromFile("/textures/time.jpg"), mat4::Identity() * mat4::Translate(maths::vec3(-20, 0, 0)));
+	Entity* a = new Entity(MeshFactory::CreateQuad(0, 0, 10, 20), new Texture2D("/textures/time.jpg"), mat4::Identity());
+	Entity* b = new Entity(MeshFactory::CreateCube(20), new Texture2D("/textures/time.jpg"), mat4::Identity() * mat4::Translate(maths::vec3(-20, 0, 0)));
 
 	
 
@@ -46,7 +46,7 @@ void NPCLayer::OnInit(Renderer3D& renderer)
 	Add(zAxis);
 
 	Add(a);
-	//Add(b);
+	Add(b);
 	Add(m_entity);
 	
 

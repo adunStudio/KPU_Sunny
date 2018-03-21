@@ -9,8 +9,8 @@ ChessLayer::ChessLayer()
 
 	m_board[3][3] = KNIGHT;
 
-	m_knight = new Sprite(0, 0, 45, 45, directx::Texture2D::CreateFromFile("/textures/knight.png"));
-	Add(new Sprite(360, 360, 360, 360, directx::Texture2D::CreateFromFile("/textures/board.png")));
+	m_knight = new Sprite(0, 0, 45, 45, new directx::Texture2D("/textures/knight.png"));
+	Add(new Sprite(360, 360, 360, 360, new directx::Texture2D("/textures/board.png")));
 	Add(m_knight);
 }
 

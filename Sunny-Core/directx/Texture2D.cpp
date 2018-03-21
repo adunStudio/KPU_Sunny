@@ -64,6 +64,12 @@ namespace sunny
 			Load();
 		}
 
+		Texture2D::Texture2D(const std::string& filename, TextureParameters parameters, TextureLoadOptions loadOptions)
+		: m_fileName(filename), m_name(filename), m_parameters(parameters), m_loadOptions(loadOptions)
+		{
+			Load();
+		}
+
 		Texture2D::~Texture2D()
 		{
 
