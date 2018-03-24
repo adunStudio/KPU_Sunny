@@ -14,12 +14,11 @@ namespace sunny
 	namespace graphics
 	{
 		using namespace maths;
+		using namespace component;
 
 		class Entity : public Renderable3D
 		{
 		protected:
-			Entity();
-
 			unsigned int m_frame;
 			
 			MaterialInstance* m_materialInstance;
@@ -29,8 +28,8 @@ namespace sunny
 			Entity(Mesh* mesh, const maths::vec4& color = maths::vec4(1, 1, 1, 1), const mat4& transform = mat4::Identity());
 
 			inline Mesh* GetMesh() const { return m_mesh; }
-			inline const mat4& GetTransform() const { return m_transform; }
-
+			
+			inline TransformComponent* GetTransformComponent() { return GetComponent<TransformComponent>(); }
 
 			inline void SetMaterial(MaterialInstance* materialInstance) { m_materialInstance = materialInstance; }
 			inline MaterialInstance* GetMaterialInstance() const { return m_materialInstance; }

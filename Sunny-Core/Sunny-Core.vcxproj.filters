@@ -243,6 +243,12 @@
     <ClCompile Include="game\TestLayer3D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="component\Component.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="component\TransformComponent.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\Application.h">
@@ -519,6 +525,15 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="game\TestLayer3D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="component\Component.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="component\TransformComponent.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="component\Components.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

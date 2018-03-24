@@ -18,7 +18,6 @@ void BossLayer::OnInit(Renderer3D& renderer)
 	MaterialInstance* lightMaterialInstance = new MaterialInstance(lightMaterial);
 
 
-
 	LightSetup* lights = new LightSetup();
 	Light* light = new Light(vec3(0.5, 0.5, 0.5), 1, vec4(1.f, 1.f, 1.f, 1.f));
 
@@ -37,12 +36,11 @@ void BossLayer::OnInit(Renderer3D& renderer)
 	m_entity = new Entity(model->GetMesh(), texture);
 
 	m_entity->SetMaterial(lightMaterialInstance);
-	m_entity->Translate({ 0, 10, 0 });
-	m_entity->Rotate(-90.f, vec3(1, 0, 0));
-	m_entity->Rotate(90.f, vec3(0, 0, 1));
-	m_entity->SetScale(vec3(0.1, 0.1, 0.1));
-
-
+	
+	m_entity->GetTransformComponent()->Translate({ 0, 10, 0 });
+	m_entity->GetTransformComponent()->Rotate(-90.f, vec3(1, 0, 0));
+	m_entity->GetTransformComponent()->Rotate(90.f, vec3(0, 0, 1));
+	m_entity->GetTransformComponent()->SetScale(vec3(0.1, 0.1, 0.1));
 
 	Entity* plane = new Entity(MeshFactory::CreatePlane(200, 200, vec3(0, 0, 1)), RGBA(0.1, 0.86, 0.1, 0.5), mat4::Identity());
 	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 1), mat4::Identity());
@@ -84,28 +82,10 @@ void BossLayer::OnEvent(Event& event)
 
 bool BossLayer::OnKeyPressedEvent(KeyPressedEvent& event)
 {
-
-
-	if (event.GetKeyCode() == SUNNY_KEY_A)		m_entity->Translate(vec3(-2, 0, 0));
-	if (event.GetKeyCode() == SUNNY_KEY_D)		m_entity->Translate(vec3(2, 0, 0));
-	if (event.GetKeyCode() == SUNNY_KEY_W)		m_entity->Translate(vec3(0, 0, -2));
-	if (event.GetKeyCode() == SUNNY_KEY_S)		m_entity->Translate(vec3(0, 0, 2));
-
-	/*switch (event.GetKeyCode())
-	{
-	case SUNNY_KEY_A:
-		m_entity->Translate(vec3(-2, 0, 0));
-		break;
-	case SUNNY_KEY_D:
-		m_entity->Translate(vec3(2, 0, 0));
-		break;
-	case SUNNY_KEY_W:
-		m_entity->Translate(vec3(0, 0, -2));
-		break;
-	case SUNNY_KEY_S:
-		m_entity->Translate(vec3(0, 0, 2));
-		break;
-	}*/
+	if (event.GetKeyCode() == SUNNY_KEY_A)		m_entity->GetTransformComponent()->Translate(vec3(-2, 0, 0));
+	if (event.GetKeyCode() == SUNNY_KEY_D)		m_entity->GetTransformComponent()->Translate(vec3(2, 0, 0));
+	if (event.GetKeyCode() == SUNNY_KEY_W)		m_entity->GetTransformComponent()->Translate(vec3(0, 0, -2));
+	if (event.GetKeyCode() == SUNNY_KEY_S)		m_entity->GetTransformComponent()->Translate(vec3(0, 0, 2));
 
 	return false;
 }

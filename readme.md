@@ -138,3 +138,5 @@ Sunny Engine 어렵지 않아요!
 
 ### Step 19. Component Pattern
 - [컴포넌트 패턴 소개](http://boycoding.tistory.com/118?category=959177)
+- [Component]()
+- [TransformComponent]()

@@ -91,7 +91,7 @@ namespace sunny
 			RenderCommand command;
 			command.entity     = entity;
 			command.color      = entity->GetColor();
-			command.transform  = entity->GetTransform();
+			command.transform  = entity->GetComponent<component::TransformComponent>()->transform;
 			command.hasTexture = entity->GetHasTexture();
 			command.shader     = entity->GetShader() ? entity->GetShader() : m_default_shader;
 

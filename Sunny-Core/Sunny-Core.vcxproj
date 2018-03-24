@@ -22,6 +22,8 @@
     <ClCompile Include="app\Application.cpp" />
     <ClCompile Include="app\Input.cpp" />
     <ClCompile Include="app\Window.cpp" />
+    <ClCompile Include="component\Component.cpp" />
+    <ClCompile Include="component\TransformComponent.cpp" />
     <ClCompile Include="dependency\freetype\freetype-gl\platform.c" />
     <ClCompile Include="dependency\freetype\freetype-gl\texture-atlas.c" />
     <ClCompile Include="dependency\freetype\freetype-gl\texture-font.c" />
@@ -100,6 +102,9 @@
     <ClInclude Include="app\Application.h" />
     <ClInclude Include="app\Input.h" />
     <ClInclude Include="app\Window.h" />
+    <ClInclude Include="component\Component.h" />
+    <ClInclude Include="component\Components.h" />
+    <ClInclude Include="component\TransformComponent.h" />
     <ClInclude Include="dependency\freeimage\x32\FreeImage.h" />
     <ClInclude Include="dependency\freetype\freetype-gl\common.h" />
     <ClInclude Include="dependency\freetype\freetype-gl\freetype-gl.h" />
