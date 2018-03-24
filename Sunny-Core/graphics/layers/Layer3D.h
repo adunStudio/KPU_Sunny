@@ -7,6 +7,7 @@
 #include "../renderables/Renderable3D.h"
 #include "../Model.h"
 #include "../Entity.h"
+#include "../Terrain.h"
 #include "../LightSetup.h"
 #include "../../component/Components.h"
 #include "../cameras/MayaCamera.h"
@@ -35,7 +36,7 @@ namespace sunny
 			Layer3D(Renderer3D * renderer = new Renderer3D());
 			virtual ~Layer3D();
 
-			virtual Entity* Add(Entity* renderable);
+			virtual Renderable3D* Add(Renderable3D* renderable);
 
 			void SetCamera(Camera * camera);
 

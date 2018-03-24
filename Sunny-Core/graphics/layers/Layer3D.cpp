@@ -20,7 +20,7 @@ namespace sunny
 			delete m_camera;
 		}
 
-		Entity* Layer3D::Add(Entity* renderable)
+		Renderable3D* Layer3D::Add(Renderable3D* renderable)
 		{
 			m_renderables.push_back(renderable);
 
