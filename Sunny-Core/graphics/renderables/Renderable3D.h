@@ -36,9 +36,10 @@ namespace sunny
 		protected:
 			std::unordered_map<component::ComponentType*, component::Component*> m_components;
 
-		public:
+		protected:
 			Renderable3D(const maths::mat4& transform);
 
+		public:
 			void AddComponent(component::Component* component);
 
 			template <typename T>
@@ -53,7 +54,8 @@ namespace sunny
 				return (T*)GetComponentInternal<T>();
 			}
 
-			virtual inline directx::Shader* GetShader() const { return nullptr; };
+			inline directx::Shader* GetShader() const { return m_materialInstance ? m_materialInstance->GetMaterial()->GetShader() : nullptr; };
+
 			inline const maths::vec4& GetColor()     const { return m_color;     }
 			inline const float& GetHasTexture() const { return m_texture ? 1.0f : 0.0f; }
 

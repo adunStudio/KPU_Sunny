@@ -23,9 +23,7 @@ namespace sunny
 		public:
 			Entity(Mesh* mesh, directx::Texture2D* texture, const mat4& transform = mat4::Identity());
 			Entity(Mesh* mesh, const maths::vec4& color = maths::vec4(1, 1, 1, 1), const mat4& transform = mat4::Identity());
-			
-			virtual inline directx::Shader* GetShader() const override { return m_materialInstance ? m_materialInstance->GetMaterial()->GetShader() : nullptr; };
-			
+						
 			virtual void Render() override;
 
 			void PlayAnimation();
