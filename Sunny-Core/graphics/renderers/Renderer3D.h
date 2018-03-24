@@ -21,7 +21,7 @@ namespace sunny
 
 		struct RenderCommand
 		{
-			Entity* entity;
+			Renderable3D* renderable3d;
 			maths::mat4 transform;
 			maths::vec4 color;
 			float hasTexture;
@@ -60,7 +60,7 @@ namespace sunny
 			void BeginScene(Camera* camera);
 			void Submit(Renderable3D* renderable);
 			void Submit(const RenderCommand& command);
-			void SubmitEntity(Entity* entity);
+			void SubmitRenderable3D(Renderable3D* renderable);
 			void SubmitLight(const LightSetup& lightSetup);
 			void EndScene();
 			void End();

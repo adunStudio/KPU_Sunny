@@ -68,9 +68,10 @@ namespace sunny
 				m_renderer->SubmitLight(*lightSetup);
 			}
 
-			for (Entity* entity : m_renderables)
+			for (Renderable3D* renderable3d : m_renderables)
 			{
-				m_renderer->SubmitEntity(entity);
+				if(renderable3d->GetVisible())
+					m_renderer->SubmitRenderable3D(renderable3d);
 			}
 
 			m_renderer->EndScene();

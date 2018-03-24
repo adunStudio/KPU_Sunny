@@ -50,8 +50,12 @@ namespace sunny
 				return (T*)GetComponentInternal<T>();
 			}
 
+			virtual inline directx::Shader* GetShader() const { return nullptr; };
 			inline const maths::vec4& GetColor()     const { return m_color;     }
 			inline const float& GetHasTexture() const { return m_texture ? 1.0f : 0.0f; }
+
+			inline const bool GetVisible() const { return m_visible; };
+			inline void SetVisible(bool visible) { m_visible = visible; };
 
 			virtual void Render() = 0;
 

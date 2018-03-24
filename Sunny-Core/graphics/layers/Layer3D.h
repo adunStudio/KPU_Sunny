@@ -8,9 +8,10 @@
 #include "../Model.h"
 #include "../Entity.h"
 #include "../LightSetup.h"
-
+#include "../../component/Components.h"
 #include "../cameras/MayaCamera.h"
 #include "../cameras/FPSCamera.h"
+
 
 typedef sunny::maths::vec4 RGBA;
 
@@ -23,7 +24,7 @@ namespace sunny
 		private:
 			Camera* m_camera;
 
-			std::vector<Entity*> m_renderables;
+			std::vector<Renderable3D*> m_renderables;
 
 			std::vector<LightSetup*> m_lightSetupStack;
 

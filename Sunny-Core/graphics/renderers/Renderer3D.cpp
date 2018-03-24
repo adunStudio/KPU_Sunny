@@ -86,14 +86,15 @@ namespace sunny
 			m_commandQueue.push_back(command);
 		}
 
-		void Renderer3D::SubmitEntity(Entity* entity)
+		void Renderer3D::SubmitRenderable3D(Renderable3D* renderable)
 		{
 			RenderCommand command;
-			command.entity     = entity;
-			command.color      = entity->GetColor();
-			command.transform  = entity->GetComponent<component::TransformComponent>()->transform;
-			command.hasTexture = entity->GetHasTexture();
-			command.shader     = entity->GetShader() ? entity->GetShader() : m_default_shader;
+
+			command.renderable3d = renderable;
+			command.color        = renderable->GetColor();
+			command.transform    = renderable->GetComponent<component::TransformComponent>()->transform;
+			command.hasTexture   = renderable->GetHasTexture();
+			command.shader       = renderable->GetShader() ? renderable->GetShader() : m_default_shader;
 
 			Submit(command);
 		}
@@ -139,7 +140,7 @@ namespace sunny
 
 				SetSunnyUniforms(command.shader);
 
-				command.entity->Render();
+				command.renderable3d->Render();
 			}
 		}
 

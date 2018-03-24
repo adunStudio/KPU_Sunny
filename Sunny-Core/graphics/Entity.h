@@ -35,7 +35,7 @@ namespace sunny
 			inline MaterialInstance* GetMaterialInstance() const { return m_materialInstance; }
 
 
-			inline directx::Shader* GetShader() const { return m_materialInstance ? m_materialInstance->GetMaterial()->GetShader() : nullptr; };
+			virtual inline directx::Shader* GetShader() const override { return m_materialInstance ? m_materialInstance->GetMaterial()->GetShader() : nullptr; };
 			
 			virtual void Render() override;
 
