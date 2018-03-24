@@ -240,6 +240,9 @@
     <ClCompile Include="directx\TextureCube.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="game\TestLayer3D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\Application.h">
@@ -513,6 +516,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="directx\TextureCube.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="game\TestLayer3D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

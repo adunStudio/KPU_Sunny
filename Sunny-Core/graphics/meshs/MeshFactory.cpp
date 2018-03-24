@@ -185,6 +185,8 @@ namespace sunny
 				data[3].uv = maths::vec2(0, 0);
 				data[3].normal = maths::vec3(0, 1, 1);
 
+				ShaderFactory::Default3DShader()->Bind();
+
 				directx::VertexBuffer* buffer = new directx::VertexBuffer();
 				buffer->SetData(sizeof(Vertex3D) * 4, data);
 
@@ -226,6 +228,8 @@ namespace sunny
 				data[3].uv = maths::vec2(0, 0);
 				data[3].normal = maths::vec3(0, 1, 1);
 
+				ShaderFactory::Default3DShader()->Bind();
+
 				directx::VertexBuffer* buffer = new directx::VertexBuffer();
 				buffer->SetData(sizeof(Vertex3D) * 4, data);
 
@@ -266,6 +270,8 @@ namespace sunny
 				data[3].position = maths::vec3(0.1, 0, 15);
 				data[3].uv = maths::vec2(0, 0);
 				data[3].normal = maths::vec3(0, 1, 1);
+
+				ShaderFactory::Default3DShader()->Bind();
 
 				directx::VertexBuffer* buffer = new directx::VertexBuffer();
 				buffer->SetData(sizeof(Vertex3D) * 4, data);

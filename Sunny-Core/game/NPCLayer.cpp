@@ -27,7 +27,7 @@ void NPCLayer::OnInit(Renderer3D& renderer)
 
 	Texture2D* texture = new Texture2D("/textures/npc_idle.png");
 	
-	mat4 position = mat4::Identity() * mat4::Translate(vec3(0, 0, 0)) * mat4::Rotate(-90, vec3(1, 0, 0)) * mat4::Scale(vec3(0.1, 0.1, 0.1));
+	mat4 position = mat4::Identity() * mat4::Translate(vec3(0, 5, 0)) * mat4::Rotate(-90, vec3(1, 0, 0)) * mat4::Scale(vec3(0.1, 0.1, 0.1));
 
 	m_entity = new Entity(model->GetMesh(), texture, position);
 

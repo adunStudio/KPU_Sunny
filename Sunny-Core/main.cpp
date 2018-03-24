@@ -3,6 +3,7 @@
 #include "app/Application.h"
 #include "game/TestLayer2D.h"
 #include "game/ChessLayer.h"
+#include "game/TestLayer3D.h"
 
 using namespace sunny;
 using namespace graphics;
@@ -27,26 +28,9 @@ public:
 
 		PushOverlay(new TestLayer2D());
 		//PushOverlay(new ChessLayer());
+		//PushOverlay(new TestLayer3D());
 	}
 };
-
-#include <thread>
-
-int s_data;
-bool flag = false;
-
-void thread_recv()
-{
-	while (false == flag)
-		std::cout << "I receive [ " << s_data << " ] " << std::endl;
-}
-
-void thread_send()
-{
-	s_data = 999;
-	flag = true;
-	std::cout << "I havesent [ " << s_data << " ]" << std::endl;
-}
 
 
 int main()

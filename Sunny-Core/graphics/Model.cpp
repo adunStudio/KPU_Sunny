@@ -289,7 +289,7 @@ namespace sunny
 			va->PushBuffer(buffer);
 
 			directx::IndexBuffer* ib = new directx::IndexBuffer(&indices[0], indices.size());
-
+			
 			m_mesh = new Mesh(va, ib);
 		}
 

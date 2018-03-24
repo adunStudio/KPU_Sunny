@@ -42,6 +42,7 @@
     <ClCompile Include="events\KeyEvent.cpp" />
     <ClCompile Include="events\MouseEvent.cpp" />
     <ClCompile Include="events\ResizeEvent.cpp" />
+    <ClCompile Include="game\TestLayer3D.cpp" />
     <ClCompile Include="graphics\cameras\Camera.cpp" />
     <ClCompile Include="graphics\cameras\FPSCamera.cpp" />
     <ClCompile Include="graphics\cameras\MayaCamera.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="events\KeyEvent.h" />
     <ClInclude Include="events\MouseEvent.h" />
     <ClInclude Include="events\ResizeEvent.h" />
+    <ClInclude Include="game\TestLayer3D.h" />
     <ClInclude Include="graphics\fonts\Font.h" />
     <ClInclude Include="graphics\fonts\FontManager.h" />
     <ClInclude Include="graphics\Label.h" />
