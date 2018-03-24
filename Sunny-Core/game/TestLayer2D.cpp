@@ -26,7 +26,7 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 
 	Application::GetApplication().PushLayer(m_layers[0]);
 	Application::GetApplication().PushLayer(m_layers[1]);
-	Application::GetApplication().PushLayer(new TestLayer3D());
+	//Application::GetApplication().PushLayer(new TestLayer3D());
 
 	m_logo  = new Sprite(230, 368/4 + 520, 1037/4, 368/4, directx::Texture2D::CreateFromFile("/textures/logo.png"));
 	m_fps   = new Label("fps", windowWidth - 5,  windowHeight - 15, RGBA(1, 1, 1, 0.8));

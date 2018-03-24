@@ -3,7 +3,6 @@
 #include "../sunny.h"
 
 #include "../maths/maths.h"
-#include "materials/MaterialInstance.h"
 #include "renderables/Renderable3D.h"
 #include "Model.h"
 #include "meshs/Mesh.h"
@@ -21,20 +20,10 @@ namespace sunny
 		protected:
 			unsigned int m_frame;
 			
-			MaterialInstance* m_materialInstance;
-
 		public:
 			Entity(Mesh* mesh, directx::Texture2D* texture, const mat4& transform = mat4::Identity());
 			Entity(Mesh* mesh, const maths::vec4& color = maths::vec4(1, 1, 1, 1), const mat4& transform = mat4::Identity());
-
-			inline Mesh* GetMesh() const { return m_mesh; }
 			
-			inline TransformComponent* GetTransformComponent() { return GetComponent<TransformComponent>(); }
-
-			inline void SetMaterial(MaterialInstance* materialInstance) { m_materialInstance = materialInstance; }
-			inline MaterialInstance* GetMaterialInstance() const { return m_materialInstance; }
-
-
 			virtual inline directx::Shader* GetShader() const override { return m_materialInstance ? m_materialInstance->GetMaterial()->GetShader() : nullptr; };
 			
 			virtual void Render() override;

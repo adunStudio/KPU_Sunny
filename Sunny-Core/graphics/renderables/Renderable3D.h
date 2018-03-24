@@ -4,6 +4,7 @@
 #include "../../component/Components.h"
 #include "../meshs/Mesh.h"
 #include "../meshs/MeshFactory.h"
+#include "../materials/MaterialInstance.h"
 #include "../../directx/Texture2D.h";
 #include "../../directx/VertexBuffer.h"
 #include "../../directx/IndexBuffer.h"
@@ -30,6 +31,8 @@ namespace sunny
 			int  m_renderFlags;
 			bool m_visible;
 
+			MaterialInstance* m_materialInstance;
+
 		protected:
 			std::unordered_map<component::ComponentType*, component::Component*> m_components;
 
@@ -55,7 +58,12 @@ namespace sunny
 			inline const float& GetHasTexture() const { return m_texture ? 1.0f : 0.0f; }
 
 			inline const bool GetVisible() const { return m_visible; };
-			inline void SetVisible(bool visible) { m_visible = visible; };
+			inline void SetVisible(bool visible) { m_visible = visible; };			
+
+			inline void SetMaterial(MaterialInstance* materialInstance) { m_materialInstance = materialInstance; }
+			inline MaterialInstance* GetMaterialInstance() const { return m_materialInstance; }
+
+			inline Mesh* GetMesh() const { return m_mesh; }
 
 			virtual void Render() = 0;
 
@@ -72,6 +80,10 @@ namespace sunny
 
 				return (T*)it->second;
 			}
+
+		public:
+			inline component::TransformComponent* GetTransformComponent() { return GetComponent<component::TransformComponent>(); }
+
 		};
 	}
 }
