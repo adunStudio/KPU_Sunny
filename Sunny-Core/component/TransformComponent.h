@@ -11,8 +11,8 @@ namespace sunny
 
 		class TransformComponent : public Component
 		{
-		public:
-			mat4 transform;
+		private:
+			mat4 m_transform;
 
 		private:
 			vec3 m_position;
@@ -24,6 +24,8 @@ namespace sunny
 
 		public:
 			TransformComponent(const mat4& transform);
+
+			inline const mat4& GetTransform() const { return m_transform; }
 
 			void Translate(const vec3& translation);
 			void Rotate(float angle, const vec3& axis);

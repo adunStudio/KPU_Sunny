@@ -5,7 +5,7 @@ namespace sunny
 	namespace component
 	{
 		TransformComponent::TransformComponent(const maths::mat4& transform)
-		: transform(transform)
+		: m_transform(transform)
 		{
 			// https://math.stackexchange.com/questions/237369/given-this-transformation-matrix-how-do-i-decompose-it-into-translation-rotati
 
@@ -26,7 +26,7 @@ namespace sunny
 
 		void TransformComponent::SetTransform()
 		{
-			transform = mat4::Identity() * mat4::Translate(m_position) * m_rotation * mat4::Scale(m_scale);
+			m_transform = mat4::Identity() * mat4::Translate(m_position) * m_rotation * mat4::Scale(m_scale);
 		}
 
 		void TransformComponent::Translate(const maths::vec3& translation)

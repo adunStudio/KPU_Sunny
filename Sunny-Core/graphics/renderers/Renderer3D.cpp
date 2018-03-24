@@ -92,7 +92,7 @@ namespace sunny
 
 			command.renderable3d = renderable;
 			command.color        = renderable->GetColor();
-			command.transform    = renderable->GetComponent<component::TransformComponent>()->transform;
+			command.transform    = renderable->GetComponent<component::TransformComponent>()->GetTransform();
 			command.hasTexture   = renderable->GetHasTexture();
 			command.shader       = renderable->GetShader() ? renderable->GetShader() : m_default_shader;
 
