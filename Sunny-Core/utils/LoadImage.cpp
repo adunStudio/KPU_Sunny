@@ -22,16 +22,14 @@ namespace sunny
 	{
 		unsigned char* LoadSunnyImage(const char*  filename, unsigned int* width, unsigned int* height, unsigned int* bits, bool flipY)
 		{
-
 			std::string physicalPath;
 
 			// 파일 존재유무 확인
 			if (!VFS::Get()->ResolvePhysicalPath(filename, physicalPath))
 			{
-				std::cout << "Could not load image '" << filename << "'!" << std::endl;
+				std::cout << "Could not load file '" << filename << "'!" << std::endl;
 				return nullptr;
 			}
-
 
 			filename = physicalPath.c_str();
 
@@ -92,6 +90,54 @@ namespace sunny
 		unsigned char* LoadSunnyImage(const std::string&  filename, unsigned int* width, unsigned int* height, unsigned int* bits, bool flipY)
 		{
 			return LoadSunnyImage(filename.c_str(), width, height, bits, flipY);
+		}
+
+
+		unsigned char* LoadSunnyRaw(const char* filename, unsigned int* width, unsigned int* height, unsigned int* bits)
+		{
+			std::string physicalPath;
+
+			// 파일 존재유무 확인
+			if (!VFS::Get()->ResolvePhysicalPath(filename, physicalPath))
+			{
+				std::cout << "Could not load file '" << filename << "'!" << std::endl;
+				return nullptr;
+			}
+
+			filename = physicalPath.c_str();
+
+			FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
+			FIBITMAP* dib = nullptr;
+			
+			unsigned char* buffer;
+
+			fif = FreeImage_GetFileType(filename, 0);
+			
+			if (fif == FIF_UNKNOWN)
+				fif = FreeImage_GetFIFFromFilename(filename);
+			
+			if (fif != FIF_RAW)
+			{
+				// Debug System
+				std::cout << "Could not load raw '" << filename << "'!" << std::endl;
+				exit(1);
+			}
+
+			dib = FreeImage_ConvertFromRawBits(buffer, 500, 600, 500, 16, 0, 0, 0);
+
+			/*if (!dib)
+			{
+				// Debug System
+				std::cout << "Could not load image '" << filename << "'!" << std::endl;
+				return nullptr;
+			}*/
+			//FIBITMAP* bitmap = 
+			return nullptr;
+		}
+
+		unsigned char* LoadSunnyRaw(const std::string& filename, unsigned int* width, unsigned int* height, unsigned int* bits)
+		{
+			return LoadSunnyRaw(filename.c_str(), width, height, bits);
 		}
 	}
 }

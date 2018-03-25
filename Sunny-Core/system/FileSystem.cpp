@@ -61,8 +61,8 @@ namespace sunny
             file.seekg(0, file.beg);
 			
             file.read(static_cast<char*>(buffer), length);
-
-            file.close();
+            
+			file.close();
 
             return true;
         }

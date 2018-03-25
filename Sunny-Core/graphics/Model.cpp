@@ -43,6 +43,8 @@ namespace sunny
 			if (ext == "obj") { LoadOBJ(path); return; }
 
 			// Debug System
+			std::cout << "sun, obj 파일만 로드 가능합니다." << std::endl;
+
 			exit(1);
 		}
 
@@ -219,7 +221,7 @@ namespace sunny
 						maths::vec3 normal;
 						int result = sscanf(cstr, "%*s %f %f %f", &normal.x, &normal.y, &normal.z);
 						if (result == 0) continue;
-						//normal.z = normal.z * -1.0f;
+						normal.y = normal.y * -1.0f;
 						inputVertices.normals.push_back(normal);
 					}
 					else                        // 위치

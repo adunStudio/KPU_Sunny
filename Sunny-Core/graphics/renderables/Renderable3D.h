@@ -16,19 +16,11 @@ namespace sunny
 	{
 		class Renderable3D
 		{
-		public:
-			enum class RenderFlags
-			{
-				DISABLE_DEPTH_TEST = BIT(0),
-				WIREFRAME = BIT(1)
-			};
-
 		protected:
 			Mesh* m_mesh;
 			directx::Texture* m_texture;
 			maths::vec4 m_color;
 
-			int  m_renderFlags;
 			bool m_visible;
 
 			MaterialInstance* m_materialInstance;

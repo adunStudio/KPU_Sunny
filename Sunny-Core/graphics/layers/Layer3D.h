@@ -8,6 +8,7 @@
 #include "../Model.h"
 #include "../Entity.h"
 #include "../Terrain.h"
+#include "../HeightMap.h"
 #include "../LightSetup.h"
 #include "../../component/Components.h"
 #include "../cameras/MayaCamera.h"

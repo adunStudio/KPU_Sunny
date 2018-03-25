@@ -17,6 +17,8 @@ class BossLayer : public Layer3D
 public:
 	Entity* m_entity;
 
+	HeightMap* m_heightMap;
+
 private:
 	std::vector<Entity*> entities;
 
