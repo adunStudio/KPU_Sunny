@@ -2,7 +2,7 @@
 
 #include "../../sunny.h"
 #include "../renderables/Renderable3D.h"
-#include "../Entity.h"
+#include "../groups/Group3D.h"
 #include "../cameras/Camera.h"
 #include "../LightSetup.h"
 #include "../../directx/Shader.h"
@@ -61,6 +61,7 @@ namespace sunny
 			void Submit(Renderable3D* renderable);
 			void Submit(const RenderCommand& command);
 			void SubmitRenderable3D(Renderable3D* renderable);
+			void SubmitGroup3D(Group3D* group3d);
 			void SubmitLight(const LightSetup& lightSetup);
 			void EndScene();
 			void End();

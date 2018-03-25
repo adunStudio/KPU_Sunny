@@ -20,7 +20,12 @@ namespace sunny
 			vec3 m_scale;
 
 		private:
-			void SetTransform();
+			void InitTransform();
+
+			void CalTransform();
+
+		private:
+			inline void SetTransform(const mat4& transform) { m_transform = transform; }
 
 		public:
 			TransformComponent(const mat4& transform);

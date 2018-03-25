@@ -99,6 +99,26 @@ namespace sunny
 			Submit(command);
 		}
 
+		void Renderer3D::SubmitGroup3D(Group3D* group3d)
+		{
+			// 위치와 셰이더는 그룹에 종속된다.
+			const maths::mat4 groupTransform = group3d->GetComponent<component::TransformComponent>()->GetTransform();
+			directx::Shader* groupShader = group3d->GetShader() ? group3d->GetShader() : m_default_shader;
+
+			RenderCommand command;
+			command.transform = groupTransform;
+			command.shader = groupShader;;
+
+			for (Renderable3D* renderable : group3d->GetRenderableList())
+			{
+				command.renderable3d = renderable;
+				command.color = renderable->GetColor();
+				command.hasTexture = renderable->GetHasTexture();
+			
+				Submit(command);
+			}
+		}
+
 		void Renderer3D::SubmitLight(const LightSetup& lightSetup)
 		{
 			const auto& lights = lightSetup.GetLights();

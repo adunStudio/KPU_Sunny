@@ -27,6 +27,13 @@ namespace sunny
 			return renderable;
 		}
 
+		Group3D* Layer3D::Add(Group3D* group3d)
+		{
+			m_group3ds.push_back(group3d);
+
+			return group3d;
+		}
+
 		void Layer3D::SetCamera(Camera * camera)
 		{
 			delete m_camera;
@@ -72,6 +79,12 @@ namespace sunny
 			{
 				if(renderable3d->GetVisible())
 					m_renderer->SubmitRenderable3D(renderable3d);
+			}
+
+			for (Group3D* group3d : m_group3ds)
+			{
+				if (group3d->GetVisible())
+					m_renderer->SubmitGroup3D(group3d);
 			}
 
 			m_renderer->EndScene();

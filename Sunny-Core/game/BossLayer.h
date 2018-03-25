@@ -16,7 +16,9 @@ class BossLayer : public Layer3D
 {
 public:
 	Entity* m_entity;
-
+	
+	Group3D* m_group;
+	
 	HeightMap* m_heightMap;
 
 	Terrain* m_terrain;

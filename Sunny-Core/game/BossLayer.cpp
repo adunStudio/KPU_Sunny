@@ -47,6 +47,12 @@ void BossLayer::OnInit(Renderer3D& renderer)
 	m_entity->GetTransformComponent()->SetScale(vec3(0.3, 0.3, 0.3));
 	Add(m_entity);
 
+	// 보스몬스터용 축 그룹 세팅
+	m_group = new Group3D();
+	m_group->Add(new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 1), mat4::Identity()));
+	m_group->Add(new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 1), mat4::Identity()));
+	m_group->Add(new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 1), mat4::Identity()));
+	Add(m_group);
 
 	// xyz축 세팅
 	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 1), mat4::Identity());
@@ -55,7 +61,6 @@ void BossLayer::OnInit(Renderer3D& renderer)
 	Add(xAxis);
 	Add(yAxis);
 	Add(zAxis);
-
 
 	//SetCamera(new FPSCamera(maths::mat4::Perspective(65.0f, 16.0f / 9.0f, 0.1f, 1000.0f)));
 }
@@ -71,7 +76,7 @@ void BossLayer::OnUpdate(const utils::Timestep& ts)
 	
 	m_terrain->AdjustPosition(m_entity->GetTransformComponent()->GetPosition());
 	m_entity->GetTransformComponent()->SetHeight(m_heightMap->GetHeight(m_entity->GetTransformComponent()->GetPosition()) + 28);
-
+	m_group->GetTransformComponent()->SetPosition(m_entity->GetTransformComponent()->GetPosition());
 }
 
 void BossLayer::SetEntity(unsigned int index)

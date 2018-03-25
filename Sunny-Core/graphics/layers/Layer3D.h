@@ -5,6 +5,7 @@
 #include "../renderers/Renderer3D.h"
 #include "../cameras/camera.h"
 #include "../renderables/Renderable3D.h"
+#include "../groups/Group3D.h"
 #include "../Model.h"
 #include "../Entity.h"
 #include "../Terrain.h"
@@ -27,6 +28,7 @@ namespace sunny
 			Camera* m_camera;
 
 			std::vector<Renderable3D*> m_renderables;
+			std::vector<Group3D*> m_group3ds;
 
 			std::vector<LightSetup*> m_lightSetupStack;
 
@@ -38,6 +40,8 @@ namespace sunny
 			virtual ~Layer3D();
 
 			virtual Renderable3D* Add(Renderable3D* renderable);
+
+			virtual Group3D* Add(Group3D* groupe3d);
 
 			void SetCamera(Camera * camera);
 

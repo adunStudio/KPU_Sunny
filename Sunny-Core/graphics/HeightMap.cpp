@@ -21,7 +21,7 @@ namespace sunny
 
 			LoadRaw(path);
 
-			//Smooth();
+			Smooth();
 		}
 
 		float HeightMap::GetHeight(const vec3& position)
