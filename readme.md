@@ -24,6 +24,7 @@
 
 Sunny Engine 어렵지 않아요!
 
+Sunny Engine은 [Sparky](https://github.com/TheCherno/Sparky)를 모태로 진화 중 입니다.!
 
 ### Intro
 - [Sunny Game Engine 제작 과정](https://github.com/adunStudio/Sunny/blob/master/Make-Sunny/Intro/%EC%A0%9C%EC%9E%91%EA%B3%BC%EC%A0%95.md)
