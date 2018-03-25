@@ -19,12 +19,16 @@ namespace sunny
 		private:
 			HeightMap* m_heightMap;
 
+			Rectangle m_rectangle;
+
 		public:
-			Terrain(Mesh* mesh, directx::Texture2D* texture, HeightMap* heightMap, const mat4& transform = mat4::Identity());
+			Terrain(int width, int height, Mesh* mesh, directx::Texture2D* texture, HeightMap* heightMap, const mat4& transform = mat4::Identity());
 
 			virtual void Render() override;
 
 			inline HeightMap* GetHeightMap() const { return m_heightMap; }
+
+			void AdjustPosition(vec3& position);
 		};
 	}
 }

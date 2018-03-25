@@ -19,6 +19,8 @@ public:
 
 	HeightMap* m_heightMap;
 
+	Terrain* m_terrain;
+
 private:
 	std::vector<Entity*> entities;
 

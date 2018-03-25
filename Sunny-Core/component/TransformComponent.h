@@ -34,9 +34,11 @@ namespace sunny
 			void SetRotation(const mat4& rotation);
 			void SetScale   (const vec3& scale);
 
-			inline const vec3& GetPosition() const { return m_position; }
-			inline const mat4& GetRotation() const { return m_rotation; }
-			inline const vec3& GetScale()    const { return m_scale;    }
+			void SetHeight(float y);
+
+			inline vec3& GetPosition() { return m_position; }
+			inline mat4& GetRotation() { return m_rotation; }
+			inline vec3& GetScale()    { return m_scale;    }
 
 			static ComponentType* GetStaticType()
 			{

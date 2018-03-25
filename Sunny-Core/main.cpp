@@ -4,7 +4,6 @@
 #include "app/Application.h"
 #include "game/TestLayer2D.h"
 #include "game/ChessLayer.h"
-#include "game/TestLayer3D.h"
 
 #include "maths/maths.h"
 

@@ -26,7 +26,7 @@ namespace sunny
 
 		float HeightMap::GetHeight(const vec3& position)
 		{
-			return m_map[(position.z + (m_height / 2)) * m_width + position.x];
+			return m_map[(position.z + (m_height / 2)) * m_width + (position.x + (m_width / 2)) ];
 		}
 
 
@@ -55,7 +55,7 @@ namespace sunny
 			
 
 			for (unsigned int i = 0; i < m_height * m_width; ++i)
-				m_map[i] = (in[i] / 255.0f) * 600;
+				m_map[i] = (in[i] / 256.0f) * 600.0f;
 		}
 
 		bool HeightMap::InBounds(int y, int x)
@@ -72,7 +72,7 @@ namespace sunny
 
 			for (int h = y - 1; h <= y + 1; ++h)
 			{
-				for (int w = x - 1; x <= x + 1; ++x)
+				for (int w = x - 1; x <= w + 1; ++x)
 				{
 					if (InBounds(h, w))
 					{
@@ -95,11 +95,6 @@ namespace sunny
 				{
 					result[y * m_width + x] = Average(y, x);
 				}
-			}
-
-			for (auto a : result)
-			{
-				std::cout << a << std::endl;
 			}
 
 			m_map = result;

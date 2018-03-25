@@ -44,7 +44,10 @@
     <ClCompile Include="events\KeyEvent.cpp" />
     <ClCompile Include="events\MouseEvent.cpp" />
     <ClCompile Include="events\ResizeEvent.cpp" />
-    <ClCompile Include="game\TestLayer3D.cpp" />
+    <ClCompile Include="game\BossLayer.cpp" />
+    <ClCompile Include="game\ChessLayer.cpp" />
+    <ClCompile Include="game\NPCLayer.cpp" />
+    <ClCompile Include="game\TestLayer2D.cpp" />
     <ClCompile Include="graphics\cameras\Camera.cpp" />
     <ClCompile Include="graphics\cameras\FPSCamera.cpp" />
     <ClCompile Include="graphics\cameras\MayaCamera.cpp" />
@@ -52,6 +55,7 @@
     <ClCompile Include="graphics\Entity.cpp" />
     <ClCompile Include="graphics\fonts\Font.cpp" />
     <ClCompile Include="graphics\fonts\FontManager.cpp" />
+    <ClCompile Include="graphics\HeightMap.cpp" />
     <ClCompile Include="graphics\Label.cpp" />
     <ClCompile Include="graphics\layers\Layer.cpp" />
     <ClCompile Include="graphics\layers\Layer2D.cpp" />
@@ -73,8 +77,8 @@
     <ClCompile Include="graphics\shaders\ShaderFactory.cpp" />
     <ClCompile Include="graphics\shaders\ShaderManager.cpp" />
     <ClCompile Include="graphics\Sprite.cpp" />
+    <ClCompile Include="graphics\Terrain.cpp" />
     <ClCompile Include="graphics\TextureManager.cpp" />
-    <ClCompile Include="game\ChessLayer.cpp" />
     <ClCompile Include="ui\Button.cpp" />
     <ClCompile Include="ui\Dialog.cpp" />
     <ClCompile Include="ui\Panel.cpp" />
@@ -91,9 +95,6 @@
     <ClCompile Include="maths\vec4.cpp" />
     <ClCompile Include="system\FileSystem.cpp" />
     <ClCompile Include="system\VFS.cpp" />
-    <ClCompile Include="game\BossLayer.cpp" />
-    <ClCompile Include="game\TestLayer2D.cpp" />
-    <ClCompile Include="game\NPCLayer.cpp" />
     <ClCompile Include="utils\LoadImage.cpp" />
     <ClCompile Include="utils\String.cpp" />
     <ClCompile Include="utils\Timer.cpp" />
@@ -133,9 +134,13 @@
     <ClInclude Include="events\KeyEvent.h" />
     <ClInclude Include="events\MouseEvent.h" />
     <ClInclude Include="events\ResizeEvent.h" />
-    <ClInclude Include="game\TestLayer3D.h" />
+    <ClInclude Include="game\BossLayer.h" />
+    <ClInclude Include="game\ChessLayer.h" />
+    <ClInclude Include="game\NPCLayer.h" />
+    <ClInclude Include="game\TestLayer2D.h" />
     <ClInclude Include="graphics\fonts\Font.h" />
     <ClInclude Include="graphics\fonts\FontManager.h" />
+    <ClInclude Include="graphics\HeightMap.h" />
     <ClInclude Include="graphics\Label.h" />
     <ClInclude Include="graphics\materials\Material.h" />
     <ClInclude Include="graphics\materials\MaterialInstance.h" />
@@ -165,8 +170,8 @@
     <ClInclude Include="graphics\shaders\ShaderManager.h" />
     <ClInclude Include="graphics\shaders\Shaders.h" />
     <ClInclude Include="graphics\Sprite.h" />
+    <ClInclude Include="graphics\Terrain.h" />
     <ClInclude Include="graphics\TextureManager.h" />
-    <ClInclude Include="game\ChessLayer.h" />
     <ClInclude Include="ui\Button.h" />
     <ClInclude Include="ui\Dialog.h" />
     <ClInclude Include="ui\Panel.h" />
@@ -187,9 +192,6 @@
     <ClInclude Include="sunny.h" />
     <ClInclude Include="system\FileSystem.h" />
     <ClInclude Include="system\VFS.h" />
-    <ClInclude Include="game\TestLayer2D.h" />
-    <ClInclude Include="game\NPCLayer.h" />
-    <ClInclude Include="game\BossLayer.h" />
     <ClInclude Include="utils\LoadImage.h" />
     <ClInclude Include="utils\String.h" />
     <ClInclude Include="utils\Timer.h" />
@@ -197,9 +199,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\textures\time.PNG" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resource\hlsl\basic_light.hlsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

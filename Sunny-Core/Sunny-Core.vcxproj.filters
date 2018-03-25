@@ -207,18 +207,6 @@
     <ClCompile Include="ui\Dialog.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="game\BossLayer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="game\ChessLayer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="game\NPCLayer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="game\TestLayer2D.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="ui\Progressbar.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -240,13 +228,28 @@
     <ClCompile Include="directx\TextureCube.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="game\TestLayer3D.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="component\Component.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="component\TransformComponent.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\Terrain.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\HeightMap.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="game\BossLayer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="game\ChessLayer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="game\NPCLayer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="game\TestLayer2D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -485,18 +488,6 @@
     <ClInclude Include="ui\Dialog.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="game\BossLayer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="game\ChessLayer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="game\NPCLayer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="game\TestLayer2D.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="ui\Progressbar.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -524,9 +515,6 @@
     <ClInclude Include="directx\TextureCube.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="game\TestLayer3D.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="component\Component.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -536,13 +524,28 @@
     <ClInclude Include="component\Components.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="graphics\Terrain.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\HeightMap.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="game\BossLayer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="game\ChessLayer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="game\NPCLayer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="game\TestLayer2D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\textures\time.PNG">
       <Filter>리소스 파일</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="resource\hlsl\basic_light.hlsl" />
   </ItemGroup>
 </Project>

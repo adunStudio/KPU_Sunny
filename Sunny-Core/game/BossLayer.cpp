@@ -30,11 +30,11 @@ void BossLayer::OnInit(Renderer3D& renderer)
 	PushLightSetup(lights);
 
 	// 맵 세팅
-	m_heightMap = new HeightMap(500, 500, "/raw/terrain2.raw");
-	Model* terrain_model = new Model("/obj/terrain2.obj");
-	Terrain* terrain = new Terrain(terrain_model->GetMesh(), new Texture2D("/texture/diffuse.tga"), m_heightMap);
-	terrain->SetMaterial(terrainMaterialInstance);
-	Add(terrain);
+	m_heightMap = new HeightMap(500, 500, "/raw/terrain.raw");
+	Model* terrain_model = new Model("/obj/terrain.obj");
+	m_terrain = new Terrain(500, 500, terrain_model->GetMesh(), new Texture2D("/texture/diffuse.tga"), m_heightMap);
+	m_terrain->SetMaterial(terrainMaterialInstance);
+	Add(m_terrain);
 
 	// 보스몬스터 세팅
 	Model* model = new Model("/sun/boss_attack2.sun");
@@ -69,7 +69,9 @@ void BossLayer::OnUpdate(const utils::Timestep& ts)
 {
 	m_entity->PlayAnimation();
 	
-	//std::cout << m_heightMap->GetHeight(m_entity->GetTransformComponent()->GetPosition()) << std::endl;
+	m_terrain->AdjustPosition(m_entity->GetTransformComponent()->GetPosition());
+	m_entity->GetTransformComponent()->SetHeight(m_heightMap->GetHeight(m_entity->GetTransformComponent()->GetPosition()) + 28);
+
 }
 
 void BossLayer::SetEntity(unsigned int index)

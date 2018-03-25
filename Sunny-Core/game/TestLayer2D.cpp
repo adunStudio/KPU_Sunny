@@ -44,24 +44,12 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 		//std::cout << "Complete" << std::endl;
 	});
 
-	Dialog* dialog1 = new Dialog(maths::Rectangle(1150, 500, 100, 100), "   Basic Dialog", "Test");
-	dialog1->SetCloseAction([&, dialog1]() {
-		m_panel->Remove(dialog1);
+	Dialog* dialog = new Dialog(maths::Rectangle(1150, 500, 100, 100), "   Basic Dialog", "Test");
+	dialog->SetCloseAction([&, dialog]() {
+		m_panel->Remove(dialog);
 	});
 
-	std::vector<std::string> texts;
-	texts.push_back("Hello!");
-	texts.push_back("This is KPU Sunny Engine!");
-	texts.push_back("Sunny is designed who make");
-	texts.push_back("gradution project with DirectX 11");
-	texts.push_back("Thanks!");
-	texts.push_back(" ");
-	texts.push_back("Created By Adunstudio");
-
-	Dialog* dialog2 = new Dialog(maths::Rectangle(1000, 200, 125, 115), "   Sunny Game Engine", texts);
-	dialog2->SetCloseAction([&, dialog2]() {
-		m_panel->Remove(dialog2);
-	});
+	
 
 	Add(m_logo);
 	Add(m_fps);
@@ -69,8 +57,7 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 	m_panel->Add(button);
 	m_panel->Add(m_slider1);
 	m_panel->Add(m_slider2);
-	m_panel->Add(dialog1);
-	m_panel->Add(dialog2);
+	m_panel->Add(dialog);
 	m_panel->Add(m_progressbar);
 }
 

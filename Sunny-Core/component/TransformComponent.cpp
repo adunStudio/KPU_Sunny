@@ -50,6 +50,13 @@ namespace sunny
 			SetTransform();
 		}
 
+		void TransformComponent::SetHeight(float y)
+		{
+			m_position.y = y;
+
+			SetTransform();
+		}
+
 		void TransformComponent::SetRotation(const maths::mat4& rotation)
 		{
 			m_rotation = rotation;
