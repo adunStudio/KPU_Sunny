@@ -154,7 +154,7 @@ namespace sunny
 
 			fclose(f);
 
-			ShaderFactory::Default3DShader()->Bind();
+			ShaderFactory::Default3DForwardShader()->Bind();
 			
 			directx::VertexArray* va = new directx::VertexArray();
 
@@ -274,7 +274,7 @@ namespace sunny
 				}
 			}
 			
-			ShaderFactory::Default3DShader()->Bind();
+			ShaderFactory::Default3DForwardShader()->Bind();
 
 			directx::VertexBuffer* buffer = new directx::VertexBuffer();
 			buffer->SetData(vertices.size() * sizeof(Vertex3D), &vertices[0]);

@@ -198,6 +198,7 @@ namespace sunny
 		{
 			// 2차원 렌더러이므로 스텐실/깊이 검사는 필요없다.
 			directx::Renderer::SetDepthTesting(false);
+			directx::Renderer::SetBlend(true);
 
 			// 셰이더 연결
 			m_shader->Bind();

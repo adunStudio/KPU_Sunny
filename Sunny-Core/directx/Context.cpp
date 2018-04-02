@@ -215,6 +215,11 @@ namespace sunny
 			ReleaseCOM(rs);
 		}
 
+		void Context::BindInternal()
+		{
+			devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
+		}
+
 		void Context::Present()
 		{
 			// 이중 버퍼링을 사용할 때 후면 버퍼의 내용을 전면 버퍼로 복사하는 것을 프레젠테이션이라고 한다.

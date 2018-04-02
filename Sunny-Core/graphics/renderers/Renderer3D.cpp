@@ -18,9 +18,8 @@ namespace sunny
 
 		enum PSSunnyUniformIndices : int
 		{
-			PSSunnyUniformIndex_Lights      = 0,
-			PSSunnyUniformIndex_Color       = 1,
-			PSSunnyUniformIndex_HasTexture  = 2,
+			PSSunnyUniformIndex_Color       = 0,
+			PSSunnyUniformIndex_HasTexture  = 1,
 			PSSunnyUniformIndex_Size
 		};
 
@@ -40,7 +39,20 @@ namespace sunny
 		{
 			m_commandQueue.reserve(1000);
 
-			m_default_shader = ShaderFactory::Default3DShader();
+			m_default_forward_shader  = ShaderFactory::Default3DForwardShader();
+			m_default_deferred_shader = ShaderFactory::Default3DDeferredShader();
+			m_default_light_shader    = ShaderFactory::Default3DLightShader();
+
+			D3D11_SAMPLER_DESC samplerDesc = {};
+			samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+			samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+			samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+			samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+			samplerDesc.MaxAnisotropy = 16;
+			samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+			directx::Context::GetDevice()->CreateSamplerState(&samplerDesc, &m_sampler);
+
 
 			m_VSSunnyUniformBufferSize = sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::vec3);
 			m_VSSunnyUniformBuffer = new unsigned char[m_VSSunnyUniformBufferSize];
@@ -57,8 +69,10 @@ namespace sunny
 			memset(m_PSSunnyUniformBuffer, 0, m_PSSunnyUniformBufferSize);
 
 			m_PSSunnyUniformBufferOffsets.resize(PSSunnyUniformIndex_Size);
-			m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Lights] = 0;
-			m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Color] = m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Lights] + sizeof(Light);
+			//m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Lights] = 0;
+			//m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Color] = m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Lights] + sizeof(Light);
+			//m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_HasTexture] = m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Color] + sizeof(maths::vec4);
+			m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Color]      = 0;
 			m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_HasTexture] = m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Color] + sizeof(maths::vec4);
 		}
 
@@ -94,7 +108,7 @@ namespace sunny
 			command.color        = renderable->GetColor();
 			command.transform    = renderable->GetComponent<component::TransformComponent>()->GetTransform();
 			command.hasTexture   = renderable->GetHasTexture();
-			command.shader       = renderable->GetShader() ? renderable->GetShader() : m_default_shader;
+			command.shader       = renderable->GetShader() ? renderable->GetShader() : m_default_deferred_shader;
 
 			Submit(command);
 		}
@@ -103,7 +117,7 @@ namespace sunny
 		{
 			// 위치와 셰이더는 그룹에 종속된다.
 			const maths::mat4 groupTransform = group3d->GetComponent<component::TransformComponent>()->GetTransform();
-			directx::Shader* groupShader = group3d->GetShader() ? group3d->GetShader() : m_default_shader;
+			directx::Shader* groupShader = group3d->GetShader() ? group3d->GetShader() : m_default_deferred_shader;
 
 			RenderCommand command;
 			command.transform = groupTransform;
@@ -121,7 +135,7 @@ namespace sunny
 
 		void Renderer3D::SubmitLight(const LightSetup& lightSetup)
 		{
-			const auto& lights = lightSetup.GetLights();
+			/*const auto& lights = lightSetup.GetLights();
 
 			if (lights.size() != 1)
 			{
@@ -132,6 +146,7 @@ namespace sunny
 
 			for (unsigned int i = 0; i < lights.size(); ++i)
 				memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Lights], lights[i], sizeof(Light));
+				*/
 		}
 
 		void Renderer3D::EndScene()
@@ -147,7 +162,10 @@ namespace sunny
 		void Renderer3D::Present()
 		{
 			directx::Renderer::SetDepthTesting(true);
-			
+			directx::Renderer::SetBlend(true);
+
+			directx::DeferredBuffer::Bind();
+
 			for (unsigned int i = 0; i < m_commandQueue.size(); ++i)
 			{
 				RenderCommand& command = m_commandQueue[i];
@@ -156,12 +174,42 @@ namespace sunny
 				memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Color], &command.color, sizeof(maths::vec4));
 				memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_HasTexture], &command.hasTexture, sizeof(float));
 			
+				command.shader = m_default_deferred_shader;
 				command.shader->Bind();
 
 				SetSunnyUniforms(command.shader);
 
 				command.renderable3d->Render();
 			}
+
+
+			directx::DeferredBuffer::UnBind();
+			
+			directx::Renderer::SetBlend(false);
+
+			m_default_light_shader->Bind();
+
+			Mesh* m = MeshFactory::CreateScreenQuad();
+
+			//m->Render();
+			auto a = directx::DeferredBuffer::GetShaderResource(0);  // POSITION
+			auto b = directx::DeferredBuffer::GetShaderResource(1);  //  DIFFUSE
+			auto c = directx::DeferredBuffer::GetShaderResource(2);  //   NORMAL
+
+			directx::Context::GetDeviceContext()->PSSetShaderResources(0, 1, &a);
+			directx::Context::GetDeviceContext()->PSSetShaderResources(1, 1, &b);
+			directx::Context::GetDeviceContext()->PSSetShaderResources(2, 1, &c);
+			directx::Context::GetDeviceContext()->PSSetSamplers(0, 1, &m_sampler);
+
+			static const UINT stride = 0;
+			static const UINT offset = 0;
+			ID3D11Buffer* nothing = 0;
+
+			directx::Context::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+			directx::Context::GetDeviceContext()->IASetVertexBuffers(0, 1, &nothing, &stride, &offset);
+			directx::Context::GetDeviceContext()->IASetIndexBuffer(0, DXGI_FORMAT_R32_UINT, 0);
+
+			directx::Context::GetDeviceContext()->Draw(3, 0);
 		}
 
 		void Renderer3D::SetSunnyUniforms(directx::Shader* shader)

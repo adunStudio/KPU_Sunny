@@ -33,7 +33,7 @@ namespace sunny
 				data[7].normal = maths::vec3(-1.0f,  1.0f, -1.0f);
 
 
-				ShaderFactory::Default3DShader()->Bind();
+				ShaderFactory::Default3DDeferredShader()->Bind();
 
 				directx::VertexBuffer* buffer = new directx::VertexBuffer();
 				buffer->SetData(sizeof(Vertex3D) * 8, data);
@@ -138,7 +138,7 @@ namespace sunny
 				data[3].tangent = maths::mat4::Rotate(90.0f, maths::vec3(0, 0, 1)) * normal;
 
 
-				ShaderFactory::Default3DShader()->Bind();
+				ShaderFactory::Default3DDeferredShader()->Bind();
 
 				directx::VertexBuffer* buffer = new directx::VertexBuffer();
 				buffer->SetData(sizeof(Vertex3D) * 8, data);
@@ -185,7 +185,7 @@ namespace sunny
 				data[3].uv = maths::vec2(0, 0);
 				data[3].normal = maths::vec3(0, 1, 1);
 
-				ShaderFactory::Default3DShader()->Bind();
+				ShaderFactory::Default3DDeferredShader()->Bind();
 
 				directx::VertexBuffer* buffer = new directx::VertexBuffer();
 				buffer->SetData(sizeof(Vertex3D) * 4, data);
@@ -228,7 +228,7 @@ namespace sunny
 				data[3].uv = maths::vec2(0, 0);
 				data[3].normal = maths::vec3(0, 1, 1);
 
-				ShaderFactory::Default3DShader()->Bind();
+				ShaderFactory::Default3DDeferredShader()->Bind();
 
 				directx::VertexBuffer* buffer = new directx::VertexBuffer();
 				buffer->SetData(sizeof(Vertex3D) * 4, data);
@@ -271,7 +271,7 @@ namespace sunny
 				data[3].uv = maths::vec2(0, 0);
 				data[3].normal = maths::vec3(0, 1, 1);
 
-				ShaderFactory::Default3DShader()->Bind();
+				ShaderFactory::Default3DDeferredShader()->Bind();
 
 				directx::VertexBuffer* buffer = new directx::VertexBuffer();
 				buffer->SetData(sizeof(Vertex3D) * 4, data);
@@ -288,6 +288,34 @@ namespace sunny
 				va->PushBuffer(buffer);
 
 				unsigned int* indices = new unsigned int[6]{ 0, 1, 2, 2, 3, 0 };
+
+				directx::IndexBuffer* ib = new directx::IndexBuffer(indices, 6);
+
+				return new Mesh(va, ib);
+			}
+
+			Mesh* MeshFactory::CreateScreenQuad()
+			{
+				maths::vec3 data[4];
+
+				data[0] = { -1.0f, -1.0f, 0.0f };
+				data[1] = { -1.0f,  1.0f, 0.0f };
+				data[2] = {  1.0f,  1.0f, 0.0f };
+				data[3] = {  1.0f, -1.0f, 0.0f };
+
+				ShaderFactory::Default3DLightShader()->Bind();
+
+				directx::VertexBuffer* buffer = new directx::VertexBuffer();
+				buffer->SetData(sizeof(maths::vec3) * 4, data);
+
+				directx::BufferLayout layout;
+				layout.Push<maths::vec3>("POSITION");
+				buffer->SetLayout(layout);
+
+				directx::VertexArray* va = new directx::VertexArray();
+				va->PushBuffer(buffer);
+
+				unsigned int* indices = new unsigned int[6] { 0, 1, 2, 0, 2, 3 };
 
 				directx::IndexBuffer* ib = new directx::IndexBuffer(indices, 6);
 

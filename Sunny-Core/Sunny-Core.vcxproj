@@ -30,6 +30,7 @@
     <ClCompile Include="dependency\freetype\freetype-gl\vector.c" />
     <ClCompile Include="directx\BufferLayout.cpp" />
     <ClCompile Include="directx\Context.cpp" />
+    <ClCompile Include="directx\DeferredBuffer.cpp" />
     <ClCompile Include="directx\IndexBuffer.cpp" />
     <ClCompile Include="directx\Renderer.cpp" />
     <ClCompile Include="directx\Shader.cpp" />
@@ -118,6 +119,7 @@
     <ClInclude Include="directx\BufferLayout.h" />
     <ClInclude Include="directx\Common.h" />
     <ClInclude Include="directx\Context.h" />
+    <ClInclude Include="directx\DeferredBuffer.h" />
     <ClInclude Include="directx\IndexBuffer.h" />
     <ClInclude Include="directx\Renderer.h" />
     <ClInclude Include="directx\Shader.h" />

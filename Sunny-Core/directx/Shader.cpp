@@ -455,6 +455,7 @@ namespace sunny
 
 			ShaderResourceDeclaration* declaration = new ShaderResourceDeclaration(ShaderResourceDeclaration::StringToType(type), name);
 			declaration->m_register = reg;
+
 			m_resources.push_back(declaration);
 		}
 

@@ -12,7 +12,9 @@ namespace sunny
 		namespace ShaderFactory
 		{
 			directx::Shader* Default2DShader();
-			directx::Shader* Default3DShader();
+			directx::Shader* Default3DForwardShader();
+			directx::Shader* Default3DDeferredShader();
+			directx::Shader* Default3DLightShader();
 		}
 	}
 }

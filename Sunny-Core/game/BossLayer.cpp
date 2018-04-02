@@ -14,10 +14,11 @@ void BossLayer::OnInit(Renderer3D& renderer)
 {
 	// 셰이더
 	ShaderManager::Add(Shader::CreateFromFile("basic_light", std::string("resource/hlsl/basic_light.hlsl")));
+	ShaderManager::Add(Shader::CreateFromFile("geometry", std::string("resource/hlsl/geometry.hlsl")));
 	ShaderManager::Add(Shader::CreateFromFile("terrain",     std::string("resource/hlsl/terrain.hlsl")    ));
 
 	// 머터리얼, 머터리얼 인스턴스
-	Material* lightMaterial = new Material(ShaderManager::Get("basic_light"));
+	Material* lightMaterial = new Material(ShaderManager::Get("geometry"));
 	MaterialInstance* lightMaterialInstance = new MaterialInstance(lightMaterial);
 
 	Material* terrainMaterial = new Material(ShaderManager::Get("terrain"));
@@ -33,14 +34,14 @@ void BossLayer::OnInit(Renderer3D& renderer)
 	m_heightMap = new HeightMap(500, 500, "/raw/terrain.raw");
 	Model* terrain_model = new Model("/obj/terrain.obj");
 	m_terrain = new Terrain(500, 500, terrain_model->GetMesh(), new Texture2D("/texture/diffuse.tga"), m_heightMap);
-	m_terrain->SetMaterial(terrainMaterialInstance);
+	//m_terrain->SetMaterial(terrainMaterialInstance);
 	Add(m_terrain);
 
 	// 보스몬스터 세팅
 	Model* model = new Model("/sun/boss_attack2.sun");
 	Texture2D* texture = new Texture2D("/texture/boss.png");
 	m_entity = new Entity(model->GetMesh(), texture);
-	m_entity->SetMaterial(lightMaterialInstance);
+	//m_entity->SetMaterial(lightMaterialInstance);
 	m_entity->GetTransformComponent()->Translate({ 0, 28, 0 });
 	m_entity->GetTransformComponent()->Rotate(-90.f, vec3(1, 0, 0));
 	//m_entity->GetTransformComponent()->Rotate(90.f, vec3(0, 0, 1));

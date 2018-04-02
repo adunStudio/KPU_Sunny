@@ -157,7 +157,7 @@ float4 PSMain(VSOutput input) : SV_TARGET
 
 
 
-		const std::string default3DShader_src = R"(
+		const std::string default3DForwardShader_src = R"(
 struct VSInput
 {
 	float4 position : POSITION;
@@ -284,6 +284,161 @@ float4 PSMain(in VSOutput input) : SV_TARGET
 	return float4(finalColor, texColor.a);
 
 	//return texColor;
+})";
+
+const std::string default3DDeferredShader_src = R"(
+struct VSInput
+{
+	float4 position : POSITION;
+	float3 normal : NORMAL;
+	float2 uv : TEXCOORD;
+	float3 binormal : BINORMAL;
+	float3 tangent : TANGENT;
+};
+
+struct VSOutput
+{
+	float4 positionCS : SV_POSITION;
+	float3 cameraPosition : CAMERA_POSITION;
+	float4 position : POSITION;
+	float3 normal : NORMAL;
+	float2 uv : TEXCOORD;
+	float3 binormal : BINORMAL;
+	float3 tangent : TANGENT;
+	float3 color : COLOR;
+	float4 shadowCoord : SHADOW_POSITION;
+};
+
+cbuffer VSSystemUniforms : register(b0)
+{
+	float4x4 SUNNY_ProjectionMatrix;
+	float4x4 SUNNY_ViewMatrix;
+	float4x4 SUNNY_ModelMatrix;
+	float3	 SUNNY_CameraPosition;
+	// float4x4 SUNNY_DepthBiasMatrix;
+};
+
+VSOutput VSMain(in VSInput input)
+{
+	float3x3 wsTransform = (float3x3)SUNNY_ModelMatrix;
+
+	VSOutput output;
+	output.position = mul(input.position, SUNNY_ModelMatrix);
+	output.positionCS = mul(output.position, mul(SUNNY_ViewMatrix, SUNNY_ProjectionMatrix));
+	output.normal = mul(input.normal, wsTransform);
+	output.binormal = mul(input.binormal, wsTransform);
+	output.tangent = mul(input.tangent, wsTransform);
+	output.uv = input.uv;
+	output.color = float3(1.0f, 1.0f, 1.0f);
+	output.shadowCoord = float4(0.0f, 0.0f, 0.0f, 0.0f); // output.shadowCoord = mul(output.position, depthBias);
+
+	output.cameraPosition = SUNNY_CameraPosition;
+
+	return output;
+}
+
+struct PSOutput
+{
+	float4 position: SV_TARGET0;
+	float4 diffuse:  SV_TARGET1;
+	float4 normal:   SV_TARGET2;
+};
+
+Texture2D textures : register(t0);
+SamplerState samplers : register(s0);
+
+cbuffer PSSystemUniforms : register(b0)
+{
+	float4 SUNNY_Color;
+	float  SUNNY_HasTexture;
+};
+
+PSOutput PSMain(in VSOutput input)
+{
+	PSOutput output;
+	
+	float4 texColor = (float4)SUNNY_Color;
+	if (SUNNY_HasTexture >= 1)
+	{
+		texColor *= textures.Sample(samplers, input.uv);
+	}
+
+	output.position = input.position;
+	output.diffuse = texColor;
+	output.normal = float4(normalize(input.normal), 0);
+
+	return output;
+})";
+
+const std::string default3DLightShader_src = R"(
+struct VSInput
+{
+	float3 position : POSITION;
+};
+
+struct VSOutput
+{
+	float4 position : SV_POSITION;
+};
+
+
+VSOutput VSMain(uint id : SV_VertexID)
+{
+	VSOutput output;
+
+	// Calculate the UV (0,0) to (2,2) via the ID
+	float2 uv = float2(
+		(id << 1) & 2,  // id % 2 * 2
+		id & 2);
+
+	// Adjust the position based on the UV
+	output.position = float4(uv, 0, 1);
+	output.position.x = output.position.x * 2 - 1;
+	output.position.y = output.position.y * -2 + 1;
+
+	return output;
+}
+
+
+
+struct Light
+{
+	float4 color;
+	float3 position;
+	float p0;
+	float3 ambientDown;
+	float p1;
+	float3 ambientRange;
+	float intensity;
+};
+
+cbuffer PSSystemUniforms : register(b0)
+{
+	Light SUNNY_Light;
+};
+
+Texture2D positionGB	: register(t0);
+Texture2D diffuseGB		: register(t1);
+Texture2D normalGB		: register(t2);
+SamplerState Sampler	: register(s0);
+
+float4 PSMain(VSOutput input) : SV_TARGET
+{
+	int3 sampleIndices = int3(input.position.xy, 0);
+
+	float3 normal = normalGB.Load(sampleIndices).xyz;
+
+	float3 position = positionGB.Load(sampleIndices).xyz;
+
+	float3 diffuse = diffuseGB.Load(sampleIndices).xyz;
+
+	float3 L = -SUNNY_Light.position;
+
+	float lightAmountDL = saturate(dot(normal, L));
+	float3 color =  diffuse;// SUNNY_Light.color * SUNNY_Light.ambientDown * diffuse;
+
+	return float4(color, 1.0f);
+	//return float4(1.0f, 1.0f, 0, 1.0f);
 })";
 	}
 }

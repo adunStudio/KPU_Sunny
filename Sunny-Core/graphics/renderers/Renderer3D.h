@@ -7,6 +7,7 @@
 #include "../LightSetup.h"
 #include "../../directx/Shader.h"
 #include "../shaders/ShaderFactory.h"
+#include "../../directx/DeferredBuffer.h"
 
 
 namespace sunny
@@ -32,7 +33,9 @@ namespace sunny
 		class Renderer3D
 		{
 		private:
-			directx::Shader* m_default_shader;
+			directx::Shader* m_default_forward_shader;
+			directx::Shader* m_default_deferred_shader;
+			directx::Shader* m_default_light_shader;
 
 			std::vector<RenderCommand> m_commandQueue;
 
@@ -49,6 +52,8 @@ namespace sunny
 			std::vector<unsigned int> m_PSSunnyUniformBufferOffsets;
 
 			std::vector<Renderable3D*> m_renderables;
+
+			ID3D11SamplerState* m_sampler;
 
 		public:
 			Renderer3D();

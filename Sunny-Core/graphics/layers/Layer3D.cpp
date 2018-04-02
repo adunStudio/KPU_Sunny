@@ -70,10 +70,10 @@ namespace sunny
 			m_renderer->Begin();
 			m_renderer->BeginScene(m_camera);
 
-			for (LightSetup* lightSetup : m_lightSetupStack)
+			/*for (LightSetup* lightSetup : m_lightSetupStack)
 			{
 				m_renderer->SubmitLight(*lightSetup);
-			}
+			}*/
 
 			for (Renderable3D* renderable3d : m_renderables)
 			{

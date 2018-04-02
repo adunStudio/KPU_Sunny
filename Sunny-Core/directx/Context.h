@@ -46,9 +46,11 @@ namespace sunny
 			bool m_MSAAEnabled;                  // 멀티샘플링 품질 지원 여부
 			bool m_debugLayerEnabled;            // 디버그 계층을 활성화 하면 Direct3D는 VC++ 출력창에 디버그 메시지를 보낸다.
 
+			ID3D11Texture2D* m_texture;
+
 			ID3D11RenderTargetView* m_renderTargetView; // 화면에 보여지는 버퍼 객체(렌더 타겟 뷰) 인터페이스(swapchain에서 생성되고 관리된다.)
 			ID3D11DepthStencilView* m_depthStencilView; // 깊이/스텐실 정보를 기반으로 View를 관리하는 객체의 인터페이스
-
+			
 			D3D11_VIEWPORT m_screenViewport;            // 뷰포트(윈도우에 그림이 그려지는 영역을  지정)
 
 			ID3D11Texture2D* m_depthStencilBuffer;      // 일반적인 2D 이미지를 관리하는 객체 인터페이스(여기서는 깊이/스텐실 정보 저장용)
@@ -65,6 +67,8 @@ namespace sunny
 
 			void Resize();
 
+			void BindInternal();
+
 		public:
 			/* 게터 */
 			inline static Context* GetContext() { return s_context; }
@@ -76,6 +80,9 @@ namespace sunny
 			inline static ID3D11RenderTargetView* GetBackBuffer() { return GetContext()->m_renderTargetView; }
 			inline static ID3D11DepthStencilView* GetDepthStencilBuffer() { return GetContext()->m_depthStencilView; }
 
+			inline static const WindowProperties& GetWindowProperties() { return GetContext()->m_properties; }
+
+			inline static void Bind() { return GetContext()->BindInternal(); };
 		};
 	}
 }

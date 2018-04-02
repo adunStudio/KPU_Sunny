@@ -2,15 +2,16 @@
 
 #include "../sunny.h"
 #include "Context.h"
+#include "DeferredBuffer.h"
 
 namespace sunny
 {
 	enum RendererBufferType
 	{
-		RENDERER_BUFFER_NONE    = 0,
-		RENDERER_BUFFER_COLOR   = BIT(0),
-		RENDERER_BUFFER_DEPTH   = BIT(1),
-		RENDERER_BUFFER_STENCIL = BIT(2)
+		RENDERER_BUFFER_NONE     = 0,
+		RENDERER_BUFFER_COLOR    = BIT(0),
+		RENDERER_BUFFER_DEPTH    = BIT(1),
+		RENDERER_BUFFER_DEFERRED = BIT(2)
 	};
 
 	enum class RendererBlendFunction
