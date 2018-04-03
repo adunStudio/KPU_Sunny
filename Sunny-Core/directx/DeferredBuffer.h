@@ -24,6 +24,7 @@ namespace sunny
 			ID3D11ShaderResourceView* m_shaderResourceViews[BUFFER_COUNT];
 			ID3D11Texture2D*          m_depthStencilBuffer;
 			ID3D11DepthStencilView*   m_depthStencilView;
+			ID3D11SamplerState*       m_sampler;
 
 		public:
 			static void Init();
@@ -49,6 +50,8 @@ namespace sunny
 			inline static ID3D11DepthStencilView* GetDepthStencilBuffer() { return s_instance->m_depthStencilView; }
 
 			inline static ID3D11ShaderResourceView* GetShaderResource(int index) { return s_instance->m_shaderResourceViews[index]; };
+		
+			inline static ID3D11SamplerState* GetSamplerState() { return s_instance->m_sampler; }
 		};
 	}
 }

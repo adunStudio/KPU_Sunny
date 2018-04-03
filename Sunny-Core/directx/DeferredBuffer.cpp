@@ -19,6 +19,16 @@ namespace sunny
 
 		void DeferredBuffer::InitInternal()
 		{
+			D3D11_SAMPLER_DESC samplerDesc = {};
+			samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+			samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+			samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+			samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+			samplerDesc.MaxAnisotropy = 16;
+			samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+			directx::Context::GetDevice()->CreateSamplerState(&samplerDesc, &m_sampler);
+
 			Resize();
 		}
 

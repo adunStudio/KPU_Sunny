@@ -56,6 +56,7 @@
     <ClCompile Include="graphics\Entity.cpp" />
     <ClCompile Include="graphics\fonts\Font.cpp" />
     <ClCompile Include="graphics\fonts\FontManager.cpp" />
+    <ClCompile Include="graphics\GBuffer.cpp" />
     <ClCompile Include="graphics\groups\Group3D.cpp" />
     <ClCompile Include="graphics\HeightMap.cpp" />
     <ClCompile Include="graphics\Label.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="game\TestLayer2D.h" />
     <ClInclude Include="graphics\fonts\Font.h" />
     <ClInclude Include="graphics\fonts\FontManager.h" />
+    <ClInclude Include="graphics\GBuffer.h" />
     <ClInclude Include="graphics\groups\Group3D.h" />
     <ClInclude Include="graphics\HeightMap.h" />
     <ClInclude Include="graphics\Label.h" />

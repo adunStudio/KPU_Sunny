@@ -8,7 +8,7 @@
 #include "../../directx/Shader.h"
 #include "../shaders/ShaderFactory.h"
 #include "../../directx/DeferredBuffer.h"
-
+#include "../GBuffer.h"
 
 namespace sunny
 {
@@ -52,8 +52,8 @@ namespace sunny
 			std::vector<unsigned int> m_PSSunnyUniformBufferOffsets;
 
 			std::vector<Renderable3D*> m_renderables;
-
-			ID3D11SamplerState* m_sampler;
+			
+			GBuffer* m_gBuffer;
 
 		public:
 			Renderer3D();
