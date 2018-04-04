@@ -37,7 +37,9 @@ namespace sunny
 			directx::Shader* m_default_deferred_shader;
 			directx::Shader* m_default_light_shader;
 
-			std::vector<RenderCommand> m_commandQueue;
+			std::vector<RenderCommand> m_forwardCommandQueue;
+			std::vector<RenderCommand> m_deferredCommandQueue;
+
 
 			std::vector<RendererUniform> m_sunnyUniforms;
 
@@ -45,11 +47,20 @@ namespace sunny
 
 			unsigned char* m_VSSunnyUniformBuffer;
 			unsigned int   m_VSSunnyUniformBufferSize;
-			unsigned char* m_PSSunnyUniformBuffer;
-			unsigned int   m_PSSunnyUniformBufferSize;
+
+			unsigned char* m_PSSunnyForwardUniformBuffer;
+			unsigned int   m_PSSunnyForwardUniformBufferSize;
+			
+			unsigned char* m_PSSunnyDeferredUniformBuffer;
+			unsigned int   m_PSSunnyDeferredUniformBufferSize;
+			
+			unsigned char* m_PSSunnyLightUniformBuffer;
+			unsigned int   m_PSSunnyLightUniformBufferSize;
 
 			std::vector<unsigned int> m_VSSunnyUniformBufferOffsets;
-			std::vector<unsigned int> m_PSSunnyUniformBufferOffsets;
+			std::vector<unsigned int> m_PSSunnyForwardUniformBufferOffsets;
+			std::vector<unsigned int> m_PSSunnyDeferredUniformBufferOffsets;
+			std::vector<unsigned int> m_PSSunnyLightUniformBufferOffsets;
 
 			std::vector<Renderable3D*> m_renderables;
 			
@@ -75,7 +86,13 @@ namespace sunny
 			inline const void SetScreenBufferSize(unsigned int width, unsigned int height) { m_screenBufferWidth = width; m_screenBufferHeight = height; }
 		
 		private:
-			void SetSunnyUniforms(directx::Shader* shader);
+			void ForwardPresentInternal();
+			void DeferredPresentInternal();
+
+			void SetSunnyVSUniforms(directx::Shader* shader);
+			void SetSunnyForwardUniforms(directx::Shader* shader);
+			void SetSunnyDeferredUniforms(directx::Shader* shader);
+			void SetSunnyLightUniforms(directx::Shader* shader);
 		};
 	}
 }

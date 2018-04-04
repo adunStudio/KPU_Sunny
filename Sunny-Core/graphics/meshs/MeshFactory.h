@@ -21,8 +21,6 @@ namespace sunny
 			Mesh* CreateXAxis();
 			Mesh* CreateYAxis();
 			Mesh* CreateZAxis();
-
-			Mesh* CreateScreenQuad();
 		}
 	}
 }
