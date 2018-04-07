@@ -33,7 +33,8 @@ namespace sunny
 
 		enum PSSunnyLightUniformIndices : int
 		{
-			PSSunnyLightUniformIndex_Lights = 0,
+			PSSunnyLightUniformIndex_Lights         = 0,
+			PSSunnyLightUniformIndex_CameraPosition = 1,
 			PSSunnyLightUniformIndex_Size
 		};
 
@@ -97,6 +98,7 @@ namespace sunny
 
 			m_PSSunnyLightUniformBufferOffsets.resize(PSSunnyLightUniformIndex_Size);
 			m_PSSunnyLightUniformBufferOffsets[PSSunnyLightUniformIndex_Lights] = 0;
+			m_PSSunnyLightUniformBufferOffsets[PSSunnyLightUniformIndex_CameraPosition] = m_PSSunnyLightUniformBufferOffsets[PSSunnyLightUniformIndex_Lights] + sizeof(Light);
 		}
 
 		void Renderer3D::Begin()
@@ -112,6 +114,8 @@ namespace sunny
 			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ProjectionMatrix], &camera->GetProjectionMatrix(), sizeof(maths::mat4));
 			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ViewMatrix],       &camera->GetViewMatrix(),       sizeof(maths::mat4));
 			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_CameraPosition],   &camera->GetPosition(),         sizeof(maths::vec3));
+
+			memcpy(m_PSSunnyLightUniformBuffer + m_PSSunnyLightUniformBufferOffsets[PSSunnyLightUniformIndex_CameraPosition],   &camera->GetPosition(), sizeof(maths::vec3));
 		}
 
 		void Renderer3D::Submit(Renderable3D* renderable)
@@ -121,10 +125,10 @@ namespace sunny
 
 		void Renderer3D::Submit(const RenderCommand& command)
 		{
-			if (command.color.w == 1.0f)
+			//if (command.color.w == 1.0f)
 				m_deferredCommandQueue.push_back(command);
-			else
-				m_forwardCommandQueue.push_back(command);
+			//else
+				//m_forwardCommandQueue.push_back(command);
 		}
 
 		void Renderer3D::SubmitRenderable3D(Renderable3D* renderable)
@@ -193,15 +197,13 @@ namespace sunny
 
 			DeferredPresentInternal();
 
-			ForwardPresentInternal();
-
-
+			//ForwardPresentInternal();
 		}
 
 		void Renderer3D::ForwardPresentInternal()
 		{
 			directx::Renderer::SetDepthTesting(true);
-			directx::Renderer::SetBlend(true);
+			directx::Renderer::SetBlend(false);
 
 			for (unsigned int i = 0; i < m_forwardCommandQueue.size(); ++i)
 			{
@@ -211,6 +213,7 @@ namespace sunny
 				memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_Color], &command.color, sizeof(maths::vec4));
 				memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_HasTexture], &command.hasTexture, sizeof(float));
 
+				//command.shader = m_default_deferred_shader;
 				command.shader->Bind();
 
 				SetSunnyVSUniforms(command.shader);
@@ -252,6 +255,8 @@ namespace sunny
 			m_gBuffer->SetGBufferTexture(GBuffer::TextureType::DIFFUSE);
 			m_gBuffer->SetGBufferTexture(GBuffer::TextureType::NORMAL);
 			m_gBuffer->SetGBufferSampler();
+
+			SetSunnyLightUniforms(m_default_light_shader);
 
 			m_gBuffer->Draw();
 		}

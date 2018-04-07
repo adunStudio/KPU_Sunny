@@ -36,7 +36,8 @@ struct Light
 
 cbuffer PSSystemUniforms : register(b0)
 {
-	Light SUNNY_Light;
+	Light    SUNNY_Light;
+	float3	 SUNNY_CameraPosition;
 };
 
 Texture2D positionGB	: register(t0);
@@ -57,7 +58,8 @@ float4 PSMain(VSOutput input) : SV_TARGET
 	float3 L = -SUNNY_Light.position;
 
 	float lightAmountDL = saturate(dot(normal, L));
-	float3 color = SUNNY_Light.color * SUNNY_Light.ambientDown * diffuse;
+
+	float3 color =   SUNNY_Light.color * SUNNY_Light.ambientDown * diffuse;
 
 	return float4(color, 1.0f);
 }
