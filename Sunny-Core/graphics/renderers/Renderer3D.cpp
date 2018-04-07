@@ -92,7 +92,7 @@ namespace sunny
 			m_PSSunnyDeferredUniformBufferOffsets[PSSunnyDeferredUniformIndex_HasTexture] = m_PSSunnyDeferredUniformBufferOffsets[PSSunnyDeferredUniformIndex_Color] + sizeof(maths::vec4);
 		
 			/* «»ºø ºŒ¿Ã¥ı (Light) */
-			m_PSSunnyLightUniformBufferSize = sizeof(Light);
+			m_PSSunnyLightUniformBufferSize = sizeof(Light) + sizeof(maths::vec3);
 			m_PSSunnyLightUniformBuffer = new unsigned char[m_PSSunnyLightUniformBufferSize];
 			memset(m_PSSunnyLightUniformBuffer, 0, m_PSSunnyLightUniformBufferSize);
 
