@@ -125,10 +125,10 @@ namespace sunny
 
 		void Renderer3D::Submit(const RenderCommand& command)
 		{
-			//if (command.color.w == 1.0f)
+			if (command.color.w == 1.0f)
 				m_deferredCommandQueue.push_back(command);
-			//else
-				//m_forwardCommandQueue.push_back(command);
+			else
+				m_forwardCommandQueue.push_back(command);
 		}
 
 		void Renderer3D::SubmitRenderable3D(Renderable3D* renderable)
@@ -194,10 +194,9 @@ namespace sunny
 
 		void Renderer3D::Present()
 		{
-
 			DeferredPresentInternal();
 
-			//ForwardPresentInternal();
+			ForwardPresentInternal();
 		}
 
 		void Renderer3D::ForwardPresentInternal()
@@ -255,6 +254,8 @@ namespace sunny
 			m_gBuffer->SetGBufferTexture(GBuffer::TextureType::DIFFUSE);
 			m_gBuffer->SetGBufferTexture(GBuffer::TextureType::NORMAL);
 			m_gBuffer->SetGBufferSampler();
+
+			directx::Renderer::SetDepthTesting(false);
 
 			SetSunnyLightUniforms(m_default_light_shader);
 
