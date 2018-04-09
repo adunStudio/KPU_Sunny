@@ -87,7 +87,8 @@ namespace sunny
 		
 		private:
 			void ForwardPresentInternal();
-			void DeferredPresentInternal();
+			void DeferredBlendFalsePresentInternal();
+			void DeferredBlendTruePresentInternal();
 
 			void SetSunnyVSUniforms(directx::Shader* shader);
 			void SetSunnyForwardUniforms(directx::Shader* shader);

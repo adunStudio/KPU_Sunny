@@ -109,12 +109,13 @@ namespace sunny
 				desc.RenderTarget[0].SrcBlend       = D3D11_BLEND_SRC_ALPHA;     // RGB 성분 혼합의 원본 혼합 계수
 				desc.RenderTarget[0].DestBlend      = D3D11_BLEND_INV_SRC_ALPHA; // RGB 성분 혼합의 대상 혼합 계수
 				desc.RenderTarget[0].BlendOp        = D3D11_BLEND_OP_ADD;        // RGB 성분 혼합 연산자
-				desc.RenderTarget[0].SrcBlendAlpha  = D3D11_BLEND_SRC_ALPHA;     // 알파 성분 혼합의 원본 혼합 계수
-				desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_INV_SRC_ALPHA;     // 알파 성분 혼합의 원본 혼합 계수
+				desc.RenderTarget[0].SrcBlendAlpha  = D3D11_BLEND_ONE;     // 알파 성분 혼합의 원본 혼합 계수
+				desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;     // 알파 성분 혼합의 원본 혼합 계수
 				desc.RenderTarget[0].BlendOpAlpha   = D3D11_BLEND_OP_ADD;        // 알파 성분 혼합 연산자
 
 				desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL; // 렌더 대상 쓰기 마스크
 
+		
 				ID3D11BlendState* state;
 				Context::GetDevice()->CreateBlendState(&desc, &state);
 
@@ -134,7 +135,7 @@ namespace sunny
 			// enabled : true
 			{
 				D3D11_DEPTH_STENCIL_DESC desc;
-
+				
 				desc.DepthEnable    = true;                                     // 깊이 버펄이 활성화(true), 비활성화(false)
 
 				desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;               // ZERO: 깊이 버퍼 쓰기(갱신) 방지, 깊이 판정 수행 | ALL: 깊이 버퍼 쓰기(갱신)도 활성화 
@@ -147,18 +148,18 @@ namespace sunny
 				/* FrontFace: 전면 삼각형에 대한 스텍실 버퍼 적용 방식 */
 				desc.FrontFace.StencilFailOp      = D3D11_STENCIL_OP_KEEP;      // 픽셀 단편이 스텍실 판정에 실패했을 때의 스텐실 버퍼의 갱신 방식
 				desc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;      // 픽셀 단편이 스텐실 판정은 통과되었으나 깊이 판정에 실패했을 때의 스텐실 버퍼의 갱신 방법
-				desc.FrontFace.StencilPassOp      = D3D11_STENCIL_OP_INCR_SAT;  // 픽셀 단편이 스텐실 판정과 깊이 판정을 모두 통과했을 때의 스텐실 버퍼의 갱신 방법 
+				desc.FrontFace.StencilPassOp      = D3D11_STENCIL_OP_KEEP;  // 픽셀 단편이 스텐실 판정과 깊이 판정을 모두 통과했을 때의 스텐실 버퍼의 갱신 방법 
 				desc.FrontFace.StencilFunc        = D3D11_COMPARISON_ALWAYS;    // 스텐실 판정 비교 함수를 결정하는 멤버 
 
 				/* BackFace: 후면 삼각형에 대한 스텍실 버퍼 적용 방식 */
 				desc.BackFace.StencilFailOp       = D3D11_STENCIL_OP_KEEP;
 				desc.BackFace.StencilDepthFailOp  = D3D11_STENCIL_OP_KEEP;
-				desc.BackFace.StencilPassOp       = D3D11_STENCIL_OP_INCR_SAT;
+				desc.BackFace.StencilPassOp       = D3D11_STENCIL_OP_KEEP;
 				desc.BackFace.StencilFunc         = D3D11_COMPARISON_ALWAYS;
 
 				// D3D11_STENCIL_OP_KEEP     : 스텐실 버퍼를 변경하지 않도록 한다. 즉, 현재 잇는 값을 유지한다.
 				// D3D11_STENCIL_OP_INCR_SAT : 스텐실 버퍼 항목을 증가한다. 최댓값을 넘기면 최댓값으로 한정한다. 
-
+				
 				ID3D11DepthStencilState* state;
 				Context::GetDevice()->CreateDepthStencilState(&desc, &state);
 			

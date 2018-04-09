@@ -131,7 +131,7 @@ namespace sunny
 		directx::DeferredBuffer::Init();
 		directx::Renderer::Init();
 
-		directx::Context::Bind();
+		//directx::Context::GetContext()->Bind();
 
         SetTitle(m_title);
 

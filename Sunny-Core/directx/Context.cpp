@@ -1,6 +1,7 @@
 #include "Context.h"
 
 #include "DeferredBuffer.h"
+
 namespace sunny
 {
 	namespace directx
@@ -147,7 +148,7 @@ namespace sunny
 				//depthStencilDesc.Format = DXGI_FORMAT_R24G8_TYPELESS;
 
 				depthStencilDesc.SampleDesc.Count = m_MSAAEnabled ? 4 : 1;                     // 멀티샘플링 개수
-				depthStencilDesc.SampleDesc.Quality = m_MSAAEnabled ? (m_MSAAQuality - 1) : 0; // 멀티샘플링 품질
+				depthStencilDesc.SampleDesc.Quality =  m_MSAAEnabled ? (m_MSAAQuality - 1) : 0; // 멀티샘플링 품질
 
 				// 텍스쳐의 읽기/쓰기 지정
 				depthStencilDesc.Usage = D3D11_USAGE_DEFAULT; // 기본 읽기 쓰기로 사용됨을 명시
@@ -168,8 +169,17 @@ namespace sunny
 			// 초기화 데이터(배열 포인터)
 			// 생성된 2D 텍스쳐를 반환받는 포인터
 
+			// 깊이 / 스텐실 렌더 타겟생성
+			D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDescDR;
+			ZeroMemory(&depthStencilViewDescDR, sizeof(depthStencilViewDescDR));
+			{
+				depthStencilViewDescDR.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+				depthStencilViewDescDR.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+				depthStencilViewDescDR.Texture2D.MipSlice = 0;
+			}
+
 			// 깊이/스텐실 렌더 타겟 생성
-			dev->CreateDepthStencilView(m_depthStencilBuffer, 0, &m_depthStencilView);
+			dev->CreateDepthStencilView(m_depthStencilBuffer, NULL, &m_depthStencilView);
 			// pResource: 뷰로 만들 DepthStecil 렌더
 			// pDesc    : 뷰로 만들 DepthStecil 설정 구조체 (NULL은 기본 설정)
 			// ppRTView : 생성된 DepthStencil을 반환받는 포인터
@@ -205,7 +215,7 @@ namespace sunny
 				rasterDesc.FillMode = D3D11_FILL_SOLID;       // 와이어 프레임 or 솔리드 프레임
 				rasterDesc.FrontCounterClockwise = true;      // 시계 방향 삼각형 전면(true), 반시계 방향 삼각형 전면(false)
 				// http://hns17.tistory.com/entry/Common3%EC%B0%A8%EC%9B%90-%EA%B3%B5%EA%B0%84-%EC%A2%8C%ED%91%9C%EA%B3%84
-				rasterDesc.MultisampleEnable = false;
+				rasterDesc.MultisampleEnable = true;
 				rasterDesc.ScissorEnable = false;
 				rasterDesc.SlopeScaledDepthBias = 0.0f;
 			}
@@ -219,8 +229,8 @@ namespace sunny
 
 		void Context::BindInternal()
 		{
-			//devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
-			devcon->OMSetRenderTargets(1, &m_renderTargetView,  DeferredBuffer::GetDepthStencilBuffer());
+			devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
+			//devcon->OMSetRenderTargets(1, &m_renderTargetView, DeferredBuffer::GetDepthStencilBuffer());
 		}
 
 		void Context::Present()

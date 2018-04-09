@@ -11,7 +11,7 @@ namespace sunny
 		public:
 			enum class TextureType : int
 			{
-				POSITION = 0, DIFFUSE = 1, NORMAL = 2
+				POSITION = 0, NORMAL = 1, DIFFUSE = 2
 			};
 
 		private:

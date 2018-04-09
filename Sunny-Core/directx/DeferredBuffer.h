@@ -21,9 +21,10 @@ namespace sunny
 
 			ID3D11Texture2D*		  m_textures[BUFFER_COUNT];
 			ID3D11RenderTargetView*   m_renderTargetViews[BUFFER_COUNT];
-			ID3D11ShaderResourceView* m_shaderResourceViews[BUFFER_COUNT];
+			ID3D11ShaderResourceView* m_shaderResourceViews[4];
 			ID3D11Texture2D*          m_depthStencilBuffer;
 			ID3D11DepthStencilView*   m_depthStencilView;
+			ID3D11DepthStencilView*   m_depthStencilView2;
 			ID3D11SamplerState*       m_sampler;
 
 		public:

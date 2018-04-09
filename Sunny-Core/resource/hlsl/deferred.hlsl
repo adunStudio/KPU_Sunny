@@ -41,8 +41,8 @@ cbuffer PSSystemUniforms : register(b0)
 };
 
 Texture2D positionGB	: register(t0);
-Texture2D diffuseGB		: register(t1);
-Texture2D normalGB		: register(t2);
+Texture2D normalGB		: register(t1);
+Texture2D diffuseGB		: register(t2);
 SamplerState Sampler	: register(s0);
 
 float4 PSMain(VSOutput input) : SV_TARGET
@@ -55,11 +55,11 @@ float4 PSMain(VSOutput input) : SV_TARGET
 
 	float3 diffuse = diffuseGB.Load(sampleIndices).xyz;
 
-	float3 L = -SUNNY_Light.position;
+	float3 L = SUNNY_Light.position;
 
 	float lightAmountDL = saturate(dot(normal, L));
 
-	float3 color =   SUNNY_Light.color * SUNNY_Light.ambientDown * diffuse;
+	float3 color = diffuse;// SUNNY_Light.color * lightAmountDL * diffuse;
 
 	return float4(color, 1.0f);
 }

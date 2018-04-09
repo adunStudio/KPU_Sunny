@@ -112,7 +112,7 @@ float4 PSMain(in VSOutput input) : SV_TARGET
 
 	if (SUNNY_HasTexture >= 1)
 	{
-		texColor *= textures.Sample(samplers, input.uv);
+		texColor = textures.Sample(samplers, input.uv);
 	}
 
 	texColor.rgb *= texColor.rgb; // 더 진해진다.
