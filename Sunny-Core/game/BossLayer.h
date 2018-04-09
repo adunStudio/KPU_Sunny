@@ -5,6 +5,7 @@
 #include "../graphics/layers/Layer3D.h"
 #include "../app/Application.h"
 #include "../graphics/shaders/ShaderFactory.h"
+#include "../utils/json/json.h"
 
 using namespace std;
 using namespace sunny;

@@ -140,7 +140,7 @@ namespace sunny
 			}
 			m_context->GetDevice()->CreateTexture2D(&depthBufferDescDR, 0, &m_depthStencilBuffer);
 
-			// ±íÀÌ / ½ºÅÙ½Ç ·»´õ Å¸°Ù»ý ¼º
+			// ±íÀÌ / ½ºÅÙ½Ç ·»´õ Å¸°Ù»ý¼º
 			D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDescDR;
 			ZeroMemory(&depthStencilViewDescDR, sizeof(depthStencilViewDescDR));
 			{
@@ -153,11 +153,13 @@ namespace sunny
 			// pResource: ºä·Î ¸¸µé DepthStecil ·»´õ
 			// pDesc    : ºä·Î ¸¸µé DepthStecil ¼³Á¤ ±¸Á¶Ã¼ (NULLÀº ±âº» ¼³Á¤)
 			// ppRTView : »ý¼ºµÈ DepthStencilÀ» ¹ÝÈ¯¹Þ´Â Æ÷ÀÎÅÍ
+
 		}
 
 		void DeferredBuffer::BindInternal()
 		{
 			m_context->GetDeviceContext()->OMSetRenderTargets(3, m_renderTargetViews, m_depthStencilView);
+		//	m_context->GetDeviceContext()->OMSetRenderTargets(3, m_renderTargetViews, Context::GetDepthStencilBuffer());
 		}
 
 		void DeferredBuffer::UnBindInternal()

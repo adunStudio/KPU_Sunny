@@ -12,6 +12,34 @@ BossLayer::~BossLayer()
 
 void BossLayer::OnInit(Renderer3D& renderer)
 {
+
+	std::string strJson =  system::FileSystem::ReadTextFile("resource/json/map.json");
+
+	std::cout << strJson << std::endl;
+
+	Json::Value root;
+	Json::Reader reader;
+	bool parsingSuccessful = reader.parse(strJson.c_str(), root);
+
+	if (parsingSuccessful)
+	{
+		std::cout << "ÆÄ½Ì ¼º°ø" << std::endl;
+
+		for (int i = 0; i < root.size(); ++i)
+		{
+			Json::Value name = root[i]["name"].asString();
+			maths::vec3 translation = vec3(root[i]["translation"]["x"].asFloat(), root[i]["translation"]["y"].asFloat(), root[i]["translation"]["z"].asFloat());
+			maths::vec3 rotation    = vec3(root[i]["rotation"]["x"].asFloat()   , root[i]["rotation"]["y"].asFloat()   , root[i]["rotation"]["z"].asFloat()   );
+			maths::vec3 scale       = vec3(root[i]["scale"]["x"].asFloat()      , root[i]["scale"]["y"].asFloat()      , root[i]["scale"]["z"].asFloat()      );
+		}
+	}
+	else
+	{
+		std::cout << "Failed to parse"
+			<< reader.getFormattedErrorMessages();
+	}
+
+
 	// ¼ÎÀÌ´õ
 	ShaderManager::Add(Shader::CreateFromFile("basic_light", std::string("resource/hlsl/basic_light.hlsl")));
 	ShaderManager::Add(Shader::CreateFromFile("geometry", std::string("resource/hlsl/geometry.hlsl")));

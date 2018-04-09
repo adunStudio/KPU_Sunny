@@ -28,6 +28,7 @@ public:
 		VFS::Get()->Mount("texture", "resource/texture");
 		VFS::Get()->Mount("sun",     "resource/sun");
 		VFS::Get()->Mount("raw",     "resource/raw");
+		VFS::Get()->Mount("json",    "resource/json");
 
 		PushOverlay(new TestLayer2D());
 		//PushOverlay(new ChessLayer());

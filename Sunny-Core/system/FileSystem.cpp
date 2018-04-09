@@ -74,7 +74,13 @@ namespace sunny
             if(!file )
                 return std::string("");
 
-            std::string str((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+			std::string str;
+
+			file.seekg(0, std::ios::end);
+			str.reserve(file.tellg());
+			file.seekg(0, std::ios::beg);
+
+            str.assign((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
 
             return str;
         }

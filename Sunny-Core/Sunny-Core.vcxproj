@@ -98,6 +98,7 @@
     <ClCompile Include="maths\vec4.cpp" />
     <ClCompile Include="system\FileSystem.cpp" />
     <ClCompile Include="system\VFS.cpp" />
+    <ClCompile Include="utils\json\json.cpp" />
     <ClCompile Include="utils\LoadImage.cpp" />
     <ClCompile Include="utils\String.cpp" />
     <ClCompile Include="utils\Timer.cpp" />
@@ -198,6 +199,8 @@
     <ClInclude Include="sunny.h" />
     <ClInclude Include="system\FileSystem.h" />
     <ClInclude Include="system\VFS.h" />
+    <ClInclude Include="utils\json\json-forwards.h" />
+    <ClInclude Include="utils\json\json.h" />
     <ClInclude Include="utils\LoadImage.h" />
     <ClInclude Include="utils\String.h" />
     <ClInclude Include="utils\Timer.h" />

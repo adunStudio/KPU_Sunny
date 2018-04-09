@@ -1,6 +1,6 @@
 #include "Context.h"
 
-
+#include "DeferredBuffer.h"
 namespace sunny
 {
 	namespace directx
@@ -144,6 +144,7 @@ namespace sunny
 				depthStencilDesc.MipLevels = 1;              // 최대 밉맵 레벨을 지정 (밉맵: 한 장의 그림에 여러 스케일 장면을 포함한 텍스쳐)
 				depthStencilDesc.ArraySize = 1;              // 텍스쳐 배열의 텍스쳐 갯수
 				depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;  // 깊이-depth로 24비트, 스텐실 값으로 8바이트를 사용하는 형식
+				//depthStencilDesc.Format = DXGI_FORMAT_R24G8_TYPELESS;
 
 				depthStencilDesc.SampleDesc.Count = m_MSAAEnabled ? 4 : 1;                     // 멀티샘플링 개수
 				depthStencilDesc.SampleDesc.Quality = m_MSAAEnabled ? (m_MSAAQuality - 1) : 0; // 멀티샘플링 품질
@@ -176,6 +177,7 @@ namespace sunny
 
 			/* 5. 렌더 타겟을 디바이스 컨텍스트의 출력 병합 단계에 연결한다. */
 			devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
+			//devcon->OMSetRenderTargets(1, &m_renderTargetView, DeferredBuffer::GetDepthStencilBuffer());
 			// NumViews : 뷰의 개수 (현재 1)
 			// ppRenderTargetViews: 렌더 뷰의 포인터        (CreateRenderTargetView 에서 생성)
 			// pDepthStencilView : DepthStencil 뷰의 포인터 (CreateDepthStencilView 에서 생성)
@@ -217,7 +219,8 @@ namespace sunny
 
 		void Context::BindInternal()
 		{
-			devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
+			//devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
+			devcon->OMSetRenderTargets(1, &m_renderTargetView,  DeferredBuffer::GetDepthStencilBuffer());
 		}
 
 		void Context::Present()
