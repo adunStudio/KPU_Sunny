@@ -201,28 +201,37 @@ namespace sunny
 		void Renderer3D::Present()
 		{
 
-			DeferredBlendFalsePresentInternal();
-			DeferredBlendTruePresentInternal();
-			//ForwardPresentInternal();
+			//DeferredBlendFalsePresentInternal();
+			//DeferredBlendTruePresentInternal();
+			ForwardBlendFalsePresentInternal();
+			ForwardBlendTruePresentInternal();
 
 		}
 
-		void Renderer3D::ForwardPresentInternal()
+		void Renderer3D::ForwardBlendFalsePresentInternal()
 		{
-			
+			directx::Renderer::SetDepthTesting(true);
+			directx::Renderer::SetBlend(false);
 
+			for (unsigned int i = 0; i < m_deferredCommandQueue.size(); ++i)
+			{
+				RenderCommand& command = m_deferredCommandQueue[i];
 
-			m_gBuffer->Bind();
-			float color[4] = { 0.0f, 0.0f, 0.0f, 1.0f }; // ºí·¢
-			
-			directx::Context::GetDeviceContext()->ClearRenderTargetView(directx::DeferredBuffer::GetBuffer(0), color);
-			directx::Context::GetDeviceContext()->ClearRenderTargetView(directx::DeferredBuffer::GetBuffer(1), color);
-			directx::Context::GetDeviceContext()->ClearRenderTargetView(directx::DeferredBuffer::GetBuffer(2), color);
+				memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
+				memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_Color], &command.color, sizeof(maths::vec4));
+				memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_HasTexture], &command.hasTexture, sizeof(float));
 
-			directx::Context::GetDeviceContext()->ClearDepthStencilView(directx::DeferredBuffer::GetDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+				command.shader->Bind();
 
-			m_gBuffer->UnBind();
+				SetSunnyVSUniforms(command.shader);
+				SetSunnyForwardUniforms(command.shader);
 
+				command.renderable3d->Render();
+			}
+		}
+
+		void Renderer3D::ForwardBlendTruePresentInternal()
+		{
 			directx::Renderer::SetDepthTesting(true);
 			directx::Renderer::SetBlend(true);
 
@@ -241,7 +250,6 @@ namespace sunny
 
 				command.renderable3d->Render();
 			}
-
 		}
 
 		void Renderer3D::DeferredBlendFalsePresentInternal()
@@ -270,8 +278,6 @@ namespace sunny
 
 			m_gBuffer->UnBind();
 
-			//directx::Context::GetDeviceContext()->ClearDepthStencilView(directx::DeferredBuffer::GetDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-
 			m_default_light_shader->Bind();
 
 			m_gBuffer->SetGBufferTexture(GBuffer::TextureType::POSITION);
@@ -284,8 +290,6 @@ namespace sunny
 			directx::Renderer::SetDepthTesting(false);
 
 			m_gBuffer->Draw();
-			//directx::Context::GetDeviceContext()->ClearDepthStencilView(directx::DeferredBuffer::GetDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-
 		}
 
 		void Renderer3D::DeferredBlendTruePresentInternal()
@@ -313,8 +317,6 @@ namespace sunny
 
 			m_gBuffer->UnBind();
 
-			//directx::Context::GetDeviceContext()->ClearDepthStencilView(directx::DeferredBuffer::GetDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-
 			m_default_light_shader->Bind();
 
 			m_gBuffer->SetGBufferTexture(GBuffer::TextureType::POSITION);
@@ -327,8 +329,6 @@ namespace sunny
 			directx::Renderer::SetDepthTesting(false);
 
 			m_gBuffer->Draw();
-			//directx::Context::GetDeviceContext()->ClearDepthStencilView(directx::DeferredBuffer::GetDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-
 		}
 
 		void Renderer3D::SetSunnyVSUniforms(directx::Shader* shader)

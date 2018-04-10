@@ -42,6 +42,10 @@ void NPCLayer::OnInit(Renderer3D& renderer)
 	Entity* a = new Entity(MeshFactory::CreateQuad(0, 0, 10, 20), new Texture2D("/texture/time.jpg"), mat4::Identity());
 	Entity* b = new Entity(MeshFactory::CreateCube(20), RGBA(1.0f, 1.0f, 1.0f, 0.5f), mat4::Identity() * mat4::Translate(maths::vec3(-20, 0, 0)));
 	Entity* c = new Entity(MeshFactory::CreateCube(20), RGBA(1.0f, 0.0f, 0.0f, 0.5f), mat4::Identity() * mat4::Translate(maths::vec3(20, 0, 0)));
+	Entity* d = new Entity(MeshFactory::CreateCube(20), RGBA(1.0f, 0.0f, 1.0f, 0.5f), mat4::Identity() * mat4::Translate(maths::vec3(0, 0, 20)));
+	Entity* e = new Entity(MeshFactory::CreateCube(20), RGBA(1.0f, 1.0f, 0.0f, 0.5f), mat4::Identity() * mat4::Translate(maths::vec3(0, 0, -20)));
+	Entity* f = new Entity(MeshFactory::CreateCube(20), RGBA(0.0f, 1.0f, 1.0f, 0.5f), mat4::Identity() * mat4::Translate(maths::vec3(0, 20, 0)));
+	Entity* g = new Entity(MeshFactory::CreateCube(20), RGBA(0.0f, 0.0f, 0.0f, 0.5f), mat4::Identity() * mat4::Translate(maths::vec3(0, -20, 0)));
 
 	
 
@@ -50,10 +54,13 @@ void NPCLayer::OnInit(Renderer3D& renderer)
 	Add(yAxis);
 	Add(zAxis);
 
-	Add(b);
-
 	Add(a);
+	Add(b);
 	Add(c);
+	Add(d);
+	Add(e);
+	Add(f);
+	Add(g);
 	Add(m_entity);
 
 	

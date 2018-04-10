@@ -86,7 +86,8 @@ namespace sunny
 			inline const void SetScreenBufferSize(unsigned int width, unsigned int height) { m_screenBufferWidth = width; m_screenBufferHeight = height; }
 		
 		private:
-			void ForwardPresentInternal();
+			void ForwardBlendFalsePresentInternal();
+			void ForwardBlendTruePresentInternal();
 			void DeferredBlendFalsePresentInternal();
 			void DeferredBlendTruePresentInternal();
 
