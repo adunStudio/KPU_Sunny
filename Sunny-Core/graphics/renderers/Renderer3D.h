@@ -79,7 +79,7 @@ namespace sunny
 			void SubmitRenderable3D(Renderable3D* renderable);
 			void SubmitGroup3D(Group3D* group3d);
 			void SubmitLight(const LightSetup& lightSetup);
-			void EndScene();
+			void EndScene(Camera* camera);
 			void End();
 			void Present();
 

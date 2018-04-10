@@ -87,7 +87,7 @@ namespace sunny
 					m_renderer->SubmitGroup3D(group3d);
 			}
 
-			m_renderer->EndScene();
+			m_renderer->EndScene(m_camera);
 			m_renderer->End();
 
 			m_renderer->Present();

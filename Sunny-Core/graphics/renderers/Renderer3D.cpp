@@ -182,9 +182,15 @@ namespace sunny
 			}
 		}
 
-		void Renderer3D::EndScene()
+		void Renderer3D::EndScene(Camera* camera)
 		{
+			maths::vec3 cameraPosition = camera->GetPosition();
 
+			// 카메라 위치와 불투명한 객체 위치의 거리에 따라 정렬
+			std::sort(m_forwardCommandQueue.begin(), m_forwardCommandQueue.end(), [&cameraPosition](const RenderCommand& a, RenderCommand& b) {				
+				return  cameraPosition.Distance(a.transform.GetPosition()) >
+						cameraPosition.Distance(b.transform.GetPosition());
+			});
 		}
 
 		void Renderer3D::End()
@@ -197,12 +203,26 @@ namespace sunny
 
 			DeferredBlendFalsePresentInternal();
 			DeferredBlendTruePresentInternal();
-			
 			//ForwardPresentInternal();
+
 		}
 
 		void Renderer3D::ForwardPresentInternal()
 		{
+			
+
+
+			m_gBuffer->Bind();
+			float color[4] = { 0.0f, 0.0f, 0.0f, 1.0f }; // 블랙
+			
+			directx::Context::GetDeviceContext()->ClearRenderTargetView(directx::DeferredBuffer::GetBuffer(0), color);
+			directx::Context::GetDeviceContext()->ClearRenderTargetView(directx::DeferredBuffer::GetBuffer(1), color);
+			directx::Context::GetDeviceContext()->ClearRenderTargetView(directx::DeferredBuffer::GetBuffer(2), color);
+
+			directx::Context::GetDeviceContext()->ClearDepthStencilView(directx::DeferredBuffer::GetDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+
+			m_gBuffer->UnBind();
+
 			directx::Renderer::SetDepthTesting(true);
 			directx::Renderer::SetBlend(true);
 
@@ -270,7 +290,6 @@ namespace sunny
 
 		void Renderer3D::DeferredBlendTruePresentInternal()
 		{
-
 			m_gBuffer->Bind();
 			directx::Renderer::SetDepthTesting(true);
 			directx::Renderer::SetBlend(true);
