@@ -58,13 +58,11 @@ namespace sunny
 			
 			// 텍스쳐 생성
 			m_textures[0] = nullptr;
-			auto a1 = m_context->GetDevice()->CreateTexture2D(&textureDescPosNormDiffuse, NULL, &m_textures[0]);
-			auto b1 = m_context->GetDevice()->CreateTexture2D(&textureDescPosNormDiffuse, NULL, &m_textures[1]);
-			auto c1 = m_context->GetDevice()->CreateTexture2D(&textureDescPosNormDiffuse, NULL, &m_textures[2]);
+			m_context->GetDevice()->CreateTexture2D(&textureDescPosNormDiffuse, NULL, &m_textures[0]);
+			m_context->GetDevice()->CreateTexture2D(&textureDescPosNormDiffuse, NULL, &m_textures[1]);
+			m_context->GetDevice()->CreateTexture2D(&textureDescPosNormDiffuse, NULL, &m_textures[2]);
 
-			std::cout << a1 << std::endl;
-			std::cout << b1 << std::endl;
-			std::cout << c1 << std::endl;
+		
 
 			// 렌더 타겟 뷰 설명 구조체 (32bit)
 			D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc32;
@@ -81,14 +79,12 @@ namespace sunny
 			// pDesc    : 렌더링 뷰의 정보 설정 구조체   
 			// ppRTView : 생성한 뷰를 반환받는 포인터	
 			m_renderTargetViews[0] = nullptr;
-			auto a = m_context->GetDevice()->CreateRenderTargetView(m_textures[0], &renderTargetViewDesc32, &m_renderTargetViews[0]);
-			auto b = m_context->GetDevice()->CreateRenderTargetView(m_textures[1], &renderTargetViewDesc32, &m_renderTargetViews[1]);
-			auto c = m_context->GetDevice()->CreateRenderTargetView(m_textures[2], &renderTargetViewDesc32 , &m_renderTargetViews[2]);
+			m_context->GetDevice()->CreateRenderTargetView(m_textures[0], &renderTargetViewDesc32, &m_renderTargetViews[0]);
+			m_context->GetDevice()->CreateRenderTargetView(m_textures[1], &renderTargetViewDesc32, &m_renderTargetViews[1]);
+			m_context->GetDevice()->CreateRenderTargetView(m_textures[2], &renderTargetViewDesc32 , &m_renderTargetViews[2]);
 
 
-			std::cout << a << std::endl;
-			std::cout << b << std::endl;
-			std::cout << c << std::endl;
+		
 			// 셰이더 리소스 뷰 설명 구조체
 			// - 32
 			D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc32DR;

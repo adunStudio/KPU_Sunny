@@ -38,6 +38,8 @@ namespace sunny
 			PSSunnyLightUniformIndex_Size
 		};
 
+		bool Renderer3D::DEFERRED_MODE = false;
+
 		Renderer3D::Renderer3D()
 		{
 			SetScreenBufferSize(Application::GetApplication().GetWindowWidth(), Application::GetApplication().GetWindowHeight());
@@ -201,8 +203,14 @@ namespace sunny
 		void Renderer3D::Present()
 		{
 
-			//DeferredBlendFalsePresentInternal();
-			//DeferredBlendTruePresentInternal();
+			if (DEFERRED_MODE)
+			{
+				DeferredBlendFalsePresentInternal();
+				DeferredBlendTruePresentInternal();
+				return;
+			}
+			
+
 			ForwardBlendFalsePresentInternal();
 			ForwardBlendTruePresentInternal();
 

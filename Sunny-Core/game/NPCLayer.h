@@ -9,6 +9,8 @@ using namespace std;
 using namespace sunny;
 using namespace graphics;
 using namespace directx;
+using namespace events;
+
 class NPCLayer : public Layer3D
 {
 public:
@@ -21,4 +23,8 @@ public:
 	void OnInit(Renderer3D& renderer) override;
 	void OnTick() override;
 	void OnUpdate(const utils::Timestep& ts) override;
+
+	void OnEvent(Event& event) override;
+
+	bool OnKeyPressedEvent(KeyPressedEvent& event);
 };

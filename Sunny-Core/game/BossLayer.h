@@ -24,6 +24,10 @@ public:
 
 	Terrain* m_terrain;
 
+	std::map<std::string, Model*> m_models;
+
+	std::vector<Entity*> m_characters;
+
 private:
 	std::vector<Entity*> entities;
 

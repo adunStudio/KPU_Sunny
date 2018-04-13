@@ -176,7 +176,7 @@ namespace sunny
 
 			directx::IndexBuffer* ib = new directx::IndexBuffer((unsigned int*)format.indexData, format.indexBufferSize / sizeof(unsigned int));
 
-			if (format.animationLength > 0)
+			if (format.animationLength > 1)
 				m_mesh = new AnimationMesh(va, ib, format.animationLength);
 			else
 				m_mesh = new Mesh(va, ib);

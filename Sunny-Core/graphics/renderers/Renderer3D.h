@@ -32,6 +32,9 @@ namespace sunny
 
 		class Renderer3D
 		{
+		public:
+			static bool DEFERRED_MODE;
+
 		private:
 			directx::Shader* m_default_forward_shader;
 			directx::Shader* m_default_deferred_shader;

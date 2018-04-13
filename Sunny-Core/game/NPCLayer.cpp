@@ -32,7 +32,7 @@ void NPCLayer::OnInit(Renderer3D& renderer)
 	
 	mat4 position = mat4::Identity() * mat4::Translate(vec3(0, 5, 0)) * mat4::Rotate(-90, vec3(1, 0, 0)) * mat4::Scale(vec3(0.1, 0.1, 0.1));
 
-	m_entity = new Entity(model->GetMesh(), texture, position);
+	m_entity = new Entity(model->GetMesh(),texture, position);
 	//m_entity->SetMaterial(lightMaterialInstance);
 
 	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 1), mat4::Identity());
@@ -45,10 +45,7 @@ void NPCLayer::OnInit(Renderer3D& renderer)
 	Entity* d = new Entity(MeshFactory::CreateCube(20), RGBA(1.0f, 0.0f, 1.0f, 0.5f), mat4::Identity() * mat4::Translate(maths::vec3(0, 0, 20)));
 	Entity* e = new Entity(MeshFactory::CreateCube(20), RGBA(1.0f, 1.0f, 0.0f, 0.5f), mat4::Identity() * mat4::Translate(maths::vec3(0, 0, -20)));
 	Entity* f = new Entity(MeshFactory::CreateCube(20), RGBA(0.0f, 1.0f, 1.0f, 0.5f), mat4::Identity() * mat4::Translate(maths::vec3(0, 20, 0)));
-	Entity* g = new Entity(MeshFactory::CreateCube(20), RGBA(0.0f, 0.0f, 0.0f, 0.5f), mat4::Identity() * mat4::Translate(maths::vec3(0, -20, 0)));
-
-	
-
+	Entity* g = new Entity(MeshFactory::CreateCube(20), RGBA(0.5f, 0.5f, 0.3f, 0.5f), mat4::Identity() * mat4::Translate(maths::vec3(0, -20, 0)));
 
 	Add(xAxis);
 	Add(yAxis);
@@ -78,3 +75,17 @@ void NPCLayer::OnUpdate(const utils::Timestep& ts)
 	m_entity->PlayAnimation();
 }
 
+void NPCLayer::OnEvent(Event& event)
+{
+	Layer3D::OnEvent(event);
+	EventDispatcher dispatcher(event);
+	dispatcher.Dispatch<KeyPressedEvent>(METHOD(&NPCLayer::OnKeyPressedEvent));
+}
+
+bool NPCLayer::OnKeyPressedEvent(KeyPressedEvent& event)
+{
+	
+	if (event.GetKeyCode() == SUNNY_KEY_1 && !event.GetRepeat()) Renderer3D::DEFERRED_MODE = !Renderer3D::DEFERRED_MODE;
+
+	return false;
+}
