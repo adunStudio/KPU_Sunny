@@ -65,6 +65,20 @@ namespace sunny
 
 				return shader;
 			}
+
+			directx::Shader* Default3DShadowShader()
+			{
+				directx::Shader* shader;
+				shader = ShaderManager::Get("default3DShadow");
+				if (shader)
+					return shader;
+
+				shader = directx::Shader::CreateFromFile("default3DShadow", "resource/hlsl/shadow.hlsl");
+
+				ShaderManager::Add(shader);
+
+				return shader;
+			}
 		}
 	}
 }

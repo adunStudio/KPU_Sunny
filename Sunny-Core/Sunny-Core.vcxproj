@@ -36,6 +36,7 @@
     <ClCompile Include="directx\Shader.cpp" />
     <ClCompile Include="directx\ShaderResource.cpp" />
     <ClCompile Include="directx\ShaderUniform.cpp" />
+    <ClCompile Include="directx\ShadowBuffer.cpp" />
     <ClCompile Include="directx\Texture2D.cpp" />
     <ClCompile Include="directx\Texture.cpp" />
     <ClCompile Include="directx\TextureCube.cpp" />
@@ -79,6 +80,7 @@
     <ClCompile Include="graphics\renderers\Renderer3D.cpp" />
     <ClCompile Include="graphics\shaders\ShaderFactory.cpp" />
     <ClCompile Include="graphics\shaders\ShaderManager.cpp" />
+    <ClCompile Include="graphics\ShadowMap.cpp" />
     <ClCompile Include="graphics\Sprite.cpp" />
     <ClCompile Include="graphics\Terrain.cpp" />
     <ClCompile Include="graphics\TextureManager.cpp" />
@@ -127,6 +129,7 @@
     <ClInclude Include="directx\Shader.h" />
     <ClInclude Include="directx\ShaderResource.h" />
     <ClInclude Include="directx\ShaderUniform.h" />
+    <ClInclude Include="directx\ShadowBuffer.h" />
     <ClInclude Include="directx\Texture2D.h" />
     <ClInclude Include="directx\Texture.h" />
     <ClInclude Include="directx\TextureCube.h" />
@@ -176,6 +179,7 @@
     <ClInclude Include="graphics\shaders\ShaderFactory.h" />
     <ClInclude Include="graphics\shaders\ShaderManager.h" />
     <ClInclude Include="graphics\shaders\Shaders.h" />
+    <ClInclude Include="graphics\ShadowMap.h" />
     <ClInclude Include="graphics\Sprite.h" />
     <ClInclude Include="graphics\Terrain.h" />
     <ClInclude Include="graphics\TextureManager.h" />

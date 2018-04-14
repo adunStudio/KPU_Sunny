@@ -18,6 +18,7 @@ struct VSOutput
 	float3 tangent : TANGENT;
 	float3 color : COLOR;
 	float4 shadowCoord : SHADOW_POSITION;
+	float4 lightPosition : LIGHT_POSITION;
 };
 
 cbuffer VSSystemUniforms : register(b0)
@@ -26,6 +27,8 @@ cbuffer VSSystemUniforms : register(b0)
 	float4x4 SUNNY_ViewMatrix;
 	float4x4 SUNNY_ModelMatrix;
 	float3	 SUNNY_CameraPosition;
+	float4x4 SUNNY_LightProjectionMatrix;
+	float4x4 SUNNY_LightViewMatrix;
 };
 
 VSOutput VSMain(in VSInput input)
@@ -34,7 +37,7 @@ VSOutput VSMain(in VSInput input)
 
 	VSOutput output;
 	output.position = mul(input.position, SUNNY_ModelMatrix);
-	output.positionCS = mul(output.position, mul(SUNNY_ViewMatrix, SUNNY_ProjectionMatrix));
+	output.positionCS =  mul(output.position, mul(SUNNY_ViewMatrix, SUNNY_ProjectionMatrix));
 	output.normal = mul(input.normal, wsTransform);
 	output.binormal = mul(input.binormal, wsTransform);
 	output.tangent = mul(input.tangent, wsTransform);
@@ -42,6 +45,8 @@ VSOutput VSMain(in VSInput input)
 	output.color = float3(1.0f, 1.0f, 1.0f);
 	output.shadowCoord = float4(0.0f, 0.0f, 0.0f, 0.0f); // output.shadowCoord = mul(output.position, depthBias);
 
+	output.lightPosition = mul(output.positionCS, SUNNY_LightViewMatrix);//추가
+	output.lightPosition = mul(output.lightPosition, SUNNY_LightProjectionMatrix);//추가
 	output.cameraPosition = SUNNY_CameraPosition;
 
 	return output;
@@ -68,6 +73,7 @@ struct Attributes
 };
 
 Texture2D textures : register(t0);
+Texture2D shadowMap: register(t1);
 SamplerState samplers : register(s0);
 
 cbuffer PSSystemUniforms : register(b0)
@@ -119,6 +125,18 @@ float4 PSMain(in VSOutput input) : SV_TARGET
 
 	float3 finalColor = CalcAmbient(normal, texColor.rgb);
 	finalColor += CalcDirectional(input.position, normal, texColor, input.cameraPosition);
+
+	float2 shadowMapUV = input.lightPosition.xy / input.lightPosition.w;
+	shadowMapUV.y = -shadowMapUV.y;
+	shadowMapUV = shadowMapUV * 0.5 + 0.5;
+
+	float shadowDepth = shadowMap.Sample(samplers, shadowMapUV).r;
+	float currentDepth = input.position.z / input.position.w;
+
+	if (currentDepth > shadowDepth + 0.000125f)
+	{
+		finalColor.rgb *= 0.5f;
+	}
 
 	return float4(finalColor, texColor.a);
 }
