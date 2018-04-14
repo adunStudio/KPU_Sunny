@@ -132,7 +132,6 @@ namespace sunny
 			}
 			//Create depth stencil view
 			m_context->GetDevice()->CreateDepthStencilView(m_depthStencilBuffer, &depthStencilViewDescDR, &m_depthStencilView);
-			m_context->GetDevice()->CreateDepthStencilView(m_depthStencilBuffer, &depthStencilViewDescDR, &m_depthStencilView2);
 			// pResource: 뷰로 만들 DepthStecil 렌더
 			// pDesc    : 뷰로 만들 DepthStecil 설정 구조체 (NULL은 기본 설정)
 			// ppRTView : 생성된 DepthStencil을 반환받는 포인터
