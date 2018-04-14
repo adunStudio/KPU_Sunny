@@ -45,6 +45,13 @@ namespace sunny
 
 			if (buffer & RendererBufferType::RENDERER_BUFFER_DEFERRED)
 				Context::GetDeviceContext()->ClearDepthStencilView(DeferredBuffer::GetDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+		
+			if (buffer & RendererBufferType::RENDERER_BUFFER_SHADOW)
+			{
+				Context::GetDeviceContext()->ClearRenderTargetView(ShadowBuffer::GetBuffer(), color);
+				Context::GetDeviceContext()->ClearDepthStencilView(ShadowBuffer::GetDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+			}
+
 		}
 
 		void Renderer::PresentInternal()

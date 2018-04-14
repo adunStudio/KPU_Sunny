@@ -3,6 +3,7 @@
 #include "../sunny.h"
 #include "Context.h"
 #include "DeferredBuffer.h"
+#include "ShadowBuffer.h"
 
 namespace sunny
 {
@@ -11,7 +12,8 @@ namespace sunny
 		RENDERER_BUFFER_NONE     = 0,
 		RENDERER_BUFFER_COLOR    = BIT(0),
 		RENDERER_BUFFER_DEPTH    = BIT(1),
-		RENDERER_BUFFER_DEFERRED = BIT(2)
+		RENDERER_BUFFER_DEFERRED = BIT(2),
+		RENDERER_BUFFER_SHADOW   = BIT(3)
 	};
 
 	enum class RendererBlendFunction
