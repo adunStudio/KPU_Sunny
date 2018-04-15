@@ -19,6 +19,8 @@ namespace sunny
 		{
 			ID3D11ShaderResourceView* rv = m_buffer->GetShaderResource();
 			directx::Context::GetDeviceContext()->PSSetShaderResources(SHADOW_MAP_INDEX, 1, &rv);
+			ID3D11SamplerState* sampler = directx::ShadowBuffer::GetSamplerState();
+			directx::Context::GetDeviceContext()->PSSetSamplers(SHADOW_MAP_INDEX, 1, &sampler);
 		}
 
 		void ShadowMap::Bind()

@@ -19,29 +19,21 @@ struct VSInput
 struct VSOutput
 {
 	float4 position : SV_POSITION;
-	float4 lightViewPosition : TEXCOORD1;
 };
 
 VSOutput VSMain(in VSInput input)
 {
 	VSOutput output;
 
-	output.lightViewPosition = mul(input.position, SUNNY_ModelMatrix);
-	output.lightViewPosition = mul(input.position, mul(SUNNY_ViewMatrix, SUNNY_ProjectionMatrix));
-	output.lightViewPosition = mul(output.lightViewPosition, SUNNY_LightViewMatrix);
-	output.lightViewPosition = mul(output.lightViewPosition, SUNNY_LightProjectionMatrix);
-
-	output.position = output.lightViewPosition;
+	output.position = mul(input.position,  SUNNY_ModelMatrix);
+	output.position = mul(output.position, SUNNY_LightViewMatrix);
+	output.position = mul(output.position, SUNNY_LightProjectionMatrix);
 
 	return output;
 }
 
 
-float4 PSMain(VSOutput Input) : SV_TARGET
+void PSMain(VSOutput input)
 {
-	float depth = Input.lightViewPosition.z / Input.lightViewPosition.w;
 	
-	return float4(depth.xxx, 1);
-
-	//return float4(depth.xxx, 1);
 }

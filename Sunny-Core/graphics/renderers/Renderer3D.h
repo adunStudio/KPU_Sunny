@@ -4,6 +4,7 @@
 #include "../renderables/Renderable3D.h"
 #include "../groups/Group3D.h"
 #include "../cameras/Camera.h"
+#include "../cameras/LightCamera.h"
 #include "../LightSetup.h"
 #include "../shaders/ShaderFactory.h"
 #include "../GBuffer.h"
@@ -37,6 +38,8 @@ namespace sunny
 		private:
 			GBuffer*   m_gBuffer;           // 디퍼드 렌더링
 			ShadowMap* m_shadowMap;         // 그림자 렌더링
+
+			LightCamera* m_lightCamera;
 
 			directx::Shader* m_default_forward_shader;          // 포워드 셰이더
 			directx::Shader* m_default_deferred_shader;         // 디퍼드 셰이더 (지오메트리)

@@ -14,6 +14,7 @@
 #include "../../component/Components.h"
 #include "../cameras/MayaCamera.h"
 #include "../cameras/FPSCamera.h"
+#include "../cameras/LightCamera.h"
 
 
 typedef sunny::maths::vec4 RGBA;

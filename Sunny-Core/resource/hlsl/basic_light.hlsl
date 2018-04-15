@@ -26,9 +26,9 @@ cbuffer VSSystemUniforms : register(b0)
 	float4x4 SUNNY_ProjectionMatrix;
 	float4x4 SUNNY_ViewMatrix;
 	float4x4 SUNNY_ModelMatrix;
-	float3	 SUNNY_CameraPosition;
 	float4x4 SUNNY_LightProjectionMatrix;
 	float4x4 SUNNY_LightViewMatrix;
+	float3	 SUNNY_CameraPosition;
 };
 
 VSOutput VSMain(in VSInput input)
@@ -37,16 +37,14 @@ VSOutput VSMain(in VSInput input)
 
 	VSOutput output;
 	output.position = mul(input.position, SUNNY_ModelMatrix);
-	output.positionCS =  mul(output.position, mul(SUNNY_ViewMatrix, SUNNY_ProjectionMatrix));
+	output.positionCS = mul(output.position, mul(SUNNY_ViewMatrix, SUNNY_ProjectionMatrix));
 	output.normal = mul(input.normal, wsTransform);
 	output.binormal = mul(input.binormal, wsTransform);
 	output.tangent = mul(input.tangent, wsTransform);
 	output.uv = input.uv;
 	output.color = float3(1.0f, 1.0f, 1.0f);
 	output.shadowCoord = float4(0.0f, 0.0f, 0.0f, 0.0f); // output.shadowCoord = mul(output.position, depthBias);
-
-	output.lightPosition = mul(output.positionCS, SUNNY_LightViewMatrix);//추가
-	output.lightPosition = mul(output.lightPosition, SUNNY_LightProjectionMatrix);//추가
+	output.lightPosition = mul(output.position, mul(SUNNY_LightViewMatrix, SUNNY_LightProjectionMatrix));
 	output.cameraPosition = SUNNY_CameraPosition;
 
 	return output;
@@ -72,9 +70,6 @@ struct Attributes
 	float3 tangent;
 };
 
-Texture2D textures : register(t0);
-Texture2D shadowMap: register(t1);
-SamplerState samplers : register(s0);
 
 cbuffer PSSystemUniforms : register(b0)
 {
@@ -109,6 +104,11 @@ float3 CalcDirectional(float3 worldPosition, float3 worldNormal, float4 diffuseC
 	return finalColor * diffuseColor.rgb;//난반사광+정반사과 * 텍셀
 }
 
+Texture2D textures : register(t0);
+Texture2D shadowMap: register(t3);
+SamplerState samplers : register(s0);
+SamplerState shadowSampler : register(s3);
+
 
 float4 PSMain(in VSOutput input) : SV_TARGET
 {
@@ -121,22 +121,52 @@ float4 PSMain(in VSOutput input) : SV_TARGET
 		texColor = textures.Sample(samplers, input.uv);
 	}
 
-	texColor.rgb *= texColor.rgb; // 더 진해진다.
+
+	input.lightPosition.xyz /= input.lightPosition.w;
+
+	if (input.lightPosition.x < -1.0f || input.lightPosition.x > 1.0f ||
+		input.lightPosition.y < -1.0f || input.lightPosition.y > 1.0f ||
+		input.lightPosition.z <  0.0f || input.lightPosition.z > 1.0f) return float4(1.0f, 0, 0, 1.0f);
+
+	input.lightPosition.x = input.lightPosition.x / 2 + 0.5;
+	input.lightPosition.y = input.lightPosition.y / -2 + 0.5;
+
+	float shadowDepth = shadowMap.Sample(shadowSampler, input.lightPosition.xy).r;
+	float currentDepth = input.positionCS.z / input.positionCS.w;
+
+	if (currentDepth > shadowDepth + 0.000125f)
+	{
+		texColor.rgb *= 0.5f;
+	}
+
+	return texColor;
+
+	/* texColor.rgb *= texColor.rgb; // 더 진해진다.
 
 	float3 finalColor = CalcAmbient(normal, texColor.rgb);
-	finalColor += CalcDirectional(input.position, normal, texColor, input.cameraPosition);
+	finalColor += CalcDirectional(input.positionCS, normal, texColor, input.cameraPosition);
 
 	float2 shadowMapUV = input.lightPosition.xy / input.lightPosition.w;
 	shadowMapUV.y = -shadowMapUV.y;
 	shadowMapUV = shadowMapUV * 0.5 + 0.5;
 
-	float shadowDepth = shadowMap.Sample(samplers, shadowMapUV).r;
+	float shadowDepth = shadowMap.Sample(shadowSampler, shadowMapUV).r;
 	float currentDepth = input.position.z / input.position.w;
 
 	if (currentDepth > shadowDepth + 0.000125f)
 	{
 		finalColor.rgb *= 0.5f;
-	}
+	}*/
 
-	return float4(finalColor, texColor.a);
+	//finalColor.rgb *= 0.5f;
+
+	//float shadowDepth = shadowMap.Sample(samplers, shadowMapUV).r;
+
+	//if (currentDepth > shadowDepth + 0.000125f)
+	//{
+	//finalColor.rgb *= 0.5f;
+	//}
+
+
+//	return float4(finalColor, texColor.a);
 }

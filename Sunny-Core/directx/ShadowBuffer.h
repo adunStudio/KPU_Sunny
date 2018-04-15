@@ -16,9 +16,9 @@ namespace sunny
 		private:
 			Context* m_context;
 
-			ID3D11RenderTargetView*   m_renderTargetView;
 			ID3D11DepthStencilView*   m_depthStencilView;
 			ID3D11ShaderResourceView* m_shaderResourceView;
+			ID3D11SamplerState*       m_sampler;
 
 		public:
 			static void Init();
@@ -28,11 +28,10 @@ namespace sunny
 			inline static void Bind() { s_instance->BindInternal(); }
 			inline static void UnBind() { s_instance->UnBindInternal(); }
 
-			inline static ID3D11RenderTargetView* GetBuffer() { return s_instance->m_renderTargetView; }
-
 			inline static ID3D11DepthStencilView* GetDepthStencilBuffer() { return s_instance->m_depthStencilView; }
 
 			inline static ID3D11ShaderResourceView* GetShaderResource() { return s_instance->m_shaderResourceView; }
+			inline static ID3D11SamplerState* GetSamplerState() { return s_instance->m_sampler; }
 
 		private:
 			void Resize();

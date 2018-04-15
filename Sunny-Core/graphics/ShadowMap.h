@@ -9,7 +9,7 @@ namespace sunny
 		class ShadowMap
 		{
 		private:
-			const int SHADOW_MAP_INDEX = 1;          // Texture2D shadowMap: register(t1);
+			const int SHADOW_MAP_INDEX = 3;          // Texture2D shadowMap: register(t3);
 
 		private:
 			directx::ShadowBuffer* m_buffer;

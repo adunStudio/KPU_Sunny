@@ -47,10 +47,8 @@ namespace sunny
 				Context::GetDeviceContext()->ClearDepthStencilView(DeferredBuffer::GetDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 		
 			if (buffer & RendererBufferType::RENDERER_BUFFER_SHADOW)
-			{
-				Context::GetDeviceContext()->ClearRenderTargetView(ShadowBuffer::GetBuffer(), color);
 				Context::GetDeviceContext()->ClearDepthStencilView(ShadowBuffer::GetDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-			}
+			
 
 		}
 
@@ -146,7 +144,7 @@ namespace sunny
 				desc.DepthEnable    = true;                                     // 깊이 버펄이 활성화(true), 비활성화(false)
 
 				desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;               // ZERO: 깊이 버퍼 쓰기(갱신) 방지, 깊이 판정 수행 | ALL: 깊이 버퍼 쓰기(갱신)도 활성화 
-				desc.DepthFunc      = D3D11_COMPARISON_LESS_EQUAL;              // 깊이 판정에 쓰이는 비교 함수, D3D11_COMPAROSION_FUNC 열거형의 한 멤버
+				desc.DepthFunc      = D3D11_COMPARISON_LESS;              // 깊이 판정에 쓰이는 비교 함수, D3D11_COMPAROSION_FUNC 열거형의 한 멤버
 				
 				desc.StencilEnable    = true;                                   // 스텐실 판정 활성화(true), 비활성화(false)
 				desc.StencilReadMask  = D3D11_DEFAULT_STENCIL_READ_MASK;        // 스텐실 판정 조건문   // 기본값은 그 어떤 비트도 막지 않는 마스크
@@ -154,13 +152,13 @@ namespace sunny
 
 				/* FrontFace: 전면 삼각형에 대한 스텍실 버퍼 적용 방식 */
 				desc.FrontFace.StencilFailOp      = D3D11_STENCIL_OP_KEEP;      // 픽셀 단편이 스텍실 판정에 실패했을 때의 스텐실 버퍼의 갱신 방식
-				desc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;      // 픽셀 단편이 스텐실 판정은 통과되었으나 깊이 판정에 실패했을 때의 스텐실 버퍼의 갱신 방법
+				desc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;      // 픽셀 단편이 스텐실 판정은 통과되었으나 깊이 판정에 실패했을 때의 스텐실 버퍼의 갱신 방법
 				desc.FrontFace.StencilPassOp      = D3D11_STENCIL_OP_KEEP;  // 픽셀 단편이 스텐실 판정과 깊이 판정을 모두 통과했을 때의 스텐실 버퍼의 갱신 방법 
 				desc.FrontFace.StencilFunc        = D3D11_COMPARISON_ALWAYS;    // 스텐실 판정 비교 함수를 결정하는 멤버 
 
 				/* BackFace: 후면 삼각형에 대한 스텍실 버퍼 적용 방식 */
 				desc.BackFace.StencilFailOp       = D3D11_STENCIL_OP_KEEP;
-				desc.BackFace.StencilDepthFailOp  = D3D11_STENCIL_OP_KEEP;
+				desc.BackFace.StencilDepthFailOp  = D3D11_STENCIL_OP_DECR;
 				desc.BackFace.StencilPassOp       = D3D11_STENCIL_OP_KEEP;
 				desc.BackFace.StencilFunc         = D3D11_COMPARISON_ALWAYS;
 
