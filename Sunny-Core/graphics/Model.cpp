@@ -221,7 +221,7 @@ namespace sunny
 						maths::vec3 normal;
 						int result = sscanf(cstr, "%*s %f %f %f", &normal.x, &normal.y, &normal.z);
 						if (result == 0) continue;
-						normal.y = normal.y * -1.0f;
+						normal.y = normal.y;// *-1.0f;
 						inputVertices.normals.push_back(normal);
 					}
 					else                        // À§Ä¡

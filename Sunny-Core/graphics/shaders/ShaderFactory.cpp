@@ -79,6 +79,19 @@ namespace sunny
 
 				return shader;
 			}
+			directx::Shader* Default3DOutLineShader()
+			{
+				directx::Shader* shader;
+				shader = ShaderManager::Get("defaultOutLine");
+				if (shader)
+					return shader;
+
+				shader = directx::Shader::CreateFromFile("defaultOutLine", "resource/hlsl/outline.hlsl");
+
+				ShaderManager::Add(shader);
+
+				return shader;
+			}
 
 			directx::Shader* DefaultDebugShader()
 			{

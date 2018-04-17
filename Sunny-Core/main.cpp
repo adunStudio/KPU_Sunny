@@ -4,6 +4,7 @@
 #include "app/Application.h"
 #include "game/TestLayer2D.h"
 #include "game/ChessLayer.h"
+#include "game/TestLayer3D.h"
 
 #include "maths/maths.h"
 
@@ -14,7 +15,7 @@ using namespace directx;
 class Game : public Application
 {
 public:
-	Game() : Application("Sunny", { 1280, 760, false, true })
+	Game() : Application("½á´Ï", { 1280, 760, false, false })
 	{}
 
 	~Game()
@@ -22,6 +23,8 @@ public:
 
 	void Init() override
 	{
+		setlocale(LC_ALL, "korean");
+
 		Application::Init();
 
 		VFS::Get()->Mount("obj",     "resource/obj");
@@ -31,6 +34,7 @@ public:
 		VFS::Get()->Mount("json",    "resource/json");
 
 		PushOverlay(new TestLayer2D());
+		//PushOverlay(new TestLayer3D());
 		//PushOverlay(new ChessLayer());
 		//PushOverlay(new TestLayer3D());
 	}

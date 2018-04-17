@@ -64,8 +64,8 @@ namespace sunny
 
 		void Renderer3D::Init()
 		{
-			m_transparencyTCommandQueue.reserve(1000);  // 반투명
-			m_transparencyFCommandQueue.reserve(1000);  // 불투명
+			m_transparencyTCommandQueue.reserve(200);  // 반투명
+			m_transparencyFCommandQueue.reserve(200);  // 불투명
 
 			m_gBuffer   = new GBuffer();
 			m_shadowMap = new ShadowMap();
@@ -77,6 +77,8 @@ namespace sunny
 			m_default_deferred_shader = ShaderFactory::Default3DDeferredShader();
 			m_default_light_shader    = ShaderFactory::Default3DLightShader();
 			m_default_debug_shader    = ShaderFactory::DefaultDebugShader();
+			m_default_outline_shader  = ShaderFactory::Default3DOutLineShader();
+
 
 			/* 버텍스 셰이더 (기본) */
 			m_VSSunnyUniformBufferSize = sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::vec3);
@@ -163,6 +165,7 @@ namespace sunny
 
 		void Renderer3D::SubmitRenderable3D(Renderable3D* renderable)
 		{
+			
 			RenderCommand command;
 
 			command.renderable3d = renderable;
@@ -300,6 +303,12 @@ namespace sunny
 				m_shadowMap->SetShadowMapTexture();
 
 				command.renderable3d->Render();
+
+			
+				/*m_default_outline_shader->Bind();
+				SetSunnyVSUniforms(m_default_outline_shader);
+				SetSunnyForwardUniforms(m_default_outline_shader);
+				command.renderable3d->Render();*/
 			}
 		}
 
@@ -323,6 +332,11 @@ namespace sunny
 				m_shadowMap->SetShadowMapTexture();
 
 				command.renderable3d->Render();
+
+				/*m_default_outline_shader->Bind();
+				SetSunnyVSUniforms(m_default_outline_shader);
+				SetSunnyForwardUniforms(m_default_outline_shader);
+				command.renderable3d->Render();*/
 			}
 		}
 

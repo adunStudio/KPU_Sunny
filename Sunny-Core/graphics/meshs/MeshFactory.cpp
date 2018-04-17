@@ -31,7 +31,7 @@ namespace sunny
 				data[5].normal = maths::vec3( 1.0f, -1.0f, -1.0f);
 				data[6].normal = maths::vec3( 1.0f,  1.0f, -1.0f);
 				data[7].normal = maths::vec3(-1.0f,  1.0f, -1.0f);
-
+			
 
 				ShaderFactory::Default3DForwardShader()->Bind();
 

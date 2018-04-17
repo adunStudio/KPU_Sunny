@@ -42,7 +42,7 @@ void BossLayer::OnInit(Renderer3D& renderer)
 			if (rotation.z != 0) position = position *  mat4::Rotate(rotation.z, vec3(0, 0, 1));
 			position = position * mat4::Scale(scale);
 
-			m_characters.push_back(new Entity(m_models[name]->GetMesh(), RGBA(0.5, 0.5, 0.5, 1), position));
+			m_characters.push_back(new Entity(m_models[name]->GetMesh(), RGBA(0.70, 0.3, 0.1, 1), position));
 		}
 
 		for (auto& c : m_characters)
@@ -93,13 +93,14 @@ void BossLayer::OnInit(Renderer3D& renderer)
 	// 맵 세팅
 	m_heightMap = new HeightMap(500, 500, "/raw/terrain.raw");
 	Model* terrain_model = new Model("/obj/terrain.obj");
+	//m_terrain = new Terrain(500, 500, terrain_model->GetMesh(), new Texture2D("/texture/diffuse.tga"), m_heightMap);
 	m_terrain = new Terrain(500, 500, terrain_model->GetMesh(), new Texture2D("/texture/diffuse.tga"), m_heightMap);
 	//m_terrain->SetMaterial(terrainMaterialInstance);
 	Add(m_terrain);
 
 	// 보스몬스터 세팅
 	Model* model = new Model("/sun/boss_idle.sun");
-	Texture2D* texture = new Texture2D("/texture/boss.png");
+	Texture2D* texture = new Texture2D("/texture/boss_idle2.png");
 	m_entity = new Entity(model->GetMesh(), texture);
 	//m_entity->SetMaterial(lightMaterialInstance);
 	m_entity->GetTransformComponent()->Rotate(-90.f, vec3(1, 0, 0));

@@ -51,6 +51,7 @@
     <ClCompile Include="game\ChessLayer.cpp" />
     <ClCompile Include="game\NPCLayer.cpp" />
     <ClCompile Include="game\TestLayer2D.cpp" />
+    <ClCompile Include="game\TestLayer3D.cpp" />
     <ClCompile Include="graphics\cameras\Camera.cpp" />
     <ClCompile Include="graphics\cameras\FPSCamera.cpp" />
     <ClCompile Include="graphics\cameras\LightCamera.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="game\ChessLayer.h" />
     <ClInclude Include="game\NPCLayer.h" />
     <ClInclude Include="game\TestLayer2D.h" />
+    <ClInclude Include="game\TestLayer3D.h" />
     <ClInclude Include="graphics\cameras\LightCamera.h" />
     <ClInclude Include="graphics\fonts\Font.h" />
     <ClInclude Include="graphics\fonts\FontManager.h" />
