@@ -20,11 +20,9 @@ namespace sunny
 		
 		enum VSSunnyShadowUniformIndices : int
 		{
-			VSSunnyShadowUniformIndex_ProjectionMatrix      = 0,
-			VSSunnyShadowUniformIndex_ViewMatrix            = 1,
-			VSSunnyShadowUniformIndex_ModelMatrix           = 2,
-			VSSunnyShadowUniformIndex_LightProjectionMatrix = 3,
-			VSSunnyShadowUniformIndex_LightViewMatrix       = 4,
+			VSSunnyShadowUniformIndex_ModelMatrix           = 0,
+			VSSunnyShadowUniformIndex_LightProjectionMatrix = 1,
+			VSSunnyShadowUniformIndex_LightViewMatrix       = 2,
 			VSSunnyShadowUniformIndex_Size
 		};
 
@@ -66,8 +64,8 @@ namespace sunny
 
 		void Renderer3D::Init()
 		{
-			m_forwardCommandQueue.reserve(1000);
-			m_deferredCommandQueue.reserve(1000);
+			m_transparencyTCommandQueue.reserve(1000);  // 반투명
+			m_transparencyFCommandQueue.reserve(1000);  // 불투명
 
 			m_gBuffer   = new GBuffer();
 			m_shadowMap = new ShadowMap();
@@ -78,6 +76,7 @@ namespace sunny
 			m_default_forward_shader  = ShaderFactory::Default3DForwardShader();
 			m_default_deferred_shader = ShaderFactory::Default3DDeferredShader();
 			m_default_light_shader    = ShaderFactory::Default3DLightShader();
+			m_default_debug_shader    = ShaderFactory::DefaultDebugShader();
 
 			/* 버텍스 셰이더 (기본) */
 			m_VSSunnyUniformBufferSize = sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::vec3);
@@ -94,14 +93,12 @@ namespace sunny
 			
 
 			/* 버텍스 셰이더 (그림자) */
-			m_VSSunnyShadowUniformBufferSize = sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4);
+			m_VSSunnyShadowUniformBufferSize = sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4);
 			m_VSSunnyShadowUniformBuffer = new unsigned char[m_VSSunnyShadowUniformBufferSize];
 			memset(m_VSSunnyShadowUniformBuffer, 0, m_VSSunnyShadowUniformBufferSize);
 
 			m_VSSunnyShadowUniformBufferOffsets.resize(VSSunnyShadowUniformIndex_Size);
-			m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ProjectionMatrix]      = 0;
-			m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ViewMatrix]            = m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ProjectionMatrix]       + sizeof(maths::mat4);
-			m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix]           = m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ViewMatrix]             + sizeof(maths::mat4);
+			m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix]           = 0;
 			m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_LightProjectionMatrix] = m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix]            + sizeof(maths::mat4);
 			m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_LightViewMatrix]       = m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_LightProjectionMatrix]  + sizeof(maths::mat4);
 			
@@ -136,8 +133,8 @@ namespace sunny
 
 		void Renderer3D::Begin()
 		{
-			m_deferredCommandQueue.clear();
-			m_forwardCommandQueue.clear();
+			m_transparencyFCommandQueue.clear();
+			m_transparencyTCommandQueue.clear();
 			m_sunnyUniforms.clear();
 		}
 
@@ -147,13 +144,8 @@ namespace sunny
 			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ViewMatrix],       &camera->GetViewMatrix(),       sizeof(maths::mat4));
 			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_CameraPosition],   &camera->GetPosition(),         sizeof(maths::vec3));
 
-			memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ProjectionMatrix], &camera->GetProjectionMatrix(), sizeof(maths::mat4));
-			memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ViewMatrix],       &camera->GetViewMatrix(),       sizeof(maths::mat4));
-
-			memcpy(m_PSSunnyLightUniformBuffer + m_PSSunnyLightUniformBufferOffsets[PSSunnyLightUniformIndex_CameraPosition],   &camera->GetPosition(), sizeof(maths::vec3));
-
-			//memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_LightProjectionMatrix], &camera->GetProjectionMatrix(), sizeof(maths::mat4));
-			//memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_LightViewMatrix], &camera->GetViewMatrix(), sizeof(maths::mat4));
+			if(DEFERRED_MODE)
+				memcpy(m_PSSunnyLightUniformBuffer + m_PSSunnyLightUniformBufferOffsets[PSSunnyLightUniformIndex_CameraPosition],   &camera->GetPosition(), sizeof(maths::vec3));
 		}
 
 		void Renderer3D::Submit(Renderable3D* renderable)
@@ -164,9 +156,9 @@ namespace sunny
 		void Renderer3D::Submit(const RenderCommand& command)
 		{
 			if (command.color.w == 1.0f)
-				m_deferredCommandQueue.push_back(command);
+				m_transparencyFCommandQueue.push_back(command);
 			else
-				m_forwardCommandQueue.push_back(command);
+				m_transparencyTCommandQueue.push_back(command);
 		}
 
 		void Renderer3D::SubmitRenderable3D(Renderable3D* renderable)
@@ -222,7 +214,7 @@ namespace sunny
 			maths::vec3 cameraPosition = camera->GetPosition();
 
 			// 카메라 위치와 불투명한 객체 위치의 거리에 따라 정렬
-			std::sort(m_forwardCommandQueue.begin(), m_forwardCommandQueue.end(), [&cameraPosition](const RenderCommand& a, RenderCommand& b) {				
+			std::sort(m_transparencyTCommandQueue.begin(), m_transparencyTCommandQueue.end(), [&cameraPosition](const RenderCommand& a, RenderCommand& b) {				
 				return  cameraPosition.Distance(a.transform.GetPosition()) >
 						cameraPosition.Distance(b.transform.GetPosition());
 			});
@@ -236,40 +228,42 @@ namespace sunny
 			memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_LightProjectionMatrix], &m_lightCamera->GetProjectionMatrix(), sizeof(maths::mat4));
 			memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_LightViewMatrix], &m_lightCamera->GetViewMatrix(), sizeof(maths::mat4));
 
-			m_shadowMap->Bind();
-			m_default_shadow_shader->Bind();;
-
-			directx::Renderer::SetDepthTesting(true);
-			directx::Renderer::SetBlend(false);
-
-			for (unsigned int i = 0; i < m_deferredCommandQueue.size(); ++i)
+			// 그림자 생성
+			if (!DEFERRED_MODE)
 			{
-				RenderCommand& command = m_deferredCommandQueue[i];
+				m_shadowMap->Bind();
+				m_default_shadow_shader->Bind();;
 
-				memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
+				directx::Renderer::SetDepthTesting(true);
+				directx::Renderer::SetBlend(false);
 
+				for (unsigned int i = 0; i < m_transparencyFCommandQueue.size(); ++i)
+				{
+					RenderCommand& command = m_transparencyFCommandQueue[i];
 
-				SetSunnyShadowVSUniforms(m_default_shadow_shader);
+					memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
 
-				command.renderable3d->Render();
+					SetSunnyShadowVSUniforms(m_default_shadow_shader);
+
+					command.renderable3d->Render();
+				}
+
+				directx::Renderer::SetBlend(true);
+
+				for (unsigned int i = 0; i < m_transparencyTCommandQueue.size(); ++i)
+				{
+					RenderCommand& command = m_transparencyTCommandQueue[i];
+
+					memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
+
+					SetSunnyShadowVSUniforms(m_default_shadow_shader);
+
+					command.renderable3d->Render();
+				}
+
+				m_shadowMap->UnBInd();
 			}
-
-			directx::Renderer::SetBlend(true);
-
-			for (unsigned int i = 0; i < m_forwardCommandQueue.size(); ++i)
-			{
-				RenderCommand& command = m_forwardCommandQueue[i];
-
-				memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
-
-				SetSunnyShadowVSUniforms(m_default_shadow_shader);
-
-				command.renderable3d->Render();
-			}
-
-
-			m_shadowMap->UnBInd();
-
+			
 		}
 
 		void Renderer3D::Present()
@@ -281,12 +275,9 @@ namespace sunny
 				DeferredBlendTruePresentInternal();
 				return;
 			}
-			
-			m_default_light_shader->Bind();
-			m_gBuffer->Draw();
-
-	//		ForwardBlendFalsePresentInternal();
-	//		ForwardBlendTruePresentInternal();
+		
+			ForwardBlendFalsePresentInternal();
+			ForwardBlendTruePresentInternal();
 		}
 
 		void Renderer3D::ForwardBlendFalsePresentInternal()
@@ -294,16 +285,15 @@ namespace sunny
 			directx::Renderer::SetDepthTesting(true);
 			directx::Renderer::SetBlend(false);
 
-			for (unsigned int i = 0; i < m_deferredCommandQueue.size(); ++i)
+			for (unsigned int i = 0; i < m_transparencyFCommandQueue.size(); ++i)
 			{
-				RenderCommand& command = m_deferredCommandQueue[i];
+				RenderCommand& command = m_transparencyFCommandQueue[i];
 
 				memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
 				memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_Color], &command.color, sizeof(maths::vec4));
 				memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_HasTexture], &command.hasTexture, sizeof(float));
 
 				command.shader->Bind();
-
 
 				SetSunnyVSUniforms(command.shader);
 				SetSunnyForwardUniforms(command.shader);
@@ -318,16 +308,15 @@ namespace sunny
 			directx::Renderer::SetDepthTesting(true);
 			directx::Renderer::SetBlend(true);
 
-			for (unsigned int i = 0; i < m_forwardCommandQueue.size(); ++i)
+			for (unsigned int i = 0; i < m_transparencyTCommandQueue.size(); ++i)
 			{
-				RenderCommand& command = m_forwardCommandQueue[i];
+				RenderCommand& command = m_transparencyTCommandQueue[i];
 
 				memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
 				memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_Color], &command.color, sizeof(maths::vec4));
 				memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_HasTexture], &command.hasTexture, sizeof(float));
 
 				command.shader->Bind();
-
 
 				SetSunnyVSUniforms(command.shader);
 				SetSunnyForwardUniforms(command.shader);
@@ -344,9 +333,9 @@ namespace sunny
 			directx::Renderer::SetDepthTesting(true);
 			directx::Renderer::SetBlend(false);
 
-			for (unsigned int i = 0; i < m_deferredCommandQueue.size(); ++i)
+			for (unsigned int i = 0; i < m_transparencyFCommandQueue.size(); ++i)
 			{
-				RenderCommand& command = m_deferredCommandQueue[i];
+				RenderCommand& command = m_transparencyFCommandQueue[i];
 
 				memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
 				memcpy(m_PSSunnyDeferredUniformBuffer + m_PSSunnyDeferredUniformBufferOffsets[PSSunnyDeferredUniformIndex_Color], &command.color, sizeof(maths::vec4));
@@ -383,9 +372,9 @@ namespace sunny
 			directx::Renderer::SetDepthTesting(true);
 			directx::Renderer::SetBlend(true);
 
-			for (unsigned int i = 0; i < m_forwardCommandQueue.size(); ++i)
+			for (unsigned int i = 0; i < m_transparencyTCommandQueue.size(); ++i)
 			{
-				RenderCommand& command = m_forwardCommandQueue[i];
+				RenderCommand& command = m_transparencyTCommandQueue[i];
 
 				memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
 				memcpy(m_PSSunnyDeferredUniformBuffer + m_PSSunnyDeferredUniformBufferOffsets[PSSunnyDeferredUniformIndex_Color], &command.color, sizeof(maths::vec4));

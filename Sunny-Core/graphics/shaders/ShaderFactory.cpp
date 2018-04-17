@@ -79,6 +79,20 @@ namespace sunny
 
 				return shader;
 			}
+
+			directx::Shader* DefaultDebugShader()
+			{
+				directx::Shader* shader;
+				shader = ShaderManager::Get("defaultDebug");
+				if (shader)
+					return shader;
+
+				shader = directx::Shader::CreateFromFile("defaultDebug", "resource/hlsl/debug.hlsl");
+
+				ShaderManager::Add(shader);
+
+				return shader;
+			}
 		}
 	}
 }

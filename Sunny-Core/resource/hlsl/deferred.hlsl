@@ -42,8 +42,9 @@ cbuffer PSSystemUniforms : register(b0)
 
 Texture2D positionGB	: register(t0);
 Texture2D normalGB		: register(t1);
-Texture2D diffuseGB		: register(t3);
+Texture2D diffuseGB		: register(t2);
 SamplerState Sampler	: register(s0);
+
 
 float4 PSMain(VSOutput input) : SV_TARGET
 {

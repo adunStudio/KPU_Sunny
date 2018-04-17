@@ -196,8 +196,8 @@ namespace sunny
 			/* 6. 뷰포트(윈도우에 글미이 그려지는 영역)를 설정하고 적용한다. */
 			m_screenViewport.TopLeftX = 0;
 			m_screenViewport.TopLeftY = 0;
-			m_screenViewport.Width = (float)width;
-			m_screenViewport.Height = (float)height;
+			m_screenViewport.Width    = (float)width;
+			m_screenViewport.Height   = (float)height;
 			m_screenViewport.MinDepth = 0.0f;
 			m_screenViewport.MaxDepth = 1.0f;
 			devcon->RSSetViewports(1, &m_screenViewport);
@@ -229,8 +229,8 @@ namespace sunny
 
 		void Context::BindInternal()
 		{
+			devcon->RSSetViewports(1, &m_screenViewport);
 			devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
-			//devcon->OMSetRenderTargets(1, &m_renderTargetView, DeferredBuffer::GetDepthStencilBuffer());
 		}
 
 		void Context::Present()

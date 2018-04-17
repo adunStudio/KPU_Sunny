@@ -9,6 +9,7 @@
 #include "../shaders/ShaderFactory.h"
 #include "../GBuffer.h"
 #include "../ShadowMap.h"
+#include "../../directx/DebugBuffer.h"
 
 namespace sunny
 {
@@ -45,11 +46,12 @@ namespace sunny
 			directx::Shader* m_default_deferred_shader;         // 디퍼드 셰이더 (지오메트리)
 			directx::Shader* m_default_light_shader;            // 라이트 셰이더 (디퍼드 셰이더 이후)
 			directx::Shader* m_default_shadow_shader;           // 그림자 셰이더 (포워드 셰이더 이전)
+			directx::Shader* m_default_debug_shader;            // 디버그 셰이더
 
 			std::vector<Renderable3D*> m_renderables;
 
-			std::vector<RenderCommand> m_forwardCommandQueue;               // 반투명
-			std::vector<RenderCommand> m_deferredCommandQueue;              // 불투명
+			std::vector<RenderCommand> m_transparencyTCommandQueue;               // 반투명
+			std::vector<RenderCommand> m_transparencyFCommandQueue;              // 불투명
 
 			std::vector<RendererUniform> m_sunnyUniforms;
 

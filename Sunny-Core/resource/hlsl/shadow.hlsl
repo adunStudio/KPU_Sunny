@@ -1,7 +1,5 @@
 cbuffer VSSystemUniforms : register(b0)
 {
-	float4x4 SUNNY_ProjectionMatrix;
-	float4x4 SUNNY_ViewMatrix;
 	float4x4 SUNNY_ModelMatrix;
 	float4x4 SUNNY_LightProjectionMatrix;
 	float4x4 SUNNY_LightViewMatrix;
@@ -35,5 +33,4 @@ VSOutput VSMain(in VSInput input)
 
 void PSMain(VSOutput input)
 {
-	
 }

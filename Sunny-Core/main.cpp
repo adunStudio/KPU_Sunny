@@ -14,7 +14,7 @@ using namespace directx;
 class Game : public Application
 {
 public:
-	Game() : Application("Sunny", { 1280, 720, false, false })
+	Game() : Application("Sunny", { 1280, 760, false, true })
 	{}
 
 	~Game()
