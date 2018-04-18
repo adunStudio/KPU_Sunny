@@ -1,12 +1,10 @@
 #include <iostream>
 
-#include "sunny.h"
-#include "app/Application.h"
-#include "game/TestLayer2D.h"
-#include "game/ChessLayer.h"
-#include "game/TestLayer3D.h"
+#include <SUNNY.h>
 
-#include "maths/maths.h"
+#include "06_LAYER/TestLayer2D.h"
+#include "06_LAYER/ChessLayer.h"
+#include "06_LAYER/TestLayer3D.h"
 
 using namespace sunny;
 using namespace graphics;
@@ -27,11 +25,11 @@ public:
 
 		Application::Init();
 
-		VFS::Get()->Mount("obj",     "resource/obj");
-		VFS::Get()->Mount("texture", "resource/texture");
-		VFS::Get()->Mount("sun",     "resource/sun");
-		VFS::Get()->Mount("raw",     "resource/raw");
-		VFS::Get()->Mount("json",    "resource/json");
+		VFS::Get()->Mount("JSON",    "03_JSON");
+		VFS::Get()->Mount("OBJ",     "04_ASSET/OBJ");
+		VFS::Get()->Mount("SUN",     "04_ASSET/SUN");
+		VFS::Get()->Mount("TEXTURE", "04_ASSET/TEXTURE");
+		VFS::Get()->Mount("RAW",     "04_ASSET/RAW");
 
 		//PushOverlay(new TestLayer2D());
 		PushOverlay(new TestLayer3D());

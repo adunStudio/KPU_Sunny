@@ -18,588 +18,591 @@
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="app\Application.cpp">
+    <ClCompile Include="01_FRAMEWORK\app\Application.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="app\Window.cpp">
+    <ClCompile Include="01_FRAMEWORK\app\Input.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="maths\AABB.cpp">
+    <ClCompile Include="01_FRAMEWORK\app\Window.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="maths\mat4.cpp">
+    <ClCompile Include="01_FRAMEWORK\component\Component.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="maths\Rectangle.cpp">
+    <ClCompile Include="01_FRAMEWORK\component\TransformComponent.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="maths\vec2.cpp">
+    <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\platform.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="maths\vec3.cpp">
+    <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\texture-atlas.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="maths\vec4.cpp">
+    <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\texture-font.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="system\FileSystem.cpp">
+    <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\vector.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="utils\Timer.cpp">
+    <ClCompile Include="01_FRAMEWORK\directx\BufferLayout.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="directx\Context.cpp">
+    <ClCompile Include="01_FRAMEWORK\directx\Context.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="directx\VertexBuffer.cpp">
+    <ClCompile Include="01_FRAMEWORK\directx\DebugBuffer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="directx\BufferLayout.cpp">
+    <ClCompile Include="01_FRAMEWORK\directx\DeferredBuffer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="directx\IndexBuffer.cpp">
+    <ClCompile Include="01_FRAMEWORK\directx\IndexBuffer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="directx\VertexArray.cpp">
+    <ClCompile Include="01_FRAMEWORK\directx\Renderer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="directx\Shader.cpp">
+    <ClCompile Include="01_FRAMEWORK\directx\Shader.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="directx\ShaderUniform.cpp">
+    <ClCompile Include="01_FRAMEWORK\directx\ShaderResource.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="directx\ShaderResource.cpp">
+    <ClCompile Include="01_FRAMEWORK\directx\ShaderUniform.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="utils\String.cpp">
+    <ClCompile Include="01_FRAMEWORK\directx\ShadowBuffer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="system\VFS.cpp">
+    <ClCompile Include="01_FRAMEWORK\directx\Texture.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="events\Event.cpp">
+    <ClCompile Include="01_FRAMEWORK\directx\Texture2D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="events\KeyEvent.cpp">
+    <ClCompile Include="01_FRAMEWORK\directx\TextureCube.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="events\MouseEvent.cpp">
+    <ClCompile Include="01_FRAMEWORK\directx\VertexArray.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="events\ResizeEvent.cpp">
+    <ClCompile Include="01_FRAMEWORK\directx\VertexBuffer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="directx\Renderer.cpp">
+    <ClCompile Include="01_FRAMEWORK\events\Event.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\layers\Layer.cpp">
+    <ClCompile Include="01_FRAMEWORK\events\KeyEvent.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="utils\LoadImage.cpp">
+    <ClCompile Include="01_FRAMEWORK\events\MouseEvent.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="directx\Texture2D.cpp">
+    <ClCompile Include="01_FRAMEWORK\events\ResizeEvent.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="directx\Texture.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\cameras\Camera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\shaders\ShaderFactory.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\cameras\FPSCamera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\shaders\ShaderManager.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\cameras\LightCamera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\TextureManager.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\cameras\MayaCamera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\cameras\Camera.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\cameras\OrthographicCamera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\renderers\Renderer2D.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\fonts\Font.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\layers\Layer2D.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\fonts\FontManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\cameras\OrthographicCamera.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\groups\Group3D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Sprite.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\layers\Layer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\renderables\Renderable2D.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\layers\Layer2D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="maths\Quaternion.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\layers\Layer3D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\cameras\MayaCamera.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\materials\Material.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Model.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\materials\MaterialInstance.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\LightSetup.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\materials\PBRMaterial.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\layers\Layer3D.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\materials\PBRMaterialInstance.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Entity.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\meshs\AnimationMesh.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\renderables\Renderable3D.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\meshs\Mesh.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\renderers\Renderer3D.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\meshs\MeshFactory.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="app\Input.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\renderables\Renderable2D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\cameras\FPSCamera.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\renderables\Renderable3D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\meshs\Mesh.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\renderers\Renderer2D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\meshs\MeshFactory.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\renderers\Renderer3D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\meshs\AnimationMesh.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\shaders\ShaderFactory.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="dependency\freetype\freetype-gl\platform.c">
+    <ClCompile Include="01_FRAMEWORK\graphics\shaders\ShaderManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="dependency\freetype\freetype-gl\texture-atlas.c">
+    <ClCompile Include="01_FRAMEWORK\graphics\Entity.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="dependency\freetype\freetype-gl\texture-font.c">
+    <ClCompile Include="01_FRAMEWORK\graphics\GBuffer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="dependency\freetype\freetype-gl\vector.c">
+    <ClCompile Include="01_FRAMEWORK\graphics\HeightMap.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\fonts\Font.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\Label.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\fonts\FontManager.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\Light.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Label.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\LightSetup.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ui\Button.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\Model.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ui\Panel.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\ShadowMap.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ui\Slider.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\Sprite.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ui\Widget.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\Terrain.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ui\Dialog.cpp">
+    <ClCompile Include="01_FRAMEWORK\graphics\TextureManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ui\Progressbar.cpp">
+    <ClCompile Include="01_FRAMEWORK\maths\AABB.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Light.cpp">
+    <ClCompile Include="01_FRAMEWORK\maths\mat4.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\materials\Material.cpp">
+    <ClCompile Include="01_FRAMEWORK\maths\Quaternion.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\materials\MaterialInstance.cpp">
+    <ClCompile Include="01_FRAMEWORK\maths\Rectangle.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\materials\PBRMaterial.cpp">
+    <ClCompile Include="01_FRAMEWORK\maths\vec2.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\materials\PBRMaterialInstance.cpp">
+    <ClCompile Include="01_FRAMEWORK\maths\vec3.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="directx\TextureCube.cpp">
+    <ClCompile Include="01_FRAMEWORK\maths\vec4.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="component\Component.cpp">
+    <ClCompile Include="01_FRAMEWORK\system\FileSystem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="component\TransformComponent.cpp">
+    <ClCompile Include="01_FRAMEWORK\system\VFS.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\Terrain.cpp">
+    <ClCompile Include="01_FRAMEWORK\ui\Button.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\HeightMap.cpp">
+    <ClCompile Include="01_FRAMEWORK\ui\Dialog.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="game\BossLayer.cpp">
+    <ClCompile Include="01_FRAMEWORK\ui\Panel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="game\ChessLayer.cpp">
+    <ClCompile Include="01_FRAMEWORK\ui\Progressbar.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="game\NPCLayer.cpp">
+    <ClCompile Include="01_FRAMEWORK\ui\Slider.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="game\TestLayer2D.cpp">
+    <ClCompile Include="01_FRAMEWORK\ui\Widget.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\groups\Group3D.cpp">
+    <ClCompile Include="01_FRAMEWORK\utils\json\json.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="directx\DeferredBuffer.cpp">
+    <ClCompile Include="01_FRAMEWORK\utils\LoadImage.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\GBuffer.cpp">
+    <ClCompile Include="01_FRAMEWORK\utils\String.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="utils\json\json.cpp">
+    <ClCompile Include="01_FRAMEWORK\utils\Timer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="directx\ShadowBuffer.cpp">
+    <ClCompile Include="06_LAYER\BossLayer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\ShadowMap.cpp">
+    <ClCompile Include="06_LAYER\ChessLayer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\cameras\LightCamera.cpp">
+    <ClCompile Include="06_LAYER\NPCLayer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="directx\DebugBuffer.cpp">
+    <ClCompile Include="06_LAYER\TestLayer2D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="game\TestLayer3D.cpp">
+    <ClCompile Include="06_LAYER\TestLayer3D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="app\Application.h">
+    <ClInclude Include="01_FRAMEWORK\app\Application.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="app\Window.h">
+    <ClInclude Include="01_FRAMEWORK\app\Input.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="maths\AABB.h">
+    <ClInclude Include="01_FRAMEWORK\app\Window.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="maths\mat4.h">
+    <ClInclude Include="01_FRAMEWORK\component\Component.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="maths\maths.h">
+    <ClInclude Include="01_FRAMEWORK\component\Components.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="maths\maths_func.h">
+    <ClInclude Include="01_FRAMEWORK\component\TransformComponent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="maths\Rectangle.h">
+    <ClInclude Include="01_FRAMEWORK\dependency\freeimage\x32\FreeImage.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="maths\tvec2.h">
+    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\common.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="maths\vec2.h">
+    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\freetype-gl.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="maths\vec3.h">
+    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\platform.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="maths\vec4.h">
+    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\texture-atlas.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="system\FileSystem.h">
+    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\texture-font.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="utils\Timer.h">
+    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\vec234.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="utils\Timestep.h">
+    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\vector.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="sunny.h">
+    <ClInclude Include="01_FRAMEWORK\directx\BufferLayout.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="directx\Context.h">
+    <ClInclude Include="01_FRAMEWORK\directx\Common.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="directx\Common.h">
+    <ClInclude Include="01_FRAMEWORK\directx\Context.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="directx\VertexBuffer.h">
+    <ClInclude Include="01_FRAMEWORK\directx\DebugBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="directx\BufferLayout.h">
+    <ClInclude Include="01_FRAMEWORK\directx\DeferredBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="directx\IndexBuffer.h">
+    <ClInclude Include="01_FRAMEWORK\directx\IndexBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="directx\VertexArray.h">
+    <ClInclude Include="01_FRAMEWORK\directx\Renderer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="directx\Shader.h">
+    <ClInclude Include="01_FRAMEWORK\directx\Shader.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="directx\ShaderUniform.h">
+    <ClInclude Include="01_FRAMEWORK\directx\ShaderResource.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="directx\ShaderResource.h">
+    <ClInclude Include="01_FRAMEWORK\directx\ShaderUniform.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="utils\String.h">
+    <ClInclude Include="01_FRAMEWORK\directx\ShadowBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="system\VFS.h">
+    <ClInclude Include="01_FRAMEWORK\directx\Texture.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="events\Event.h">
+    <ClInclude Include="01_FRAMEWORK\directx\Texture2D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="events\EventDispatcher.h">
+    <ClInclude Include="01_FRAMEWORK\directx\TextureCube.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="events\Events.h">
+    <ClInclude Include="01_FRAMEWORK\directx\VertexArray.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="events\IEventListener.h">
+    <ClInclude Include="01_FRAMEWORK\directx\VertexBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="events\KeyEvent.h">
+    <ClInclude Include="01_FRAMEWORK\events\Event.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="events\MouseEvent.h">
+    <ClInclude Include="01_FRAMEWORK\events\EventDispatcher.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="events\ResizeEvent.h">
+    <ClInclude Include="01_FRAMEWORK\events\Events.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="directx\Renderer.h">
+    <ClInclude Include="01_FRAMEWORK\events\IEventListener.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\layers\Layer.h">
+    <ClInclude Include="01_FRAMEWORK\events\KeyEvent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="utils\LoadImage.h">
+    <ClInclude Include="01_FRAMEWORK\events\MouseEvent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="dependency\freeimage\x32\FreeImage.h">
+    <ClInclude Include="01_FRAMEWORK\events\ResizeEvent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="directx\Texture2D.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\cameras\Camera.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="directx\Texture.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\cameras\FPSCamera.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\shaders\ShaderFactory.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\cameras\LightCamera.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\shaders\Shaders.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\cameras\MayaCamera.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\shaders\ShaderManager.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\cameras\OrthographicCamera.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Mask.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\fonts\Font.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\TextureManager.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\fonts\FontManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\cameras\Camera.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\groups\Group3D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\renderers\Renderer2D.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\layers\Layer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\layers\Layer2D.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\layers\Layer2D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\cameras\OrthographicCamera.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\layers\Layer3D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Sprite.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\materials\Material.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\renderables\Renderable2D.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\materials\MaterialInstance.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="maths\Quaternion.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\materials\Materials.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\cameras\MayaCamera.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\materials\PBRMaterial.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Model.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\materials\PBRMaterialInstance.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\LightSetup.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\meshs\AnimationMesh.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\layers\Layer3D.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\meshs\Mesh.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Entity.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\meshs\MeshFactory.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\renderables\Renderable3D.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\renderables\Renderable2D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\renderers\Renderer3D.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\renderables\Renderable3D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="app\Input.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\renderers\Renderer2D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\cameras\FPSCamera.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\renderers\Renderer3D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\meshs\AnimationMesh.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\shaders\ShaderFactory.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\meshs\Mesh.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\shaders\ShaderManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\meshs\MeshFactory.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\shaders\Shaders.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="dependency\freetype\freetype-gl\common.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\Animation.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="dependency\freetype\freetype-gl\freetype-gl.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\Entity.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="dependency\freetype\freetype-gl\platform.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\GBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="dependency\freetype\freetype-gl\texture-atlas.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\HeightMap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="dependency\freetype\freetype-gl\texture-font.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\Label.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="dependency\freetype\freetype-gl\vec234.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\Light.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="dependency\freetype\freetype-gl\vector.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\LightSetup.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\fonts\Font.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\Mask.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\fonts\FontManager.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\Model.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Label.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\ShadowMap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ui\Button.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\Sprite.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ui\Panel.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\Terrain.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ui\Slider.h">
+    <ClInclude Include="01_FRAMEWORK\graphics\TextureManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ui\Widget.h">
+    <ClInclude Include="01_FRAMEWORK\maths\AABB.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ui\Dialog.h">
+    <ClInclude Include="01_FRAMEWORK\maths\mat4.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ui\Progressbar.h">
+    <ClInclude Include="01_FRAMEWORK\maths\maths.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ui\UIs.h">
+    <ClInclude Include="01_FRAMEWORK\maths\maths_func.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Light.h">
+    <ClInclude Include="01_FRAMEWORK\maths\Quaternion.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\materials\Material.h">
+    <ClInclude Include="01_FRAMEWORK\maths\Rectangle.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\materials\MaterialInstance.h">
+    <ClInclude Include="01_FRAMEWORK\maths\tvec2.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\materials\PBRMaterial.h">
+    <ClInclude Include="01_FRAMEWORK\maths\vec2.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\materials\PBRMaterialInstance.h">
+    <ClInclude Include="01_FRAMEWORK\maths\vec3.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\materials\Materials.h">
+    <ClInclude Include="01_FRAMEWORK\maths\vec4.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="directx\TextureCube.h">
+    <ClInclude Include="01_FRAMEWORK\system\FileSystem.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="component\Component.h">
+    <ClInclude Include="01_FRAMEWORK\system\VFS.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="component\TransformComponent.h">
+    <ClInclude Include="01_FRAMEWORK\ui\Button.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="component\Components.h">
+    <ClInclude Include="01_FRAMEWORK\ui\Dialog.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Terrain.h">
+    <ClInclude Include="01_FRAMEWORK\ui\Panel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\HeightMap.h">
+    <ClInclude Include="01_FRAMEWORK\ui\Progressbar.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="game\BossLayer.h">
+    <ClInclude Include="01_FRAMEWORK\ui\Slider.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="game\ChessLayer.h">
+    <ClInclude Include="01_FRAMEWORK\ui\UIs.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="game\NPCLayer.h">
+    <ClInclude Include="01_FRAMEWORK\ui\Widget.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="game\TestLayer2D.h">
+    <ClInclude Include="01_FRAMEWORK\utils\json\json.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\groups\Group3D.h">
+    <ClInclude Include="01_FRAMEWORK\utils\json\json-forwards.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="directx\DeferredBuffer.h">
+    <ClInclude Include="01_FRAMEWORK\utils\LoadImage.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\GBuffer.h">
+    <ClInclude Include="01_FRAMEWORK\utils\String.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="utils\json\json.h">
+    <ClInclude Include="01_FRAMEWORK\utils\Timer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="utils\json\json-forwards.h">
+    <ClInclude Include="01_FRAMEWORK\utils\Timestep.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="directx\ShadowBuffer.h">
+    <ClInclude Include="01_FRAMEWORK\include.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\ShadowMap.h">
+    <ClInclude Include="01_FRAMEWORK\SUNNY.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\cameras\LightCamera.h">
+    <ClInclude Include="06_LAYER\BossLayer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="directx\DebugBuffer.h">
+    <ClInclude Include="06_LAYER\ChessLayer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="game\TestLayer3D.h">
+    <ClInclude Include="06_LAYER\NPCLayer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\Animation.h">
+    <ClInclude Include="06_LAYER\TestLayer2D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="06_LAYER\TestLayer3D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
