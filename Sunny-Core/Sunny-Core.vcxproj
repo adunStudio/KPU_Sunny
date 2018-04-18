@@ -151,6 +151,7 @@
     <ClInclude Include="game\NPCLayer.h" />
     <ClInclude Include="game\TestLayer2D.h" />
     <ClInclude Include="game\TestLayer3D.h" />
+    <ClInclude Include="graphics\Animation.h" />
     <ClInclude Include="graphics\cameras\LightCamera.h" />
     <ClInclude Include="graphics\fonts\Font.h" />
     <ClInclude Include="graphics\fonts\FontManager.h" />

@@ -12,7 +12,7 @@ namespace sunny
 		}*/
 
 		Renderable3D::Renderable3D(const maths::mat4& transform)
-		: m_texture(nullptr), m_mesh(nullptr), m_materialInstance(nullptr), m_visible(true), m_color(maths::vec4(1, 1, 1, 1))
+		:  m_mesh(nullptr), m_materialInstance(nullptr), m_visible(true), m_color(maths::vec4(1, 1, 1, 1))
 		{
 			AddComponent(new component::TransformComponent(transform));
 		}

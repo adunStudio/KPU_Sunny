@@ -599,6 +599,9 @@
     <ClInclude Include="game\TestLayer3D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="graphics\Animation.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\textures\time.PNG">

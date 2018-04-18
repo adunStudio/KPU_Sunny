@@ -124,7 +124,12 @@ void BossLayer::OnInit(Renderer3D& renderer)
 	Add(zAxis);
 
 	
+	Model* sphere_model = new Model("/sun/tree.sun");
+	mat4 position33 = mat4::Identity();// *mat4::Translate(vec3(0, 5, 0)) * mat4::Rotate(-90, vec3(1, 0, 0)) * mat4::Scale(vec3(0.1, 0.1, 0.1));
 
+	Entity* sphere = new Entity(sphere_model->GetMesh(), RGBA(1, 0, 0, 1), position33);
+
+	Add(sphere);
 
 
 	//SetCamera(new FPSCamera(maths::mat4::Perspective(65.0f, 16.0f / 9.0f, 0.1f, 1000.0f)));

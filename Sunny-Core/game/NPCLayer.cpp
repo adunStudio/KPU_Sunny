@@ -40,11 +40,11 @@ void NPCLayer::OnInit(Renderer3D& renderer)
 	Entity* zAxis = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 1), mat4::Identity());
 
 	Entity* a = new Entity(MeshFactory::CreateQuad(0, 0, 10, 20), new Texture2D("/texture/time.jpg"), mat4::Identity());
-	Entity* b = new Entity(MeshFactory::CreateCube(20), RGBA(1.0f, 1.0f, 1.0f, 0.9f), mat4::Identity() * mat4::Translate(maths::vec3(-20, 0, 0)));
+	Entity* b = new Entity(MeshFactory::CreateCube(20), RGBA(1.0f, 1.0f, 1.0f, 1.9f), mat4::Identity() * mat4::Translate(maths::vec3(-20, 0, 0)));
 	Entity* c = new Entity(MeshFactory::CreateCube(20), RGBA(1.0f, 0.0f, 0.0f, 1.5f), mat4::Identity() * mat4::Translate(maths::vec3(20, 0, 0)));
-	Entity* d = new Entity(MeshFactory::CreateCube(20), RGBA(1.0f, 0.0f, 1.0f, 0.8f), mat4::Identity() * mat4::Translate(maths::vec3(0, 0, 20)));
+	Entity* d = new Entity(MeshFactory::CreateCube(20), RGBA(1.0f, 0.0f, 1.0f, 1.8f), mat4::Identity() * mat4::Translate(maths::vec3(0, 0, 20)));
 	Entity* e = new Entity(MeshFactory::CreateCube(20), RGBA(1.0f, 1.0f, 0.0f, 1.5f), mat4::Identity() * mat4::Translate(maths::vec3(0, 0, -20)));
-	Entity* f = new Entity(MeshFactory::CreateCube(20), RGBA(0.0f, 1.0f, 1.0f, 0.7f), mat4::Identity() * mat4::Translate(maths::vec3(0, 20, 0)));
+	Entity* f = new Entity(MeshFactory::CreateCube(20), RGBA(0.0f, 1.0f, 1.0f, 1.7f), mat4::Identity() * mat4::Translate(maths::vec3(0, 20, 0)));
 	Entity* g = new Entity(MeshFactory::CreateCube(20), RGBA(0.5f, 0.5f, 0.3f, 1.5f), mat4::Identity() * mat4::Translate(maths::vec3(0, -20, 0)));
 
 

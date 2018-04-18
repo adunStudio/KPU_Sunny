@@ -32,8 +32,6 @@ namespace sunny
 			m_pitch = 0.6f;// maths::SUNNY_PI / 4.0f;
 			
 
-
-
 			m_position = CalcuatePosition();
 
 			maths::Quaternion orientation = GetOrientation();

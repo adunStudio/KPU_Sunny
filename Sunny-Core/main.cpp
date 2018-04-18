@@ -33,8 +33,8 @@ public:
 		VFS::Get()->Mount("raw",     "resource/raw");
 		VFS::Get()->Mount("json",    "resource/json");
 
-		PushOverlay(new TestLayer2D());
-		//PushOverlay(new TestLayer3D());
+		//PushOverlay(new TestLayer2D());
+		PushOverlay(new TestLayer3D());
 		//PushOverlay(new ChessLayer());
 		//PushOverlay(new TestLayer3D());
 	}

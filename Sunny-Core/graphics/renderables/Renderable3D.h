@@ -18,7 +18,7 @@ namespace sunny
 		{
 		protected:
 			Mesh* m_mesh;
-			directx::Texture* m_texture;
+			std::vector<directx::Texture*> m_textures;
 			maths::vec4 m_color;
 
 			bool m_visible;
@@ -49,7 +49,7 @@ namespace sunny
 			inline directx::Shader* GetShader() const { return m_materialInstance ? m_materialInstance->GetMaterial()->GetShader() : nullptr; };
 
 			inline const maths::vec4& GetColor()     const { return m_color;     }
-			inline const float& GetHasTexture() const { return m_texture ? 1.0f : 0.0f; }
+			inline const float& GetHasTexture() const { return m_textures.size() > 0 ? 1.0f : 0.0f; }
 
 			inline const bool GetVisible() const { return m_visible; };
 			inline void SetVisible(bool visible) { m_visible = visible; };			

@@ -8,7 +8,15 @@ namespace sunny
 		: Renderable3D(transform), m_frame(0)
 		{
 			m_mesh = mesh;
-			m_texture = texture;
+			m_textures.push_back(texture);
+		}
+
+		Entity::Entity(Mesh* mesh, directx::Texture2D* texture1, directx::Texture2D* texture2, const mat4& transform)
+		: Renderable3D(transform), m_frame(0)
+		{
+			m_mesh = mesh;
+			m_textures.push_back(texture1);
+			m_textures.push_back(texture2);
 		}
 
 		Entity::Entity(Mesh* mesh, const maths::vec4& color, const mat4& transform)
@@ -23,13 +31,13 @@ namespace sunny
 			if (m_materialInstance)
 				m_materialInstance->Bind();
 
-			if (m_texture)
-				m_texture->Bind();
+			for (int i = 0; i < m_textures.size(); ++i)
+				m_textures[i]->Bind(i);
 
 			m_mesh->Render();
 
-			if (m_texture)
-				m_texture->UnBind();
+			for (int i = 0; i < m_textures.size(); ++i)
+				m_textures[i]->UnBind(i);
 
 			if (m_materialInstance)
 				m_materialInstance->UnBind();

@@ -20,14 +20,14 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 
 	PushLightSetup(lights);
 
-	Model* model = new Model("/obj/sphere.obj");
-
-
-	mat4 position = mat4::Identity();// *mat4::Translate(vec3(0, 5, 0)) * mat4::Rotate(-90, vec3(1, 0, 0)) * mat4::Scale(vec3(0.1, 0.1, 0.1));
-
-	m_entity = new Entity(model->GetMesh(), RGBA(1, 0, 0, 1), position);
+	Model* tree1_model = new Model("/sun/tree.sun");
+	Entity* tree1 = new Entity(tree1_model->GetMesh(), new Texture2D("/texture/tree.png"));
 	
-	Add(m_entity);
+	Model* tree2_model = new Model("/sun/tree2.sun");
+	Entity* tree2 = new Entity(tree2_model->GetMesh(), new Texture2D("/texture/leaf.png"), new Texture2D("/texture/SpruceTreeTrunk.png"), mat4::Identity() * mat4::Translate(vec3(-20, 0, 0)));
+
+	Add(tree1);
+	Add(tree2);
 
 
 

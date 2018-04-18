@@ -207,7 +207,7 @@ namespace sunny
 				std::cout << "one light is needed" << std::endl;
 				exit(1);
 			}
-
+			lights[0]->position = m_lightCamera->GetPosition().Normalize();
 			memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_Lights], lights[0], sizeof(Light));
 			memcpy(m_PSSunnyLightUniformBuffer   + m_PSSunnyLightUniformBufferOffsets[PSSunnyLightUniformIndex_Lights]    , lights[0], sizeof(Light));
 		}
