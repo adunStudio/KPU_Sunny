@@ -47,6 +47,7 @@
     <ClCompile Include="01_FRAMEWORK\events\KeyEvent.cpp" />
     <ClCompile Include="01_FRAMEWORK\events\MouseEvent.cpp" />
     <ClCompile Include="01_FRAMEWORK\events\ResizeEvent.cpp" />
+    <ClCompile Include="01_FRAMEWORK\graphics\ModelManager.cpp" />
     <ClCompile Include="06_LAYER\BossLayer.cpp" />
     <ClCompile Include="06_LAYER\ChessLayer.cpp" />
     <ClCompile Include="06_LAYER\NPCLayer.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="01_FRAMEWORK\events\KeyEvent.h" />
     <ClInclude Include="01_FRAMEWORK\events\MouseEvent.h" />
     <ClInclude Include="01_FRAMEWORK\events\ResizeEvent.h" />
+    <ClInclude Include="01_FRAMEWORK\graphics\ModelManager.h" />
     <ClInclude Include="01_FRAMEWORK\SUNNY.h" />
     <ClInclude Include="06_LAYER\BossLayer.h" />
     <ClInclude Include="06_LAYER\ChessLayer.h" />

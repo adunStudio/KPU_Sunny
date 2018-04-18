@@ -20,8 +20,7 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 
 	PushLightSetup(lights);
 
-	Model* tree1_model = new Model("/SUN/Trees/DeadOak1.sun");
-	Entity* tree1 = new Entity(tree1_model->GetMesh(), new Texture2D("/TEXTURE/Trees/DeadOakTreeTrunk.png"));
+	Entity* tree1 = new Entity(ModelManager::GetMesh("DeadOak1"), TextureManager::Get("DeadOakTreeTrunk"));
 	
 	Model* tree2_model = new Model("/SUN/Trees/SpruceTree1.sun");
 	Entity* tree2 = new Entity(tree2_model->GetMesh(), new Texture2D("/TEXTURE/Trees/SpruceTreeLeaf.png"), new Texture2D("/TEXTURE/Trees/SpruceTreeTrunk.png"), mat4::Identity() * mat4::Translate(vec3(-10, 0, 0)));

@@ -31,6 +31,9 @@ public:
 		VFS::Get()->Mount("TEXTURE", "04_ASSET/TEXTURE");
 		VFS::Get()->Mount("RAW",     "04_ASSET/RAW");
 
+		ModelManager::Add("DeadOak1", new Model("/SUN/Trees/DeadOak1.sun"));
+		TextureManager::Add(new Texture2D("DeadOakTreeTrunk", "/TEXTURE/Trees/DeadOakTreeTrunk.png"));
+
 		//PushOverlay(new TestLayer2D());
 		PushOverlay(new TestLayer3D());
 		//PushOverlay(new ChessLayer());

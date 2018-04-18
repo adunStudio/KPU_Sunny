@@ -4,14 +4,14 @@ namespace sunny
 {
 	namespace graphics
 	{
-		Entity::Entity(Mesh* mesh, directx::Texture2D* texture, const mat4& transform)
+		Entity::Entity(Mesh* mesh, directx::Texture* texture, const mat4& transform)
 		: Renderable3D(transform), m_frame(0)
 		{
 			m_mesh = mesh;
 			m_textures.push_back(texture);
 		}
 
-		Entity::Entity(Mesh* mesh, directx::Texture2D* texture1, directx::Texture2D* texture2, const mat4& transform)
+		Entity::Entity(Mesh* mesh, directx::Texture* texture1, directx::Texture* texture2, const mat4& transform)
 		: Renderable3D(transform), m_frame(0)
 		{
 			m_mesh = mesh;

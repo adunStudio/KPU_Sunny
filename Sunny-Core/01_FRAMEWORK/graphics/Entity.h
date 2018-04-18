@@ -21,8 +21,8 @@ namespace sunny
 			unsigned int m_frame;
 			
 		public:
-			Entity(Mesh* mesh, directx::Texture2D* texture, const mat4& transform = mat4::Identity());
-			Entity(Mesh* mesh, directx::Texture2D* texture1, directx::Texture2D* texture2, const mat4& transform = mat4::Identity());
+			Entity(Mesh* mesh, directx::Texture* texture, const mat4& transform = mat4::Identity());
+			Entity(Mesh* mesh, directx::Texture* texture1, directx::Texture* texture2, const mat4& transform = mat4::Identity());
 			Entity(Mesh* mesh, const maths::vec4& color = maths::vec4(1, 1, 1, 1), const mat4& transform = mat4::Identity());
 						
 			virtual void Render() override;

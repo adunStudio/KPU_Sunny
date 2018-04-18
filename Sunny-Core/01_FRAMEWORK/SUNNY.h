@@ -12,3 +12,6 @@
 #include "ui/UIs.h"
 
 #include "utils/json/json.h"
+
+#include "graphics/ModelManager.h"
+#include "graphics/TextureManager.h"

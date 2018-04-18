@@ -279,6 +279,9 @@
     <ClCompile Include="06_LAYER\TestLayer3D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="01_FRAMEWORK\graphics\ModelManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="01_FRAMEWORK\app\Application.h">
@@ -603,6 +606,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="06_LAYER\TestLayer3D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\graphics\ModelManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
