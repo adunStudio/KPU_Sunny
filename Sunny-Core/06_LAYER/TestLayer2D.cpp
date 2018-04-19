@@ -18,16 +18,16 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 
 	m_layerIndex = 0;
 
-	m_layers.push_back(new NPCLayer());
-	m_layers.push_back(new BossLayer());
-
-	m_layers[1]->SetVisible(false);
-	m_layers[1]->SetActive(false);
+	//m_layers.push_back(new NPCLayer());
+	//m_layers.push_back(new BossLayer());
+	m_layers.push_back(new TestLayer3D);
+	//m_layers[1]->SetVisible(false);
+	//m_layers[1]->SetActive(false);
 
 	Application::GetApplication().PushLayer(m_layers[0]);
-	Application::GetApplication().PushLayer(m_layers[1]);
+	//Application::GetApplication().PushLayer(m_layers[1]);
 
-	m_logo  = new Sprite(230, 368/4 + 520, 1037/4, 368/4, directx::Texture2D::CreateFromFile("/texture/logo.png"));
+	m_logo  = new Sprite(230, 368/4 + 520, 1037/4, 368/4, directx::Texture2D::CreateFromFile("/TEXTURE/logo.png"));
 	m_fps   = new Label("fps", windowWidth - 5,  windowHeight - 15, RGBA(1, 1, 1, 0.8));
 	m_fps->SetAlignment(Label::Alignment::RIGHT);
 	
@@ -68,7 +68,7 @@ void TestLayer2D::OnTick()
 
 void TestLayer2D::OnUpdate(const utils::Timestep& ts)
 {
-	float length, frame;
+	/*float length, frame;
 
 	if (dynamic_cast<NPCLayer*>(m_layers[m_layerIndex]))
 	{
@@ -80,9 +80,9 @@ void TestLayer2D::OnUpdate(const utils::Timestep& ts)
 		length = dynamic_cast<BossLayer*>(m_layers[m_layerIndex])->m_entity->GetMesh()->GetAnimationLength();
 		frame = dynamic_cast<BossLayer*>(m_layers[m_layerIndex])->m_entity->GetMesh()->GetCurrentFrame();
 	}
-	
-	m_progressbar->SetValue((frame+1) / length);
-	m_slider2->SetValue( (frame+1) / length);
+	*/
+	//m_progressbar->SetValue((frame+1) / length);
+	//m_slider2->SetValue( (frame+1) / length);
 }
 
 void TestLayer2D::OnRender(Renderer2D& renderer)
@@ -124,9 +124,9 @@ bool TestLayer2D::OnKeyPressedEvent(KeyPressedEvent& event)
 
 void TestLayer2D::ButtonEvent1()
 {
-	m_layers[m_layerIndex]->SetVisible(false);
-	m_layers[m_layerIndex]->SetActive(false);
-	m_layerIndex = m_layerIndex == 0 ? 1 : 0;
-	m_layers[m_layerIndex]->SetVisible(true);
-	m_layers[m_layerIndex]->SetActive(true);
+	//m_layers[m_layerIndex]->SetVisible(false);
+	//m_layers[m_layerIndex]->SetActive(false);
+	//m_layerIndex = m_layerIndex == 0 ? 1 : 0;
+	//m_layers[m_layerIndex]->SetVisible(true);
+	//m_layers[m_layerIndex]->SetActive(true);
 }

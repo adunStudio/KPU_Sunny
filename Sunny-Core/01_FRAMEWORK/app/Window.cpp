@@ -103,7 +103,7 @@ namespace sunny
                 WS_EX_APPWINDOW | WS_EX_WINDOWEDGE,                             // 태스크바에 나타낸다.
                 winClass.lpszClassName,                                         // 윈도우 클래스의 이름
 			//(LPCWSTR)m_title.c_str(),                                                // 만들어질 윈도우의 타이틀 바에 나타내는 문자열
-			_T("한글"),                                                // 만들어질 윈도우의 타이틀 바에 나타내는 문자열
+			_T("sunny"),                                                // 만들어질 윈도우의 타이틀 바에 나타내는 문자열
                 WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,        // 윈도우 스타일 조합
                 GetSystemMetrics(SM_CXSCREEN) / 2 - m_properties.width / 2,     // 윈도우 생성 위치 x
                 GetSystemMetrics(SM_CYSCREEN) / 2 - m_properties.height / 2,    // 윈도우 생성 위치 y
@@ -136,7 +136,7 @@ namespace sunny
 
 		//directx::Context::GetContext()->Bind();
 
-     //   SetTitle(m_title);
+        SetTitle(m_title);
 
         return true;
     }

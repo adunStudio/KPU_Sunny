@@ -5,6 +5,7 @@
 #pragma once
 
 #include "../include.h"
+#include "VFS.h"
 
 namespace sunny
 {

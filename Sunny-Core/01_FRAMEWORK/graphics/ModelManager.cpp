@@ -6,9 +6,11 @@ namespace sunny
 	{
 		std::map<std::string, Model*> ModelManager::s_map;
 
-		void ModelManager::Add(const::std::string& name, Model* Model)
+		Model* ModelManager::Add(const::std::string& name, Model* Model)
 		{
 			s_map[name] = Model;
+			
+			return Model;
 		}
 
 		void ModelManager::Clean()

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "DeadOak1",
+    "path": "/SUN/Trees/DeadOak1.sun",
+    "textures": [ "/TEXTURE/Trees/DeadOakTreeTrunk.png" ]
+  },
+  {
+    "name": "DeadOak2",
+    "path": "/SUN/Trees/DeadOak2.sun",
+    "textures": [ "/TEXTURE/Trees/DeadOakTreeTrunk.png" ]
+  },
+  {
+    "name": "DeadOak3",
+    "path": "/SUN/Trees/DeadOak3.sun",
+    "textures": [ "/TEXTURE/Trees/DeadOakTreeTrunk.png" ]
+  },
+  {
+    "name": "DeadSpruce1",
+    "path": "/SUN/Trees/DeadSpruce1.sun",
+    "textures": [ "/TEXTURE/Trees/DeadSpruceTreeTrunk.png" ]
+  },
+  {
+    "name": "DeadSpruce2",
+    "path": "/SUN/Trees/DeadSpruce2.sun",
+    "textures": [ "/TEXTURE/Trees/DeadSpruceTreeTrunk.png" ]
+  },
+  {
+    "name": "DeadSpruce3",
+    "path": "/SUN/Trees/DeadSpruce3.sun",
+    "textures": [ "/TEXTURE/Trees/DeadSpruceTreeTrunk.png" ]
+  },
+  {
+    "name": "OakTree1",
+    "path": "/SUN/Trees/OakTree1.sun",
+    "textures": [ "/TEXTURE/Trees/OakTreeTrunk.png", "/TEXTURE/Trees/OakTreeLeaf.png" ]
+  },
+  {
+    "name": "OakTree2",
+    "path": "/SUN/Trees/OakTree2.sun",
+    "textures": [ "/TEXTURE/Trees/OakTreeTrunk.png", "/TEXTURE/Trees/OakTreeLeaf.png" ]
+  },
+  {
+    "name": "OakTree3",
+    "path": "/SUN/Trees/OakTree3.sun",
+    "textures": [ "/TEXTURE/Trees/OakTreeTrunk.png", "/TEXTURE/Trees/OakTreeLeaf.png" ]
+  },
+  {
+    "name": "SpruceTree1",
+    "path": "/SUN/Trees/SpruceTree1.sun",
+    "textures": [ "/TEXTURE/Trees/SpruceTreeLeaf.png", "/TEXTURE/Trees/SpruceTreeTrunk.png" ]
+  },
+  {
+    "name": "SpruceTree2",
+    "path": "/SUN/Trees/SpruceTree2.sun",
+    "textures": [ "/TEXTURE/Trees/SpruceTreeLeaf.png", "/TEXTURE/Trees/SpruceTreeTrunk.png" ]
+  },
+  {
+    "name": "SpruceTree3",
+    "path": "/SUN/Trees/SpruceTree3.sun",
+    "textures": [ "/TEXTURE/Trees/SpruceTreeLeaf.png", "/TEXTURE/Trees/SpruceTreeTrunk.png" ]
+  }
+]

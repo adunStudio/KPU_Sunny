@@ -5,6 +5,7 @@
 
 #include "NPCLayer.h"
 #include "BossLayer.h"
+#include "TestLayer3D.h"
 
 using namespace std;
 using namespace sunny;

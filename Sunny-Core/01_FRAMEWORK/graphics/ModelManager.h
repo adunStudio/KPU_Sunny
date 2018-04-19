@@ -12,10 +12,11 @@ namespace sunny
 		private:
 			static std::map<std::string, Model*> s_map;
 
-		public:
 			ModelManager() = delete;
 
-			static void Add(const::std::string& name, Model* model);
+		public:
+
+			static Model* Add(const::std::string& name, Model* model);
 
 			static void Clean();
 

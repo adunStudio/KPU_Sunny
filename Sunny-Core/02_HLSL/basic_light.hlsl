@@ -19,6 +19,7 @@ struct VSOutput
 	float3 color : COLOR;
 	float4 shadowCoord : SHADOW_POSITION;
 	float4 lightPosition : LIGHT_POSITION;
+	int    tid : TEXTURE_CASE;
 };
 
 cbuffer VSSystemUniforms : register(b0)
@@ -45,6 +46,7 @@ VSOutput VSMain(in VSInput input)
 	output.shadowCoord = float4(0.0f, 0.0f, 0.0f, 0.0f); // output.shadowCoord = mul(output.position, depthBias);
 	output.lightPosition = mul(output.position, mul(SUNNY_LightViewMatrix, SUNNY_LightProjectionMatrix));
 	output.cameraPosition = SUNNY_CameraPosition;
+	output.tid = input.tangent.x;
 
 	return output;
 }
@@ -109,6 +111,18 @@ SamplerState samplers : register(s0);
 SamplerState shadowSampler : register(s7);
 
 
+float cellstep5(float x)
+{
+	return ceil(x * 5) / 5;
+}
+
+
+
+float cellsmooth3(float x)
+{
+	return 0.5*(smoothstep(0.16, 0.34, x) * smoothstep(0.66, 0.84, x));
+}
+
 float4 PSMain(in VSOutput input) : SV_TARGET
 {
 	//SUNNY_Light.position = normalize(float3(input.lightPosition.x, input.lightPosition.y, input.lightPosition.z));
@@ -117,9 +131,7 @@ float4 PSMain(in VSOutput input) : SV_TARGET
 
 	if (SUNNY_HasTexture >= 1)
 	{
-		int id = input.tangent.x;
-
-		switch (id)
+		switch (input.tid)
 		{
 		case 0:
 			texColor = textures[0].Sample(samplers, input.uv); break;
@@ -134,9 +146,85 @@ float4 PSMain(in VSOutput input) : SV_TARGET
 		case 5:
 			texColor = textures[2].Sample(samplers, input.uv); break;
 		}
+
 	}
 
-	return texColor;
-}
+	float3 color = texColor.xyz;
 
+	float3 world_pos = input.position;
+
+	float3 world_normal = normalize(input.normal);
+
+	float3 lightDir = normalize(input.position.xyz - input.lightPosition.xyz);
+
+	float3 diffuse = dot(-lightDir, normalize(input.normal));
+	diffuse = saturate(diffuse);
+	diffuse.x = cellsmooth3(diffuse.x) + 0.1;
+	diffuse.y = cellsmooth3(diffuse.y) + 0.1;
+	diffuse.z = cellsmooth3(diffuse.x) + 0.1;
+
+
+	int material_shininess = 100;
+	float material_kd = 0.5;
+	float material_ks = 0.3;
+
+	int levels = 7;
+	float scaleFactor = 1.0f / levels;
+
+	float3 eye_position = input.cameraPosition;
+	//cameraPosition
+	float3 light_position = float3(input.lightPosition.x, input.lightPosition.y, input.lightPosition.z);
+
+	float3 Kd = float3(0.3f, 0.8f, 0.1f);
+
+	float3 L = normalize(light_position - world_pos);
+	float3 V = normalize(eye_position - world_pos);
+
+	float difuza = max(0, dot(L, world_normal));
+
+	Kd = Kd * material_kd * floor(difuza * levels) * scaleFactor;
+
+	float3 H = normalize(L + V);
+
+	float speculara = 0;
+
+	if (dot(L, world_normal) > 0.0)
+	{
+		speculara = material_ks * pow(max(0, dot(H, world_normal)), material_shininess);
+	}
+
+	float specMask = (pow(dot(H, world_normal), material_shininess) > 0.4) ? 1 : 0;
+	float edgeMask = (dot(V, world_normal) > 0.2) ? 1 : 0;
+
+	if (SUNNY_HasTexture == 0)
+	{
+		color = edgeMask * (color + Kd + speculara * specMask);
+		return float4(color, 1);
+	 }
+
+
+	float3 finalColor = texColor.xyz * diffuse;
+
+	finalColor += CalcDirectional(input.positionCS, world_normal, texColor, input.cameraPosition);
+
+	float bias = 0.000005;
+
+	input.lightPosition.xyz /= input.lightPosition.w;
+
+	if (input.lightPosition.x < -1.0f || input.lightPosition.x > 1.0f ||
+		input.lightPosition.y < -1.0f || input.lightPosition.y > 1.0f ||
+		input.lightPosition.z <  0.0f || input.lightPosition.z > 1.0f) return float4(finalColor * 0.5, texColor.a);
+
+	input.lightPosition.x = input.lightPosition.x / 2 + 0.5;
+	input.lightPosition.y = input.lightPosition.y / -2 + 0.5;
+
+	input.lightPosition.z -= bias;
+
+	float shadowMapDepth = shadowMap.Sample(shadowSampler, input.lightPosition.xy).r;
+
+	if (shadowMapDepth < input.lightPosition.z) return float4(finalColor * 0.5, texColor.a);
+
+
+	return float4(finalColor, 1);
+}
 

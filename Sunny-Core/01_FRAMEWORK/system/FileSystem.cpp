@@ -69,9 +69,18 @@ namespace sunny
 
         std::string FileSystem::ReadTextFile(const std::string& path)
         {
-            std::ifstream file(path);
+			std::string physicalPath;
 
-            if(!file )
+			// 파일 존재유무 확인
+			if (!VFS::Get()->ResolvePhysicalPath(path, physicalPath))
+			{
+				std::cout << "Could not load file '" << path << "'!" << std::endl;
+				exit(1);
+			}
+
+            std::ifstream file(physicalPath);
+
+            if(!file)
                 return std::string("");
 
 			std::string str;

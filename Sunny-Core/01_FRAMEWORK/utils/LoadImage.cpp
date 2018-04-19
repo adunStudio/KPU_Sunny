@@ -28,7 +28,7 @@ namespace sunny
 			if (!VFS::Get()->ResolvePhysicalPath(filename, physicalPath))
 			{
 				std::cout << "Could not load file '" << filename << "'!" << std::endl;
-				return nullptr;
+				exit(1);
 			}
 
 			filename = physicalPath.c_str();

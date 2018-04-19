@@ -2,18 +2,24 @@
 
 #include <SUNNY.h>
 
+#include "05_GAME/assets/AssetLoader.h"
+
+
 #include "06_LAYER/TestLayer2D.h"
 #include "06_LAYER/ChessLayer.h"
 #include "06_LAYER/TestLayer3D.h"
 
+
+using namespace std;
 using namespace sunny;
 using namespace graphics;
 using namespace directx;
+using namespace system;
 
 class Game : public Application
 {
 public:
-	Game() : Application("½á´Ï", { 1280, 760, false, false })
+	Game() : Application("sunny", { 1200, 700, false, false })
 	{}
 
 	~Game()
@@ -21,7 +27,7 @@ public:
 
 	void Init() override
 	{
-		setlocale(LC_ALL, "korean");
+		//setlocale(LC_ALL, "korean");
 
 		Application::Init();
 
@@ -31,11 +37,10 @@ public:
 		VFS::Get()->Mount("TEXTURE", "04_ASSET/TEXTURE");
 		VFS::Get()->Mount("RAW",     "04_ASSET/RAW");
 
-		ModelManager::Add("DeadOak1", new Model("/SUN/Trees/DeadOak1.sun"));
-		TextureManager::Add(new Texture2D("DeadOakTreeTrunk", "/TEXTURE/Trees/DeadOakTreeTrunk.png"));
+		game::AssetLoader::LoadModel("/JSON/MODEL/tree.json");
 
-		//PushOverlay(new TestLayer2D());
-		PushOverlay(new TestLayer3D());
+		PushOverlay(new TestLayer2D());
+		//PushOverlay(new TestLayer3D());
 		//PushOverlay(new ChessLayer());
 		//PushOverlay(new TestLayer3D());
 	}

@@ -26,6 +26,12 @@ namespace sunny
 			m_color = color;
 		}
 
+		Entity::Entity(const mat4& transform)
+		: Renderable3D(transform), m_frame(0)
+		{
+			m_mesh = nullptr;
+		}
+
 		void Entity::Render()
 		{
 			if (m_materialInstance)
@@ -34,7 +40,8 @@ namespace sunny
 			for (int i = 0; i < m_textures.size(); ++i)
 				m_textures[i]->Bind(i);
 
-			m_mesh->Render();
+			if(m_mesh)
+				m_mesh->Render();
 
 			for (int i = 0; i < m_textures.size(); ++i)
 				m_textures[i]->UnBind(i);

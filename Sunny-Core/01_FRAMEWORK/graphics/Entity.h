@@ -20,6 +20,9 @@ namespace sunny
 		protected:
 			unsigned int m_frame;
 			
+		protected:
+			Entity(const mat4& transform = mat4::Identity());
+
 		public:
 			Entity(Mesh* mesh, directx::Texture* texture, const mat4& transform = mat4::Identity());
 			Entity(Mesh* mesh, directx::Texture* texture1, directx::Texture* texture2, const mat4& transform = mat4::Identity());
