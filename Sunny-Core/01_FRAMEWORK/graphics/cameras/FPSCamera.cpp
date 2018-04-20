@@ -83,6 +83,8 @@ namespace sunny
 
 				maths::mat4 rotation = maths::mat4::Rotate(orientation.Conjugate());
 				maths::mat4 translation = maths::mat4::Translate(-m_position);
+
+				
 				m_viewMatrix = rotation * translation;
 			}
 

@@ -10,6 +10,7 @@
 #include "../GBuffer.h"
 #include "../ShadowMap.h"
 #include "../../directx/DebugBuffer.h"
+#include <DirectXMath.h>
 
 namespace sunny
 {

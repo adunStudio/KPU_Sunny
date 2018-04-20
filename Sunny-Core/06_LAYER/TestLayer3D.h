@@ -16,6 +16,7 @@ class TestLayer3D : public Layer3D
 {
 public:
 	Entity* m_entity;
+	MaterialInstance* m_SkyboxMaterial;
 
 public:
 	TestLayer3D();

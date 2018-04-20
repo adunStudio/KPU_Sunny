@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../directx/Texture.h"
+#include "../directx/Texture2D.h"
+#include "../directx/TextureCube.h"
 
 namespace sunny
 {

@@ -70,7 +70,7 @@ namespace sunny
 			m_gBuffer   = new GBuffer();
 			m_shadowMap = new ShadowMap();
 
-			m_lightCamera = new LightCamera(maths::mat4::Perspective(65.0f, 1.0f, 0.1f, 1000.0f));
+			m_lightCamera = new LightCamera(maths::mat4::Perspective(65.0f, 1.0f, 0.1f, 10000.0f));
 
 			m_default_shadow_shader   = ShaderFactory::Default3DShadowShader();
 			m_default_forward_shader  = ShaderFactory::Default3DForwardShader();
@@ -142,7 +142,8 @@ namespace sunny
 
 		void Renderer3D::BeginScene(Camera* camera)
 		{
-			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ProjectionMatrix], &camera->GetProjectionMatrix(), sizeof(maths::mat4));
+			
+			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ProjectionMatrix], &camera->GetProjectionMatrix(),       sizeof(maths::mat4));
 			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ViewMatrix],       &camera->GetViewMatrix(),       sizeof(maths::mat4));
 			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_CameraPosition],   &camera->GetPosition(),         sizeof(maths::vec3));
 
@@ -244,6 +245,7 @@ namespace sunny
 				{
 					RenderCommand& command = m_transparencyFCommandQueue[i];
 
+
 					memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
 
 					SetSunnyShadowVSUniforms(m_default_shadow_shader);
@@ -320,6 +322,7 @@ namespace sunny
 			for (unsigned int i = 0; i < m_transparencyTCommandQueue.size(); ++i)
 			{
 				RenderCommand& command = m_transparencyTCommandQueue[i];
+				DirectX::XMMATRIX a = DirectX::XMMatrixIdentity();
 
 				memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
 				memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_Color], &command.color, sizeof(maths::vec4));

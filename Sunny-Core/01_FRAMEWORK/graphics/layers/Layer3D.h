@@ -45,6 +45,7 @@ namespace sunny
 			virtual Group3D* Add(Group3D* groupe3d);
 
 			void SetCamera(Camera * camera);
+			inline Camera* GetCamera() { return m_camera; }
 
 			virtual void Init();
 			virtual void OnInit(Renderer3D& renderer);

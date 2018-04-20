@@ -14,15 +14,16 @@ namespace sunny
 			m_rotationSpeed = 0.002f;
 			m_zoomSpeed = 0.2f;
 
-			m_position = maths::vec3( 0.0f, 0.0f, 65.0f);
+			m_position = maths::vec3(0.0f, 0.0f, 1165.0f);
+			//m_position = maths::vec3( 0.0f, 25.0f, -25.0f);
 			m_rotation = maths::vec3(90.0f,  0.0f,   0.0f);
 
 			m_focalPoint = maths::vec3::Zero();
 
 			m_distance = m_position.Distance(m_focalPoint);
 
-			m_yaw = 0.0f; //*maths::SUNNY_PI / 4.0f;
-			m_pitch = 0.3f;// maths::SUNNY_PI / 4.0f;
+			m_yaw =  maths::SUNNY_PI / 4.0f;
+			m_pitch = maths::SUNNY_PI / 4.0f;
 		}
 
 		void MayaCamera::Focus()

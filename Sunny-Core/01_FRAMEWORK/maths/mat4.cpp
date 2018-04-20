@@ -255,11 +255,19 @@ namespace sunny
             float b = (near + far) / (near - far);
             float c = (2.0f * near * far) / (near - far);
 
+			// right-handed
             result.elements[0 + 0 * 4] = a;
             result.elements[1 + 1 * 4] = q;
             result.elements[2 + 2 * 4] = b;
             result.elements[2 + 3 * 4] = -1.0f;
             result.elements[3 + 2 * 4] = c;
+
+			// left-handed
+			//result.elements[0 + 0 * 4] = a;
+			//result.elements[1 + 1 * 4] = q;
+			//result.elements[2 + 2 * 4] = b;
+			//result.elements[2 + 3 * 4] = 1.0f;
+			//result.elements[3 + 2 * 4] = c;
 
             return result;
         }

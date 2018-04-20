@@ -1,0 +1,252 @@
+[
+  {
+    "name": "Aid_box",
+    "path": "/SUN/LowPolyNatures/aid_box.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Axe",
+    "path": "/SUN/LowPolyNatures/axe.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Bench",
+    "path": "/SUN/LowPolyNatures/Bench.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Big_tree",
+    "path": "/SUN/LowPolyNatures/big_tree.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Blue_gem",
+    "path": "/SUN/LowPolyNatures/blue_gem.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Bridge",
+    "path": "/SUN/LowPolyNatures/Bridge.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Chicken_leg",
+    "path": "/SUN/LowPolyNatures/chicken_leg.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Crate",
+    "path": "/SUN/LowPolyNatures/crate.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Fence1",
+    "path": "/SUN/LowPolyNatures/Fence1.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Fence2",
+    "path": "/SUN/LowPolyNatures/Fence1.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Fireplace",
+    "path": "/SUN/LowPolyNatures/fireplace.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Flower1",
+    "path": "/SUN/LowPolyNatures/Flower1.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Flower2",
+    "path": "/SUN/LowPolyNatures/Flower2.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Log_regular",
+    "path": "/SUN/LowPolyNatures/log_regular.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Log2",
+    "path": "/SUN/LowPolyNatures/log2.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Log3",
+    "path": "/SUN/LowPolyNatures/log3.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Lp_guy",
+    "path": "/SUN/LowPolyNatures/lp_guy.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Marker",
+    "path": "/SUN/LowPolyNatures/marker.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Mountain_snow_1",
+    "path": "/SUN/LowPolyNatures/mountain_snow_1.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Mountain1",
+    "path": "/SUN/LowPolyNatures/mountain1.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Mountain2",
+    "path": "/SUN/LowPolyNatures/mountain2.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Mountain3",
+    "path": "/SUN/LowPolyNatures/mountain3.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Mushroom1",
+    "path": "/SUN/LowPolyNatures/mushroom1.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Mushroom2",
+    "path": "/SUN/LowPolyNatures/mushroom2.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Plant1",
+    "path": "/SUN/LowPolyNatures/Plant1.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Plant2",
+    "path": "/SUN/LowPolyNatures/Plant2.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Plant3",
+    "path": "/SUN/LowPolyNatures/Plant3.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "RedGem",
+    "path": "/SUN/LowPolyNatures/red_gem.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Rock1",
+    "path": "/SUN/LowPolyNatures/rock1.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Rock2",
+    "path": "/SUN/LowPolyNatures/rock2.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Rock3",
+    "path": "/SUN/LowPolyNatures/rock3.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Rock4",
+    "path": "/SUN/LowPolyNatures/rock4.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Stone1",
+    "path": "/SUN/LowPolyNatures/Stone1.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Stone2",
+    "path": "/SUN/LowPolyNatures/Stone2.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Stone3",
+    "path": "/SUN/LowPolyNatures/Stone3.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Stone4",
+    "path": "/SUN/LowPolyNatures/Stone4.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Stone5",
+    "path": "/SUN/LowPolyNatures/Stone5.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Stones",
+    "path": "/SUN/LowPolyNatures/stones.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Tent",
+    "path": "/SUN/LowPolyNatures/tent.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Terrain_green",
+    "path": "/SUN/LowPolyNatures/terrain_green.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Terrain_Green_hill_part",
+    "path": "/SUN/LowPolyNatures/terrain_Green_hill_part.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Terrain_green_hill_part2",
+    "path": "/SUN/LowPolyNatures/terrain_green_hill_part2.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Terrain_river",
+    "path": "/SUN/LowPolyNatures/terrain_river.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Terrain_yellow",
+    "path": "/SUN/LowPolyNatures/terrain_yellow.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Terrain_yellow_flat",
+    "path": "/SUN/LowPolyNatures/terrain_yellow_flat.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Tree_old",
+    "path": "/SUN/LowPolyNatures/tree_old.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Tree_stump",
+    "path": "/SUN/LowPolyNatures/tree_stump.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Tree1",
+    "path": "/SUN/LowPolyNatures/Tree1.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Tree2",
+    "path": "/SUN/LowPolyNatures/Tree2.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  },
+  {
+    "name": "Tree3",
+    "path": "/SUN/LowPolyNatures/Tree3.sun",
+    "textures": [ "/TEXTURE/LowPolyNatures/low.png" ]
+  }
+]

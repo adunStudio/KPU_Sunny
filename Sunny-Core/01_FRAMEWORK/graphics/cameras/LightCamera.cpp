@@ -9,27 +9,17 @@ namespace sunny
 	{
 		LightCamera::LightCamera(const maths::mat4& projectionMatrix) : Camera(projectionMatrix)
 		{
-			/*
-			m_position = maths::vec3(0.0f, 0.0f, 65.0f);
-			m_rotation = maths::vec3(90.0f, 0.0f, 0.0f);
-
-			m_focalPoint = maths::vec3::Zero();
-
-			m_distance = m_position.Distance(m_focalPoint);
-
-			m_yaw = 0.0f; //*maths::SUNNY_PI / 4.0f;
-			m_pitch = 0.3f;// maths::SUNNY_PI / 4.0f;
-			*/
+		
 			
-			m_position = maths::vec3(0.0f, 600.0f, 65.0f);
+			m_position = maths::vec3(200.0f, 2800.0f, 465.0f);
 			m_rotation = maths::vec3(90.0f, 0.0f, 0.0f);
 
 			m_focalPoint = maths::vec3::Zero();
 
 			m_distance = m_position.Distance(m_focalPoint);
 
-			m_yaw = 0.0f; //*maths::SUNNY_PI / 4.0f;
-			m_pitch = 0.6f;// maths::SUNNY_PI / 4.0f;
+			m_yaw = 0.2f; //*maths::SUNNY_PI / 4.0f;
+			m_pitch = 0.8f;// maths::SUNNY_PI / 4.0f;
 			
 
 			m_position = CalcuatePosition();

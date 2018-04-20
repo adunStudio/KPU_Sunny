@@ -9,6 +9,8 @@
 #include "06_LAYER/ChessLayer.h"
 #include "06_LAYER/TestLayer3D.h"
 
+#include <io.h>
+
 
 using namespace std;
 using namespace sunny;
@@ -31,13 +33,16 @@ public:
 
 		Application::Init();
 
+		VFS::Get()->Mount("HLSL",    "02_HLSL");
 		VFS::Get()->Mount("JSON",    "03_JSON");
+		VFS::Get()->Mount("CUBE",    "04_ASSET/CUBE");
 		VFS::Get()->Mount("OBJ",     "04_ASSET/OBJ");
 		VFS::Get()->Mount("SUN",     "04_ASSET/SUN");
 		VFS::Get()->Mount("TEXTURE", "04_ASSET/TEXTURE");
 		VFS::Get()->Mount("RAW",     "04_ASSET/RAW");
 
-		game::AssetLoader::LoadModel("/JSON/MODEL/tree.json");
+		game::AssetLoader::LoadModel("/JSON/MODEL/Trees.json");
+		game::AssetLoader::LoadModel("/JSON/MODEL/LowPolyNatures.json");
 
 		PushOverlay(new TestLayer2D());
 		//PushOverlay(new TestLayer3D());
@@ -57,4 +62,6 @@ int main()
 
 	return 0;
 }
+
+
 

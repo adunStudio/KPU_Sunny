@@ -52,6 +52,10 @@ namespace sunny
 			
 				unsigned int stride = bits / 8;
 
+				std::cout << *data << std::endl;
+				std::cout << "mip: " << m << ", stride: " << stride << std::endl;
+				std::cout << "width: " << srcWidth << ", height: " << srcHeight << std::endl;
+
 				unsigned int face = 0;
 				unsigned int faceWidth = srcWidth / 3;
 				unsigned int faceHeight = srcHeight / 4;
@@ -68,14 +72,14 @@ namespace sunny
 
 						cubeTextureData[m][face] = new unsigned char[faceWidth * faceHeight * stride];
 
-						unsigned index = 0;
+						unsigned int index = 0;
 
 						for (unsigned int y = 0; y < faceHeight; ++y)
 						{
-							unsigned offset = y;
+							unsigned int offset = y;
 							if (face == 5) offset = faceHeight - (y + 1);
 
-							unsigned yp = cy * faceHeight + offset;
+							unsigned int yp = cy * faceHeight + offset;
 
 							for (unsigned int x = 0; x < faceWidth; ++x)
 							{
@@ -93,8 +97,9 @@ namespace sunny
 						}
 						face++;
 					}
-					delete[] data;
 				}
+
+				delete[] data;
 
 				D3D11_TEXTURE2D_DESC texDesc;
 				texDesc.Width              = faceWidths[0];
@@ -139,7 +144,7 @@ namespace sunny
 			
 				delete[] pData;
 
-				for (int m = 0; m < mips; ++m)
+				/*for (int m = 0; m < mips; ++m)
 				{
 					for (int f = 0; f < 6; ++f)
 						delete[] cubeTextureData[m][f];
@@ -147,7 +152,7 @@ namespace sunny
 					delete[] cubeTextureData[m];
 				}
 
-				delete[] cubeTextureData;
+				delete[] cubeTextureData;*/
 
 				ZeroMemory(&m_samplerDesc, sizeof(D3D11_SAMPLER_DESC));
 				m_samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;

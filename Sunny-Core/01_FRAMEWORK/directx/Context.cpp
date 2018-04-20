@@ -213,7 +213,7 @@ namespace sunny
 				rasterDesc.DepthBiasClamp = 0.0f;
 				rasterDesc.DepthClipEnable = true;
 				rasterDesc.FillMode = D3D11_FILL_SOLID;       // 와이어 프레임 or 솔리드 프레임
-				rasterDesc.FrontCounterClockwise = true;      // 시계 방향 삼각형 전면(true), 반시계 방향 삼각형 전면(false)
+				rasterDesc.FrontCounterClockwise = false;      // 시계 방향 삼각형 전면(true), 반시계 방향 삼각형 전면(false)
 				// http://hns17.tistory.com/entry/Common3%EC%B0%A8%EC%9B%90-%EA%B3%B5%EA%B0%84-%EC%A2%8C%ED%91%9C%EA%B3%84
 				rasterDesc.MultisampleEnable = true;
 				rasterDesc.ScissorEnable = false;

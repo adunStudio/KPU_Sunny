@@ -14,11 +14,44 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 {
 
 	LightSetup* lights = new LightSetup();
-	Light* light = new Light(vec3(0.3, 0.3, 0.3), 10, vec4(1.f, 1.f, 1.f, 1.f));
+	Light* light = new Light(vec3(0.3, 0.3, 0.3), 2, vec4(1.f, 1.f, 1.f, 1.f));
 
 	lights->Add(light);
 
 	PushLightSetup(lights);
+
+	std::string skyBoxFiles[1] =
+	{
+		"/CUBE/CubeMap1.tga",
+		/*"/CUBE/CubeMap2.tga",
+		"/CUBE/CubeMap3.tga",
+		"/CUBE/CubeMap4.tga",
+		"/CUBE/CubeMap5.tga",
+		"/CUBE/CubeMap6.tga",
+		"/CUBE/CubeMap7.tga",
+		"/CUBE/CubeMap8.tga",
+		"/CUBE/CubeMap9.tga",
+		"/CUBE/CubeMap10.tga",*/
+	};
+
+	TextureCube* environment = new TextureCube("skybox", skyBoxFiles, 1);
+	Shader* skybox = Shader::CreateFromFile("skybox", "/HLSL/skybox.hlsl");
+	Material* skyboxMaterial = new Material(skybox);
+	skybox->Bind();
+	m_SkyboxMaterial = new MaterialInstance(skyboxMaterial);
+	m_SkyboxMaterial->SetTexture("u_EnvironmentMap", environment);
+	Entity* skyboxEntity = new Entity(MeshFactory::CreateQuad(-1, -1, 2, 2));
+	skyboxEntity->SetMaterial(m_SkyboxMaterial);
+	Add(skyboxEntity);
+
+	
+	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
+	Entity* yAxis = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
+	Entity* zAxis = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
+	Add(xAxis);
+	Add(yAxis);
+	Add(zAxis);
+
 
 	Tree* tree1  = new Tree("DeadOak1",    mat4::Identity() * mat4::Translate(vec3(-50, 0, 0)));
 	Tree* tree2  = new Tree("DeadOak2",    mat4::Identity() * mat4::Translate(vec3(-40, 0, 0)));
@@ -33,21 +66,47 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 	Tree* tree11 = new Tree("SpruceTree2", mat4::Identity() * mat4::Translate(vec3( 50, 0, 0)));
 	Tree* tree12 = new Tree("SpruceTree3", mat4::Identity() * mat4::Translate(vec3( 60, 0, 0)));
 
-	//Model* model = new Model("/OBJ/sphere.obj");
-	Model* model2 = new Model("/OBJ/cube.obj");
-	//Model* model3 = new Model("/SUN/npc_idle.sun");
-	//Model* model4 = new Model("/SUN/boss_idle.sun");
+	
+	std::string mapData = system::FileSystem::ReadTextFile("/JSON/MAP/map1.json");
 
-	//Entity* entity = new Entity(model->GetMesh(), RGBA(0.7, 0.2, 0, 1), mat4::Identity() * mat4::Translate(vec3(100, 0, 0)));
-	Entity* entity2 = new Entity(model2->GetMesh(), RGBA(0.7, 0.2, 0, 1), mat4::Identity() * mat4::Translate(vec3(-70, 0, 0)));
-	//Entity* entity3 = new Entity(model3->GetMesh(), new Texture2D("/TEXTURE/npc_idle.png"), mat4::Identity() * mat4::Translate(vec3(5, 0, 0)) * mat4::Rotate(-90, vec3(1, 0, 0)) * mat4::Scale(vec3(0.3, 0.3, 0.3)));
-	//Entity* entity4 = new Entity(model4->GetMesh(), new Texture2D("/TEXTURE/boss.png"), mat4::Identity() * mat4::Translate(vec3(15, 50, 0)) * mat4::Rotate(-90, vec3(1, 0, 0)) * mat4::Scale(vec3(0.3, 0.3, 0.3)));
-	//tree12->GetTransformComponent()->SetScale({12.0f, 12.0f, 12.0f});
-	//Add(entity);
-	Add(entity2);
-	//Add(entity3);
-	//Add(entity4);
+	Json::Value root;
+	Json::Reader reader;
 
+	bool parsingSuccessful = reader.parse(mapData.c_str(), root);
+
+	if (parsingSuccessful)
+	{
+		for (int i = 0; i < root.size(); ++i)
+		{
+			std::string name = root[i]["name"].asString();
+
+			name[0] = toupper(name[0]);
+
+			maths::vec3 translation = vec3(root[i]["position"]["x"].asFloat(), root[i]["position"]["y"].asFloat(), root[i]["position"]["z"].asFloat());
+			maths::vec3 rotation = vec3(root[i]["rotation"]["x"].asFloat(), root[i]["rotation"]["y"].asFloat(), root[i]["rotation"]["z"].asFloat());
+			maths::vec3 scale = vec3(root[i]["scale"]["x"].asFloat(), root[i]["scale"]["y"].asFloat(), root[i]["scale"]["z"].asFloat());
+
+			mat4 position = mat4::Identity();
+
+
+
+			auto a = new Model3D(name);
+			a->GetTransformComponent()->Rotate(rotation.z, vec3(0, 0, 1));
+			a->GetTransformComponent()->Rotate(rotation.y, vec3(0, 1, 0));
+			a->GetTransformComponent()->Rotate(rotation.x, vec3(1, 0, 0));
+			a->GetTransformComponent()->SetPosition(translation * 100);
+
+			a->GetTransformComponent()->SetScale(scale);
+			
+			Add(a);
+		}
+	}
+
+	Model* a = new Model("/OBJ/sphere.obj");
+
+	Entity* e = new Entity(a->GetMesh(), RGBA(1.0, 0, 0, 1.0));
+	Add(e);
+	/*
 	Add(tree1);
 	Add(tree2);
 	Add(tree3);
@@ -59,7 +118,8 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 	Add(tree9);
 	Add(tree10);
 	Add(tree11);
-	Add(tree12);
+	Add(tree12);*/
+
 }
 
 void TestLayer3D::OnTick()
@@ -69,6 +129,8 @@ void TestLayer3D::OnTick()
 
 void TestLayer3D::OnUpdate(const utils::Timestep& ts)
 {
+	mat4 vp = GetCamera()->GetProjectionMatrix() * GetCamera()->GetViewMatrix();
+	m_SkyboxMaterial->SetUniform("invViewProjMatrix", mat4::Invert(vp));
 }
 
 void TestLayer3D::OnEvent(Event& event)
