@@ -40,9 +40,10 @@ cbuffer PSSystemUniforms : register(b0)
 	float3	 SUNNY_CameraPosition;
 };
 
-Texture2D positionGB	: register(t0);
+Texture2D diffuseGB		: register(t0);
 Texture2D normalGB		: register(t1);
-Texture2D diffuseGB		: register(t2);
+Texture2D positionGB	: register(t2);
+
 SamplerState Sampler	: register(s0);
 
 

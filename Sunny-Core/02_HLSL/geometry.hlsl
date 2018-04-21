@@ -50,9 +50,8 @@ VSOutput VSMain(in VSInput input)
 
 struct PSOutput
 {
-	float4 position: SV_TARGET0;
+	float4 diffuse:  SV_TARGET0;
 	float4 normal:   SV_TARGET1;
-	float4 diffuse:  SV_TARGET2;
 };
 
 Texture2D textures : register(t0);
@@ -69,12 +68,12 @@ PSOutput PSMain(in VSOutput input)
 	PSOutput output;
 	
 	float4 texColor = (float4)SUNNY_Color;
+	
 	if (SUNNY_HasTexture >= 1)
 	{
 		texColor *= textures.Sample(samplers, input.uv);
 	}
 
-	output.position = input.position;
 	output.diffuse  = texColor;
 	output.normal   = float4(normalize(input.normal), 0);
 

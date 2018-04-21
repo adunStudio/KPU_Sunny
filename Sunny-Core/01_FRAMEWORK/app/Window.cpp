@@ -129,9 +129,8 @@ namespace sunny
         ShowWindow(hWnd, SW_SHOW);
         SetFocus(hWnd);
 
-		directx::DeferredBuffer::Init();
-		directx::ShadowBuffer::Init();
 		directx::DebugBuffer::Init();
+		directx::GeometryBuffer::Init();
 		directx::Renderer::Init();
 
 		//directx::Context::GetContext()->Bind();

@@ -31,13 +31,12 @@
     <ClCompile Include="01_FRAMEWORK\directx\BufferLayout.cpp" />
     <ClCompile Include="01_FRAMEWORK\directx\Context.cpp" />
     <ClCompile Include="01_FRAMEWORK\directx\DebugBuffer.cpp" />
-    <ClCompile Include="01_FRAMEWORK\directx\DeferredBuffer.cpp" />
+    <ClCompile Include="01_FRAMEWORK\directx\GeometryBuffer.cpp" />
     <ClCompile Include="01_FRAMEWORK\directx\IndexBuffer.cpp" />
     <ClCompile Include="01_FRAMEWORK\directx\Renderer.cpp" />
     <ClCompile Include="01_FRAMEWORK\directx\Shader.cpp" />
     <ClCompile Include="01_FRAMEWORK\directx\ShaderResource.cpp" />
     <ClCompile Include="01_FRAMEWORK\directx\ShaderUniform.cpp" />
-    <ClCompile Include="01_FRAMEWORK\directx\ShadowBuffer.cpp" />
     <ClCompile Include="01_FRAMEWORK\directx\Texture2D.cpp" />
     <ClCompile Include="01_FRAMEWORK\directx\Texture.cpp" />
     <ClCompile Include="01_FRAMEWORK\directx\TextureCube.cpp" />
@@ -89,7 +88,6 @@
     <ClCompile Include="01_FRAMEWORK\graphics\renderers\Renderer3D.cpp" />
     <ClCompile Include="01_FRAMEWORK\graphics\shaders\ShaderFactory.cpp" />
     <ClCompile Include="01_FRAMEWORK\graphics\shaders\ShaderManager.cpp" />
-    <ClCompile Include="01_FRAMEWORK\graphics\ShadowMap.cpp" />
     <ClCompile Include="01_FRAMEWORK\graphics\Sprite.cpp" />
     <ClCompile Include="01_FRAMEWORK\graphics\Terrain.cpp" />
     <ClCompile Include="01_FRAMEWORK\graphics\TextureManager.cpp" />
@@ -133,13 +131,12 @@
     <ClInclude Include="01_FRAMEWORK\directx\Common.h" />
     <ClInclude Include="01_FRAMEWORK\directx\Context.h" />
     <ClInclude Include="01_FRAMEWORK\directx\DebugBuffer.h" />
-    <ClInclude Include="01_FRAMEWORK\directx\DeferredBuffer.h" />
+    <ClInclude Include="01_FRAMEWORK\directx\GeometryBuffer.h" />
     <ClInclude Include="01_FRAMEWORK\directx\IndexBuffer.h" />
     <ClInclude Include="01_FRAMEWORK\directx\Renderer.h" />
     <ClInclude Include="01_FRAMEWORK\directx\Shader.h" />
     <ClInclude Include="01_FRAMEWORK\directx\ShaderResource.h" />
     <ClInclude Include="01_FRAMEWORK\directx\ShaderUniform.h" />
-    <ClInclude Include="01_FRAMEWORK\directx\ShadowBuffer.h" />
     <ClInclude Include="01_FRAMEWORK\directx\Texture2D.h" />
     <ClInclude Include="01_FRAMEWORK\directx\Texture.h" />
     <ClInclude Include="01_FRAMEWORK\directx\TextureCube.h" />
@@ -200,7 +197,6 @@
     <ClInclude Include="01_FRAMEWORK\graphics\shaders\ShaderFactory.h" />
     <ClInclude Include="01_FRAMEWORK\graphics\shaders\ShaderManager.h" />
     <ClInclude Include="01_FRAMEWORK\graphics\shaders\Shaders.h" />
-    <ClInclude Include="01_FRAMEWORK\graphics\ShadowMap.h" />
     <ClInclude Include="01_FRAMEWORK\graphics\Sprite.h" />
     <ClInclude Include="01_FRAMEWORK\graphics\Terrain.h" />
     <ClInclude Include="01_FRAMEWORK\graphics\TextureManager.h" />

@@ -16,21 +16,34 @@ namespace sunny
 
 		void GBuffer::Init()
 		{
-			m_buffer = directx::DeferredBuffer::GetDeferredBuffer();
+			m_buffer = directx::GeometryBuffer::GetGeometryBuffer();
 		}
 
-		void GBuffer::SetGBufferTexture(TextureType type)
+		void GBuffer::SetGBuffer(unsigned int buffer)
 		{
-			int index = static_cast<int>(type);
-			ID3D11ShaderResourceView* rv = directx::DeferredBuffer::GetShaderResource(index);
-			directx::Context::GetDeviceContext()->PSSetShaderResources(index, 1, &rv);
+			if (buffer & GBufferType::DEFERRED)
+			{
+				ID3D11ShaderResourceView * diffuse_rv = directx::GeometryBuffer::GetShaderResource(GeometryTextureType::DIFFUSE);
+				ID3D11ShaderResourceView * normal_rv  = directx::GeometryBuffer::GetShaderResource(GeometryTextureType::NORMAL);
+				
+				ID3D11SamplerState* sampler = directx::GeometryBuffer::GetSamplerState(GeometryTextureType::DIFFUSE);
+
+				directx::Context::GetDeviceContext()->PSSetShaderResources(GBufferTextureIndex::DIFFUSE, 1, &diffuse_rv);
+				directx::Context::GetDeviceContext()->PSSetShaderResources(GBufferTextureIndex::NORMAL , 1, &normal_rv);
+				directx::Context::GetDeviceContext()->PSSetSamplers(GBufferSapmaerIndex::DEFERRED_SAMPLER, 1, &sampler);
+			}
+
+			if (buffer & GBufferType::SHADOWMAP)
+			{
+				ID3D11ShaderResourceView * shadow_rv = directx::GeometryBuffer::GetShaderResource(GeometryTextureType::DEPTH);
+
+				ID3D11SamplerState* sampler = directx::GeometryBuffer::GetSamplerState(GeometryTextureType::DEPTH);
+
+				directx::Context::GetDeviceContext()->PSSetShaderResources(GBufferTextureIndex::SHADOW, 1, &shadow_rv);
+				directx::Context::GetDeviceContext()->PSSetSamplers(GBufferSapmaerIndex::SHADOW_SMAPLER, 1, &sampler);
+			}
 		}
 
-		void GBuffer::SetGBufferSampler()
-		{
-			ID3D11SamplerState* sampler = directx::DeferredBuffer::GetSamplerState();
-			directx::Context::GetDeviceContext()->PSSetSamplers(0, 1, &sampler);
-		}
 
 		void GBuffer::Bind()
 		{
@@ -40,8 +53,6 @@ namespace sunny
 		void GBuffer::UnBind()
 		{
 			m_buffer->UnBind();
-
-
 		}
 
 		void GBuffer::Draw()

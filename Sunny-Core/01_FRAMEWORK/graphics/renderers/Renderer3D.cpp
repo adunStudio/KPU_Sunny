@@ -68,7 +68,6 @@ namespace sunny
 			m_transparencyFCommandQueue.reserve(200);  // 불투명
 
 			m_gBuffer   = new GBuffer();
-			m_shadowMap = new ShadowMap();
 
 			m_lightCamera = new LightCamera(maths::mat4::Perspective(65.0f, 1.0f, 0.1f, 10000.0f));
 
@@ -235,7 +234,7 @@ namespace sunny
 			// 그림자 생성
 			if (!DEFERRED_MODE)
 			{
-				m_shadowMap->Bind();
+				m_gBuffer->Bind();
 				m_default_shadow_shader->Bind();;
 
 				directx::Renderer::SetDepthTesting(true);
@@ -266,7 +265,7 @@ namespace sunny
 					command.renderable3d->Render();
 				}
 
-				m_shadowMap->UnBInd();
+				m_gBuffer->UnBind();
 			}
 			
 		}
@@ -302,7 +301,8 @@ namespace sunny
 
 				SetSunnyVSUniforms(command.shader);
 				SetSunnyForwardUniforms(command.shader);
-				m_shadowMap->SetShadowMapTexture();
+				m_gBuffer->SetGBuffer(GBufferType::SHADOWMAP);
+				//m_shadowMap->SetShadowMapTexture();
 
 				command.renderable3d->Render();
 
@@ -322,7 +322,6 @@ namespace sunny
 			for (unsigned int i = 0; i < m_transparencyTCommandQueue.size(); ++i)
 			{
 				RenderCommand& command = m_transparencyTCommandQueue[i];
-				DirectX::XMMATRIX a = DirectX::XMMatrixIdentity();
 
 				memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
 				memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_Color], &command.color, sizeof(maths::vec4));
@@ -332,7 +331,9 @@ namespace sunny
 
 				SetSunnyVSUniforms(command.shader);
 				SetSunnyForwardUniforms(command.shader);
-				m_shadowMap->SetShadowMapTexture();
+				m_gBuffer->SetGBuffer(GBufferType::SHADOWMAP);
+
+				//m_shadowMap->SetShadowMapTexture();
 
 				command.renderable3d->Render();
 
@@ -371,11 +372,8 @@ namespace sunny
 
 			m_default_light_shader->Bind();
 
-			m_gBuffer->SetGBufferTexture(GBuffer::TextureType::POSITION);
-			m_gBuffer->SetGBufferTexture(GBuffer::TextureType::DIFFUSE);
-			m_gBuffer->SetGBufferTexture(GBuffer::TextureType::NORMAL);
-			m_gBuffer->SetGBufferSampler();
-
+			m_gBuffer->SetGBuffer(GBufferType::DEFERRED);
+			
 			SetSunnyLightUniforms(m_default_light_shader);
 
 			directx::Renderer::SetDepthTesting(false);
@@ -410,10 +408,8 @@ namespace sunny
 
 			m_default_light_shader->Bind();
 
-			m_gBuffer->SetGBufferTexture(GBuffer::TextureType::POSITION);
-			m_gBuffer->SetGBufferTexture(GBuffer::TextureType::DIFFUSE);
-			m_gBuffer->SetGBufferTexture(GBuffer::TextureType::NORMAL);
-			m_gBuffer->SetGBufferSampler();
+			m_gBuffer->SetGBuffer(GBufferType::DEFERRED);
+
 
 			SetSunnyLightUniforms(m_default_light_shader);
 

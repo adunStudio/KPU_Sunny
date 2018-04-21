@@ -54,9 +54,6 @@
     <ClCompile Include="01_FRAMEWORK\directx\DebugBuffer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\directx\DeferredBuffer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="01_FRAMEWORK\directx\IndexBuffer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -70,9 +67,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="01_FRAMEWORK\directx\ShaderUniform.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\directx\ShadowBuffer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="01_FRAMEWORK\directx\Texture.cpp">
@@ -189,9 +183,6 @@
     <ClCompile Include="01_FRAMEWORK\graphics\Model.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\graphics\ShadowMap.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="01_FRAMEWORK\graphics\Sprite.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -297,6 +288,9 @@
     <ClCompile Include="01_FRAMEWORK\maths\OBB.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="01_FRAMEWORK\directx\GeometryBuffer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="01_FRAMEWORK\app\Application.h">
@@ -353,9 +347,6 @@
     <ClInclude Include="01_FRAMEWORK\directx\DebugBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\directx\DeferredBuffer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="01_FRAMEWORK\directx\IndexBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -369,9 +360,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="01_FRAMEWORK\directx\ShaderUniform.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\directx\ShadowBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="01_FRAMEWORK\directx\Texture.h">
@@ -509,9 +497,6 @@
     <ClInclude Include="01_FRAMEWORK\graphics\Model.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\graphics\ShadowMap.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="01_FRAMEWORK\graphics\Sprite.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -642,6 +627,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="05_GAME\MousePicker.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\directx\GeometryBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

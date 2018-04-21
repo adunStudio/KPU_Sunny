@@ -2,9 +2,8 @@
 
 #include "../include.h"
 #include "Context.h"
-#include "DeferredBuffer.h"
-#include "ShadowBuffer.h"
 #include "DebugBuffer.h"
+#include "GeometryBuffer.h"
 
 namespace sunny
 {

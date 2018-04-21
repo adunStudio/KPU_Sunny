@@ -1,21 +1,36 @@
 #pragma once
 
-#include "../directx/DeferredBuffer.h"
+#include "../directx/GeometryBuffer.h"
 
 namespace sunny
 {
 	namespace graphics
 	{
-		class GBuffer
+		using namespace directx;
+		
+		enum GBufferType
 		{
-		public:
-			enum class TextureType : int
-			{
-				POSITION = 0, NORMAL = 1, DIFFUSE = 2
-			};
+			DEFERRED  = BIT(0),
+			SHADOWMAP = BIT(1)
+		};
 
+		enum GBufferTextureIndex
+		{
+			DIFFUSE = 0,
+			NORMAL  = 1,
+			SHADOW  = 7
+		};
+
+		enum GBufferSapmaerIndex
+		{
+			DEFERRED_SAMPLER  = 0,
+			SHADOW_SMAPLER    = 7
+		};
+
+		class GBuffer
+		{			
 		private:
-			directx::DeferredBuffer* m_buffer;
+			directx::GeometryBuffer* m_buffer;
 
 		private:
 			void Init();
@@ -24,8 +39,7 @@ namespace sunny
 			GBuffer();
 			~GBuffer();
 
-			void SetGBufferTexture(TextureType type);
-			void SetGBufferSampler();
+			void SetGBuffer(unsigned int buffer);
 
 			void Bind();
 			void UnBind();

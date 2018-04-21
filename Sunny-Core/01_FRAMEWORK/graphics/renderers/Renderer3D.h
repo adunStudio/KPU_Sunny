@@ -8,9 +8,7 @@
 #include "../LightSetup.h"
 #include "../shaders/ShaderFactory.h"
 #include "../GBuffer.h"
-#include "../ShadowMap.h"
 #include "../../directx/DebugBuffer.h"
-#include <DirectXMath.h>
 
 namespace sunny
 {
@@ -38,8 +36,7 @@ namespace sunny
 			static bool DEFERRED_MODE;
 
 		private:
-			GBuffer*   m_gBuffer;           // 디퍼드 렌더링
-			ShadowMap* m_shadowMap;         // 그림자 렌더링
+			GBuffer*   m_gBuffer;           // 디퍼드, 그림자
 
 			LightCamera* m_lightCamera;
 
