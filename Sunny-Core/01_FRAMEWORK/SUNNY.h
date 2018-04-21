@@ -15,3 +15,11 @@
 
 #include "graphics/ModelManager.h"
 #include "graphics/TextureManager.h"
+
+using namespace std;
+using namespace sunny;
+using namespace sunny::maths;
+using namespace sunny::graphics;
+using namespace sunny::directx;
+using namespace sunny::system; 
+using namespace sunny::ui;

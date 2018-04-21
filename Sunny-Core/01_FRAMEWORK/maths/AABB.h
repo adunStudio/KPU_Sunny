@@ -37,7 +37,7 @@ namespace sunny
             bool operator<(const AABB& other) const;
             bool operator>(const AABB& other) const;
 
-            friend std::ostream& operator<<(std::ostream& stream, const AABB& aabb);
+            friend std::ostream& operator<<(std::ostream& stream, const AABB& AABB);
 
             inline vec3 GetSize() const { return vec3(abs(max.x - min.x), abs(max.y - min.y), abs(max.z - min.z)); }
         };

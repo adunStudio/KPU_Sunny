@@ -12,6 +12,7 @@ TestLayer3D::~TestLayer3D()
 
 void TestLayer3D::OnInit(Renderer3D& renderer)
 {
+	m_mousePicker = new MousePicker(GetCamera());
 
 	LightSetup* lights = new LightSetup();
 	Light* light = new Light(vec3(0.3, 0.3, 0.3), 2, vec4(1.f, 1.f, 1.f, 1.f));
@@ -91,6 +92,9 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 
 
 			auto a = new Model3D(name);
+
+			std::cout << a->GetIDColor() << std::endl;
+
 			a->GetTransformComponent()->Rotate(rotation.z, vec3(0, 0, 1));
 			a->GetTransformComponent()->Rotate(rotation.y, vec3(0, 1, 0));
 			a->GetTransformComponent()->Rotate(rotation.x, vec3(1, 0, 0));
@@ -138,12 +142,49 @@ void TestLayer3D::OnEvent(Event& event)
 	Layer3D::OnEvent(event);
 	EventDispatcher dispatcher(event);
 	dispatcher.Dispatch<KeyPressedEvent>(METHOD(&TestLayer3D::OnKeyPressedEvent));
+	dispatcher.Dispatch<MousePressedEvent>(METHOD(&TestLayer3D::OnMousePressedEvent));
 }
 
 bool TestLayer3D::OnKeyPressedEvent(KeyPressedEvent& event)
 {
 
 	if (event.GetKeyCode() == SUNNY_KEY_1 && !event.GetRepeat()) Renderer3D::DEFERRED_MODE = !Renderer3D::DEFERRED_MODE;
+
+	return false;
+}
+
+bool TestLayer3D::OnMousePressedEvent(MousePressedEvent& event)
+{
+	//std::cout << "pressed (" << event.GetX()  << ", " << event.GetY() << ")" << std::endl;
+
+	float scaleX = Window::GetWindowClass()->GetResolutionWidth() / Window::GetWindowClass()->GetWidth();
+	float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
+
+	maths::vec2 mouse(event.GetX() * scaleX, event.GetY() * scaleY);
+
+	m_mousePicker->Update(mouse);
+
+	std::cout << m_mousePicker->GetRay() << std::endl;
+
+	//float x = event.GetX() - scaleX;
+	//float y = event.GetY() - scaleY;
+	// std::cout << mouse << std::endl;
+
+	//mouse.x /= (Window::GetWindowClass()->GetWidth() / 2);
+	//mouse.y /= (Window::GetWindowClass()->GetHeight() / 2);
+
+	//std::cout << mouse << std::endl;
+
+	/*vec3 view = GetCamera()->GetFocalPoint() - GetCamera()->GetPosition();
+	view = view.Normalize();
+
+	vec3 h = view.Cross(vec3(0, 1, 0));
+	h = h.Normalize();
+
+	vec3 v = h.Cross(view);
+	v = v.Normalize();*/
+
+	//std::cout << v << std::endl;
 
 	return false;
 }

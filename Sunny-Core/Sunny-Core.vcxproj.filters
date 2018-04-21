@@ -201,9 +201,6 @@
     <ClCompile Include="01_FRAMEWORK\graphics\TextureManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\maths\AABB.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="01_FRAMEWORK\maths\mat4.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -289,6 +286,15 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="01_FRAMEWORK\graphics\fonts\FontManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="01_FRAMEWORK\maths\Ray.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="01_FRAMEWORK\maths\AABB.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="01_FRAMEWORK\maths\OBB.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -515,9 +521,6 @@
     <ClInclude Include="01_FRAMEWORK\graphics\TextureManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\maths\AABB.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="01_FRAMEWORK\maths\mat4.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -627,6 +630,18 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="01_FRAMEWORK\graphics\fonts\FontManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\maths\Ray.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\maths\AABB.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\maths\OBB.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\MousePicker.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

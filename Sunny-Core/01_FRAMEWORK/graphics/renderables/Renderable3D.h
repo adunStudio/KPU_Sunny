@@ -17,6 +17,11 @@ namespace sunny
 		class Renderable3D
 		{
 		protected:
+			static unsigned int s_id;
+
+		protected:
+			unsigned int m_id;
+
 			Mesh* m_mesh;
 			std::vector<directx::Texture*> m_textures;
 			maths::vec4 m_color;
@@ -45,6 +50,10 @@ namespace sunny
 			{
 				return (T*)GetComponentInternal<T>();
 			}
+
+			inline unsigned int GetID() const { return m_id; }
+
+			const maths::vec4& GetIDColor();
 
 			inline directx::Shader* GetShader() const { return m_materialInstance ? m_materialInstance->GetMaterial()->GetShader() : nullptr; };
 

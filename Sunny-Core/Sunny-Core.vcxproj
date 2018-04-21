@@ -48,6 +48,8 @@
     <ClCompile Include="01_FRAMEWORK\events\MouseEvent.cpp" />
     <ClCompile Include="01_FRAMEWORK\events\ResizeEvent.cpp" />
     <ClCompile Include="01_FRAMEWORK\graphics\ModelManager.cpp" />
+    <ClCompile Include="01_FRAMEWORK\maths\OBB.cpp" />
+    <ClCompile Include="01_FRAMEWORK\maths\Ray.cpp" />
     <ClCompile Include="05_GAME\assets\AssetData.cpp" />
     <ClCompile Include="05_GAME\assets\AssetLoader.cpp" />
     <ClCompile Include="05_GAME\graphics\Model3D.cpp" />
@@ -151,10 +153,13 @@
     <ClInclude Include="01_FRAMEWORK\events\MouseEvent.h" />
     <ClInclude Include="01_FRAMEWORK\events\ResizeEvent.h" />
     <ClInclude Include="01_FRAMEWORK\graphics\ModelManager.h" />
+    <ClInclude Include="01_FRAMEWORK\maths\OBB.h" />
+    <ClInclude Include="01_FRAMEWORK\maths\Ray.h" />
     <ClInclude Include="01_FRAMEWORK\SUNNY.h" />
     <ClInclude Include="05_GAME\assets\AssetData.h" />
     <ClInclude Include="05_GAME\assets\AssetLoader.h" />
     <ClInclude Include="05_GAME\graphics\Model3D.h" />
+    <ClInclude Include="05_GAME\MousePicker.h" />
     <ClInclude Include="06_LAYER\BossLayer.h" />
     <ClInclude Include="06_LAYER\ChessLayer.h" />
     <ClInclude Include="06_LAYER\NPCLayer.h" />

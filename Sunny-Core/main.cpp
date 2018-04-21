@@ -12,11 +12,7 @@
 #include <io.h>
 
 
-using namespace std;
-using namespace sunny;
-using namespace graphics;
-using namespace directx;
-using namespace system;
+
 
 class Game : public Application
 {
