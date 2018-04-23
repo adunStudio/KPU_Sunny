@@ -33,7 +33,7 @@ namespace sunny
 			Context* m_context;
 
 			ID3D11RenderTargetView*   m_renderTargetViews[BUFFER_COUNT];
-			ID3D11DepthStencilView*   m_depthStencilView;
+			ID3D11DepthStencilView*   m_depthStencilView[2];
 
 			ID3D11ShaderResourceView* m_shaderResourceViews[BUFFER_COUNT];
 			ID3D11SamplerState*       m_samplers[2];
@@ -78,7 +78,7 @@ namespace sunny
 				return s_instance->m_renderTargetViews[type];
 			}
 
-			inline static ID3D11DepthStencilView* GetDepthStencilBuffer() { return s_instance->m_depthStencilView; }
+			inline static ID3D11DepthStencilView* GetDepthStencilBuffer(unsigned int idx) { return s_instance->m_depthStencilView[idx]; }
 
 			inline static ID3D11ShaderResourceView* GetShaderResource(GeometryTextureType type) { return s_instance->m_shaderResourceViews[type]; };
 

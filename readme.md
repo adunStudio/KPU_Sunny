@@ -2,7 +2,10 @@
 
 ![SunnyLogo](/Resources/SunnyLogo.png?raw=true&date=20180106_a "SunnyLogo")
 
+![SunnyLogo](/Resources/20180424.png?raw=true&date=20180318_a "preview2")
+
 ![SunnyLogo](/Resources/20180316.gif?raw=true&date=20180318_a "preview")
+
 
 ##### 졸업작품, 화창하게 진행 중이십니까?
 

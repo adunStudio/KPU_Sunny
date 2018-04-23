@@ -16,7 +16,7 @@
 class Game : public Application
 {
 public:
-	Game() : Application("sunny", { 1200, 700, false, false })
+	Game() : Application("sunny", { 1280, 720, false, false })
 	{}
 
 	~Game()

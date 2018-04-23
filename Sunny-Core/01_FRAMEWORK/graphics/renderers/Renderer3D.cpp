@@ -247,7 +247,7 @@ namespace sunny
 				RenderCommand& command = m_renderCommandQueue[i];
 
 				memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
-				memcpy(m_PSSunnyGeometryUniformBuffer + m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_Color], &command.renderable3d->GetIDColor(), sizeof(maths::vec4));
+				memcpy(m_PSSunnyGeometryUniformBuffer + m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_Color], /*&command.color*/&command.renderable3d->GetIDColor(), sizeof(maths::vec4));
 				memcpy(m_PSSunnyGeometryUniformBuffer + m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_HasTexture], &command.hasTexture, sizeof(float));
 				
 				SetSunnyVSUniforms(m_default_geometry_shader);
@@ -277,9 +277,20 @@ namespace sunny
 				SetSunnyVSUniforms(command.shader);
 				SetSunnyForwardUniforms(command.shader);
 				m_gBuffer->SetGBuffer(GBufferType::SHADOWMAP);
+				m_gBuffer->SetGBuffer(GBufferType::DEFERRED);
 
 				command.renderable3d->Render();
 			}
+
+			directx::Renderer::SetDepthTesting(true);
+
+			m_default_outline_shader->Bind();
+			
+			m_gBuffer->SetGBuffer(GBufferType::DEFERRED);			
+			
+			m_gBuffer->Draw();
+
+			
 		}
 
 		void Renderer3D::SetSunnyVSUniforms(directx::Shader* shader)

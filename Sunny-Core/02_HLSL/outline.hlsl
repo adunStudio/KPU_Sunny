@@ -1,88 +1,72 @@
-struct VSInput
-{
-	float4 position : POSITION;
-	float3 normal : NORMAL;
-	float2 uv : TEXCOORD;
-	float3 binormal : BINORMAL;
-	float3 tangent : TANGENT;
-};
-
 struct VSOutput
 {
-	float4 positionCS : SV_POSITION;
-	float3 cameraPosition : CAMERA_POSITION;
-	float4 position : POSITION;
-	float3 normal : NORMAL;
-	float2 uv : TEXCOORD;
-	float3 binormal : BINORMAL;
-	float3 tangent : TANGENT;
-	float3 color : COLOR;
-	float4 shadowCoord : SHADOW_POSITION;
-	float4 lightPosition : LIGHT_POSITION;
+	float4 position : SV_POSITION;
 };
 
-cbuffer VSSystemUniforms : register(b0)
+
+VSOutput VSMain(uint id : SV_VertexID)
 {
-	float4x4 SUNNY_ProjectionMatrix;
-	float4x4 SUNNY_ViewMatrix;
-	float4x4 SUNNY_ModelMatrix;
-	float4x4 SUNNY_LightProjectionMatrix;
-	float4x4 SUNNY_LightViewMatrix;
-	float3	 SUNNY_CameraPosition;
-};
+	VSOutput output;
 
-float LineThickness = 0.03;
-
-VSOutput VSMain(in VSInput input)
-{
-	float3x3 wsTransform = (float3x3)SUNNY_ModelMatrix;
-	VSOutput output = (VSOutput)0;
-	output.position = mul(input.position, SUNNY_ModelMatrix);
-	output.positionCS = mul(output.position, mul(SUNNY_ViewMatrix, SUNNY_ProjectionMatrix));
-	float4 normal = mul(mul(mul(input.normal, SUNNY_ModelMatrix), SUNNY_ViewMatrix), SUNNY_ProjectionMatrix);
-	normal = mul(output.normal, mul(SUNNY_ViewMatrix, SUNNY_ProjectionMatrix));
-
-	output.positionCS = output.positionCS + (mul(LineThickness, normal));
-
-
+	// Calculate the UV (0,0) to (2,2) via the ID
+	float2 uv = float2(
+		(id << 1) & 2,  // id % 2 * 2
+		id & 2);
+	// Adjust the position based on the UV
+	output.position = float4(uv, 0, 1);
+	output.position.x = output.position.x * 2 - 1;
+	output.position.y = output.position.y * -2 + 1;
 
 	return output;
 }
 
-struct Light
-{
-	float4 color;
-	float3 position;
-	float p0;
-	float3 ambientDown;
-	float p1;
-	float3 ambientRange;
-	float intensity;
-};
 
-struct Attributes
-{
-	float3 position;
-	float2 uv;
-	float3 normal;
-	float3 binormal;
-	float3 tangent;
-};
-
-
-cbuffer PSSystemUniforms : register(b0)
-{
-	Light SUNNY_Light;
-	float4 SUNNY_Color;
-	float  SUNNY_HasTexture;
-};
-
-
-
-
+Texture2D diffuseGB		: register(t8);
+Texture2D normalGB		: register(t9);
+SamplerState Sampler	: register(s8);
 
 float4 PSMain(VSOutput input) : SV_TARGET
 {
-	return float4(0, 0, 0, 1);
-}
+	float4 center;
+	float4 left, top, right, bottom;
+	float4 left_top, left_bottom, right_top, right_bottom;
 
+	center = normalGB.Load(float3(input.position.x, input.position.y, 0)).xyzw;
+
+	left = normalGB.Load(float3(input.position.x + 0.5f, input.position.y, 0)).xyzw;
+	if (center.a != left.a) return float4(0.1f, 0.1f, 0.1f, 0.89);
+
+	right  = normalGB.Load(float3(input.position.x - 0.5f, input.position.y, 0)).xyzw;
+	if (center.a != right.a) return float4(0.1f, 0.1f, 0.1f, 0.89);
+	
+	right_top = normalGB.Load(float3(input.position.x - 0.5f, input.position.y + 0.5f, 0)).xyzw;
+	if (center.a != right_top.a) return float4(0.1f, 0.1f, 0.1f, 0.89);
+
+	left_top = normalGB.Load(float3(input.position.x + 0.5f, input.position.y + 0.5f, 0)).xyzw;
+	if (center.a != left_top.a) return float4(0.1f, 0.1f, 0.1f, 0.89);
+
+	left_bottom = normalGB.Load(float3(input.position.x + 0.5f, input.position.y - 0.5f, 0)).xyzw;
+	if (center.a != left_bottom.a) return float4(0.1f, 0.1f, 0.1f, 0.89);
+
+	right_bottom = normalGB.Load(float3(input.position.x - 0.5f, input.position.y - 0.5f, 0)).xyzw;
+	if (center.a != right_bottom.a) return float4(0.1f, 0.1f, 0.1f, 0.89);
+
+	top = normalGB.Load(float3(input.position.x, input.position.y + 0.5f, 0)).xyzw;
+	if (center.a != top.a) return float4(0.1f, 0.1f, 0.1f, 0.89);
+
+	bottom = normalGB.Load(float3(input.position.x, input.position.y - 0.5f, 0)).xyzw;
+	if (center.a != bottom.a) return float4(0.1f, 0.1f, 0.1f, 0.89);
+
+
+	/*float3 dw = left.rgb + right.rgb - 2 * center.rgb;
+	float3 dh = top.rgb  + bottom.rgb - 2 * center.rgb;
+
+	float lw = length(dw);
+	float lh = length(dh);
+
+	if (sqrt(lw * lw -  lh * lh) > 0.05) return float4(0.1f, 0.1f, 0.1f, 0.89);*/
+	//int3 sampleIndices = int3(input.position.xy, 0);
+	//float3 diffuse = diffuseGB.Load(sampleIndices).xyz;
+	
+	return float4(1, 1, 1, 0);
+}

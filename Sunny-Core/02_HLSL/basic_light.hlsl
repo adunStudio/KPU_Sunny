@@ -107,8 +107,11 @@ float3 CalcDirectional(float3 worldPosition, float3 worldNormal, float4 diffuseC
 
 Texture2D textures[6] : register(t0);
 Texture2D shadowMap: register(t7);
+Texture2D diffseMap: register(t8);
+Texture2D normalMap: register(t9);
 SamplerState samplers : register(s0);
 SamplerState shadowSampler : register(s7);
+SamplerState geometrySampler : register(s8);
 
 
 float cellstep5(float x)

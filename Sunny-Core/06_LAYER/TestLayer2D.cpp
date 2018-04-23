@@ -91,7 +91,7 @@ bool TestLayer2D::OnKeyPressedEvent(KeyPressedEvent& event)
 	//if (event.GetRepeat())
 		//return false;
 
-	switch (event.GetKeyCode())
+	/*switch (event.GetKeyCode())
 	{
 	case SUNNY_KEY_LEFT:
 		m_logo->SetPosition(maths::vec2(m_logo->GetPosition().x - 1, m_logo->GetPosition().y));
@@ -105,7 +105,7 @@ bool TestLayer2D::OnKeyPressedEvent(KeyPressedEvent& event)
 	case SUNNY_KEY_DOWN:
 		m_logo->SetPosition(maths::vec2(m_logo->GetPosition().x, m_logo->GetPosition().y - 1));
 		break;
-	}
+	}*/
 
 	return false;
 }

@@ -68,9 +68,10 @@ PSOutput PSMain(in VSOutput input)
 	PSOutput output;
 	
 	float4 id = (float4)SUNNY_Color;
-	
+	float s_id = id.r + id.g * 256 + id.b * 256 * 256;
+
 	output.diffuse  = id;
-	output.normal   = float4(normalize(input.normal), 0);
+	output.normal = float4(input.normal, s_id);
 
 	return output;
 }

@@ -106,6 +106,42 @@ namespace sunny
 			// ¼ÎÀÌ´õ ¸®¼Ò½º ºä »ý¼º
 			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::DIFFUSE], &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::DIFFUSE]);
 			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::NORMAL],  &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::NORMAL]);
+		
+		
+		
+			// ±íÀÌ/½ºÅÙ½Ç ÅØ½ºÃÄ ¼³¸í ±¸Á¶Ã¼
+			D3D11_TEXTURE2D_DESC depthStencilTextureDesc;
+			ZeroMemory(&depthStencilTextureDesc, sizeof(depthStencilTextureDesc));
+			{
+				depthStencilTextureDesc.Width = m_width;
+				depthStencilTextureDesc.Height = m_height;
+				depthStencilTextureDesc.MipLevels = 1;
+				depthStencilTextureDesc.ArraySize = 1;
+				depthStencilTextureDesc.Format = DXGI_FORMAT_R24G8_TYPELESS;
+				depthStencilTextureDesc.SampleDesc.Count = 1;
+				depthStencilTextureDesc.SampleDesc.Quality = 0;
+				depthStencilTextureDesc.Usage = D3D11_USAGE_DEFAULT;
+				depthStencilTextureDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+				depthStencilTextureDesc.CPUAccessFlags = 0;
+				depthStencilTextureDesc.MiscFlags = 0;
+			}
+
+			// ±íÀÌ/½ºÅÙ½Ç ÅØ½ºÃÄ »ý¼º
+			m_context->GetDevice()->CreateTexture2D(&depthStencilTextureDesc, NULL, &m_textures[GeometryTextureType::DEPTH]);
+
+
+			// ±íÀÌ/½ºÅÙ½Ç ºä ¼³¸í ±¸Á¶Ã¼
+			D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc;
+			ZeroMemory(&depthStencilViewDesc, sizeof(depthStencilViewDesc));
+			{
+				depthStencilViewDesc.Flags = 0;
+				depthStencilViewDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+				depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+				depthStencilViewDesc.Texture2D.MipSlice = 0;
+			}
+
+			// ±íÀÌ/½ºÅÙ½Ç ºä »ý¼º
+			m_context->GetDevice()->CreateDepthStencilView(m_textures[GeometryTextureType::DEPTH], &depthStencilViewDesc, &m_depthStencilView[0]);
 		}
 
 		void GeometryBuffer::InitDepthStencil()
@@ -142,7 +178,7 @@ namespace sunny
 			}
 
 			// ±íÀÌ/½ºÅÙ½Ç ºä »ý¼º
-			m_context->GetDevice()->CreateDepthStencilView(m_textures[GeometryTextureType::DEPTH], &depthStencilViewDesc, &m_depthStencilView);
+			m_context->GetDevice()->CreateDepthStencilView(m_textures[GeometryTextureType::DEPTH], &depthStencilViewDesc, &m_depthStencilView[1]);
 
 
 			// ±íÀÌ/½ºÅÙ½Ç ¼ÎÀÌ´õ ¸®¼Ò½º ºä ¼³¸í ±¸Á¶Ã¼
@@ -201,9 +237,9 @@ namespace sunny
 		void GeometryBuffer::BindInternal(GeometryTextureType type)
 		{
 			if( type == GeometryTextureType::DIFFUSE || type == GeometryTextureType::NORMAL )
-				m_context->GetDeviceContext()->OMSetRenderTargets(2, m_renderTargetViews, NULL);
+				m_context->GetDeviceContext()->OMSetRenderTargets(2, m_renderTargetViews, m_depthStencilView[0]);
 			else if ( type == GeometryTextureType::DEPTH )
-				m_context->GetDeviceContext()->OMSetRenderTargets(0, NULL, m_depthStencilView);			
+				m_context->GetDeviceContext()->OMSetRenderTargets(0, NULL, m_depthStencilView[1]);			
 		}
 
 		void GeometryBuffer::UnBindInternal()

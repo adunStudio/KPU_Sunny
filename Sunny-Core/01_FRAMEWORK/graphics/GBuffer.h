@@ -16,14 +16,14 @@ namespace sunny
 
 		enum GBufferTextureIndex
 		{
-			DIFFUSE = 0,
-			NORMAL  = 1,
+			DIFFUSE = 8,
+			NORMAL  = 9,
 			SHADOW  = 7
 		};
 
 		enum GBufferSapmaerIndex
 		{
-			DEFERRED_SAMPLER  = 0,
+			DEFERRED_SAMPLER  = 8,
 			SHADOW_SMAPLER    = 7
 		};
 
