@@ -14,6 +14,9 @@ using namespace events;
 using namespace game;
 using namespace maths;
 
+class TestLayer2D;
+
+
 class TestLayer3D : public Layer3D
 {
 public:
@@ -22,8 +25,14 @@ public:
 
 	MousePicker* m_mousePicker;
 
+	vector<Model3D*> m_mapObjects;
+
+	TestLayer2D& m_testLayer2D;
+
+	Model3D* m_pickedModel = nullptr;
+
 public:
-	TestLayer3D();
+	TestLayer3D(TestLayer2D& layer);
 	~TestLayer3D();
 
 	void OnInit(Renderer3D& renderer) override;
@@ -33,5 +42,7 @@ public:
 	void OnEvent(Event& event) override;
 
 	bool OnKeyPressedEvent(KeyPressedEvent& event);
+	bool OnKeyReleasedEvent(KeyReleasedEvent& event);
 	bool OnMousePressedEvent(MousePressedEvent& event);
+	bool OnMouseReleasedEvent(MouseReleasedEvent& event);
 };

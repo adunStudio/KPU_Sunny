@@ -10,11 +10,16 @@ namespace game
 {
 	class Model3D : public Entity
 	{
-	private:
+	public:
 		bool picked;
+
+	private:
+		maths::vec2 m_initialMousePosition;
 
 	public:
 		Model3D(const std::string& name, const mat4& transform = mat4::Identity());
+
+		void Update();
 	};
 
 

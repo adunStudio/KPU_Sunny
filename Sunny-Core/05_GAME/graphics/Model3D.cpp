@@ -22,4 +22,11 @@ namespace game
 		}
 	}
 
+	void Model3D::Update()
+	{
+		if (!picked) return;
+	
+		//GetTransformComponent()->Translate(vec3(1, 1, 0));
+	}
+
 }

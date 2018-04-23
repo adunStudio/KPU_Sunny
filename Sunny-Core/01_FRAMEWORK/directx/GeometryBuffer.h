@@ -38,6 +38,11 @@ namespace sunny
 			ID3D11ShaderResourceView* m_shaderResourceViews[BUFFER_COUNT];
 			ID3D11SamplerState*       m_samplers[2];
 
+			ID3D11Texture2D*          m_textures[3];
+
+			D3D11_MAPPED_SUBRESOURCE  m_mappedSubresource; 
+			ID3D11Texture2D*          m_copyTexture;
+
 			D3D11_VIEWPORT            m_viewport;
 
 		protected:
@@ -45,16 +50,24 @@ namespace sunny
 
 			void InitRenderTarget();
 			void InitDepthStencil();
+			void InitCopyTarget();
 
-			void BindInternal();
+			void CopyInternal();
+			const unsigned char* GetDiffuseDataInternal();
+
+			void BindInternal(GeometryTextureType type);
 			void UnBindInternal();
 
 			void Resize();
 
 		public:
 
-			inline static void Bind() { s_instance->BindInternal(); }
+			inline static void Bind(GeometryTextureType type) { s_instance->BindInternal(type); }
 			inline static void UnBind() { s_instance->UnBindInternal(); }
+
+
+			inline static int GetWidth()  { return s_instance->m_width; };
+			inline static int GetHeight() { return s_instance->m_height;};
 
 			inline static GeometryBuffer* GetGeometryBuffer() { return s_instance; }
 
@@ -75,6 +88,10 @@ namespace sunny
 
 				return s_instance->m_samplers[0];
 			}
+
+			inline static int GetMapRowPitch() { return s_instance->m_mappedSubresource.RowPitch; }
+
+			inline static const unsigned char* GetDiffuseData() { return s_instance->GetDiffuseDataInternal(); }
 		};
 	}
 }

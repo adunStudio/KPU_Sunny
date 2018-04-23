@@ -156,12 +156,6 @@
     <ClCompile Include="01_FRAMEWORK\graphics\renderers\Renderer3D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\graphics\shaders\ShaderFactory.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\graphics\shaders\ShaderManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="01_FRAMEWORK\graphics\Entity.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -289,6 +283,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="01_FRAMEWORK\directx\GeometryBuffer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="01_FRAMEWORK\graphics\shaders\ShaderFactory.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="01_FRAMEWORK\graphics\shaders\ShaderManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -461,15 +461,6 @@
     <ClInclude Include="01_FRAMEWORK\graphics\renderers\Renderer3D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\graphics\shaders\ShaderFactory.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\graphics\shaders\ShaderManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\graphics\shaders\Shaders.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="01_FRAMEWORK\graphics\Animation.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -630,6 +621,15 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="01_FRAMEWORK\directx\GeometryBuffer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\graphics\shaders\ShaderFactory.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\graphics\shaders\ShaderManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\graphics\shaders\Shaders.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

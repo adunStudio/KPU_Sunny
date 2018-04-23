@@ -15,10 +15,18 @@ using namespace ui;
 
 class TestLayer2D : public Layer2D
 {
-private:
+public:
+	TestLayer3D* m_testLayer3D;
+
 	Sprite* m_logo;
 
 	Label*  m_fps;
+
+	Panel* m_model_panel;
+	Label* model_position;
+	Label* model_rotation;
+	Label* model_scale;
+
 
 	Panel* m_panel;
 	
@@ -43,5 +51,5 @@ public:
 
 	bool OnKeyPressedEvent(KeyPressedEvent& event);
 
-	void ButtonEvent1();
+	void SaveEvent();
 };

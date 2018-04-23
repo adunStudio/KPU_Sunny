@@ -16,7 +16,7 @@ namespace sunny
 
 		private:
 			vec3 m_position;
-			mat4 m_rotation;
+			vec3 m_rotation;
 			vec3 m_scale;
 
 		private:
@@ -33,16 +33,16 @@ namespace sunny
 			inline const mat4& GetTransform() const { return m_transform; }
 
 			void Translate(const vec3& translation);
-			void Rotate(float angle, const vec3& axis);
+			void Rotate(const maths::vec3& rotation);
 
 			void SetPosition(const vec3& position);
-			void SetRotation(const mat4& rotation);
+			void SetRotation(const vec3& rotation);
 			void SetScale   (const vec3& scale);
 
 			void SetHeight(float y);
 
 			inline vec3& GetPosition() { return m_position; }
-			inline mat4& GetRotation() { return m_rotation; }
+			inline vec3& GetRotation() { return m_rotation; }
 			inline vec3& GetScale()    { return m_scale;    }
 
 			static ComponentType* GetStaticType()

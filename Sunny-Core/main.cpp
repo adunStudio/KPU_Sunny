@@ -4,7 +4,6 @@
 
 #include "05_GAME/assets/AssetLoader.h"
 
-
 #include "06_LAYER/TestLayer2D.h"
 #include "06_LAYER/ChessLayer.h"
 #include "06_LAYER/TestLayer3D.h"

@@ -67,14 +67,9 @@ PSOutput PSMain(in VSOutput input)
 {
 	PSOutput output;
 	
-	float4 texColor = (float4)SUNNY_Color;
+	float4 id = (float4)SUNNY_Color;
 	
-	if (SUNNY_HasTexture >= 1)
-	{
-		texColor *= textures.Sample(samplers, input.uv);
-	}
-
-	output.diffuse  = texColor;
+	output.diffuse  = id;
 	output.normal   = float4(normalize(input.normal), 0);
 
 	return output;

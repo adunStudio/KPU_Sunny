@@ -31,7 +31,7 @@ namespace sunny
 
 		void Renderer::ClearInternal(unsigned int buffer)
 		{
-			float color[4] = { 0.3f, 0.3f, 0.3f, 1.0f }; // 블랙
+			float color[4] = { 0.87f, 1.f, 1.f, 1.0f }; // 블랙
 
 			if (buffer & RendererBufferType::RENDERER_BUFFER_COLOR)
 				Context::GetDeviceContext()->ClearRenderTargetView(Context::GetBackBuffer(), color);

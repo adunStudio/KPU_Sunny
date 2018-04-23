@@ -53,6 +53,7 @@ namespace sunny
 
 		//FontManager::SetScale(maths::vec2(m_properties.width, m_properties.height));
 		FontManager::Add(new Font("nanum",         "01_FRAMEWORK/graphics/fonts/default/NanumGothic.ttf",         32));
+		FontManager::Add(new Font("nanum",         "01_FRAMEWORK/graphics/fonts/default/NanumGothic.ttf",         24));
 		FontManager::Add(new Font("nanum",         "01_FRAMEWORK/graphics/fonts/default/NanumGothic.ttf",         16));
 		FontManager::Add(new Font("consola",       "01_FRAMEWORK/graphics/fonts/default/consola.ttf",             32));
 		FontManager::Add(new Font("SourceSansPro", "01_FRAMEWORK/graphics/fonts/default/SourceSansPro-Light.ttf", 32));
@@ -73,7 +74,7 @@ namespace sunny
         winClass.hInstance     = hInstance;                          //
         winClass.style         = CS_HREDRAW | CS_VREDRAW | CS_OWNDC; // 윈도우가 출력되는 형태
         winClass.lpfnWndProc   = (WNDPROC)WndProc;                   // 메시지 처리에 사용될 함수
-        winClass.lpszClassName = (LPCTSTR)"Sunny Win32 Window";               // 윈도우 클래스의 이름 (윈도우를 만들 때 이 이름을 이용한다.)
+        winClass.lpszClassName = (LPCTSTR)"Sunny Win64 Window";               // 윈도우 클래스의 이름 (윈도우를 만들 때 이 이름을 이용한다.)
         winClass.hCursor       = LoadCursor(nullptr, IDC_ARROW);     // 기본 커서
         winClass.hIcon         = LoadIcon(nullptr, IDI_WINLOGO);     // 기본 아이콘
 

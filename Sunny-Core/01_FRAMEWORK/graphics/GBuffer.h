@@ -41,8 +41,10 @@ namespace sunny
 
 			void SetGBuffer(unsigned int buffer);
 
-			void Bind();
+			void Bind(GBufferType type);
 			void UnBind();
+
+			const unsigned char* GetDiffuseData();
 
 			void Draw();
 		};

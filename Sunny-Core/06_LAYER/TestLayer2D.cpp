@@ -16,25 +16,30 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 	int windowWidth =  Application::GetApplication().GetWindowWidth();
 	int windowHeight = Application::GetApplication().GetWindowHeight();
 
-	m_layerIndex = 0;
+	// ¸ÊÅø ·¹ÀÌ¾î
+	m_testLayer3D = new TestLayer3D(*this);
+	Application::GetApplication().PushLayer(m_testLayer3D);
 
-	//m_layers.push_back(new NPCLayer());
-	//m_layers.push_back(new BossLayer());
-	m_layers.push_back(new TestLayer3D);
-	//m_layers[1]->SetVisible(false);
-	//m_layers[1]->SetActive(false);
-
-	Application::GetApplication().PushLayer(m_layers[0]);
-	//Application::GetApplication().PushLayer(m_layers[1]);
-
-	m_logo  = new Sprite(230, 368/4 + 520, 1037/4, 368/4, directx::Texture2D::CreateFromFile("/TEXTURE/logo.png"));
+	// FPS
 	m_fps   = new Label("fps", windowWidth - 5,  windowHeight - 15, RGBA(1, 1, 1, 0.8));
 	m_fps->SetAlignment(Label::Alignment::RIGHT);
+	Add(m_fps);
+
+	// Model
+	model_position = new Label("[T] x: 10 \t\t y: 10 \t\t z:10 \t", windowWidth - 10, windowHeight - 75,  FontManager::Get("nanum", 24), RGBA(1, 1, 1, 0.8), Label::Alignment::RIGHT);
+	model_rotation = new Label("[R] x: 10 \t\t y: 10 \t\t z:10 \t", windowWidth - 10, windowHeight - 100, FontManager::Get("nanum", 24), RGBA(1, 1, 1, 0.8), Label::Alignment::RIGHT);
+	model_scale    = new Label("[S] x: 10 \t\t y: 10 \t\t z:10 \t", windowWidth - 10, windowHeight - 125, FontManager::Get("nanum", 24), RGBA(1, 1, 1, 0.8), Label::Alignment::RIGHT);
+	Add(model_position);
+	Add(model_rotation);
+	Add(model_scale);
 	
+	m_model_panel = new Panel();
+
+
 	m_panel = new Panel();
 	
-	Button* button = new Button(" Change Button", maths::Rectangle(65, 25, 60, 20));
-	button->SetAction(LAMBDA(this->ButtonEvent1));
+	Button* button = new Button("    SAVE", maths::Rectangle(50, 25, 40, 20));
+	button->SetAction(LAMBDA(this->SaveEvent));
 
 	m_slider1 = new Slider(maths::Rectangle(20, 200, 10, 100), true);
 	m_slider2 = new Slider(maths::Rectangle(640, 25, 300, 20), false);
@@ -45,20 +50,17 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 	});
 
 	Dialog* dialog = new Dialog(maths::Rectangle(1150, 500, 100, 100), "   Basic Dialog", "Test");
+	
 	dialog->SetCloseAction([&, dialog]() {
 		m_panel->Remove(dialog);
 	});
 
-	
-
-	Add(m_logo);
-	Add(m_fps);
 
 	m_panel->Add(button);
-	m_panel->Add(m_slider1);
-	m_panel->Add(m_slider2);
-	m_panel->Add(dialog);
-	m_panel->Add(m_progressbar);
+	//m_panel->Add(m_slider1);
+	//m_panel->Add(m_slider2);
+	//m_panel->Add(dialog);
+	//m_panel->Add(m_progressbar);
 }
 
 void TestLayer2D::OnTick()
@@ -68,21 +70,7 @@ void TestLayer2D::OnTick()
 
 void TestLayer2D::OnUpdate(const utils::Timestep& ts)
 {
-	/*float length, frame;
-
-	if (dynamic_cast<NPCLayer*>(m_layers[m_layerIndex]))
-	{
-		length = dynamic_cast<NPCLayer*>(m_layers[m_layerIndex])->m_entity->GetMesh()->GetAnimationLength();
-		frame = dynamic_cast<NPCLayer*>(m_layers[m_layerIndex])->m_entity->GetMesh()->GetCurrentFrame();
-	}
-	else if (dynamic_cast<BossLayer*>(m_layers[m_layerIndex]))
-	{
-		length = dynamic_cast<BossLayer*>(m_layers[m_layerIndex])->m_entity->GetMesh()->GetAnimationLength();
-		frame = dynamic_cast<BossLayer*>(m_layers[m_layerIndex])->m_entity->GetMesh()->GetCurrentFrame();
-	}
-	*/
-	//m_progressbar->SetValue((frame+1) / length);
-	//m_slider2->SetValue( (frame+1) / length);
+	
 }
 
 void TestLayer2D::OnRender(Renderer2D& renderer)
@@ -122,7 +110,7 @@ bool TestLayer2D::OnKeyPressedEvent(KeyPressedEvent& event)
 	return false;
 }
 
-void TestLayer2D::ButtonEvent1()
+void TestLayer2D::SaveEvent()
 {
 	//m_layers[m_layerIndex]->SetVisible(false);
 	//m_layers[m_layerIndex]->SetActive(false);

@@ -95,7 +95,6 @@ void NPCLayer::OnEvent(Event& event)
 bool NPCLayer::OnKeyPressedEvent(KeyPressedEvent& event)
 {
 	
-	if (event.GetKeyCode() == SUNNY_KEY_1 && !event.GetRepeat()) Renderer3D::DEFERRED_MODE = !Renderer3D::DEFERRED_MODE;
 
 	return false;
 }

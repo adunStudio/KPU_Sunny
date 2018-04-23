@@ -36,30 +36,15 @@ namespace sunny
 				return shader;
 			};
 
-			directx::Shader* Default3DDeferredShader()
+			directx::Shader* Default3DGeometryShader()
 			{
 				directx::Shader* shader;
-				shader = ShaderManager::Get("default3DDeferred");
+				shader = ShaderManager::Get("default3DGeometry");
 				if (shader)
 					return shader;
 
 				//shader = directx::Shader::CreateFromSource("default3DDeferred", sunny::graphics::default3DDeferredShader_src);
 				shader = directx::Shader::CreateFromFile("default3DDeferred", "02_HLSL/geometry.hlsl");
-
-				ShaderManager::Add(shader);
-
-				return shader;
-			}
-
-			directx::Shader* Default3DLightShader()
-			{
-				directx::Shader* shader;
-				shader = ShaderManager::Get("default3DLight");
-				if (shader)
-					return shader;
-
-				//shader = directx::Shader::CreateFromSource("default3DLight", sunny::graphics::default3DLightShader_src);
-				shader = directx::Shader::CreateFromFile("default3DLight", "02_HLSL/deferred.hlsl");
 
 				ShaderManager::Add(shader);
 

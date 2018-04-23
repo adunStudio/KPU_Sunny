@@ -52,6 +52,7 @@ namespace sunny
 
 			InitRenderTarget();
 			InitDepthStencil();
+			InitCopyTarget();
 		}
 
 		void GeometryBuffer::InitRenderTarget()
@@ -64,7 +65,7 @@ namespace sunny
 				diffuseNormalTextureDesc.Height             = m_height;
 				diffuseNormalTextureDesc.MipLevels          = 1;
 				diffuseNormalTextureDesc.ArraySize          = 1;
-				diffuseNormalTextureDesc.Format             = DXGI_FORMAT_R32G32B32A32_FLOAT; // 32bit
+				diffuseNormalTextureDesc.Format             = DXGI_FORMAT_R8G8B8A8_UNORM;
 				diffuseNormalTextureDesc.SampleDesc.Count   = 1;
 				diffuseNormalTextureDesc.SampleDesc.Quality = 0;
 				diffuseNormalTextureDesc.Usage              = D3D11_USAGE_DEFAULT;
@@ -74,9 +75,8 @@ namespace sunny
 			}
 
 			// ÅØ½ºÃÄ »ý¼º
-			ID3D11Texture2D* diffuseNormalTextures[2];
-			m_context->GetDevice()->CreateTexture2D(&diffuseNormalTextureDesc, NULL, &diffuseNormalTextures[GeometryTextureType::DIFFUSE]);
-			m_context->GetDevice()->CreateTexture2D(&diffuseNormalTextureDesc, NULL, &diffuseNormalTextures[GeometryTextureType::NORMAL]);
+			m_context->GetDevice()->CreateTexture2D(&diffuseNormalTextureDesc, NULL, &m_textures[GeometryTextureType::DIFFUSE]);
+			m_context->GetDevice()->CreateTexture2D(&diffuseNormalTextureDesc, NULL, &m_textures[GeometryTextureType::NORMAL]);
 
 
 			// µðÇ»Áî/³ë¸» ·»´õ Å¸°Ù ºä ¼³¸í ±¸Á¶Ã¼
@@ -89,8 +89,8 @@ namespace sunny
 			}
 			
 			// ·»´õ Å¸°Ù ºä »ý¼º
-			m_context->GetDevice()->CreateRenderTargetView(diffuseNormalTextures[GeometryTextureType::DIFFUSE], &diffuseNormalRenderTargetViewDesc, &m_renderTargetViews[GeometryTextureType::DIFFUSE]);
-			m_context->GetDevice()->CreateRenderTargetView(diffuseNormalTextures[GeometryTextureType::NORMAL],  &diffuseNormalRenderTargetViewDesc, &m_renderTargetViews[GeometryTextureType::NORMAL]);
+			m_context->GetDevice()->CreateRenderTargetView(m_textures[GeometryTextureType::DIFFUSE], &diffuseNormalRenderTargetViewDesc, &m_renderTargetViews[GeometryTextureType::DIFFUSE]);
+			m_context->GetDevice()->CreateRenderTargetView(m_textures[GeometryTextureType::NORMAL],  &diffuseNormalRenderTargetViewDesc, &m_renderTargetViews[GeometryTextureType::NORMAL]);
 
 
 			// µðÇ»Áî/³ë¸» ¼ÎÀÌ´õ ¸®¼Ò½º ºä ¼³¸í ±¸Á¶Ã¼
@@ -104,13 +104,8 @@ namespace sunny
 			}
 			
 			// ¼ÎÀÌ´õ ¸®¼Ò½º ºä »ý¼º
-			m_context->GetDevice()->CreateShaderResourceView(diffuseNormalTextures[GeometryTextureType::DIFFUSE], &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::DIFFUSE]);
-			m_context->GetDevice()->CreateShaderResourceView(diffuseNormalTextures[GeometryTextureType::NORMAL],  &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::NORMAL]);
-		
-
-			// ÅØ½ºÃ³ ¸±¸®Áî
-			diffuseNormalTextures[GeometryTextureType::DIFFUSE]->Release();
-			diffuseNormalTextures[GeometryTextureType::NORMAL]->Release();
+			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::DIFFUSE], &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::DIFFUSE]);
+			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::NORMAL],  &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::NORMAL]);
 		}
 
 		void GeometryBuffer::InitDepthStencil()
@@ -133,8 +128,7 @@ namespace sunny
 			}
 
 			// ±íÀÌ/½ºÅÙ½Ç ÅØ½ºÃÄ »ý¼º
-			ID3D11Texture2D* depthStencilTexture = nullptr;
-			m_context->GetDevice()->CreateTexture2D(&depthStencilTextureDesc, NULL, &depthStencilTexture);
+			m_context->GetDevice()->CreateTexture2D(&depthStencilTextureDesc, NULL, &m_textures[GeometryTextureType::DEPTH]);
 
 
 			// ±íÀÌ/½ºÅÙ½Ç ºä ¼³¸í ±¸Á¶Ã¼
@@ -148,7 +142,7 @@ namespace sunny
 			}
 
 			// ±íÀÌ/½ºÅÙ½Ç ºä »ý¼º
-			m_context->GetDevice()->CreateDepthStencilView(depthStencilTexture, &depthStencilViewDesc, &m_depthStencilView);
+			m_context->GetDevice()->CreateDepthStencilView(m_textures[GeometryTextureType::DEPTH], &depthStencilViewDesc, &m_depthStencilView);
 
 
 			// ±íÀÌ/½ºÅÙ½Ç ¼ÎÀÌ´õ ¸®¼Ò½º ºä ¼³¸í ±¸Á¶Ã¼
@@ -162,17 +156,54 @@ namespace sunny
 			}
 
 			// ¼ÎÀÌ´õ ¸®¼Ò½º ºä »ý¼º
-			m_context->GetDevice()->CreateShaderResourceView(depthStencilTexture, &depthStencilShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::DEPTH]);
-
-
-			// ÅØ½ºÃ³ ÂüÁ¶ ÇØÁ¦
-			depthStencilTexture->Release();
+			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::DEPTH], &depthStencilShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::DEPTH]);
 		}
 
-		void GeometryBuffer::BindInternal()
+		void GeometryBuffer::InitCopyTarget()
 		{
-			//m_context->GetDeviceContext()->RSSetViewports(1, &m_viewport);
-			m_context->GetDeviceContext()->OMSetRenderTargets(2, m_renderTargetViews, m_depthStencilView);
+			D3D11_TEXTURE2D_DESC copyTextureDesc;
+			ZeroMemory(&copyTextureDesc, sizeof(copyTextureDesc));
+			{
+				copyTextureDesc.Width = m_width;
+				copyTextureDesc.Height = m_height;
+				copyTextureDesc.MipLevels = 1;
+				copyTextureDesc.ArraySize = 1;
+				copyTextureDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+				copyTextureDesc.SampleDesc.Count = 1;
+				copyTextureDesc.SampleDesc.Quality = 0;
+				copyTextureDesc.Usage = D3D11_USAGE_STAGING;
+				copyTextureDesc.BindFlags = NULL;
+				copyTextureDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+				copyTextureDesc.MiscFlags = 0;
+			}
+
+			m_context->GetDevice()->CreateTexture2D(&copyTextureDesc, NULL, &m_copyTexture);
+		}
+
+		void GeometryBuffer::CopyInternal()
+		{
+			m_context->GetDeviceContext()->CopyResource(m_copyTexture, m_textures[GeometryTextureType::DIFFUSE]);
+		}
+
+		const unsigned char* GeometryBuffer::GetDiffuseDataInternal()
+		{
+			CopyInternal();
+
+			m_context->GetDeviceContext()->Map(m_copyTexture, NULL, D3D11_MAP_READ, NULL, &m_mappedSubresource);
+		
+			const unsigned char* data = reinterpret_cast<const unsigned char*>(m_mappedSubresource.pData);
+			
+			m_context->GetDeviceContext()->Unmap(m_copyTexture, NULL);
+
+			return data;
+		}
+
+		void GeometryBuffer::BindInternal(GeometryTextureType type)
+		{
+			if( type == GeometryTextureType::DIFFUSE || type == GeometryTextureType::NORMAL )
+				m_context->GetDeviceContext()->OMSetRenderTargets(2, m_renderTargetViews, NULL);
+			else if ( type == GeometryTextureType::DEPTH )
+				m_context->GetDeviceContext()->OMSetRenderTargets(0, NULL, m_depthStencilView);			
 		}
 
 		void GeometryBuffer::UnBindInternal()

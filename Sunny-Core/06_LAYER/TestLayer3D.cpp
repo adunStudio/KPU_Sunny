@@ -1,6 +1,14 @@
 #include "TestLayer3D.h"
+#include "TestLayer2D.h"
 
-TestLayer3D::TestLayer3D()
+template <typename T> string tostr(const T& t) {
+	ostringstream os;
+	os << t;
+	return os.str();
+}
+
+TestLayer3D::TestLayer3D(TestLayer2D& layer)
+: m_testLayer2D(layer)
 {
 
 }
@@ -12,6 +20,10 @@ TestLayer3D::~TestLayer3D()
 
 void TestLayer3D::OnInit(Renderer3D& renderer)
 {
+	Model* a = new Model("/OBJ/sphere.obj");
+	Entity* e = new Entity(a->GetMesh(), RGBA(1.0, 0, 0, 1.0));
+	Add(e);
+
 	m_mousePicker = new MousePicker(GetCamera());
 
 	LightSetup* lights = new LightSetup();
@@ -20,6 +32,14 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 	lights->Add(light);
 
 	PushLightSetup(lights);
+
+
+	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
+	Entity* yAxis = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
+	Entity* zAxis = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
+	Add(xAxis);
+	Add(yAxis);
+	Add(zAxis);
 
 	std::string skyBoxFiles[1] =
 	{
@@ -45,27 +65,8 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 	skyboxEntity->SetMaterial(m_SkyboxMaterial);
 	Add(skyboxEntity);
 
-	
-	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
-	Entity* yAxis = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
-	Entity* zAxis = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
-	Add(xAxis);
-	Add(yAxis);
-	Add(zAxis);
 
 
-	Tree* tree1  = new Tree("DeadOak1",    mat4::Identity() * mat4::Translate(vec3(-50, 0, 0)));
-	Tree* tree2  = new Tree("DeadOak2",    mat4::Identity() * mat4::Translate(vec3(-40, 0, 0)));
-	Tree* tree3  = new Tree("DeadOak2",    mat4::Identity() * mat4::Translate(vec3(-30, 0, 0)));
-	Tree* tree4  = new Tree("DeadSpruce1", mat4::Identity() * mat4::Translate(vec3(-20, 0, 0)));
-	Tree* tree5  = new Tree("DeadSpruce2", mat4::Identity() * mat4::Translate(vec3(-10, 0, 0)));
-	Tree* tree6  = new Tree("DeadSpruce3", mat4::Identity() * mat4::Translate(vec3(  0, 0, 0)));
-	Tree* tree7  = new Tree("OakTree1",    mat4::Identity() * mat4::Translate(vec3( 10, 0, 0)));
-	Tree* tree8  = new Tree("OakTree2",    mat4::Identity() * mat4::Translate(vec3( 20, 0, 0)));
-	Tree* tree9  = new Tree("OakTree3",    mat4::Identity() * mat4::Translate(vec3( 30, 0, 0)));
-	Tree* tree10 = new Tree("SpruceTree1", mat4::Identity() * mat4::Translate(vec3( 40, 0, 0)));
-	Tree* tree11 = new Tree("SpruceTree2", mat4::Identity() * mat4::Translate(vec3( 50, 0, 0)));
-	Tree* tree12 = new Tree("SpruceTree3", mat4::Identity() * mat4::Translate(vec3( 60, 0, 0)));
 
 	
 	std::string mapData = system::FileSystem::ReadTextFile("/JSON/MAP/map1.json");
@@ -89,27 +90,21 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 
 			mat4 position = mat4::Identity();
 
-
-
 			auto a = new Model3D(name);
 
-			std::cout << a->GetIDColor() << std::endl;
+			m_mapObjects.push_back(a);
 
-			a->GetTransformComponent()->Rotate(rotation.z, vec3(0, 0, 1));
-			a->GetTransformComponent()->Rotate(rotation.y, vec3(0, 1, 0));
-			a->GetTransformComponent()->Rotate(rotation.x, vec3(1, 0, 0));
+	
 			a->GetTransformComponent()->SetPosition(translation * 100);
-
+			a->GetTransformComponent()->Rotate(rotation);
 			a->GetTransformComponent()->SetScale(scale);
 			
 			Add(a);
 		}
 	}
 
-	Model* a = new Model("/OBJ/sphere.obj");
 
-	Entity* e = new Entity(a->GetMesh(), RGBA(1.0, 0, 0, 1.0));
-	Add(e);
+	
 	/*
 	Add(tree1);
 	Add(tree2);
@@ -135,6 +130,20 @@ void TestLayer3D::OnUpdate(const utils::Timestep& ts)
 {
 	mat4 vp = GetCamera()->GetProjectionMatrix() * GetCamera()->GetViewMatrix();
 	m_SkyboxMaterial->SetUniform("invViewProjMatrix", mat4::Invert(vp));
+
+	if (m_pickedModel)
+	{
+		auto a = m_pickedModel->GetTransformComponent();
+		
+		auto t = a->GetPosition();
+		auto r = a->GetRotation();
+		auto s = a->GetScale();
+
+		m_testLayer2D.model_position->SetText("[T] x: " + tostr(t.x) + " \t\t y: " + tostr(t.y) + " \t\t z:" + tostr(t.z) + " \t");
+		m_testLayer2D.model_rotation->SetText("[R] x: " + tostr(r.x) + " \t\t y: " + tostr(r.y) + " \t\t z:" + tostr(r.z) + " \t");
+		m_testLayer2D.model_scale->SetText("[S] x: " +tostr(s.x)+ " \t\t y: " + tostr(s.y) + " \t\t z:" + tostr(s.z) + " \t");
+	}
+
 }
 
 void TestLayer3D::OnEvent(Event& event)
@@ -142,13 +151,45 @@ void TestLayer3D::OnEvent(Event& event)
 	Layer3D::OnEvent(event);
 	EventDispatcher dispatcher(event);
 	dispatcher.Dispatch<KeyPressedEvent>(METHOD(&TestLayer3D::OnKeyPressedEvent));
+	dispatcher.Dispatch<KeyReleasedEvent>(METHOD(&TestLayer3D::OnKeyReleasedEvent));
 	dispatcher.Dispatch<MousePressedEvent>(METHOD(&TestLayer3D::OnMousePressedEvent));
+	dispatcher.Dispatch<MouseReleasedEvent>(METHOD(&TestLayer3D::OnMouseReleasedEvent));
 }
 
 bool TestLayer3D::OnKeyPressedEvent(KeyPressedEvent& event)
 {
 
-	if (event.GetKeyCode() == SUNNY_KEY_1 && !event.GetRepeat()) Renderer3D::DEFERRED_MODE = !Renderer3D::DEFERRED_MODE;
+	if (!m_pickedModel) return false;
+
+	auto a = m_pickedModel->GetTransformComponent();
+
+	if (event.GetKeyCode() == SUNNY_KEY_W) a->Translate(vec3(0, 0, 10));
+	if (event.GetKeyCode() == SUNNY_KEY_S) a->Translate(vec3(0, 0, -10));
+	if (event.GetKeyCode() == SUNNY_KEY_A) a->Translate(vec3(-10, 0, 0));
+	if (event.GetKeyCode() == SUNNY_KEY_D) a->Translate(vec3(10, 0, 0));
+
+	if (event.GetKeyCode() == SUNNY_KEY_O) a->SetScale(a->GetScale() + 0.5);
+	if (event.GetKeyCode() == SUNNY_KEY_P) a->SetScale(a->GetScale() - 0.5);
+
+	if (Input::IsKeyPressed(SUNNY_KEY_SHIFT))
+	{
+		if (event.GetKeyCode() == SUNNY_KEY_1) a->Rotate(vec3(1, 0, 0));
+		if (event.GetKeyCode() == SUNNY_KEY_2) a->Rotate(vec3(0, 1, 0));
+		if (event.GetKeyCode() == SUNNY_KEY_3) a->Rotate(vec3(0, 0, 1));
+	}
+	else
+	{
+		if (event.GetKeyCode() == SUNNY_KEY_1) a->Rotate(vec3(-1, 0, 0));
+		if (event.GetKeyCode() == SUNNY_KEY_2) a->Rotate(vec3(0, -1, 0));
+		if (event.GetKeyCode() == SUNNY_KEY_3) a->Rotate(vec3(0, 0, -1));
+	}
+	
+	return false;
+}
+
+bool TestLayer3D::OnKeyReleasedEvent(KeyReleasedEvent& event)
+{
+	//if (event.GetKeyCode() == SUNNY_KEY_CONTROL) Renderer3D::DEFERRED_MODE = false;
 
 	return false;
 }
@@ -161,30 +202,46 @@ bool TestLayer3D::OnMousePressedEvent(MousePressedEvent& event)
 	float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
 
 	maths::vec2 mouse(event.GetX() * scaleX, event.GetY() * scaleY);
-
 	m_mousePicker->Update(mouse);
 
-	std::cout << m_mousePicker->GetRay() << std::endl;
+	//std::cout << m_mousePicker->GetRay() << std::endl;
 
-	//float x = event.GetX() - scaleX;
-	//float y = event.GetY() - scaleY;
-	// std::cout << mouse << std::endl;
+	// 성능 저하의 원인 (레이캐스트 피킹방식으로 바꿔야 한다.)
+	const unsigned char* diffuseData = directx::GeometryBuffer::GetDiffuseData();
+	int rowPitch = directx::GeometryBuffer::GetMapRowPitch();
 
-	//mouse.x /= (Window::GetWindowClass()->GetWidth() / 2);
-	//mouse.y /= (Window::GetWindowClass()->GetHeight() / 2);
+	int col = event.GetX();
+	int row = /*Window::GetWindowClass()->GetHeight() -*/ event.GetY();
 
-	//std::cout << mouse << std::endl;
+	int rowStart = row * rowPitch;
+	int colStart = col * 4;
 
-	/*vec3 view = GetCamera()->GetFocalPoint() - GetCamera()->GetPosition();
-	view = view.Normalize();
 
-	vec3 h = view.Cross(vec3(0, 1, 0));
-	h = h.Normalize();
+	unsigned char R = diffuseData[rowStart + colStart + 0];
+	unsigned char G = diffuseData[rowStart + colStart + 1];
+	unsigned char B = diffuseData[rowStart + colStart + 2];
+	unsigned char A = diffuseData[rowStart + colStart + 3];
 
-	vec3 v = h.Cross(view);
-	v = v.Normalize();*/
+	unsigned int aa = (A << 24) | (R << 16) | (G << 8) | B;
+	unsigned int id = R + G * 256 + B * 256 * 256;
 
-	//std::cout << v << std::endl;
+	std::cout << id << std::endl;
+
+	for (auto object : m_mapObjects)
+	{
+		if (object->GetID() == id)
+			m_pickedModel = object;
+	}
+
+	return false;
+}
+
+bool TestLayer3D::OnMouseReleasedEvent(MouseReleasedEvent& event)
+{
+	for (auto object : m_mapObjects)
+	{
+		object->picked = false;
+	}
 
 	return false;
 }

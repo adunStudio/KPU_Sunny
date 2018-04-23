@@ -44,15 +44,20 @@ namespace sunny
 			}
 		}
 
-
-		void GBuffer::Bind()
+		void GBuffer::Bind(GBufferType type)
 		{
-			m_buffer->Bind();
+			if(type == GBufferType::DEFERRED) m_buffer->Bind(GeometryTextureType::DIFFUSE);
+			if (type == GBufferType::SHADOWMAP) m_buffer->Bind(GeometryTextureType::DEPTH);
 		}
 
 		void GBuffer::UnBind()
 		{
 			m_buffer->UnBind();
+		}
+
+		const unsigned char* GBuffer::GetDiffuseData()
+		{
+			return m_buffer->GetDiffuseData();
 		}
 
 		void GBuffer::Draw()

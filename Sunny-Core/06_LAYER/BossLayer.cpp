@@ -103,7 +103,7 @@ void BossLayer::OnInit(Renderer3D& renderer)
 	Texture2D* texture = new Texture2D("/texture/boss_idle2.png");
 	m_entity = new Entity(model->GetMesh(), texture);
 	//m_entity->SetMaterial(lightMaterialInstance);
-	m_entity->GetTransformComponent()->Rotate(-90.f, vec3(1, 0, 0));
+	//m_entity->GetTransformComponent()->Rotate(-90.f, vec3(1, 0, 0));
 	m_entity->GetTransformComponent()->SetScale(vec3(0.3, 0.3, 0.3));
 
 	Add(m_entity);
@@ -172,10 +172,6 @@ bool BossLayer::OnKeyPressedEvent(KeyPressedEvent& event)
 	if (event.GetKeyCode() == SUNNY_KEY_D)		m_entity->GetTransformComponent()->Translate(vec3(2, 0, 0));
 	if (event.GetKeyCode() == SUNNY_KEY_W)		m_entity->GetTransformComponent()->Translate(vec3(0, 0, -2));
 	if (event.GetKeyCode() == SUNNY_KEY_S)		m_entity->GetTransformComponent()->Translate(vec3(0, 0, 2));
-	
-	
-	if (event.GetKeyCode() == SUNNY_KEY_1 && !event.GetRepeat()) Renderer3D::DEFERRED_MODE = !Renderer3D::DEFERRED_MODE;
-	//std::cout << (m_entity->GetTransformComponent()->GetPosition()) << std::endl;
 	
 	return false;
 }

@@ -32,25 +32,20 @@ namespace sunny
 
 		class Renderer3D
 		{
-		public:
-			static bool DEFERRED_MODE;
-
 		private:
 			GBuffer*   m_gBuffer;           // 디퍼드, 그림자
 
 			LightCamera* m_lightCamera;
 
-			directx::Shader* m_default_forward_shader;          // 포워드 셰이더
-			directx::Shader* m_default_deferred_shader;         // 디퍼드 셰이더 (지오메트리)
-			directx::Shader* m_default_light_shader;            // 라이트 셰이더 (디퍼드 셰이더 이후)
-			directx::Shader* m_default_shadow_shader;           // 그림자 셰이더 (포워드 셰이더 이전)
-			directx::Shader* m_default_debug_shader;            // 디버그 셰이더
-			directx::Shader* m_default_outline_shader;          // 외곽선 셰이더
+			directx::Shader* m_default_forward_shader;          // 포워드     셰이더
+			directx::Shader* m_default_geometry_shader;         // 지오메트리 셰이더 
+			directx::Shader* m_default_shadow_shader;           // 그림자     셰이더 
+			directx::Shader* m_default_debug_shader;            // 디버그     셰이더
+			directx::Shader* m_default_outline_shader;          // 외곽선     셰이더
 
 			std::vector<Renderable3D*> m_renderables;
 
-			std::vector<RenderCommand> m_transparencyTCommandQueue;               // 반투명
-			std::vector<RenderCommand> m_transparencyFCommandQueue;               // 불투명
+			std::vector<RenderCommand> m_renderCommandQueue;   
 
 			std::vector<RendererUniform> m_sunnyUniforms;
 
@@ -65,18 +60,14 @@ namespace sunny
 			unsigned char* m_PSSunnyForwardUniformBuffer;                           // 포워드 픽셀 셰이더 CBuffer
 			unsigned int   m_PSSunnyForwardUniformBufferSize;
 			
-			unsigned char* m_PSSunnyDeferredUniformBuffer;                          // 디퍼드 픽셀 셰이더 CBuffer
-			unsigned int   m_PSSunnyDeferredUniformBufferSize;
-			
-			unsigned char* m_PSSunnyLightUniformBuffer;                             // 라이트 픽셀 셰이더 CBuffe
-			unsigned int   m_PSSunnyLightUniformBufferSize;
+			unsigned char* m_PSSunnyGeometryUniformBuffer;                          // 지오메트리 픽셀 셰이더 CBuffer
+			unsigned int   m_PSSunnyGeometryUniformBufferSize;
+			;
 
 			std::vector<unsigned int> m_VSSunnyUniformBufferOffsets;                   // 기본   버텍스 셰이더 CBuffer 오프셋
 			std::vector<unsigned int> m_VSSunnyShadowUniformBufferOffsets;             // 그림자 버텍스 셰이더 CBuffer 오프셋
-		
 			std::vector<unsigned int> m_PSSunnyForwardUniformBufferOffsets;            // 포워드 픽셀 셰이더 CBuffer 오프셋
-			std::vector<unsigned int> m_PSSunnyDeferredUniformBufferOffsets;           // 디퍼드 픽셀 셰이더 CBuffer 오프셋
-			std::vector<unsigned int> m_PSSunnyLightUniformBufferOffsets;              // 라이트 픽셀 셰이더 CBuffer 오프셋
+			std::vector<unsigned int> m_PSSunnyGeometryUniformBufferOffsets;           // 지오메트리 픽셀 셰이더 CBuffer 오프셋
 
 			
 
@@ -100,16 +91,14 @@ namespace sunny
 			inline const void SetScreenBufferSize(unsigned int width, unsigned int height) { m_screenBufferWidth = width; m_screenBufferHeight = height; }
 		
 		private:
-			void ForwardBlendFalsePresentInternal();
-			void ForwardBlendTruePresentInternal();
-			void DeferredBlendFalsePresentInternal();
-			void DeferredBlendTruePresentInternal();
+			void MakeShadowGeometryBuffer();
+
+			void ForwardPresentInternal();
 
 			void SetSunnyVSUniforms(directx::Shader* shader);
 			void SetSunnyShadowVSUniforms(directx::Shader* shader);
 			void SetSunnyForwardUniforms(directx::Shader* shader);
-			void SetSunnyDeferredUniforms(directx::Shader* shader);
-			void SetSunnyLightUniforms(directx::Shader* shader);
+			void SetSunnyGeometryUniforms(directx::Shader* shader);
 		};
 	}
 }
