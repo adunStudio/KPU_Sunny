@@ -13,7 +13,7 @@ struct VSOutput
 	float3 cameraPosition : CAMERA_POSITION;
 	float4 position : POSITION;
 	float3 normal : NORMAL;
-	float2 uv : TEXCOORD;
+	float2 uv : TEXCOORD0;
 	float3 binormal : BINORMAL;
 	float3 tangent : TANGENT;
 	float3 color : COLOR;
@@ -106,12 +106,17 @@ float3 CalcDirectional(float3 worldPosition, float3 worldNormal, float4 diffuseC
 }
 
 Texture2D textures[6] : register(t0);
-Texture2D shadowMap: register(t7);
-Texture2D diffseMap: register(t8);
-Texture2D normalMap: register(t9);
-SamplerState samplers : register(s0);
-SamplerState shadowSampler : register(s7);
-SamplerState geometrySampler : register(s8);
+Texture2D diffuseMap  : register(t7);
+Texture2D normalMap   : register(t8);
+Texture2D positionMap : register(t9);
+Texture2D depthMap    : register(t10);
+Texture2D idMap       : register(t11);
+Texture2D shadowMap   : register(t12);
+
+
+SamplerState samplers        : register(s0);
+SamplerState geometrySampler : register(s1);
+SamplerState shadowSampler   : register(s2);
 
 
 float cellstep5(float x)
@@ -130,7 +135,9 @@ float4 PSMain(in VSOutput input) : SV_TARGET
 {
 	//SUNNY_Light.position = normalize(float3(input.lightPosition.x, input.lightPosition.y, input.lightPosition.z));
 
-	float4 texColor = (float4)SUNNY_Color;
+//	float4 texColor = (float4)SUNNY_Color;
+	float4 texColor = float4(1.0f, 0, 0, 1.0f);
+
 	if (SUNNY_HasTexture >= 1)
 	{
 		switch (input.tid)
@@ -142,14 +149,16 @@ float4 PSMain(in VSOutput input) : SV_TARGET
 		case 2:
 			texColor = textures[2].Sample(samplers, input.uv); break;
 		case 3:
-			texColor = textures[0].Sample(samplers, input.uv); break;
+			texColor = textures[3].Sample(samplers, input.uv); break;
 		case 4:
-			texColor = textures[1].Sample(samplers, input.uv); break;
+			texColor = textures[4].Sample(samplers, input.uv); break;
 		case 5:
-			texColor = textures[2].Sample(samplers, input.uv); break;
+			texColor = textures[5].Sample(samplers, input.uv); break;
 		}
 
 	}
+
+	return texColor;
 
 	float3 color = texColor.xyz;
 

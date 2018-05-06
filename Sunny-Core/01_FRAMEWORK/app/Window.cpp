@@ -18,6 +18,10 @@ namespace sunny
 	extern void KeyCallback(InputManager* inputManager, int flags, int key, unsigned int message);
 	extern void MouseButtonCallback(InputManager* inputManager, int button, int x, int y);
 
+	// Server.cpp
+	extern void ServerPacketCallback(ServerManager* serverManager, SOCKET socket);
+	extern void ServerCloseCallback (ServerManager* serverManager, SOCKET socket);
+
     HINSTANCE hInstance;   // 윈도우 핸들 인스턴스 식별자
     HDC hDc;               // 윈도우 핸들 디바이스 컨텍스트
     HWND hWnd;             // 윈도우 핸들 (번호)
@@ -38,7 +42,7 @@ namespace sunny
     }
 
     Window::Window(const std::string title, const WindowProperties& properties)
-            : m_title(title), m_properties(properties), m_handle(nullptr), m_closed(false)
+    : m_title(title), m_properties(properties), m_handle(nullptr), m_closed(false)
     {
 		m_resolutionWidth  = m_properties.width ;
 		m_resolutionHeight = m_properties.height;
@@ -58,7 +62,9 @@ namespace sunny
 		FontManager::Add(new Font("consola",       "01_FRAMEWORK/graphics/fonts/default/consola.ttf",             32));
 		FontManager::Add(new Font("SourceSansPro", "01_FRAMEWORK/graphics/fonts/default/SourceSansPro-Light.ttf", 32));
 
-		m_inputManager = new InputManager();
+		m_inputManager  = new InputManager();
+		m_serverManager = new ServerManager();
+
     }
 
     Window::~Window()
@@ -116,6 +122,7 @@ namespace sunny
                 NULL
         );
 
+		m_handle = hWnd;
 
         if(!hWnd)
         {
@@ -187,7 +194,8 @@ namespace sunny
         if(window == nullptr)
             return DefWindowProc(hWnd, message, wParam, lParam);
 
-		InputManager* inputManager = window->GetInputManager();
+		InputManager*  inputManager  = window->GetInputManager();
+		ServerManager* serverManager = window->GetServerManager();
 
         switch(message)
         {
@@ -218,6 +226,23 @@ namespace sunny
             case WM_SIZE:
                 ResizeCallback(window, LOWORD(lParam), HIWORD(lParam));
                 break;
+			case WM_SOCKET:
+				if (WSAGETSELECTERROR(lParam))
+				{
+					ServerCloseCallback(serverManager, (SOCKET)wParam);
+					break;
+				}
+
+				switch (WSAGETSELECTEVENT(lParam)) 
+				{
+					case FD_READ:
+						ServerPacketCallback(serverManager, (SOCKET)wParam);
+						break;
+					case FD_CLOSE:
+						ServerCloseCallback(serverManager,  (SOCKET)wParam);
+						break;
+				}
+
             default:
                 result = DefWindowProc(hWnd, message, wParam, lParam);
         }
@@ -234,6 +259,7 @@ namespace sunny
 	{
 		m_eventCallback = callback;
 		m_inputManager->SetEventCallback(m_eventCallback);
+		m_serverManager->SetEventCallback(m_eventCallback);
 	}
 
     void ResizeCallback(Window* window, int width, int height)

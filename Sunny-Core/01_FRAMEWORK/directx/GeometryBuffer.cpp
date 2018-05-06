@@ -50,14 +50,14 @@ namespace sunny
 			m_width  = m_context->GetWindowProperties().width;
 			m_height = m_context->GetWindowProperties().height;
 
-			InitRenderTarget();
-			InitDepthStencil();
-			InitCopyTarget();
+			InitDeferredTarget();
+			InitShadowTarget();
+			InitCopyIDTarget();
 		}
 
-		void GeometryBuffer::InitRenderTarget()
+		void GeometryBuffer::InitDeferredTarget()
 		{
-			// 디퓨즈/노말 텍스쳐 설명 구조체
+			// 디퓨즈/노말/포지션/아이디 텍스쳐 설명 구조체
 			D3D11_TEXTURE2D_DESC diffuseNormalTextureDesc;
 			ZeroMemory(&diffuseNormalTextureDesc, sizeof(diffuseNormalTextureDesc));
 			{
@@ -77,9 +77,11 @@ namespace sunny
 			// 텍스쳐 생성
 			m_context->GetDevice()->CreateTexture2D(&diffuseNormalTextureDesc, NULL, &m_textures[GeometryTextureType::DIFFUSE]);
 			m_context->GetDevice()->CreateTexture2D(&diffuseNormalTextureDesc, NULL, &m_textures[GeometryTextureType::NORMAL]);
+			m_context->GetDevice()->CreateTexture2D(&diffuseNormalTextureDesc, NULL, &m_textures[GeometryTextureType::POSITION]);
+			m_context->GetDevice()->CreateTexture2D(&diffuseNormalTextureDesc, NULL, &m_textures[GeometryTextureType::ID]);
 
 
-			// 디퓨즈/노말 렌더 타겟 뷰 설명 구조체
+			// 디퓨즈/노말/포지션/아이디 렌더 타겟 뷰 설명 구조체
 			D3D11_RENDER_TARGET_VIEW_DESC diffuseNormalRenderTargetViewDesc;
 			ZeroMemory(&diffuseNormalRenderTargetViewDesc, sizeof(diffuseNormalRenderTargetViewDesc));
 			{
@@ -89,8 +91,10 @@ namespace sunny
 			}
 			
 			// 렌더 타겟 뷰 생성
-			m_context->GetDevice()->CreateRenderTargetView(m_textures[GeometryTextureType::DIFFUSE], &diffuseNormalRenderTargetViewDesc, &m_renderTargetViews[GeometryTextureType::DIFFUSE]);
-			m_context->GetDevice()->CreateRenderTargetView(m_textures[GeometryTextureType::NORMAL],  &diffuseNormalRenderTargetViewDesc, &m_renderTargetViews[GeometryTextureType::NORMAL]);
+			m_context->GetDevice()->CreateRenderTargetView(m_textures[GeometryTextureType::DIFFUSE],   &diffuseNormalRenderTargetViewDesc, &m_renderTargetViews[GeometryTextureType::DIFFUSE]);
+			m_context->GetDevice()->CreateRenderTargetView(m_textures[GeometryTextureType::NORMAL],    &diffuseNormalRenderTargetViewDesc, &m_renderTargetViews[GeometryTextureType::NORMAL]);
+			m_context->GetDevice()->CreateRenderTargetView(m_textures[GeometryTextureType::POSITION],  &diffuseNormalRenderTargetViewDesc, &m_renderTargetViews[GeometryTextureType::POSITION]);
+			m_context->GetDevice()->CreateRenderTargetView(m_textures[GeometryTextureType::ID],        &diffuseNormalRenderTargetViewDesc, &m_renderTargetViews[GeometryTextureType::ID]);
 
 
 			// 디퓨즈/노말 셰이더 리소스 뷰 설명 구조체
@@ -106,7 +110,8 @@ namespace sunny
 			// 셰이더 리소스 뷰 생성
 			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::DIFFUSE], &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::DIFFUSE]);
 			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::NORMAL],  &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::NORMAL]);
-		
+			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::POSITION],&diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::POSITION]);
+			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::ID],      &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::ID]);
 		
 		
 			// 깊이/스텐실 텍스쳐 설명 구조체
@@ -144,7 +149,8 @@ namespace sunny
 			m_context->GetDevice()->CreateDepthStencilView(m_textures[GeometryTextureType::DEPTH], &depthStencilViewDesc, &m_depthStencilView[0]);
 		}
 
-		void GeometryBuffer::InitDepthStencil()
+
+		void GeometryBuffer::InitShadowTarget()
 		{
 			// 깊이/스텐실 텍스쳐 설명 구조체
 			D3D11_TEXTURE2D_DESC depthStencilTextureDesc;
@@ -164,7 +170,7 @@ namespace sunny
 			}
 
 			// 깊이/스텐실 텍스쳐 생성
-			m_context->GetDevice()->CreateTexture2D(&depthStencilTextureDesc, NULL, &m_textures[GeometryTextureType::DEPTH]);
+			m_context->GetDevice()->CreateTexture2D(&depthStencilTextureDesc, NULL, &m_textures[GeometryTextureType::SHADOW_DEPTH]);
 
 
 			// 깊이/스텐실 뷰 설명 구조체
@@ -178,7 +184,7 @@ namespace sunny
 			}
 
 			// 깊이/스텐실 뷰 생성
-			m_context->GetDevice()->CreateDepthStencilView(m_textures[GeometryTextureType::DEPTH], &depthStencilViewDesc, &m_depthStencilView[1]);
+			m_context->GetDevice()->CreateDepthStencilView(m_textures[GeometryTextureType::SHADOW_DEPTH], &depthStencilViewDesc, &m_depthStencilView[1]);
 
 
 			// 깊이/스텐실 셰이더 리소스 뷰 설명 구조체
@@ -192,10 +198,10 @@ namespace sunny
 			}
 
 			// 셰이더 리소스 뷰 생성
-			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::DEPTH], &depthStencilShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::DEPTH]);
+			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::SHADOW_DEPTH], &depthStencilShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::SHADOW_DEPTH]);
 		}
 
-		void GeometryBuffer::InitCopyTarget()
+		void GeometryBuffer::InitCopyIDTarget()
 		{
 			D3D11_TEXTURE2D_DESC copyTextureDesc;
 			ZeroMemory(&copyTextureDesc, sizeof(copyTextureDesc));
@@ -216,14 +222,14 @@ namespace sunny
 			m_context->GetDevice()->CreateTexture2D(&copyTextureDesc, NULL, &m_copyTexture);
 		}
 
-		void GeometryBuffer::CopyInternal()
+		void GeometryBuffer::CopyIDInternal()
 		{
-			m_context->GetDeviceContext()->CopyResource(m_copyTexture, m_textures[GeometryTextureType::DIFFUSE]);
+			m_context->GetDeviceContext()->CopyResource(m_copyTexture, m_textures[GeometryTextureType::ID]);
 		}
 
-		const unsigned char* GeometryBuffer::GetDiffuseDataInternal()
+		const unsigned char* GeometryBuffer::GetIDDataInternal()
 		{
-			CopyInternal();
+			CopyIDInternal();
 
 			m_context->GetDeviceContext()->Map(m_copyTexture, NULL, D3D11_MAP_READ, NULL, &m_mappedSubresource);
 		
@@ -236,9 +242,9 @@ namespace sunny
 
 		void GeometryBuffer::BindInternal(GeometryTextureType type)
 		{
-			if( type == GeometryTextureType::DIFFUSE || type == GeometryTextureType::NORMAL )
-				m_context->GetDeviceContext()->OMSetRenderTargets(2, m_renderTargetViews, m_depthStencilView[0]);
-			else if ( type == GeometryTextureType::DEPTH )
+			if( type == GeometryTextureType::DIFFUSE || type == GeometryTextureType::NORMAL || type==GeometryTextureType::POSITION || type == GeometryTextureType::ID )
+				m_context->GetDeviceContext()->OMSetRenderTargets(4, m_renderTargetViews, m_depthStencilView[0]);
+			else if ( type == GeometryTextureType::SHADOW_DEPTH )
 				m_context->GetDeviceContext()->OMSetRenderTargets(0, NULL, m_depthStencilView[1]);			
 		}
 

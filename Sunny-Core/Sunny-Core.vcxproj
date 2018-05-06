@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="01_FRAMEWORK\app\Application.cpp" />
     <ClCompile Include="01_FRAMEWORK\app\Input.cpp" />
+    <ClCompile Include="01_FRAMEWORK\app\Server.cpp" />
     <ClCompile Include="01_FRAMEWORK\app\Window.cpp" />
     <ClCompile Include="01_FRAMEWORK\component\Component.cpp" />
     <ClCompile Include="01_FRAMEWORK\component\TransformComponent.cpp" />
@@ -46,6 +47,7 @@
     <ClCompile Include="01_FRAMEWORK\events\KeyEvent.cpp" />
     <ClCompile Include="01_FRAMEWORK\events\MouseEvent.cpp" />
     <ClCompile Include="01_FRAMEWORK\events\ResizeEvent.cpp" />
+    <ClCompile Include="01_FRAMEWORK\events\ServerEvent.cpp" />
     <ClCompile Include="01_FRAMEWORK\graphics\ModelManager.cpp" />
     <ClCompile Include="01_FRAMEWORK\maths\OBB.cpp" />
     <ClCompile Include="01_FRAMEWORK\maths\Ray.cpp" />
@@ -115,6 +117,7 @@
   <ItemGroup>
     <ClInclude Include="01_FRAMEWORK\app\Application.h" />
     <ClInclude Include="01_FRAMEWORK\app\Input.h" />
+    <ClInclude Include="01_FRAMEWORK\app\Server.h" />
     <ClInclude Include="01_FRAMEWORK\app\Window.h" />
     <ClInclude Include="01_FRAMEWORK\component\Component.h" />
     <ClInclude Include="01_FRAMEWORK\component\Components.h" />
@@ -149,9 +152,11 @@
     <ClInclude Include="01_FRAMEWORK\events\KeyEvent.h" />
     <ClInclude Include="01_FRAMEWORK\events\MouseEvent.h" />
     <ClInclude Include="01_FRAMEWORK\events\ResizeEvent.h" />
+    <ClInclude Include="01_FRAMEWORK\events\ServerEvent.h" />
     <ClInclude Include="01_FRAMEWORK\graphics\ModelManager.h" />
     <ClInclude Include="01_FRAMEWORK\maths\OBB.h" />
     <ClInclude Include="01_FRAMEWORK\maths\Ray.h" />
+    <ClInclude Include="07_SERVER\ChessProtocol.h" />
     <ClInclude Include="01_FRAMEWORK\SUNNY.h" />
     <ClInclude Include="05_GAME\assets\AssetData.h" />
     <ClInclude Include="05_GAME\assets\AssetLoader.h" />
@@ -315,7 +320,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -324,15 +329,15 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_WINSOCKAPI_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>$(VC_SourcePath)01_FRAMEWORK\dependency\freetype\include;C:\Users\adunstudio\Desktop\Sunny\Sunny-Core\01_FRAMEWORK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VC_SourcePath)01_FRAMEWORK\dependency\freetype\include;$(VC_SourcePath)01_FRAMEWORK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -352,7 +357,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -363,9 +368,9 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_WINSOCKAPI_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>$(VC_SourcePath)01_FRAMEWORK\dependency\freetype\include;C:\Users\adunstudio\Desktop\Sunny\Sunny-Core\01_FRAMEWORK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VC_SourcePath)01_FRAMEWORK\dependency\freetype\include;$(VC_SourcePath)01_FRAMEWORK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -373,6 +378,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

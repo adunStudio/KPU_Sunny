@@ -1,7 +1,5 @@
 #include "Input.h"
 
-#include <Windows.h>
-
 #include "../app/Window.h"
 #include "../events/Events.h"
 

@@ -44,7 +44,7 @@ namespace sunny
         public:
             KeyReleasedEvent(int button);
 
-            inline static Event::Type GetStaticType() { return Event::Type::SUNNY_KEY_PRESSED; }
+            inline static Event::Type GetStaticType() { return Event::Type::SUNNY_KEY_RELEASED; }
         };
     }
 }

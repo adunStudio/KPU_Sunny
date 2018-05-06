@@ -23,21 +23,27 @@ namespace sunny
 		{
 			if (buffer & GBufferType::DEFERRED)
 			{
-				ID3D11ShaderResourceView * diffuse_rv = directx::GeometryBuffer::GetShaderResource(GeometryTextureType::DIFFUSE);
-				ID3D11ShaderResourceView * normal_rv  = directx::GeometryBuffer::GetShaderResource(GeometryTextureType::NORMAL);
+				ID3D11ShaderResourceView * diffuse_rv    = directx::GeometryBuffer::GetShaderResource(GeometryTextureType::DIFFUSE);
+				ID3D11ShaderResourceView * normal_rv     = directx::GeometryBuffer::GetShaderResource(GeometryTextureType::NORMAL);
+				ID3D11ShaderResourceView * position_rv   = directx::GeometryBuffer::GetShaderResource(GeometryTextureType::POSITION);
+				ID3D11ShaderResourceView * depth_rv      = directx::GeometryBuffer::GetShaderResource(GeometryTextureType::DEPTH);
+				//ID3D11ShaderResourceView * id_rv         = directx::GeometryBuffer::GetShaderResource(GeometryTextureType::ID);
 				
 				ID3D11SamplerState* sampler = directx::GeometryBuffer::GetSamplerState(GeometryTextureType::DIFFUSE);
 
 				directx::Context::GetDeviceContext()->PSSetShaderResources(GBufferTextureIndex::DIFFUSE, 1, &diffuse_rv);
-				directx::Context::GetDeviceContext()->PSSetShaderResources(GBufferTextureIndex::NORMAL , 1, &normal_rv);
+				directx::Context::GetDeviceContext()->PSSetShaderResources(GBufferTextureIndex::NORMAL,  1, &normal_rv);
+				directx::Context::GetDeviceContext()->PSSetShaderResources(GBufferTextureIndex::POSITION,1, &position_rv);
+				directx::Context::GetDeviceContext()->PSSetShaderResources(GBufferTextureIndex::DEPTH,   1, &depth_rv);
+				//directx::Context::GetDeviceContext()->PSSetShaderResources(GBufferTextureIndex::ID ,     1, &id_rv);
 				directx::Context::GetDeviceContext()->PSSetSamplers(GBufferSapmaerIndex::DEFERRED_SAMPLER, 1, &sampler);
 			}
 
 			if (buffer & GBufferType::SHADOWMAP)
 			{
-				ID3D11ShaderResourceView * shadow_rv = directx::GeometryBuffer::GetShaderResource(GeometryTextureType::DEPTH);
+				ID3D11ShaderResourceView * shadow_rv = directx::GeometryBuffer::GetShaderResource(GeometryTextureType::SHADOW_DEPTH);
 
-				ID3D11SamplerState* sampler = directx::GeometryBuffer::GetSamplerState(GeometryTextureType::DEPTH);
+				ID3D11SamplerState* sampler = directx::GeometryBuffer::GetSamplerState(GeometryTextureType::SHADOW_DEPTH);
 
 				directx::Context::GetDeviceContext()->PSSetShaderResources(GBufferTextureIndex::SHADOW, 1, &shadow_rv);
 				directx::Context::GetDeviceContext()->PSSetSamplers(GBufferSapmaerIndex::SHADOW_SMAPLER, 1, &sampler);
@@ -46,8 +52,8 @@ namespace sunny
 
 		void GBuffer::Bind(GBufferType type)
 		{
-			if(type == GBufferType::DEFERRED) m_buffer->Bind(GeometryTextureType::DIFFUSE);
-			if (type == GBufferType::SHADOWMAP) m_buffer->Bind(GeometryTextureType::DEPTH);
+			if(type == GBufferType::DEFERRED)   m_buffer->Bind(GeometryTextureType::DIFFUSE);
+			if (type == GBufferType::SHADOWMAP) m_buffer->Bind(GeometryTextureType::SHADOW_DEPTH);
 		}
 
 		void GBuffer::UnBind()
@@ -55,9 +61,9 @@ namespace sunny
 			m_buffer->UnBind();
 		}
 
-		const unsigned char* GBuffer::GetDiffuseData()
+		const unsigned char* GBuffer::GetIDData()
 		{
-			return m_buffer->GetDiffuseData();
+			return m_buffer->GetIDData();
 		}
 
 		void GBuffer::Draw()

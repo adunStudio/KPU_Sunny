@@ -43,7 +43,7 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 
 	std::string skyBoxFiles[1] =
 	{
-		"/CUBE/CubeMap1.tga",
+		"/CUBE/skybox.png",
 		/*"/CUBE/CubeMap2.tga",
 		"/CUBE/CubeMap3.tga",
 		"/CUBE/CubeMap4.tga",
@@ -76,7 +76,7 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 
 	bool parsingSuccessful = reader.parse(mapData.c_str(), root);
 
-	if (parsingSuccessful)
+	/*if (parsingSuccessful)
 	{
 		for (int i = 0; i < root.size(); ++i)
 		{
@@ -94,17 +94,22 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 
 			m_mapObjects.push_back(a);
 
+			//std::cout << a->GetIDColor() << std::endl;
+
 	
 			a->GetTransformComponent()->SetPosition(translation * 100);
 			a->GetTransformComponent()->Rotate(rotation);
 			a->GetTransformComponent()->SetScale(scale);
 			
-			Add(a);
+			//Add(a);
 		}
-	}
+	}*/
 
 
-	
+	Model* m = new Model("/SUN/ch1.sun");
+	e2 = new Entity(m->GetMesh(), new Texture2D("/TEXTURE/body.png"), new Texture2D("/TEXTURE/face.png"), mat4::Identity() * mat4::Translate(vec3(-300, 0, 0)) * mat4::Scale(vec3(15, 15, 15)));
+
+	Add(e2);
 	/*
 	Add(tree1);
 	Add(tree2);
@@ -128,6 +133,8 @@ void TestLayer3D::OnTick()
 
 void TestLayer3D::OnUpdate(const utils::Timestep& ts)
 {
+	e2->PlayAnimation();
+
 	mat4 vp = GetCamera()->GetProjectionMatrix() * GetCamera()->GetViewMatrix();
 	m_SkyboxMaterial->SetUniform("invViewProjMatrix", mat4::Invert(vp));
 
@@ -202,12 +209,12 @@ bool TestLayer3D::OnMousePressedEvent(MousePressedEvent& event)
 	float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
 
 	maths::vec2 mouse(event.GetX() * scaleX, event.GetY() * scaleY);
-	m_mousePicker->Update(mouse);
+	//m_mousePicker->Update(mouse);
 
 	//std::cout << m_mousePicker->GetRay() << std::endl;
 
 	// 성능 저하의 원인 (레이캐스트 피킹방식으로 바꿔야 한다.)
-	const unsigned char* diffuseData = directx::GeometryBuffer::GetDiffuseData();
+	const unsigned char* diffuseData = directx::GeometryBuffer::GetIDData();
 	int rowPitch = directx::GeometryBuffer::GetMapRowPitch();
 
 	int col = event.GetX();
@@ -225,7 +232,7 @@ bool TestLayer3D::OnMousePressedEvent(MousePressedEvent& event)
 	unsigned int aa = (A << 24) | (R << 16) | (G << 8) | B;
 	unsigned int id = R + G * 256 + B * 256 * 256;
 
-	std::cout << id << std::endl;
+	//std::cout << id << std::endl;
 
 	for (auto object : m_mapObjects)
 	{

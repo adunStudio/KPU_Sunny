@@ -8,15 +8,13 @@
 #include "06_LAYER/ChessLayer.h"
 #include "06_LAYER/TestLayer3D.h"
 
-#include <io.h>
-
 
 
 
 class Game : public Application
 {
 public:
-	Game() : Application("sunny", { 1280, 720, false, false })
+	Game() : Application("sunny", { 1600, 900, false, true })
 	{}
 
 	~Game()
@@ -35,9 +33,17 @@ public:
 		VFS::Get()->Mount("SUN",     "04_ASSET/SUN");
 		VFS::Get()->Mount("TEXTURE", "04_ASSET/TEXTURE");
 		VFS::Get()->Mount("RAW",     "04_ASSET/RAW");
+		
+		//SetServer(new ChessServer("127.0.0.1", "7711"));
+		//new Server("127.0.0.1", "7711");
 
-		game::AssetLoader::LoadModel("/JSON/MODEL/Trees.json");
-		game::AssetLoader::LoadModel("/JSON/MODEL/LowPolyNatures.json");
+		Server::Connect("127.0.0.1", "7711");
+
+		//game::AssetLoader::LoadModel("/JSON/MODEL/Trees.json");
+		//game::AssetLoader::LoadModel("/JSON/MODEL/LowPolyNatures.json");
+
+	
+		std::cout << Server::IsConnected() << std::endl;
 
 		PushOverlay(new TestLayer2D());
 		//PushOverlay(new TestLayer3D());

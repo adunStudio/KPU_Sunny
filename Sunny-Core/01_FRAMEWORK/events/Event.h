@@ -25,7 +25,10 @@ namespace sunny
 				SUNNY_MOUSE_RELEASED = BIT(3),
 				SUNNY_MOUSE_MOVED    = BIT(4),
 
-				SUNNY_WINDOW_RESIZE  = BIT(5)
+				SUNNY_WINDOW_RESIZE  = BIT(5),
+
+				SUNNY_SERVER_PACKET  = BIT(6),
+				SUNNY_SERVER_CLOSE   = BIT(7)
             };
 
         protected:

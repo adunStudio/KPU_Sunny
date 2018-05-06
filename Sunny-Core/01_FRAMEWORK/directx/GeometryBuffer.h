@@ -10,15 +10,18 @@ namespace sunny
 	{
 		enum GeometryTextureType : int
 		{
-			DIFFUSE = 0,
-			NORMAL  = 1,
-			DEPTH   = 2
+			DIFFUSE        = 0,
+			NORMAL         = 1,
+			POSITION       = 2,
+			ID             = 3,
+			DEPTH          = 4,
+			SHADOW_DEPTH   = 5
 		};
 
 		class GeometryBuffer
 		{
 		public:
-			const static unsigned int BUFFER_COUNT = 3;
+			const static unsigned int BUFFER_COUNT = 6;
 
 			static void Init();
 
@@ -38,7 +41,7 @@ namespace sunny
 			ID3D11ShaderResourceView* m_shaderResourceViews[BUFFER_COUNT];
 			ID3D11SamplerState*       m_samplers[2];
 
-			ID3D11Texture2D*          m_textures[3];
+			ID3D11Texture2D*          m_textures[BUFFER_COUNT];
 
 			D3D11_MAPPED_SUBRESOURCE  m_mappedSubresource; 
 			ID3D11Texture2D*          m_copyTexture;
@@ -48,12 +51,12 @@ namespace sunny
 		protected:
 			void InitInternal();
 
-			void InitRenderTarget();
-			void InitDepthStencil();
-			void InitCopyTarget();
+			void InitDeferredTarget();
+			void InitShadowTarget();
+			void InitCopyIDTarget();
 
-			void CopyInternal();
-			const unsigned char* GetDiffuseDataInternal();
+			void CopyIDInternal();
+			const unsigned char* GetIDDataInternal();
 
 			void BindInternal(GeometryTextureType type);
 			void UnBindInternal();
@@ -73,7 +76,7 @@ namespace sunny
 
 			inline static ID3D11RenderTargetView* GetRenderTargeBuffer(GeometryTextureType type)
 			{	
-				if (type == GeometryTextureType::DEPTH) return nullptr;
+				if (type == GeometryTextureType::SHADOW_DEPTH) return nullptr;
 				
 				return s_instance->m_renderTargetViews[type];
 			}
@@ -84,14 +87,14 @@ namespace sunny
 
 			inline static ID3D11SamplerState* GetSamplerState(GeometryTextureType type)
 			{ 
-				if (type == GeometryTextureType::DEPTH) s_instance->m_samplers[1];
+				if (type == GeometryTextureType::SHADOW_DEPTH) s_instance->m_samplers[1];
 
 				return s_instance->m_samplers[0];
 			}
 
 			inline static int GetMapRowPitch() { return s_instance->m_mappedSubresource.RowPitch; }
 
-			inline static const unsigned char* GetDiffuseData() { return s_instance->GetDiffuseDataInternal(); }
+			inline static const unsigned char* GetIDData() { return s_instance->GetIDDataInternal(); }
 		};
 	}
 }

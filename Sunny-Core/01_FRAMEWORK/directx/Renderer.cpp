@@ -41,8 +41,10 @@ namespace sunny
 		
 			if (buffer & RendererBufferType::RENDERER_BUFFER_DEFERRED)
 			{
-				Context::GetDeviceContext()->ClearRenderTargetView(GeometryBuffer::GetRenderTargeBuffer(GeometryTextureType::DIFFUSE), color);
-				Context::GetDeviceContext()->ClearRenderTargetView(GeometryBuffer::GetRenderTargeBuffer(GeometryTextureType::NORMAL), color);
+				Context::GetDeviceContext()->ClearRenderTargetView(GeometryBuffer::GetRenderTargeBuffer(GeometryTextureType::DIFFUSE),  color);
+				Context::GetDeviceContext()->ClearRenderTargetView(GeometryBuffer::GetRenderTargeBuffer(GeometryTextureType::NORMAL),   color);
+				Context::GetDeviceContext()->ClearRenderTargetView(GeometryBuffer::GetRenderTargeBuffer(GeometryTextureType::POSITION), color);
+				Context::GetDeviceContext()->ClearRenderTargetView(GeometryBuffer::GetRenderTargeBuffer(GeometryTextureType::ID), color);
 				Context::GetDeviceContext()->ClearDepthStencilView(GeometryBuffer::GetDepthStencilBuffer(0), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 			}
 

@@ -5,11 +5,15 @@
 #pragma once
 
 #include <tchar.h>
+#include <WinSock2.h>
 #include <Windows.h>
 #include <Windowsx.h>
 #include "../include.h"
 #include "../events/Events.h"
 #include "input.h"
+#include "server.h"
+
+#define	WM_SOCKET WM_USER + 1
 
 namespace sunny
 {
@@ -34,14 +38,16 @@ namespace sunny
         std::string m_title;
         WindowProperties m_properties;
         bool m_closed;
-        void* m_handle;
+        HWND m_handle;
 
         WindowEventCallback m_eventCallback;
 
-		InputManager* m_inputManager;
+		InputManager*  m_inputManager;
+		ServerManager* m_serverManager;
 
 		// ÇØ»óµµ
 		int m_resolutionWidth, m_resolutionHeight;
+
 
 	public:
 		static Window* GetWindowClass(void* handle = nullptr);
@@ -68,7 +74,10 @@ namespace sunny
 		void         SetVsnyc(bool enabled);
 		inline bool  GetVsnyc() const { return m_properties.vsync; }
 
-		inline InputManager* GetInputManager() const { return m_inputManager; }
+		inline InputManager*   GetInputManager() const { return m_inputManager;  }
+		inline ServerManager* GetServerManager() const { return m_serverManager; }
+
+		inline HWND GetHandle() { return m_handle; }
 
 		void SetEventCallback(const WindowEventCallback& callback);
 

@@ -21,6 +21,7 @@ class TestLayer3D : public Layer3D
 {
 public:
 	Entity* m_entity;
+	Entity* e2;
 	MaterialInstance* m_SkyboxMaterial;
 
 	MousePicker* m_mousePicker;

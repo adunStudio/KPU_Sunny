@@ -16,15 +16,18 @@ namespace sunny
 
 		enum GBufferTextureIndex
 		{
-			DIFFUSE = 8,
-			NORMAL  = 9,
-			SHADOW  = 7
+			DIFFUSE  = 7,
+			NORMAL   = 8,
+			POSITION = 9,
+			DEPTH    = 10,
+			ID       = 11,
+			SHADOW   = 12,
 		};
 
 		enum GBufferSapmaerIndex
 		{
-			DEFERRED_SAMPLER  = 8,
-			SHADOW_SMAPLER    = 7
+			DEFERRED_SAMPLER  = 1,
+			SHADOW_SMAPLER    = 2
 		};
 
 		class GBuffer
@@ -44,7 +47,7 @@ namespace sunny
 			void Bind(GBufferType type);
 			void UnBind();
 
-			const unsigned char* GetDiffuseData();
+			const unsigned char* GetIDData();
 
 			void Draw();
 		};

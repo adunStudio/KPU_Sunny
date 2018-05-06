@@ -58,6 +58,8 @@ namespace sunny
 
 			m_renderer->Begin();
 			
+			OnRender(*m_renderer);
+
 			for (const Renderable2D* renderable : m_renderables)
 			{
 				renderable->Submit(m_renderer);
@@ -66,7 +68,6 @@ namespace sunny
 			m_renderer->End();
 			m_renderer->Present();
 
-			OnRender(*m_renderer);
 
 			//m_renderables.clear();
 		}

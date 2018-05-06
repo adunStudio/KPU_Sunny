@@ -9,5 +9,6 @@
 #include "KeyEvent.h"
 #include "MouseEvent.h"
 #include "ResizeEvent.h"
+#include "ServerEvent.h"
 
 #include "EventDispatcher.h"

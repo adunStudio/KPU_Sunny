@@ -54,6 +54,9 @@ namespace sunny
 			unsigned char* m_VSSunnyUniformBuffer;                                  // 기본   버텍스 셰이더 CBuffer                    
 			unsigned int   m_VSSunnyUniformBufferSize;
 
+			unsigned char* m_PSSunnyUniformBuffer;                                  // 기본   버텍스 셰이더 CBuffer                    
+			unsigned int   m_PSSunnyUniformBufferSize;
+
 			unsigned char* m_VSSunnyShadowUniformBuffer;                            // 그림자 버텍스 셰이더 CBuffer                    
 			unsigned int   m_VSSunnyShadowUniformBufferSize;
 
@@ -65,6 +68,7 @@ namespace sunny
 			;
 
 			std::vector<unsigned int> m_VSSunnyUniformBufferOffsets;                   // 기본   버텍스 셰이더 CBuffer 오프셋
+			std::vector<unsigned int> m_PSSunnyUniformBufferOffsets;                   // 기본   픽셀   셰이더 CBuffer 오프셋
 			std::vector<unsigned int> m_VSSunnyShadowUniformBufferOffsets;             // 그림자 버텍스 셰이더 CBuffer 오프셋
 			std::vector<unsigned int> m_PSSunnyForwardUniformBufferOffsets;            // 포워드 픽셀 셰이더 CBuffer 오프셋
 			std::vector<unsigned int> m_PSSunnyGeometryUniformBufferOffsets;           // 지오메트리 픽셀 셰이더 CBuffer 오프셋
@@ -96,6 +100,7 @@ namespace sunny
 			void ForwardPresentInternal();
 
 			void SetSunnyVSUniforms(directx::Shader* shader);
+			void SetSunnyPSUniforms(directx::Shader* shader);
 			void SetSunnyShadowVSUniforms(directx::Shader* shader);
 			void SetSunnyForwardUniforms(directx::Shader* shader);
 			void SetSunnyGeometryUniforms(directx::Shader* shader);

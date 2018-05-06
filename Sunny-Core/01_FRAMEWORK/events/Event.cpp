@@ -35,6 +35,10 @@ namespace sunny
                     return "SUNNY_MOUSE_MOVED";
 				case Type::SUNNY_WINDOW_RESIZE:
 					return "SUNNY_WINDOW_RESIZE";
+				case Type::SUNNY_SERVER_PACKET:
+					return "SUNNY_SERVER_PACKET";
+				case Type::SUNNY_SERVER_CLOSE:
+					return "SUNNY_SERVER_CLOSE";
             }
             return "SUNNY_INVALID";
         }

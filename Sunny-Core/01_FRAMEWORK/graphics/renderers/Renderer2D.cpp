@@ -92,6 +92,7 @@ namespace sunny
 			const Rectangle& bounds = renderable->GetBounds();
 			const vec3 min = bounds.GetMinimumBound();
 			const vec3 max = bounds.GetMaximumBound();
+			
 
 			const maths::vec4& color        = renderable->GetColor();
 			const std::vector<vec2>& uv     = renderable->GetUVs();
@@ -111,8 +112,12 @@ namespace sunny
 				ms = SubmitTexture(m_mask->texture);
 			}
 
+			vec3 position = renderable->GetPosition();
+			vec2 size = renderable->GetSize();
+
 			// 시계 방향
-			vec3 vertex = *m_transformationBack * min;
+			//vec3 vertex = *m_transformationBack * min;
+			vec3 vertex = *m_transformationBack * position;
 			m_buffer->vertex = vertex;
 			m_buffer->uv = uv[0];
 			m_buffer->mask_uv = maskTransform * vertex;
@@ -121,7 +126,8 @@ namespace sunny
 			m_buffer->color = color;
 			m_buffer++;
 
-			vertex = *m_transformationBack * vec3(max.x, min.y);
+			//vertex = *m_transformationBack * vec3(max.x, min.y);
+			vertex = *m_transformationBack * vec3(position.x + size.x, position.y);
 			m_buffer->vertex = vertex;
 			m_buffer->uv = uv[1];
 			m_buffer->mask_uv = maskTransform * vertex;
@@ -130,7 +136,8 @@ namespace sunny
 			m_buffer->color = color;
 			m_buffer++;
 
-			vertex = *m_transformationBack * max;
+			//vertex = *m_transformationBack * max;
+			vertex = *m_transformationBack * vec3(position.x + size.x, position.y + size.y);
 			m_buffer->vertex = vertex;
 			m_buffer->uv = uv[2];
 			m_buffer->mask_uv = maskTransform * vertex;
@@ -139,7 +146,8 @@ namespace sunny
 			m_buffer->color = color;
 			m_buffer++;
 
-			vertex = *m_transformationBack * vec3(min.x, max.y);
+			//vertex = *m_transformationBack * vec3(min.x, max.y);
+			vertex = *m_transformationBack * vec3(position.x, position.y + size.y);
 			m_buffer->vertex = vertex;
 			m_buffer->uv = uv[3];
 			m_buffer->mask_uv = maskTransform * vertex;
