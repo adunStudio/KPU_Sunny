@@ -108,6 +108,11 @@ namespace sunny
 			return lightSetup;
 		}
 
+		void Layer3D::SetSkybox(Renderable3D* renderable)
+		{
+			m_renderer->SetSkybox(renderable);
+		}
+
 		bool Layer3D::OnResize(unsigned int width, unsigned int height)
 		{
 			m_renderer->SetScreenBufferSize(width, height);

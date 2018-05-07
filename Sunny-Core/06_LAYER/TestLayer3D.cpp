@@ -44,15 +44,6 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 	std::string skyBoxFiles[1] =
 	{
 		"/CUBE/skybox.png",
-		/*"/CUBE/CubeMap2.tga",
-		"/CUBE/CubeMap3.tga",
-		"/CUBE/CubeMap4.tga",
-		"/CUBE/CubeMap5.tga",
-		"/CUBE/CubeMap6.tga",
-		"/CUBE/CubeMap7.tga",
-		"/CUBE/CubeMap8.tga",
-		"/CUBE/CubeMap9.tga",
-		"/CUBE/CubeMap10.tga",*/
 	};
 
 	TextureCube* environment = new TextureCube("skybox", skyBoxFiles, 1);
@@ -63,7 +54,7 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 	m_SkyboxMaterial->SetTexture("u_EnvironmentMap", environment);
 	Entity* skyboxEntity = new Entity(MeshFactory::CreateQuad(-1, -1, 2, 2));
 	skyboxEntity->SetMaterial(m_SkyboxMaterial);
-	Add(skyboxEntity);
+	SetSkybox(skyboxEntity);
 
 
 
@@ -76,7 +67,7 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 
 	bool parsingSuccessful = reader.parse(mapData.c_str(), root);
 
-	/*if (parsingSuccessful)
+	if (parsingSuccessful)
 	{
 		for (int i = 0; i < root.size(); ++i)
 		{
@@ -85,8 +76,8 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 			name[0] = toupper(name[0]);
 
 			maths::vec3 translation = vec3(root[i]["position"]["x"].asFloat(), root[i]["position"]["y"].asFloat(), root[i]["position"]["z"].asFloat());
-			maths::vec3 rotation = vec3(root[i]["rotation"]["x"].asFloat(), root[i]["rotation"]["y"].asFloat(), root[i]["rotation"]["z"].asFloat());
-			maths::vec3 scale = vec3(root[i]["scale"]["x"].asFloat(), root[i]["scale"]["y"].asFloat(), root[i]["scale"]["z"].asFloat());
+			maths::vec3 rotation    = vec3(root[i]["rotation"]["x"].asFloat(), root[i]["rotation"]["y"].asFloat(), root[i]["rotation"]["z"].asFloat());
+			maths::vec3 scale       = vec3(root[i]["scale"]["x"].asFloat(), root[i]["scale"]["y"].asFloat(), root[i]["scale"]["z"].asFloat());
 
 			mat4 position = mat4::Identity();
 
@@ -96,18 +87,18 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 
 			//std::cout << a->GetIDColor() << std::endl;
 
-	
 			a->GetTransformComponent()->SetPosition(translation * 100);
 			a->GetTransformComponent()->Rotate(rotation);
 			a->GetTransformComponent()->SetScale(scale);
+		
 			
-			//Add(a);
+			Add(a);
 		}
-	}*/
+	}
 
 
-	Model* m = new Model("/SUN/ch1.sun");
-	e2 = new Entity(m->GetMesh(), new Texture2D("/TEXTURE/body.png"), new Texture2D("/TEXTURE/face.png"), mat4::Identity() * mat4::Translate(vec3(-300, 0, 0)) * mat4::Scale(vec3(15, 15, 15)));
+	Model* m = new Model("/SUN/kick.sun");
+	e2 = new Entity(m->GetMesh(), new Texture2D("/TEXTURE/test.png"), new Texture2D("/TEXTURE/face.png"), mat4::Identity() * mat4::Translate(vec3(-300, 0, 100)) * mat4::Scale(vec3(100, 100, 100)));
 
 	Add(e2);
 	/*
@@ -123,6 +114,7 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 	Add(tree10);
 	Add(tree11);
 	Add(tree12);*/
+
 
 }
 

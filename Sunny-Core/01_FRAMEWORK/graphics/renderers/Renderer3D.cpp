@@ -61,6 +61,7 @@ namespace sunny
 		};
 
 		Renderer3D::Renderer3D()
+		: m_skybox(nullptr)
 		{
 			SetScreenBufferSize(Application::GetApplication().GetWindowWidth(), Application::GetApplication().GetWindowHeight());
 			Init();
@@ -247,6 +248,8 @@ namespace sunny
 
 		void Renderer3D::Present()
 		{		
+			SkyboxPresentInternal();
+
 			ForwardPresentInternal();
 		}
 
@@ -326,6 +329,19 @@ namespace sunny
 			m_gBuffer->Draw();
 
 			
+		}
+
+		void Renderer3D::SkyboxPresentInternal()
+		{
+			if (!m_skybox) return;
+
+			directx::Renderer::SetDepthTesting(false);
+
+			directx::Shader* shader = m_skybox->GetShader();
+
+			shader->Bind();
+
+			m_skybox->Render();
 		}
 
 		void Renderer3D::SetSunnyVSUniforms(directx::Shader* shader)

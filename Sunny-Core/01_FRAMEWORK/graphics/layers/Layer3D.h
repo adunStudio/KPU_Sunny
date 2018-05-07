@@ -58,6 +58,8 @@ namespace sunny
 			void PushLightSetup(LightSetup* lightSetup);
 			LightSetup* PopLightSetup();
 
+			void SetSkybox(Renderable3D* renderable);
+
 		protected:
 			bool OnResize(unsigned int whdith, unsigned int height) override;
 		};

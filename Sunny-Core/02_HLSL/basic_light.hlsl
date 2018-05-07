@@ -135,8 +135,7 @@ float4 PSMain(in VSOutput input) : SV_TARGET
 {
 	//SUNNY_Light.position = normalize(float3(input.lightPosition.x, input.lightPosition.y, input.lightPosition.z));
 
-//	float4 texColor = (float4)SUNNY_Color;
-	float4 texColor = float4(1.0f, 0, 0, 1.0f);
+	float4 texColor = (float4)SUNNY_Color;
 
 	if (SUNNY_HasTexture >= 1)
 	{
@@ -157,8 +156,6 @@ float4 PSMain(in VSOutput input) : SV_TARGET
 		}
 
 	}
-
-	return texColor;
 
 	float3 color = texColor.xyz;
 

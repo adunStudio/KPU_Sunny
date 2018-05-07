@@ -37,6 +37,8 @@ namespace sunny
 
 			LightCamera* m_lightCamera;
 
+			Renderable3D* m_skybox;
+
 			directx::Shader* m_default_forward_shader;          // 포워드     셰이더
 			directx::Shader* m_default_geometry_shader;         // 지오메트리 셰이더 
 			directx::Shader* m_default_shadow_shader;           // 그림자     셰이더 
@@ -92,12 +94,16 @@ namespace sunny
 			void End();
 			void Present();
 
+			inline void SetSkybox(Renderable3D* renderable) { m_skybox = renderable; }
+
 			inline const void SetScreenBufferSize(unsigned int width, unsigned int height) { m_screenBufferWidth = width; m_screenBufferHeight = height; }
 		
 		private:
 			void MakeShadowGeometryBuffer();
 
 			void ForwardPresentInternal();
+
+			void SkyboxPresentInternal();
 
 			void SetSunnyVSUniforms(directx::Shader* shader);
 			void SetSunnyPSUniforms(directx::Shader* shader);

@@ -100,8 +100,6 @@ void ChessLayer::OnEvent(Event& event)
 
 bool ChessLayer::OnKeyPressedEvent(KeyPressedEvent& event)
 {
-	//if (event.GetRepeat()) return false;
-
 	SOCKET socket = Server::GetSocket();
 
 	cs_packet_move* packet = reinterpret_cast<cs_packet_move*>(m_send_buffer);
@@ -129,6 +127,8 @@ bool ChessLayer::OnKeyPressedEvent(KeyPressedEvent& event)
 		break;
 	}
 
+
+	
 	if (packet->dir != 100)
 	{
 		int ret = WSASend(socket, &m_send_wsabuf, 1, &m_io_flag, 0, NULL, NULL);
@@ -187,8 +187,6 @@ void ChessLayer::ProcessPacket(char* ptr)
 {
 	switch (ptr[1])
 	{
-
-
 	case SC_PUT_PLAYER:
 	{
 		sc_packet_put_player* packet = reinterpret_cast<sc_packet_put_player*>(ptr);

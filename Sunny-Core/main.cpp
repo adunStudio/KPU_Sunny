@@ -15,6 +15,7 @@ class Game : public Application
 {
 public:
 	Game() : Application("sunny", { 1600, 900, false, true })
+		//Game() : Application("sunny", { 600, 600, false, true })
 	{}
 
 	~Game()
@@ -22,8 +23,6 @@ public:
 
 	void Init() override
 	{
-		//setlocale(LC_ALL, "korean");
-
 		Application::Init();
 
 		VFS::Get()->Mount("HLSL",    "02_HLSL");
@@ -34,17 +33,22 @@ public:
 		VFS::Get()->Mount("TEXTURE", "04_ASSET/TEXTURE");
 		VFS::Get()->Mount("RAW",     "04_ASSET/RAW");
 		
-		//SetServer(new ChessServer("127.0.0.1", "7711"));
-		//new Server("127.0.0.1", "7711");
-
 		Server::Connect("127.0.0.1", "7711");
 
-		//game::AssetLoader::LoadModel("/JSON/MODEL/Trees.json");
-		//game::AssetLoader::LoadModel("/JSON/MODEL/LowPolyNatures.json");
+
+		if (Server::IsConnected())
+			cout << "서버 연결 완료" << endl;
+		else
+			cout << "서버 연결 실패" << endl;
+
+
+
+
+
+		game::AssetLoader::LoadModel("/JSON/MODEL/Trees.json");
+		game::AssetLoader::LoadModel("/JSON/MODEL/LowPolyNatures.json");
 
 	
-		std::cout << Server::IsConnected() << std::endl;
-
 		PushOverlay(new TestLayer2D());
 		//PushOverlay(new TestLayer3D());
 		//PushOverlay(new ChessLayer());
