@@ -14,8 +14,8 @@
 class Game : public Application
 {
 public:
-	Game() : Application("sunny", { 1600, 900, false, true })
-		//Game() : Application("sunny", { 600, 600, false, true })
+	Game() : Application("sunny", { 1600, 900, false, false })
+	//	Game() : Application("sunny", { 600, 600, false, true })
 	{}
 
 	~Game()

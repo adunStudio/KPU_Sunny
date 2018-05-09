@@ -297,6 +297,12 @@
     <ClCompile Include="01_FRAMEWORK\graphics\TextureManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="01_FRAMEWORK\graphics\cameras\QuaterCamera.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="05_GAME\graphics\Animation3D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="01_FRAMEWORK\app\Application.h">
@@ -645,6 +651,15 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="07_SERVER\ChessProtocol.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\graphics\cameras\QuaterCamera.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\graphics\Animation3D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\graphics\Bullet.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

@@ -48,11 +48,13 @@
     <ClCompile Include="01_FRAMEWORK\events\MouseEvent.cpp" />
     <ClCompile Include="01_FRAMEWORK\events\ResizeEvent.cpp" />
     <ClCompile Include="01_FRAMEWORK\events\ServerEvent.cpp" />
+    <ClCompile Include="01_FRAMEWORK\graphics\cameras\QuaterCamera.cpp" />
     <ClCompile Include="01_FRAMEWORK\graphics\ModelManager.cpp" />
     <ClCompile Include="01_FRAMEWORK\maths\OBB.cpp" />
     <ClCompile Include="01_FRAMEWORK\maths\Ray.cpp" />
     <ClCompile Include="05_GAME\assets\AssetData.cpp" />
     <ClCompile Include="05_GAME\assets\AssetLoader.cpp" />
+    <ClCompile Include="05_GAME\graphics\Animation3D.cpp" />
     <ClCompile Include="05_GAME\graphics\Model3D.cpp" />
     <ClCompile Include="06_LAYER\BossLayer.cpp" />
     <ClCompile Include="06_LAYER\ChessLayer.cpp" />
@@ -153,9 +155,12 @@
     <ClInclude Include="01_FRAMEWORK\events\MouseEvent.h" />
     <ClInclude Include="01_FRAMEWORK\events\ResizeEvent.h" />
     <ClInclude Include="01_FRAMEWORK\events\ServerEvent.h" />
+    <ClInclude Include="01_FRAMEWORK\graphics\cameras\QuaterCamera.h" />
     <ClInclude Include="01_FRAMEWORK\graphics\ModelManager.h" />
     <ClInclude Include="01_FRAMEWORK\maths\OBB.h" />
     <ClInclude Include="01_FRAMEWORK\maths\Ray.h" />
+    <ClInclude Include="05_GAME\graphics\Animation3D.h" />
+    <ClInclude Include="05_GAME\graphics\Bullet.h" />
     <ClInclude Include="07_SERVER\ChessProtocol.h" />
     <ClInclude Include="01_FRAMEWORK\SUNNY.h" />
     <ClInclude Include="05_GAME\assets\AssetData.h" />
