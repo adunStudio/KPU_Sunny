@@ -46,14 +46,14 @@ public:
 
 
 
-		//game::AssetLoader::LoadModel("/JSON/MODEL/Trees.json");
-		//game::AssetLoader::LoadModel("/JSON/MODEL/LowPolyNatures.json");
+		game::AssetLoader::LoadModel("/JSON/MODEL/Trees.json");
+		game::AssetLoader::LoadModel("/JSON/MODEL/LowPolyNatures.json");
 
 	
-		//PushOverlay(new TestLayer2D());
+		PushOverlay(new TestLayer2D());
 		//PushOverlay(new TestLayer3D());
 		//PushOverlay(new ChessLayer());
-		PushOverlay(new RoomLayer2D());
+		//PushOverlay(new RoomLayer2D());
 		//PushOverlay(new TestLayer3D());
 	}
 };
