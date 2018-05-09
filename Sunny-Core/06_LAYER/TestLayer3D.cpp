@@ -20,8 +20,9 @@ TestLayer3D::~TestLayer3D()
 
 void TestLayer3D::OnInit(Renderer3D& renderer)
 {
-	Model* a = new Model("/OBJ/sphere.obj");
-	Entity* e = new Entity(a->GetMesh(), RGBA(1.0, 0, 0, 1.0));
+
+	m_sphere = new Model("/OBJ/sphere.obj");
+	Entity* e = new Entity(m_sphere->GetMesh(), RGBA(1.0, 0, 0, 1.0));
 	Add(e);
 
 	m_mousePicker = new MousePicker(GetCamera());
@@ -37,9 +38,9 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
 	Entity* yAxis = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
 	Entity* zAxis = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
-	Add(xAxis);
-	Add(yAxis);
-	Add(zAxis);
+	AddStatic(xAxis);
+	AddStatic(yAxis);
+	AddStatic(zAxis);
 
 	std::string skyBoxFiles[1] =
 	{
@@ -92,28 +93,34 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 			a->GetTransformComponent()->SetScale(scale);
 		
 			
-			Add(a);
+			AddStatic(a);
 		}
 	}
 
 
-	Model* m = new Model("/SUN/kick.sun");
-	e2 = new Entity(m->GetMesh(), new Texture2D("/TEXTURE/test.png"), new Texture2D("/TEXTURE/face.png"), mat4::Identity() * mat4::Translate(vec3(-300, 0, 100)) * mat4::Scale(vec3(100, 100, 100)));
+	Model* attack_basic = new Model("/SUN/14_attack_basic.sun");
+	Model* idle_attack  = new Model("/SUN/14_idle_attack.sun");
+	Model* idle_basic   = new Model("/SUN/14_idle_basic.sun");
+	Model* roll_basic   = new Model("/SUN/14_roll_basic.sun");
+	Model* run_attack   = new Model("/SUN/14_run_attack.sun");
+	Model* run_basic    = new Model("/SUN/14_run_basic.sun");
 
-	Add(e2);
-	/*
-	Add(tree1);
-	Add(tree2);
-	Add(tree3);
-	Add(tree4);
-	Add(tree5);
-	Add(tree6);
-	Add(tree7);
-	Add(tree8);
-	Add(tree9);
-	Add(tree10);
-	Add(tree11);
-	Add(tree12);*/
+	vector<Mesh*> animations;
+	animations.push_back(attack_basic->GetMesh());
+	animations.push_back(idle_attack->GetMesh());
+	animations.push_back(idle_basic->GetMesh());
+	animations.push_back(roll_basic->GetMesh());
+	animations.push_back(run_attack->GetMesh());
+	animations.push_back(run_basic->GetMesh());
+
+	m_character = new Animation3D(animations, new Texture2D("/TEXTURE/14_body.png"), new Texture2D("/TEXTURE/14_face.png"));
+	m_character->GetTransformComponent()->SetPosition(vec3(0, 0, 0));
+	m_character->GetTransformComponent()->SetRotation(vec3(0, 0, 0));
+	m_character->GetTransformComponent()->SetScale(vec3(100, 100, 100));
+	SetCamera(new QuaterCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.0f), m_character));
+
+	Add(m_character);
+
 
 
 }
@@ -125,23 +132,47 @@ void TestLayer3D::OnTick()
 
 void TestLayer3D::OnUpdate(const utils::Timestep& ts)
 {
-	e2->PlayAnimation();
+	if (Input::IsKeyPressed(SUNNY_KEY_A))		m_character->GetTransformComponent()->Translate(vec3(-5, 0, 0));
+	if (Input::IsKeyPressed(SUNNY_KEY_D))		m_character->GetTransformComponent()->Translate(vec3(5, 0, 0));
+	if (Input::IsKeyPressed(SUNNY_KEY_W))		m_character->GetTransformComponent()->Translate(vec3(0, 0, -5));
+	if (Input::IsKeyPressed(SUNNY_KEY_S))		m_character->GetTransformComponent()->Translate(vec3(0, 0, 5));
+
+	if(!Input::IsKeyPressed(SUNNY_KEY_A) && !Input::IsKeyPressed(SUNNY_KEY_D) && !Input::IsKeyPressed(SUNNY_KEY_W) && !Input::IsKeyPressed(SUNNY_KEY_S))
+		if (Input::IsMouseButtonPressed(SUNNY_MOUSE_LEFT))
+			m_character->SetAnimation(0);
+		else
+			m_character->SetAnimation(2);
+	else
+	{
+		if (Input::IsMouseButtonPressed(SUNNY_MOUSE_LEFT))
+			m_character->SetAnimation(4);
+		else
+			m_character->SetAnimation(5);
+	
+	}
+
+	m_character->PlayAnimation();
+	m_character->Update();
+
+	for (auto& b : m_bullets)
+		b->Update();
+
+	if (Input::IsMouseButtonPressed(SUNNY_MOUSE_LEFT) && m_character->Attack())
+	{
+	
+		float x = m_character->GetTransformComponent()->GetPosition().x;
+		float z = m_character->GetTransformComponent()->GetPosition().z;
+
+		Bullet* b = new Bullet(m_sphere->GetMesh(), m_radian);
+		b->GetTransformComponent()->SetPosition({x, 100, z});
+		m_bullets.push_back(b);
+		Add(b);
+	}
+
 
 	mat4 vp = GetCamera()->GetProjectionMatrix() * GetCamera()->GetViewMatrix();
 	m_SkyboxMaterial->SetUniform("invViewProjMatrix", mat4::Invert(vp));
 
-	if (m_pickedModel)
-	{
-		auto a = m_pickedModel->GetTransformComponent();
-		
-		auto t = a->GetPosition();
-		auto r = a->GetRotation();
-		auto s = a->GetScale();
-
-		m_testLayer2D.model_position->SetText("[T] x: " + tostr(t.x) + " \t\t y: " + tostr(t.y) + " \t\t z:" + tostr(t.z) + " \t");
-		m_testLayer2D.model_rotation->SetText("[R] x: " + tostr(r.x) + " \t\t y: " + tostr(r.y) + " \t\t z:" + tostr(r.z) + " \t");
-		m_testLayer2D.model_scale->SetText("[S] x: " +tostr(s.x)+ " \t\t y: " + tostr(s.y) + " \t\t z:" + tostr(s.z) + " \t");
-	}
 
 }
 
@@ -152,37 +183,22 @@ void TestLayer3D::OnEvent(Event& event)
 	dispatcher.Dispatch<KeyPressedEvent>(METHOD(&TestLayer3D::OnKeyPressedEvent));
 	dispatcher.Dispatch<KeyReleasedEvent>(METHOD(&TestLayer3D::OnKeyReleasedEvent));
 	dispatcher.Dispatch<MousePressedEvent>(METHOD(&TestLayer3D::OnMousePressedEvent));
+	dispatcher.Dispatch<MouseMovedEvent>(METHOD(&TestLayer3D::OnMouseMovedEvent));
 	dispatcher.Dispatch<MouseReleasedEvent>(METHOD(&TestLayer3D::OnMouseReleasedEvent));
 }
 
 bool TestLayer3D::OnKeyPressedEvent(KeyPressedEvent& event)
 {
-
-	if (!m_pickedModel) return false;
-
-	auto a = m_pickedModel->GetTransformComponent();
-
-	if (event.GetKeyCode() == SUNNY_KEY_W) a->Translate(vec3(0, 0, 10));
-	if (event.GetKeyCode() == SUNNY_KEY_S) a->Translate(vec3(0, 0, -10));
-	if (event.GetKeyCode() == SUNNY_KEY_A) a->Translate(vec3(-10, 0, 0));
-	if (event.GetKeyCode() == SUNNY_KEY_D) a->Translate(vec3(10, 0, 0));
-
-	if (event.GetKeyCode() == SUNNY_KEY_O) a->SetScale(a->GetScale() + 0.5);
-	if (event.GetKeyCode() == SUNNY_KEY_P) a->SetScale(a->GetScale() - 0.5);
-
-	if (Input::IsKeyPressed(SUNNY_KEY_SHIFT))
+	switch (event.GetKeyCode())
 	{
-		if (event.GetKeyCode() == SUNNY_KEY_1) a->Rotate(vec3(1, 0, 0));
-		if (event.GetKeyCode() == SUNNY_KEY_2) a->Rotate(vec3(0, 1, 0));
-		if (event.GetKeyCode() == SUNNY_KEY_3) a->Rotate(vec3(0, 0, 1));
-	}
-	else
-	{
-		if (event.GetKeyCode() == SUNNY_KEY_1) a->Rotate(vec3(-1, 0, 0));
-		if (event.GetKeyCode() == SUNNY_KEY_2) a->Rotate(vec3(0, -1, 0));
-		if (event.GetKeyCode() == SUNNY_KEY_3) a->Rotate(vec3(0, 0, -1));
-	}
 	
+		
+	case SUNNY_KEY_SPACE:
+		m_character->SetAnimation(3);
+		m_character->SetRoll(true);
+
+	}
+
 	return false;
 }
 
@@ -201,46 +217,37 @@ bool TestLayer3D::OnMousePressedEvent(MousePressedEvent& event)
 	float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
 
 	maths::vec2 mouse(event.GetX() * scaleX, event.GetY() * scaleY);
-	//m_mousePicker->Update(mouse);
-
-	//std::cout << m_mousePicker->GetRay() << std::endl;
-
-	// 성능 저하의 원인 (레이캐스트 피킹방식으로 바꿔야 한다.)
-	const unsigned char* diffuseData = directx::GeometryBuffer::GetIDData();
-	int rowPitch = directx::GeometryBuffer::GetMapRowPitch();
-
-	int col = event.GetX();
-	int row = /*Window::GetWindowClass()->GetHeight() -*/ event.GetY();
-
-	int rowStart = row * rowPitch;
-	int colStart = col * 4;
 
 
-	unsigned char R = diffuseData[rowStart + colStart + 0];
-	unsigned char G = diffuseData[rowStart + colStart + 1];
-	unsigned char B = diffuseData[rowStart + colStart + 2];
-	unsigned char A = diffuseData[rowStart + colStart + 3];
-
-	unsigned int aa = (A << 24) | (R << 16) | (G << 8) | B;
-	unsigned int id = R + G * 256 + B * 256 * 256;
-
-	//std::cout << id << std::endl;
-
-	for (auto object : m_mapObjects)
-	{
-		if (object->GetID() == id)
-			m_pickedModel = object;
-	}
 
 	return false;
 }
 
 bool TestLayer3D::OnMouseReleasedEvent(MouseReleasedEvent& event)
 {
-	for (auto object : m_mapObjects)
-	{
-		object->picked = false;
-	}
+	
+
+	return false;
+}
+
+bool TestLayer3D::OnMouseMovedEvent(MouseMovedEvent& event)
+{
+	maths::vec2 mouse_xy(event.GetX(), Window::GetWindowClass()->GetHeight() - event.GetY());
+
+	vec3 viewProjection = (GetCamera()->GetProjectionMatrix() * GetCamera()->GetViewMatrix() * m_character->GetTransformComponent()->GetTransform()).GetPosition();
+	double x = viewProjection.x / viewProjection.z;
+	double y = viewProjection.y / viewProjection.z;
+	double z = viewProjection.z / viewProjection.z;
+
+	double screenX = x * (Window::GetWindowClass()->GetWidth() / 2.0f) + 0 + (Window::GetWindowClass()->GetWidth() / 2.0f);
+	double screenY = y * (Window::GetWindowClass()->GetHeight() / 2.0f)+0 + (Window::GetWindowClass()->GetHeight() / 2.0f);
+
+	m_radian = maths::atan2(mouse_xy.y - screenY, mouse_xy.x - screenX);
+
+	m_degree = m_radian * 180 / maths::SUNNY_PI;
+
+	m_character->GetTransformComponent()->SetRotation({ 0, m_degree + 90, 0 });
+
 
 	return false;
 }

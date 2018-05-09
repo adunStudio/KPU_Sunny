@@ -44,6 +44,8 @@ private:
 
 	int m_board[8][8];
 
+	Panel* m_panel;
+
 private:
 	bool firstTime;
 
@@ -74,4 +76,6 @@ public:
 	bool OnServerPacketEvent(ServerPacketEvent& event);
 
 	void ProcessPacket(char* ptr);
+
+	void ButtonClick();
 };

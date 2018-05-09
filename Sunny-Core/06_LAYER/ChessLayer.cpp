@@ -38,6 +38,15 @@ void ChessLayer::OnInit(Renderer2D& renderer)
 	m_send_wsabuf.len = MAX_BUFF_SIZE;
 	m_recv_wsabuf.buf = m_recv_buffer;
 	m_recv_wsabuf.len = MAX_BUFF_SIZE;
+
+	m_panel = new Panel();
+
+	Sprite* sprite2 = new Sprite(15, 15, 200, 200, new Texture2D("/TEXTURE/test.png"));
+	
+	Button* button = new Button(sprite2, LAMBDA(ChessLayer::ButtonClick));
+	m_panel->Add(button);
+
+
 }
 
 void ChessLayer::OnTick()
@@ -255,3 +264,7 @@ void ChessLayer::ProcessPacket(char* ptr)
 }
 
 
+void ChessLayer::ButtonClick()
+{
+	std::cout << "Å¬¸¯" << std::endl;
+}

@@ -4,6 +4,8 @@
 #include <SUNNY.h>
 
 #include "../05_GAME/graphics/Model3D.h"
+#include "../05_GAME/graphics/Animation3D.h"
+#include "../05_GAME/graphics/Bullet.h"
 #include "../05_GAME/MousePicker.h"
 
 using namespace std;
@@ -21,7 +23,10 @@ class TestLayer3D : public Layer3D
 {
 public:
 	Entity* m_entity;
-	Entity* e2;
+	Animation3D* m_character;
+	vector<Bullet*> m_bullets;
+	Model* m_sphere;
+
 	MaterialInstance* m_SkyboxMaterial;
 
 	MousePicker* m_mousePicker;
@@ -31,6 +36,9 @@ public:
 	TestLayer2D& m_testLayer2D;
 
 	Model3D* m_pickedModel = nullptr;
+
+	float m_radian = 0;
+	float m_degree = 0;
 
 public:
 	TestLayer3D(TestLayer2D& layer);
@@ -46,4 +54,5 @@ public:
 	bool OnKeyReleasedEvent(KeyReleasedEvent& event);
 	bool OnMousePressedEvent(MousePressedEvent& event);
 	bool OnMouseReleasedEvent(MouseReleasedEvent& event);
+	bool OnMouseMovedEvent(MouseMovedEvent& event);
 };
