@@ -41,9 +41,10 @@ void ChessLayer::OnInit(Renderer2D& renderer)
 
 	m_panel = new Panel();
 
-	Sprite* sprite2 = new Sprite(15, 15, 200, 200, new Texture2D("/TEXTURE/test.png"));
+	Sprite* sprite2 = new Sprite(15, 15, 200, 200, new Texture2D("/TEXTURE/11_body.png"));
+	Sprite* sprite3 = new Sprite(15, 15, 200, 200, new Texture2D("/TEXTURE/10_body.png"));
 	
-	Button* button = new Button(sprite2, LAMBDA(ChessLayer::ButtonClick));
+	Button* button = new Button(sprite2, sprite3, LAMBDA(ChessLayer::ButtonClick));
 	m_panel->Add(button);
 
 

@@ -7,13 +7,19 @@ namespace sunny
 	namespace ui
 	{
 		Button::Button(const std::string& label, const maths::Rectangle& bounds, const ActionHandler handler)
-		: Widget(bounds), m_sprite(nullptr), m_label(label), m_actionHandler(handler), m_state(ButtonState::UNPRESSED)
+		: Widget(bounds), m_sprite(nullptr), m_pressSprite(nullptr), m_label(label), m_actionHandler(handler), m_state(ButtonState::UNPRESSED)
 		{
 			m_font = FontManager::Get(16);
 		}
 
 		Button::Button(Sprite* sprite, const ActionHandler handler)
-		: Widget(sprite->GetBounds()), m_sprite(sprite), m_label(""), m_actionHandler(handler), m_state(ButtonState::UNPRESSED)
+		: Widget(sprite->GetBounds()), m_sprite(sprite), m_pressSprite(nullptr), m_label(""), m_actionHandler(handler), m_state(ButtonState::UNPRESSED)
+		{
+			m_font = FontManager::Get(16);
+		}
+
+		Button::Button(Sprite* sprite, Sprite* pressSprite, const ActionHandler handler)
+		: Widget(sprite->GetBounds()), m_sprite(sprite), m_pressSprite(pressSprite), m_label(""), m_actionHandler(handler), m_state(ButtonState::UNPRESSED)
 		{
 			m_font = FontManager::Get(16);
 		}
@@ -65,14 +71,18 @@ namespace sunny
 
 		void Button::OnRender(Renderer2D& renderer)
 		{
-			if(m_sprite)
-				renderer.Submit(m_sprite);
-			else
+			if (!m_sprite)
 			{
 				renderer.DrawRect(m_bounds);
 				renderer.FillRect(m_bounds, m_state == ButtonState::PRESSED ? RGBA(0.81f, 0.73f, 0.94f, 1) : RGBA(0.81f, 0.37f, 0.37f, 1));
 				renderer.DrawString(m_label, m_bounds.position - maths::vec2(m_bounds.width, m_font->GetHeight(m_label) * 0.5f), *m_font);
+				return;
 			}
+
+			if (m_pressSprite && m_state == ButtonState::PRESSED)
+				renderer.Submit(m_pressSprite);
+			else
+				renderer.Submit(m_sprite);
 		}
 	}
 }

@@ -31,10 +31,12 @@ namespace sunny
 			Font* m_font;
 
 			Sprite* m_sprite;
+			Sprite* m_pressSprite;
 
 		public:
 			Button(const std::string& label, const maths::Rectangle& bounds, const ActionHandler handler = &Button::NoAction);
 			Button(Sprite* sprite, const ActionHandler handler = &Button::NoAction);
+			Button(Sprite* sprite, Sprite* preesSprite, const ActionHandler handler = &Button::NoAction);
 
 			virtual ~Button();
 

@@ -49,9 +49,9 @@ public:
 		game::AssetLoader::LoadModel("/JSON/MODEL/LowPolyNatures.json");
 
 	
-		PushOverlay(new TestLayer2D());
+		//PushOverlay(new TestLayer2D());
 		//PushOverlay(new TestLayer3D());
-		//PushOverlay(new ChessLayer());
+		PushOverlay(new ChessLayer());
 		//PushOverlay(new TestLayer3D());
 	}
 };
