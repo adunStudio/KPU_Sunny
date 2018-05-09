@@ -8,6 +8,7 @@ namespace sunny
 	namespace ui
 	{
 		using namespace graphics;
+		using namespace directx;
 
 		class Button : public Widget
 		{
@@ -29,8 +30,13 @@ namespace sunny
 
 			Font* m_font;
 
+			Sprite* m_sprite;
+
 		public:
 			Button(const std::string& label, const maths::Rectangle& bounds, const ActionHandler handler = &Button::NoAction);
+			Button(Sprite* sprite, const ActionHandler handler = &Button::NoAction);
+
+			virtual ~Button();
 
 			virtual bool OnMousePressed(events::MousePressedEvent&  e) override;
 			virtual bool OnMouseReleased(events::MouseReleasedEvent& e) override;

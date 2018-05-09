@@ -75,7 +75,8 @@ namespace sunny
 
 		void Renderer3D::Init()
 		{
-			m_renderCommandQueue.reserve(200);  // 반투명
+			m_renderCommandQueue.reserve(200);
+			m_staticCommandQueue.reserve(200);
 
 			m_gBuffer   = new GBuffer();
 
@@ -172,6 +173,11 @@ namespace sunny
 			m_renderCommandQueue.push_back(command);
 		}
 
+		void Renderer3D::SubmitStatic(const RenderCommand& command)
+		{
+			m_staticCommandQueue.push_back(command);
+		}
+
 		void Renderer3D::SubmitRenderable3D(Renderable3D* renderable)
 		{
 			
@@ -184,6 +190,20 @@ namespace sunny
 			command.shader       = renderable->GetShader() ? renderable->GetShader() : m_default_forward_shader;
 
 			Submit(command);
+		}
+
+		void Renderer3D::SubmitStatic3D(Renderable3D* renderable)
+		{
+
+			RenderCommand command;
+
+			command.renderable3d = renderable;
+			command.color = renderable->GetColor();
+			command.transform = renderable->GetComponent<component::TransformComponent>()->GetTransform();
+			command.hasTexture = renderable->GetHasTexture();
+			command.shader = renderable->GetShader() ? renderable->GetShader() : m_default_forward_shader;
+
+			SubmitStatic(command);
 		}
 
 		void Renderer3D::SubmitGroup3D(Group3D* group3d)
@@ -262,6 +282,17 @@ namespace sunny
 			m_gBuffer->Bind(GBufferType::SHADOWMAP);
 			m_default_shadow_shader->Bind();;
 
+			for (unsigned int i = 0; i < m_staticCommandQueue.size(); ++i)
+			{
+				RenderCommand& command = m_staticCommandQueue[i];
+
+				memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
+
+				SetSunnyShadowVSUniforms(m_default_shadow_shader);
+
+				command.renderable3d->Render();
+			}
+
 			for (unsigned int i = 0; i < m_renderCommandQueue.size(); ++i)
 			{
 				RenderCommand& command = m_renderCommandQueue[i];
@@ -274,7 +305,7 @@ namespace sunny
 			}
 
 			// 지오메트리 생성
-			m_gBuffer->Bind(GBufferType::DEFERRED);
+			/*m_gBuffer->Bind(GBufferType::DEFERRED);
 			m_default_geometry_shader->Bind();
 
 			for (unsigned int i = 0; i < m_renderCommandQueue.size(); ++i)
@@ -290,7 +321,7 @@ namespace sunny
 				SetSunnyGeometryUniforms(m_default_geometry_shader);
 
 				command.renderable3d->Render();
-			}
+			}*/
 
 			m_gBuffer->UnBind();
 		}
@@ -299,6 +330,24 @@ namespace sunny
 		{
 			directx::Renderer::SetDepthTesting(true);
 			directx::Renderer::SetBlend(true);
+
+			for (unsigned int i = 0; i < m_staticCommandQueue.size(); ++i)
+			{
+				RenderCommand& command = m_staticCommandQueue[i];
+
+				memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
+				memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_Color], &command.color, sizeof(maths::vec4));
+				memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_HasTexture], &command.hasTexture, sizeof(float));
+
+				command.shader->Bind();
+
+				SetSunnyVSUniforms(command.shader);
+				SetSunnyForwardUniforms(command.shader);
+				m_gBuffer->SetGBuffer(GBufferType::SHADOWMAP);
+				//m_gBuffer->SetGBuffer(GBufferType::DEFERRED);
+
+				command.renderable3d->Render();
+			}
 
 			for (unsigned int i = 0; i < m_renderCommandQueue.size(); ++i)
 			{
@@ -313,12 +362,12 @@ namespace sunny
 				SetSunnyVSUniforms(command.shader);
 				SetSunnyForwardUniforms(command.shader);
 				m_gBuffer->SetGBuffer(GBufferType::SHADOWMAP);
-				m_gBuffer->SetGBuffer(GBufferType::DEFERRED);
+				//m_gBuffer->SetGBuffer(GBufferType::DEFERRED);
 
 				command.renderable3d->Render();
 			}
 
-			directx::Renderer::SetDepthTesting(true);
+			/*directx::Renderer::SetDepthTesting(true);
 
 			m_default_outline_shader->Bind();
 			
@@ -327,7 +376,7 @@ namespace sunny
 			m_gBuffer->SetGBuffer(GBufferType::DEFERRED);
 			
 			m_gBuffer->Draw();
-
+			*/
 			
 		}
 

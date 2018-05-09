@@ -15,6 +15,7 @@
 #include "../cameras/MayaCamera.h"
 #include "../cameras/FPSCamera.h"
 #include "../cameras/LightCamera.h"
+#include "../cameras/QuaterCamera.h"
 
 
 typedef sunny::maths::vec4 RGBA;
@@ -41,6 +42,7 @@ namespace sunny
 			virtual ~Layer3D();
 
 			virtual Renderable3D* Add(Renderable3D* renderable);
+			virtual Renderable3D* AddStatic(Renderable3D* renderable);
 
 			virtual Group3D* Add(Group3D* groupe3d);
 

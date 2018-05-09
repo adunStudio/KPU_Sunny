@@ -42,7 +42,7 @@ namespace sunny
             bool Contains(const vec2& point) const;
             bool Contains(const vec3& point) const;
 
-            inline vec2 GetMinimumBound() const { return position - size; }
+            inline vec2 GetMinimumBound() const { return position; }
             inline vec2 GetMaximumBound() const { return position + size; }
 
             bool operator==(const Rectangle& other) const;

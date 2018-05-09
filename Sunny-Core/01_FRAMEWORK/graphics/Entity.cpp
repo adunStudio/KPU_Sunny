@@ -19,6 +19,15 @@ namespace sunny
 			m_textures.push_back(texture2);
 		}
 
+		Entity::Entity(Mesh* mesh, directx::Texture* texture1, directx::Texture* texture2, directx::Texture* texture3, const mat4& transform)
+		: Renderable3D(transform), m_frame(0)
+		{
+			m_mesh = mesh;
+			m_textures.push_back(texture1);
+			m_textures.push_back(texture2);
+			m_textures.push_back(texture3);
+		}
+
 		Entity::Entity(Mesh* mesh, const maths::vec4& color, const mat4& transform)
 		: Renderable3D(transform), m_frame(0)
 		{

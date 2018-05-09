@@ -11,15 +11,15 @@ namespace sunny
 		{
 		
 			
-			m_position = maths::vec3(200.0f, 2800.0f, 465.0f);
+			m_position = maths::vec3(0.0f, 2800.0f, 465.0f);
 			m_rotation = maths::vec3(90.0f, 0.0f, 0.0f);
 
 			m_focalPoint = maths::vec3::Zero();
 
 			m_distance = m_position.Distance(m_focalPoint);
 
-			m_yaw = 0.2f; //*maths::SUNNY_PI / 4.0f;
-			m_pitch = 0.8f;// maths::SUNNY_PI / 4.0f;
+			m_yaw = 0; //*maths::SUNNY_PI / 4.0f;
+			m_pitch = 1;// maths::SUNNY_PI / 4.0f;
 			
 
 			m_position = CalcuatePosition();
@@ -37,12 +37,12 @@ namespace sunny
 
 		void LightCamera::Update()
 		{
-			m_position = CalcuatePosition();
+			//m_position = CalcuatePosition();
 
-			maths::Quaternion orientation = GetOrientation();
-			m_rotation = orientation.ToEulerAngles() * (180.0f / maths::SUNNY_PI);
+			//maths::Quaternion orientation = GetOrientation();
+			//m_rotation = orientation.ToEulerAngles() * (180.0f / maths::SUNNY_PI);
 
-			m_viewMatrix = maths::mat4::Translate(maths::vec3(0, 0, 1)) * maths::mat4::Rotate(orientation.Conjugate()) * maths::mat4::Translate(-m_position);
+			//m_viewMatrix = maths::mat4::Translate(maths::vec3(0, 0, 1)) * maths::mat4::Rotate(orientation.Conjugate()) * maths::mat4::Translate(-m_position);
 		}
 
 		maths::vec3 LightCamera::GetUpDirection()

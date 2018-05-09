@@ -5,7 +5,7 @@ namespace sunny
 	namespace graphics
 	{
 		Layer3D::Layer3D(Renderer3D * renderer)
-		: m_renderer(renderer), m_camera(new MayaCamera(maths::mat4::Perspective(65.0f, 1280.0f / 720.0f, 0.1f, 1000.0f)))
+		: m_renderer(renderer), m_camera(new MayaCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.0f)))
 		{
 			m_camera->Focus();
 		}
@@ -23,6 +23,13 @@ namespace sunny
 		Renderable3D* Layer3D::Add(Renderable3D* renderable)
 		{
 			m_renderables.push_back(renderable);
+
+			return renderable;
+		}
+
+		Renderable3D* Layer3D::AddStatic(Renderable3D* renderable)
+		{
+			m_renderer->SubmitStatic3D(renderable);
 
 			return renderable;
 		}

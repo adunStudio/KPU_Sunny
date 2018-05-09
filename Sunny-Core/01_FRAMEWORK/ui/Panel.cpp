@@ -111,6 +111,8 @@ namespace sunny
 
 			maths::vec2 mouse(e.GetX() * scaleX, (Window::GetWindowClass()->GetHeight() - e.GetY()) * scaleY);
 
+			std::cout << mouse << std::endl;
+
 			for (unsigned int i = 0; i < m_widgets.size(); ++i)
 			{
 				Widget* widget = m_widgets[i];

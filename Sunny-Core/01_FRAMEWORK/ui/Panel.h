@@ -2,6 +2,7 @@
 
 #include "../include.h"
 #include "../graphics/layers/Layer2D.h"
+#include "../directx/Texture.h"
 
 namespace sunny
 {

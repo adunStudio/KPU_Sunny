@@ -47,7 +47,8 @@ namespace sunny
 
 			std::vector<Renderable3D*> m_renderables;
 
-			std::vector<RenderCommand> m_renderCommandQueue;   
+			std::vector<RenderCommand> m_renderCommandQueue;
+			std::vector<RenderCommand> m_staticCommandQueue;
 
 			std::vector<RendererUniform> m_sunnyUniforms;
 
@@ -87,7 +88,9 @@ namespace sunny
 			void BeginScene(Camera* camera);
 			void Submit(Renderable3D* renderable);
 			void Submit(const RenderCommand& command);
+			void SubmitStatic(const RenderCommand& command);
 			void SubmitRenderable3D(Renderable3D* renderable);
+			void SubmitStatic3D(Renderable3D* renderable);
 			void SubmitGroup3D(Group3D* group3d);
 			void SubmitLight(const LightSetup& lightSetup);
 			void EndScene(Camera* camera);
