@@ -51,3 +51,6 @@ ipch/
 *.exp
 *.iobj
 *.ipdb
+
+# Asset
+*/04_Asset/*
