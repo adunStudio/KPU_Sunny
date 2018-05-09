@@ -46,6 +46,10 @@ private:
 
 	Panel* m_panel;
 
+	bool m_chatMode = false;
+
+	string m_chatString;
+
 private:
 	bool firstTime;
 

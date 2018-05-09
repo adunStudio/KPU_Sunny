@@ -7,6 +7,7 @@
 #include "06_LAYER/TestLayer2D.h"
 #include "06_LAYER/ChessLayer.h"
 #include "06_LAYER/TestLayer3D.h"
+#include "06_LAYER/RoomLayer2D.h"
 
 
 
@@ -45,13 +46,14 @@ public:
 
 
 
-		game::AssetLoader::LoadModel("/JSON/MODEL/Trees.json");
-		game::AssetLoader::LoadModel("/JSON/MODEL/LowPolyNatures.json");
+		//game::AssetLoader::LoadModel("/JSON/MODEL/Trees.json");
+		//game::AssetLoader::LoadModel("/JSON/MODEL/LowPolyNatures.json");
 
 	
 		//PushOverlay(new TestLayer2D());
 		//PushOverlay(new TestLayer3D());
-		PushOverlay(new ChessLayer());
+		//PushOverlay(new ChessLayer());
+		PushOverlay(new RoomLayer2D());
 		//PushOverlay(new TestLayer3D());
 	}
 };

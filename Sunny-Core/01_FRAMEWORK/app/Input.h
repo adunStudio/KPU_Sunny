@@ -146,6 +146,8 @@ namespace sunny
 #define SUNNY_KEY_CANCEL         0x03
 #define SUNNY_KEY_MBUTTON        0x04
 
+#define SUNNY_KEY_ENTER          0x0D
+
 #define SUNNY_KEY_ESCAPE         0x1B
 #define SUNNY_KEY_SHIFT          0x10
 #define SUNNY_KEY_CONTROL        0x11

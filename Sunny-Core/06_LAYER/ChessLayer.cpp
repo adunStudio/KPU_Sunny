@@ -110,6 +110,25 @@ void ChessLayer::OnEvent(Event& event)
 
 bool ChessLayer::OnKeyPressedEvent(KeyPressedEvent& event)
 {
+	if (event.GetKeyCode() == SUNNY_KEY_ENTER)
+	{
+		m_chatMode = !m_chatMode;
+
+		if (!m_chatMode)
+		{
+			cout << m_chatString << endl;
+			m_chatString = "";
+		}
+	}
+
+	if (m_chatMode)
+	{
+		m_chatString += event.GetKeyCode();
+
+		return true;
+	}
+
+
 	SOCKET socket = Server::GetSocket();
 
 	cs_packet_move* packet = reinterpret_cast<cs_packet_move*>(m_send_buffer);
@@ -120,6 +139,9 @@ bool ChessLayer::OnKeyPressedEvent(KeyPressedEvent& event)
 	DWORD ioByte;
 
 	packet->dir = 100;
+
+	
+
 
 	switch (event.GetKeyCode())
 	{
@@ -148,6 +170,7 @@ bool ChessLayer::OnKeyPressedEvent(KeyPressedEvent& event)
 		}
 	}
 
+	
 	return true;
 }
 
