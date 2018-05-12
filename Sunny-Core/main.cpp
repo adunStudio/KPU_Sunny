@@ -5,9 +5,9 @@
 #include "05_GAME/assets/AssetLoader.h"
 
 #include "06_LAYER/TestLayer2D.h"
-#include "06_LAYER/ChessLayer.h"
 #include "06_LAYER/TestLayer3D.h"
 #include "06_LAYER/RoomLayer2D.h"
+#include "06_LAYER/ShootingLayer.h"
 
 
 
@@ -16,7 +16,6 @@ class Game : public Application
 {
 public:
 	Game() : Application("sunny", { 1600, 900, false, false })
-	//	Game() : Application("sunny", { 600, 600, false, true })
 	{}
 
 	~Game()
@@ -42,18 +41,16 @@ public:
 		else
 			cout << "서버 연결 실패" << endl;
 
-
-
-
-
 		game::AssetLoader::LoadModel("/JSON/MODEL/Trees.json");
 		game::AssetLoader::LoadModel("/JSON/MODEL/LowPolyNatures.json");
+		game::AssetLoader::LoadTexture("/JSON/TEXTURE/Rooms.json");
 
-	
-		PushOverlay(new TestLayer2D());
+		PushOverlay(new RoomLayer2D());
+
+		//PushOverlay(new ShootingLayer());
+		//PushOverlay(new TestLayer2D());
 		//PushOverlay(new TestLayer3D());
 		//PushOverlay(new ChessLayer());
-		//PushOverlay(new RoomLayer2D());
 		//PushOverlay(new TestLayer3D());
 	}
 };

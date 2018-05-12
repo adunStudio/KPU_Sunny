@@ -58,7 +58,7 @@ namespace sunny
 			case Alignment::CENTER:
 				m_alignmentOffset.x = 0.0f;    break;
 			case Alignment::RIGHT:
-				m_alignmentOffset.x = -size.x; break;
+				m_alignmentOffset.x = -size.x * 2; break;
 			}
 		}
 

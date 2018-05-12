@@ -117,7 +117,7 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 	m_character->GetTransformComponent()->SetPosition(vec3(0, 0, 0));
 	m_character->GetTransformComponent()->SetRotation(vec3(0, 0, 0));
 	m_character->GetTransformComponent()->SetScale(vec3(100, 100, 100));
-	SetCamera(new QuaterCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.0f), m_character));
+	//SetCamera(new QuaterCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.0f), m_character));
 
 	Add(m_character);
 

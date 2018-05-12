@@ -24,6 +24,17 @@ namespace sunny
 			return nullptr;
 		}
 
+		directx::Texture2D* TextureManager::Get2D(const std::string& name)
+		{
+			for (directx::Texture* texture : m_textures)
+			{
+				if (texture->GetName() == name)
+					return static_cast<directx::Texture2D*>(texture);
+			}
+
+			return nullptr;
+		}
+
 		void TextureManager::Clean()
 		{
 			for (unsigned int i = 0; i < m_textures.size(); ++i)

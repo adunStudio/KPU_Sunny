@@ -16,6 +16,7 @@ namespace sunny
 		public:
 			static directx::Texture* Add(directx::Texture* texture);
 			static directx::Texture* Get(const std::string& name);
+			static directx::Texture2D* Get2D(const std::string& name);
 
 			static void Clean();
 

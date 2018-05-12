@@ -13,5 +13,6 @@ namespace game
 	public:
 
 		static void LoadModel(const std::string& jsonPath);
+		static void LoadTexture(const std::string& jsonPath);
 	};
 }

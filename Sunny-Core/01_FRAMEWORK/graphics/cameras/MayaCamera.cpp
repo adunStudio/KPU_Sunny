@@ -10,7 +10,7 @@ namespace sunny
 		MayaCamera::MayaCamera(const maths::mat4& projectionMatrix) : Camera(projectionMatrix)
 		{
 			/* default */
-			m_panSpeed = 0.0015f;
+			/*m_panSpeed = 0.0015f;
 			m_rotationSpeed = 0.002f;
 			m_zoomSpeed = 0.2f;
 
@@ -23,7 +23,21 @@ namespace sunny
 			m_distance = m_position.Distance(m_focalPoint);
 
 			m_yaw =  maths::SUNNY_PI / 4.0f;
-			m_pitch = maths::SUNNY_PI / 4.0f;
+			m_pitch = maths::SUNNY_PI / 4.0f;*/
+
+			m_panSpeed = 0.0015f;
+			m_rotationSpeed = 0.002f;
+			m_zoomSpeed = 0.2f;
+
+			m_position = maths::vec3(0.0f, 1500.0f, 0.0f);
+			m_rotation = maths::vec3(90.0f, 0.0f, 0.0f);
+
+			m_focalPoint = maths::vec3::Zero();
+
+			m_distance = m_position.Distance(m_focalPoint);
+
+			m_yaw = 0;
+			m_pitch = 1.55;
 		}
 
 		void MayaCamera::Focus()

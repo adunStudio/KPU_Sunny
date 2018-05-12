@@ -54,4 +54,42 @@ namespace game
 			exit(1);
 		}
 	}
+
+	void AssetLoader::LoadTexture(const std::string& jsonPath)
+	{
+		std::string txt = sunny::system::FileSystem::ReadTextFile(jsonPath);
+
+		Json::Value  root;
+		Json::Reader reader;
+
+
+		std::string name;
+		std::string path;
+
+		if (reader.parse(txt.c_str(), root))
+		{
+			for (int i = 0; i < root.size(); ++i)
+			{
+				name = root[i]["name"].asString();
+				path = root[i]["path"].asString();
+
+
+				if (!sunny::graphics::TextureManager::Get(name))
+				{
+					sunny::graphics::TextureManager::Add(new sunny::directx::Texture2D(name, path));
+				}
+			}
+		}
+		else
+		{
+			// Debug System
+			std::cout << "--------------------------------" << std::endl;
+			std::cout << "LoadTexture ½ÇÆÐ : " << jsonPath << std::endl;
+			std::cout << reader.getFormattedErrorMessages() << std::endl;
+			std::cout << "--------------------------------" << std::endl;
+
+			exit(1);
+		}
+	}
+
 }

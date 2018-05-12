@@ -1,0 +1,90 @@
+[
+  {
+    "name": "face",
+    "path": "/TEXTURE/Rooms/face.png"
+  },
+  {
+    "name": "face_14",
+    "path": "/TEXTURE/Rooms/face_14.png"
+  },
+  {
+    "name": "face_14_pressed",
+    "path": "/TEXTURE/Rooms/face_14_pressed.png"
+  },
+  {
+    "name": "face_15",
+    "path": "/TEXTURE/Rooms/face_15.png"
+  },
+  {
+    "name": "face_15_pressed",
+    "path": "/TEXTURE/Rooms/face_15_pressed.png"
+  },
+  {
+    "name": "face_20",
+    "path": "/TEXTURE/Rooms/face_20.png"
+  },
+  {
+    "name": "face_20_pressed",
+    "path": "/TEXTURE/Rooms/face_20_pressed.png"
+  },
+  {
+    "name": "map_desert",
+    "path": "/TEXTURE/Rooms/map_desert.jpg"
+  },
+  {
+    "name": "map_ice",
+    "path": "/TEXTURE/Rooms/map_ice.jpg"
+  },
+  {
+    "name": "map_plain",
+    "path": "/TEXTURE/Rooms/map_plain.jpg"
+  },
+  {
+    "name": "room_background",
+    "path": "/TEXTURE/Rooms/room_background.jpg"
+  },
+  {
+    "name": "room_layout",
+    "path": "/TEXTURE/Rooms/room_layout.png"
+  },
+  {
+    "name": "master",
+    "path": "/TEXTURE/Rooms/master.png"
+  },
+  {
+    "name": "start",
+    "path": "/TEXTURE/Rooms/start.png"
+  },
+  {
+    "name": "start_pressed",
+    "path": "/TEXTURE/Rooms/start_pressed.png"
+  },
+  {
+    "name": "ready",
+    "path": "/TEXTURE/Rooms/ready.png"
+  },
+  {
+    "name": "ready_pressed",
+    "path": "/TEXTURE/Rooms/ready_pressed.png"
+  },
+  {
+    "name": "arrow_left",
+    "path": "/TEXTURE/Rooms/arrow_left.png"
+  },
+  {
+    "name": "arrow_left_pressed",
+    "path": "/TEXTURE/Rooms/arrow_left_pressed.png"
+  },
+  {
+    "name": "arrow_right",
+    "path": "/TEXTURE/Rooms/arrow_right.png"
+  },
+  {
+    "name": "arrow_right_pressed",
+    "path": "/TEXTURE/Rooms/arrow_right_pressed.png"
+  },
+  {
+    "name": "room_chat",
+    "path": "/TEXTURE/Rooms/room_chat.png"
+  }
+]
