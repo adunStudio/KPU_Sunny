@@ -2,17 +2,15 @@
 
 RoomLayer2D::RoomLayer2D()
 : Layer2D(maths::mat4::Orthographic(0.0f, Application::GetApplication().GetWindowWidth(), 0.0f, Application::GetApplication().GetWindowHeight(), -1.0f, 1.0f))
+, m_saved_packet_size(0), m_packet_size(0), m_io_flag(0), firstTime(true)
 {
 	m_send_wsabuf.buf = m_send_buffer;
 	m_send_wsabuf.len = MAX_BUFF_SIZE;
 	m_recv_wsabuf.buf = m_recv_buffer;
 	m_recv_wsabuf.len = MAX_BUFF_SIZE;
 
-	m_player0 = nullptr;
-	m_player1 = nullptr;
-	m_player2 = nullptr;
+	m_player = nullptr;
 
-	firstTime = true;
 }
 
 RoomLayer2D::~RoomLayer2D()
@@ -48,13 +46,13 @@ void RoomLayer2D::OnInit(Renderer2D & renderer)
 	m_sprites["player_1"]  = new Sprite(840, 590, 200, 200,  nullptr);
 	m_sprites["player_2"]  = new Sprite(1050, 590, 200, 200, nullptr);
 
-	m_sprites["chat"]          = new Sprite(350, 110, 900, 30,  TextureManager::Get2D("room_chat"));
-	m_sprites["master"]        = new Sprite(865, 600, 150, 50,  TextureManager::Get2D("master"));
-	m_sprites["start"]         = new Sprite(350, 160, 470, 120, TextureManager::Get2D("start"));
-	m_sprites["start_pressed"] = new Sprite(350, 160, 470, 120, TextureManager::Get2D("start_pressed"));
-	m_sprites["ready"]         = new Sprite(1075, 600, 150, 50, TextureManager::Get2D("ready"));
-	m_sprites["ready_pressed"] = new Sprite(1075, 600, 150, 50, TextureManager::Get2D("ready_pressed"));
+	m_sprites["player_0_state"] = new Sprite(595, 500, 150, 50, TextureManager::Get2D("master"));
+	m_sprites["player_1_state"] = new Sprite(865, 600, 150, 50, TextureManager::Get2D("master"));
+	m_sprites["player_2_state"] = new Sprite(1075, 600, 150, 50, TextureManager::Get2D("master"));
 
+	m_sprites["chat"]                = new Sprite(350, 110, 900, 30,  TextureManager::Get2D("room_chat"));
+	m_sprites["start_ready"]         = new Sprite(350, 160, 470, 120, TextureManager::Get2D("ready"));
+	m_sprites["start_ready_pressed"] = new Sprite(350, 160, 470, 120, TextureManager::Get2D("ready_pressed"));
 
 	m_buttons["button_face_14"] = new Button(m_sprites["select_face_14"], m_sprites["select_face_14_pressed"], [&]() {
 		SelectCharacter(CHARACTER_14);
@@ -76,9 +74,8 @@ void RoomLayer2D::OnInit(Renderer2D & renderer)
 		SelectMap(m_mapSelect);
 	});
 
-	m_buttons["button_start"] = new Button(m_sprites["start"], m_sprites["start_pressed"], LAMBDA(RoomLayer2D::ButtonClick));
-	m_buttons["button_ready"] = new Button(m_sprites["ready"], m_sprites["ready_pressed"], LAMBDA(RoomLayer2D::ButtonClick));
-
+	m_buttons["button_start_ready"] = new Button(m_sprites["start_ready"], m_sprites["start_ready_pressed"], LAMBDA(RoomLayer2D::ButtonClick));
+	
 
 	Add(m_sprites["background"]);
 	Add(m_sprites["layout"]);
@@ -88,23 +85,24 @@ void RoomLayer2D::OnInit(Renderer2D & renderer)
 	Add(m_sprites["player_1"]);
 	Add(m_sprites["player_2"]);
 
+	Add(m_sprites["player_0_state"]);
+	Add(m_sprites["player_1_state"]);
+	Add(m_sprites["player_2_state"]);
+
+	m_sprites["player_0_state"]->SetVisible(false);
+	m_sprites["player_1_state"]->SetVisible(false);
+	m_sprites["player_2_state"]->SetVisible(false);
+
 	Add(m_sprites["selected_map"]);
 
 	Add(m_sprites["chat"]);
-	//Add(master);
 
 	m_panel = new Panel();
 	{
 		m_panel->Add(m_buttons["button_face_14"]);
 		m_panel->Add(m_buttons["button_face_15"]);
 		m_panel->Add(m_buttons["button_face_20"]);
-		//m_panel->Add(m_buttons["button_arrow_left"]);
-		//m_panel->Add(m_buttons["button_arrow_right"]);
 	}
-
-	//m_panel->Add(startButton);
-	//m_panel->Add(readyButton);
-
 }
 
 void RoomLayer2D::OnTick()
@@ -205,14 +203,18 @@ void RoomLayer2D::ProcessPacket(char* ptr)
 
 		if (firstTime)
 		{
-			m_player0 = player;
+			m_player = player;
 
-			if (m_player0->isMaster == true)
+			if (m_player->isMaster == true)
 			{
 				m_panel->Add(m_buttons["button_arrow_left"]);
 				m_panel->Add(m_buttons["button_arrow_right"]);
+
+				m_sprites["start_ready"]->SetTexture(TextureManager::Get2D("start"));
+				m_sprites["start_ready_pressed"]->SetTexture(TextureManager::Get2D("start_pressed"));
 			}
 
+			m_panel->Add(m_buttons["button_start_ready"]);
 			firstTime = false;
 		}
 
@@ -221,8 +223,8 @@ void RoomLayer2D::ProcessPacket(char* ptr)
 		SetPlayer();
 
 		std::cout << "SC_PLAYER_PUT: [" << id << "]" << std::endl;
+		break;
 	}
-	break;
 
 	case SC_PLAYER_TYPE:
 	{
@@ -233,26 +235,12 @@ void RoomLayer2D::ProcessPacket(char* ptr)
 		
 		m_players[id]->player_type = player_type;
 
-		if (id == m_player0->id)
-		{
-			switch (player_type)
-			{
-			case CHARACTER_14: m_sprites["player_0"]->SetTexture(TextureManager::Get2D("face_14")); break;
-			case CHARACTER_15: m_sprites["player_0"]->SetTexture(TextureManager::Get2D("face_15")); break;
-			case CHARACTER_20: m_sprites["player_0"]->SetTexture(TextureManager::Get2D("face_20")); break;
-			}
-		}
-		else
-		{
-			SetPlayer();
-		}
-
+		SetPlayer();
 
 		std::cout << "SC_PLAYER_TYPE: [" << id << "] : " << player_type << std::endl;
 
 		break;
 	}
-	break;
 	case SC_PLAYER_MAP:
 	{
 		sc_packet_player_map* packet = reinterpret_cast<sc_packet_player_map*>(ptr);
@@ -270,25 +258,170 @@ void RoomLayer2D::ProcessPacket(char* ptr)
 
 		break;
 	}
-	break;
+
+	case SC_PLAYER_READY:
+	{		
+		sc_packet_player_ready* packet = reinterpret_cast<sc_packet_player_ready*>(ptr);
+		int id = packet->id;
+		bool isReady = packet->isReady;
+
+
+		m_players[id]->isReady = isReady;
+
+		std::cout << "SC_PLAYER_READY: [" << id << "] : " << isReady << std::endl;
+
+		SetPlayer();
+
+		break;
+	}
+
+	case SC_PLAYER_REMOVE:
+	{
+		sc_packet_player_remove* packet = reinterpret_cast<sc_packet_player_remove*>(ptr);
+		int id = packet->id;
+
+		delete m_players[id];
+		m_players[id] = nullptr;
+
+		SetPlayer();
+
+		break;
+	}
+
+	case SC_PLAYER_START:
+		std::cout << "START!!!" << std::endl;
+		break;
 	}
 }
 
 
-void RoomLayer2D::ButtonClick()
-{
 
-
-}
 
 
 void RoomLayer2D::SetPlayer()
 {
+	int a = 0;
+	Sprite* sprite;
+	bool isReady;
+
+	m_sprites["player_1"]->SetTexture(TextureManager::Get2D("face"));
+	m_sprites["player_2"]->SetTexture(TextureManager::Get2D("face"));
+	m_sprites["player_1_state"]->SetVisible(false);
+	m_sprites["player_2_state"]->SetVisible(false);
+
 	for (int i = 0; i < MAX_USER; ++i)
 	{
-		if (!m_players[i]) continue;
+		if (!m_players[i])
+		{
+			continue;
+		}
 
-		if(m_players[i] == m_player)
+		isReady = m_players[i]->isReady;
+
+		if (m_players[i] == m_player)
+		{
+			sprite = m_sprites["player_0"];
+
+			if (m_player->isMaster)
+			{
+				m_sprites["player_0_state"]->SetTexture(TextureManager::Get2D("master"));
+				m_sprites["player_0_state"]->SetVisible(true);
+			}
+			else
+			{
+				if (isReady)
+				{
+					m_sprites["player_0_state"]->SetTexture(TextureManager::Get2D("ready"));
+					m_sprites["player_0_state"]->SetVisible(true);
+				}
+				else
+					m_sprites["player_0_state"]->SetVisible(false);
+			}
+
+		}
+		else
+		{
+			a++;
+
+			if (a == 1)
+			{
+				sprite = m_sprites["player_1"];
+				if (m_players[i]->isMaster)
+				{
+					m_sprites["player_1_state"]->SetTexture(TextureManager::Get2D("master"));
+					m_sprites["player_1_state"]->SetVisible(true);
+				}
+				else
+				{
+					if (isReady)
+					{
+						m_sprites["player_1_state"]->SetTexture(TextureManager::Get2D("ready"));
+						m_sprites["player_1_state"]->SetVisible(true);
+					}
+					else
+						m_sprites["player_1_state"]->SetVisible(false);
+
+				}
+			}
+			else
+			{
+				sprite = m_sprites["player_2"];
+
+				if (m_players[i]->isMaster)
+				{
+					m_sprites["player_2_state"]->SetTexture(TextureManager::Get2D("master"));
+					m_sprites["player_2_state"]->SetVisible(true);
+				}
+				else
+				{
+					if (isReady)
+					{
+						m_sprites["player_2_state"]->SetTexture(TextureManager::Get2D("ready"));
+						m_sprites["player_2_state"]->SetVisible(true);
+					}
+					else
+						m_sprites["player_2_state"]->SetVisible(false);
+
+				}
+			}
+		}
+
+		switch (m_players[i]->player_type)
+		{
+		case CHARACTER_14: sprite->SetTexture(TextureManager::Get2D("face_14")); break;
+		case CHARACTER_15: sprite->SetTexture(TextureManager::Get2D("face_15")); break;
+		case CHARACTER_20: sprite->SetTexture(TextureManager::Get2D("face_20")); break;
+		}
+	
+	}
+
+}
+
+void RoomLayer2D::ButtonClick()
+{
+	SOCKET socket = Server::GetSocket();
+
+	if (m_player->isMaster)
+	{
+		cs_packet_player_start* packet = reinterpret_cast<cs_packet_player_start*>(m_send_buffer);
+		packet->type = CS_PLAYER_START;
+		packet->size = sizeof(packet);
+		m_send_wsabuf.len = sizeof(packet);
+
+		DWORD ioByte;
+
+		WSASend(socket, &m_send_wsabuf, 1, &m_io_flag, 0, NULL, NULL);
+	}
+	else
+	{
+		cs_packet_player_ready* packet = reinterpret_cast<cs_packet_player_ready*>(m_send_buffer);
+		packet->type = CS_PLAYER_READY;
+		packet->size = sizeof(packet);
+		m_send_wsabuf.len = sizeof(packet);
+
+		DWORD ioByte;
+
+		WSASend(socket, &m_send_wsabuf, 1, &m_io_flag, 0, NULL, NULL);
 	}
 
 }

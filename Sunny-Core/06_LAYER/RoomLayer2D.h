@@ -27,10 +27,8 @@ public:
 
 	unordered_map<int, Player*> m_players;
 
-	Player* m_player0;
-	Player* m_player1;
-	Player* m_player2;
-
+	Player* m_player;
+	
 private:
 	bool firstTime;
 

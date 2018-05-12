@@ -68,7 +68,6 @@ struct cs_packet_player_ready
 {
 	unsigned char size;
 	unsigned char type;
-	bool          ready;
 };
 
 struct cs_packet_player_start
@@ -112,6 +111,22 @@ struct sc_packet_player_map
 	unsigned char  map;
 };
 
+struct sc_packet_player_ready
+{
+	unsigned char  size;
+	unsigned char  type;
+	unsigned char  id;
+	bool           isReady;
+};
+
+struct sc_packet_player_start
+{
+	unsigned char  size;
+	unsigned char  type;
+	unsigned char  id;
+	bool           start;
+};
+
 struct sc_packet_pos
 {
 	unsigned char size;
@@ -123,7 +138,7 @@ struct sc_packet_pos
 
 
 
-struct sc_packet_remove_player
+struct sc_packet_player_remove
 {
 	unsigned char size;
 	unsigned char type;
