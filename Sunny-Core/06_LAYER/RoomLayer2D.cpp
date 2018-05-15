@@ -9,8 +9,6 @@ RoomLayer2D::RoomLayer2D()
 	m_recv_wsabuf.buf = m_recv_buffer;
 	m_recv_wsabuf.len = MAX_BUFF_SIZE;
 
-	m_player = nullptr;
-
 }
 
 RoomLayer2D::~RoomLayer2D()
@@ -20,38 +18,41 @@ RoomLayer2D::~RoomLayer2D()
 
 void RoomLayer2D::OnInit(Renderer2D & renderer)
 {
-	m_windowWidth  = Application::GetApplication().GetWindowWidth();
+	m_windowWidth = Application::GetApplication().GetWindowWidth();
 	m_windowHeight = Application::GetApplication().GetWindowHeight();
-	
+
+	m_mouse = new Sprite(new Texture2D("/TEXTURE/cursor1.png"));
+
+
 	m_fps = new Label("fps", m_windowWidth - 5, m_windowHeight - 30, RGBA(1, 1, 1, 0.7), Label::Alignment::RIGHT);
 
-	m_sprites["background"] = new Sprite(0, 0, 1600, 900,   TextureManager::Get2D("room_background"));
-	m_sprites["layout"]     = new Sprite(320, 90, 960, 720, TextureManager::Get2D("room_layout"));
+	m_sprites["background"] = new Sprite(0, 0, 1600, 900, TextureManager::Get2D("room_background"));
+	m_sprites["layout"] = new Sprite(320, 90, 960, 720, TextureManager::Get2D("room_layout"));
 
-	m_sprites["arrow_left"]          = new Sprite(850, 245, 50, 50,  TextureManager::Get2D("arrow_left"));
-	m_sprites["arrow_left_pressed"]  = new Sprite(850, 245, 50, 50,  TextureManager::Get2D("arrow_left_pressed"));
-	m_sprites["arrow_right"]         = new Sprite(1190, 245, 50, 50, TextureManager::Get2D("arrow_right"));
+	m_sprites["arrow_left"] = new Sprite(850, 245, 50, 50, TextureManager::Get2D("arrow_left"));
+	m_sprites["arrow_left_pressed"] = new Sprite(850, 245, 50, 50, TextureManager::Get2D("arrow_left_pressed"));
+	m_sprites["arrow_right"] = new Sprite(1190, 245, 50, 50, TextureManager::Get2D("arrow_right"));
 	m_sprites["arrow_right_pressed"] = new Sprite(1190, 245, 50, 50, TextureManager::Get2D("arrow_right_pressed"));
 
-	m_sprites["select_face_14"]         = new Sprite(350, 640, 150, 150, TextureManager::Get2D("face_14"));
+	m_sprites["select_face_14"] = new Sprite(350, 640, 150, 150, TextureManager::Get2D("face_14"));
 	m_sprites["select_face_14_pressed"] = new Sprite(350, 640, 150, 150, TextureManager::Get2D("face_14_pressed"));
-	m_sprites["select_face_15"]         = new Sprite(350, 470, 150, 150, TextureManager::Get2D("face_15"));
+	m_sprites["select_face_15"] = new Sprite(350, 470, 150, 150, TextureManager::Get2D("face_15"));
 	m_sprites["select_face_15_pressed"] = new Sprite(350, 470, 150, 150, TextureManager::Get2D("face_15_pressed"));
-	m_sprites["select_face_20"]         = new Sprite(350, 300, 150, 150, TextureManager::Get2D("face_20"));
+	m_sprites["select_face_20"] = new Sprite(350, 300, 150, 150, TextureManager::Get2D("face_20"));
 	m_sprites["select_face_20_pressed"] = new Sprite(350, 300, 150, 150, TextureManager::Get2D("face_20_pressed"));
-	
+
 	m_sprites["selected_map"] = new Sprite(840, 160, 410, 230, TextureManager::Get2D("map_plain"));
 
-	m_sprites["player_0"]  = new Sprite(520, 490, 300, 300,  TextureManager::Get2D("face_14"));
-	m_sprites["player_1"]  = new Sprite(840, 590, 200, 200,  nullptr);
-	m_sprites["player_2"]  = new Sprite(1050, 590, 200, 200, nullptr);
+	m_sprites["player_0"] = new Sprite(520, 490, 300, 300, TextureManager::Get2D("face_14"));
+	m_sprites["player_1"] = new Sprite(840, 590, 200, 200, nullptr);
+	m_sprites["player_2"] = new Sprite(1050, 590, 200, 200, nullptr);
 
 	m_sprites["player_0_state"] = new Sprite(595, 500, 150, 50, TextureManager::Get2D("master"));
 	m_sprites["player_1_state"] = new Sprite(865, 600, 150, 50, TextureManager::Get2D("master"));
 	m_sprites["player_2_state"] = new Sprite(1075, 600, 150, 50, TextureManager::Get2D("master"));
 
-	m_sprites["chat"]                = new Sprite(350, 110, 900, 30,  TextureManager::Get2D("room_chat"));
-	m_sprites["start_ready"]         = new Sprite(350, 160, 470, 120, TextureManager::Get2D("ready"));
+	m_sprites["chat"] = new Sprite(350, 110, 900, 30, TextureManager::Get2D("room_chat"));
+	m_sprites["start_ready"] = new Sprite(350, 160, 470, 120, TextureManager::Get2D("ready"));
 	m_sprites["start_ready_pressed"] = new Sprite(350, 160, 470, 120, TextureManager::Get2D("ready_pressed"));
 
 	m_buttons["button_face_14"] = new Button(m_sprites["select_face_14"], m_sprites["select_face_14_pressed"], [&]() {
@@ -64,7 +65,7 @@ void RoomLayer2D::OnInit(Renderer2D & renderer)
 		SelectCharacter(CHARACTER_20);
 	});
 
-	m_buttons["button_arrow_left"]  = new Button(m_sprites["arrow_left"] , m_sprites["arrow_left_pressed"] , [&]() {
+	m_buttons["button_arrow_left"] = new Button(m_sprites["arrow_left"], m_sprites["arrow_left_pressed"], [&]() {
 		m_mapSelect = (m_mapSelect - 1) % 3 < 0 ? 2 : (m_mapSelect - 1) % 3;
 
 		SelectMap(m_mapSelect);
@@ -75,7 +76,7 @@ void RoomLayer2D::OnInit(Renderer2D & renderer)
 	});
 
 	m_buttons["button_start_ready"] = new Button(m_sprites["start_ready"], m_sprites["start_ready_pressed"], LAMBDA(RoomLayer2D::ButtonClick));
-	
+
 
 	Add(m_sprites["background"]);
 	Add(m_sprites["layout"]);
@@ -99,10 +100,12 @@ void RoomLayer2D::OnInit(Renderer2D & renderer)
 
 	m_panel = new Panel();
 	{
+		m_panel->SetMouse(new Button(m_mouse));
 		m_panel->Add(m_buttons["button_face_14"]);
 		m_panel->Add(m_buttons["button_face_15"]);
 		m_panel->Add(m_buttons["button_face_20"]);
 	}
+
 }
 
 void RoomLayer2D::OnTick()
@@ -123,10 +126,23 @@ void RoomLayer2D::OnEvent(Event & event)
 {
 	Layer2D::OnEvent(event);
 	EventDispatcher dispatcher(event);
+	dispatcher.Dispatch<MouseMovedEvent>(METHOD(&RoomLayer2D::OnMouseMovedEvent));
 	dispatcher.Dispatch<KeyPressedEvent>(METHOD(&RoomLayer2D::OnKeyPressedEvent));
 	dispatcher.Dispatch<ServerPacketEvent>(METHOD(&RoomLayer2D::OnServerPacketEvent));
 }
 
+
+bool RoomLayer2D::OnMouseMovedEvent(MouseMovedEvent& event)
+{
+	float scaleX = Window::GetWindowClass()->GetResolutionWidth() / Window::GetWindowClass()->GetWidth();
+	float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
+
+	maths::vec2 mouse(event.GetX() * scaleX, (Window::GetWindowClass()->GetHeight() - event.GetY()) * scaleY);
+
+	m_mouse->SetPosition(vec2(mouse.x, mouse.y - (32 * scaleY)));
+
+	return false;
+}
 bool RoomLayer2D::OnKeyPressedEvent(KeyPressedEvent & event)
 {
 	return false;
@@ -203,9 +219,9 @@ void RoomLayer2D::ProcessPacket(char* ptr)
 
 		if (firstTime)
 		{
-			m_player = player;
+			BossLocker::player = player;
 
-			if (m_player->isMaster == true)
+			if (BossLocker::player->isMaster == true)
 			{
 				m_panel->Add(m_buttons["button_arrow_left"]);
 				m_panel->Add(m_buttons["button_arrow_right"]);
@@ -218,7 +234,7 @@ void RoomLayer2D::ProcessPacket(char* ptr)
 			firstTime = false;
 		}
 
-		m_players[id] = player;
+		BossLocker::players[id] = player;
 		
 		SetPlayer();
 
@@ -233,7 +249,7 @@ void RoomLayer2D::ProcessPacket(char* ptr)
 		int id                      = packet->id;
 		short player_type           = packet->player_type;
 		
-		m_players[id]->player_type = player_type;
+		BossLocker::players[id]->player_type = player_type;
 
 		SetPlayer();
 
@@ -266,7 +282,7 @@ void RoomLayer2D::ProcessPacket(char* ptr)
 		bool isReady = packet->isReady;
 
 
-		m_players[id]->isReady = isReady;
+		BossLocker::players[id]->isReady = isReady;
 
 		std::cout << "SC_PLAYER_READY: [" << id << "] : " << isReady << std::endl;
 
@@ -280,8 +296,8 @@ void RoomLayer2D::ProcessPacket(char* ptr)
 		sc_packet_player_remove* packet = reinterpret_cast<sc_packet_player_remove*>(ptr);
 		int id = packet->id;
 
-		delete m_players[id];
-		m_players[id] = nullptr;
+		delete BossLocker::players[id];
+		BossLocker::players[id] = nullptr;
 
 		SetPlayer();
 
@@ -290,6 +306,9 @@ void RoomLayer2D::ProcessPacket(char* ptr)
 
 	case SC_PLAYER_START:
 		std::cout << "START!!!" << std::endl;
+		Application::GetApplication().PopOverlay(m_panel);
+		Application::GetApplication().PopOverlay(this);
+		Application::GetApplication().PushOverlay(new TestGameLayer3D());
 		break;
 	}
 }
@@ -311,18 +330,18 @@ void RoomLayer2D::SetPlayer()
 
 	for (int i = 0; i < MAX_USER; ++i)
 	{
-		if (!m_players[i])
+		if (!BossLocker::players[i])
 		{
 			continue;
 		}
 
-		isReady = m_players[i]->isReady;
+		isReady = BossLocker::players[i]->isReady;
 
-		if (m_players[i] == m_player)
+		if (BossLocker::players[i] == BossLocker::player)
 		{
 			sprite = m_sprites["player_0"];
 
-			if (m_player->isMaster)
+			if (BossLocker::player->isMaster)
 			{
 				m_sprites["player_0_state"]->SetTexture(TextureManager::Get2D("master"));
 				m_sprites["player_0_state"]->SetVisible(true);
@@ -346,7 +365,7 @@ void RoomLayer2D::SetPlayer()
 			if (a == 1)
 			{
 				sprite = m_sprites["player_1"];
-				if (m_players[i]->isMaster)
+				if (BossLocker::players[i]->isMaster)
 				{
 					m_sprites["player_1_state"]->SetTexture(TextureManager::Get2D("master"));
 					m_sprites["player_1_state"]->SetVisible(true);
@@ -367,7 +386,7 @@ void RoomLayer2D::SetPlayer()
 			{
 				sprite = m_sprites["player_2"];
 
-				if (m_players[i]->isMaster)
+				if (BossLocker::players[i]->isMaster)
 				{
 					m_sprites["player_2_state"]->SetTexture(TextureManager::Get2D("master"));
 					m_sprites["player_2_state"]->SetVisible(true);
@@ -386,7 +405,7 @@ void RoomLayer2D::SetPlayer()
 			}
 		}
 
-		switch (m_players[i]->player_type)
+		switch (BossLocker::players[i]->player_type)
 		{
 		case CHARACTER_14: sprite->SetTexture(TextureManager::Get2D("face_14")); break;
 		case CHARACTER_15: sprite->SetTexture(TextureManager::Get2D("face_15")); break;
@@ -401,7 +420,7 @@ void RoomLayer2D::ButtonClick()
 {
 	SOCKET socket = Server::GetSocket();
 
-	if (m_player->isMaster)
+	if (BossLocker::player->isMaster)
 	{
 		cs_packet_player_start* packet = reinterpret_cast<cs_packet_player_start*>(m_send_buffer);
 		packet->type = CS_PLAYER_START;

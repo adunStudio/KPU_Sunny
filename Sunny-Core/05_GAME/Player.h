@@ -16,7 +16,7 @@ namespace game
 		short player_type;
 	
 
-		Animation3D* m_animation;
+		Animation3D* character;
 
 	public:
 		Player(int id) : id(id) {};

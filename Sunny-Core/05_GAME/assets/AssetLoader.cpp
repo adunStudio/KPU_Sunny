@@ -2,7 +2,7 @@
 
 namespace game
 {
-	void AssetLoader::LoadModel(const std::string& jsonPath)
+	void AssetLoader::LoadModelData(const std::string& jsonPath)
 	{
 		std::string txt = sunny::system::FileSystem::ReadTextFile(jsonPath);
 
@@ -40,6 +40,43 @@ namespace game
 
 
 				AssetData::AddModelData(name, data);
+
+			}
+		}
+		else
+		{
+			// Debug System
+			std::cout << "--------------------------------" << std::endl;
+			std::cout << "LoadModelData ½ÇÆÐ : " << jsonPath << std::endl;
+			std::cout << reader.getFormattedErrorMessages() << std::endl;
+			std::cout << "--------------------------------" << std::endl;
+
+			exit(1);
+		}
+	}
+	
+	void AssetLoader::LoadModel(const std::string& jsonPath)
+	{
+		std::string txt = sunny::system::FileSystem::ReadTextFile(jsonPath);
+
+		Json::Value  root;
+		Json::Reader reader;
+
+
+		std::string name;
+		std::string path;
+
+		if (reader.parse(txt.c_str(), root))
+		{
+			for (int i = 0; i < root.size(); ++i)
+			{
+				ModelData* data = new ModelData();
+
+				name = root[i]["name"].asString();
+				path = root[i]["path"].asString();
+
+				if (!sunny::graphics::ModelManager::Get(name))
+					sunny::graphics::ModelManager::Add(name, new sunny::graphics::Model(path));
 
 			}
 		}

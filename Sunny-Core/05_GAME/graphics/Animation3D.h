@@ -20,6 +20,8 @@ namespace game
 
 		void SetAnimation(int index);
 
+		inline int GetAnimation() { return m_preAnimationIndex; }
+
 		virtual void PlayAnimation() override;
 
 		inline void SetRoll(bool isRoll) { m_roll = isRoll; }

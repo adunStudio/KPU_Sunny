@@ -8,7 +8,9 @@ namespace sunny
 		: Widget(bounds), m_value(value), m_callback(callback)
 		{
 			float height = bounds.height;
-			m_progressBounds = maths::Rectangle(bounds.x, bounds.y, height, height);
+			float width = bounds.height;
+
+			m_progressBounds = maths::Rectangle(bounds.x, bounds.y, width, height);
 			
 			m_state = ProgressbarState::LOADING;
 		}
@@ -22,16 +24,16 @@ namespace sunny
 			}
 
 			m_progressBounds.width = m_value * m_bounds.width;
-			m_progressBounds.x = m_bounds.GetMinimumBound().x + m_progressBounds.width;
+			//m_progressBounds.x = m_bounds.GetMinimumBound().x + m_progressBounds.width;
 
 		}
 
 		void Progressbar::OnRender(Renderer2D& renderer)
 		{
-			renderer.FillRect(m_bounds, RGBA(0.81, 0.49, 0.49, 1));
+			renderer.FillRect(m_bounds, RGBA(0.81, 0.75, 0.7, 1));
 			renderer.DrawRect(m_bounds);
 
-			renderer.FillRect(m_progressBounds, RGBA(0.81, 0.75, 0.75, 1));
+			renderer.FillRect(m_progressBounds, RGBA(0.81, 0, 0, 1));
 			renderer.DrawRect(m_progressBounds);
 		}
 

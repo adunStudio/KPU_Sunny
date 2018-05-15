@@ -4,18 +4,13 @@
 
 #include "05_GAME/assets/AssetLoader.h"
 
-#include "06_LAYER/TestLayer2D.h"
-#include "06_LAYER/TestLayer3D.h"
 #include "06_LAYER/RoomLayer2D.h"
-#include "06_LAYER/ShootingLayer.h"
-
-
 
 
 class Game : public Application
 {
 public:
-	Game() : Application("sunny", { 1600, 900, false, false })
+	Game() : Application("sunny", { 1600, 900, false, true })
 	{}
 
 	~Game()
@@ -33,7 +28,7 @@ public:
 		VFS::Get()->Mount("TEXTURE", "04_ASSET/TEXTURE");
 		VFS::Get()->Mount("RAW",     "04_ASSET/RAW");
 		
-		Server::Connect("127.0.0.1", "7711");
+		Server::Connect("221.142.221.186", "7711");
 
 
 		if (Server::IsConnected())
@@ -41,17 +36,14 @@ public:
 		else
 			cout << "서버 연결 실패" << endl;
 
-		game::AssetLoader::LoadModel("/JSON/MODEL/Trees.json");
-		game::AssetLoader::LoadModel("/JSON/MODEL/LowPolyNatures.json");
+		game::AssetLoader::LoadModelData("/JSON/MODEL/Trees.json");
+		game::AssetLoader::LoadModelData("/JSON/MODEL/LowPolyNatures.json");
+		game::AssetLoader::LoadModel("/JSON/CHARACTER/Characters.json");
 		game::AssetLoader::LoadTexture("/JSON/TEXTURE/Rooms.json");
 
-		PushOverlay(new RoomLayer2D());
+		Input::GetInputManager()->SetMouseCursor(SUNNY_NO_CURSOR);
 
-		//PushOverlay(new ShootingLayer());
-		//PushOverlay(new TestLayer2D());
-		//PushOverlay(new TestLayer3D());
-		//PushOverlay(new ChessLayer());
-		//PushOverlay(new TestLayer3D());
+		PushOverlay(new RoomLayer2D());
 	}
 };
 

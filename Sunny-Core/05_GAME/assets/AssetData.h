@@ -16,6 +16,7 @@ namespace game
 		AssetData() = delete;
 
 		static std::map<std::string, ModelData*> s_modelData;
+ 
 
 	public:
 		static ModelData* GetModelData(const std::string& name);

@@ -3,8 +3,6 @@
 #include <iostream>
 #include <SUNNY.h>
 
-#include "NPCLayer.h"
-#include "BossLayer.h"
 #include "TestLayer3D.h"
 
 using namespace std;

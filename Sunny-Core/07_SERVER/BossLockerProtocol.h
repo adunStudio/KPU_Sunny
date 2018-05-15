@@ -1,5 +1,7 @@
 #pragma once
 
+#define FPS               60
+
 #define MAX_BUFF_SIZE   4000
 #define MAX_PACKET_SIZE  255
 
@@ -9,11 +11,17 @@
 #define VIEW_RADIUS        3
 
 #define MAX_USER		   3
+#define MAX_USER_BULLET    300
+#define MAX_ENEMY_BULLET   500
+
+#define BOSS_HP           3000
 
 #define CHARACTER_14      14
 #define CHARACTER_15      15
 #define CHARACTER_20      20
 
+#define BULLET_PLAYER      1
+#define BULLET_ENEMY       2
 
 #define MY_SERVER_PORT  7711
 
@@ -24,14 +32,24 @@
 #define CS_PLAYER_READY    2
 #define CS_PLAYER_START    3
 #define CS_PLAYER_MOVE     4
+#define CS_PLAYER_DEGREE   5
+#define CS_PLAYER_ROLL     6
+#define CS_PLAYER_ATTACK   7
+#define CS_PLAYER_MOUSE_RELEASE   8
 
-#define SC_PLAYER_PUT      0
-#define SC_PLAYER_REMOVE   1
-#define SC_PLAYER_TYPE     2
-#define SC_PLAYER_MAP      3
-#define SC_PLAYER_READY    4
-#define SC_PLAYER_START    5
-#define SC_PLAYER_POS      6
+#define SC_PLAYER_PUT       0
+#define SC_PLAYER_REMOVE    1
+#define SC_PLAYER_TYPE      2
+#define SC_PLAYER_MAP       3
+#define SC_PLAYER_READY     4
+#define SC_PLAYER_START     5
+#define SC_PLAYER_POS       6
+#define SC_PLAYER_DEGREE    7
+#define SC_PLAYER_ANIMATION 8
+#define SC_BULLET_PUT       9
+#define SC_BULLET_POS      10
+#define SC_BULLET_REMOVE   11
+#define SC_BOSS_HP         12
 
 #define SC_CHAT            4
 
@@ -39,10 +57,30 @@
 #define MOVE_UP            1
 #define MOVE_RIGHT         2
 #define MOVE_DOWN          3
+#define MOVE_LEFT_UP       4
+#define MOVE_LEFT_DOWN     5
+#define MOVE_RIGHT_UP      6
+#define MOVE_RIGHT_DOWN    7
+#define MOVE_STOP          8
+
+#define COOLTIME_MOVE      3
+#define COOLTIME_ROLL    100
+#define COOLTIME_ATTACK	  15
+
+#define SPEED             15
+#define TIME_ROLL         35
+#define BULLET_SPEED      50
 
 #define MAP_PLANE          0
 #define MAP_ICE            1
 #define MAP_DESERT         2
+
+#define ANIMATION_IDLE_BASIC    0
+#define ANIMATION_DEAD          1
+#define ANIMATION_ATTACK_BASIC  2
+#define ANIMATION_ROLL_BASIC    3
+#define ANIMATION_RUN_ATTACK    4
+#define ANIMATION_RUN_BASIC     5
 
 
 #pragma pack (push, 1)
@@ -74,6 +112,7 @@ struct cs_packet_player_start
 {
 	unsigned char size;
 	unsigned char type;
+	unsigned char dir;
 };
 
 struct cs_packet_player_move
@@ -83,6 +122,31 @@ struct cs_packet_player_move
 	unsigned char dir;
 };
 
+struct cs_packet_player_degree
+{
+	unsigned char size;
+	unsigned char type;
+	short         degree;
+};
+
+struct cs_packet_player_roll
+{
+	unsigned char size;
+	unsigned char type;
+};
+
+struct cs_packet_player_attack
+{
+	unsigned char size;
+	unsigned char type;
+	short         degree;
+};
+
+struct cs_packet_player_mouse_release
+{
+	unsigned char size;
+	unsigned char type;
+};
 
 struct sc_packet_player_put
 {
@@ -127,16 +191,14 @@ struct sc_packet_player_start
 	bool           start;
 };
 
-struct sc_packet_pos
+struct sc_packet_player_pos
 {
 	unsigned char size;
 	unsigned char type;
-	unsigned short id;
-	unsigned short x;
-	unsigned short y;
+	unsigned char id;
+	float          x;
+	float          z;
 };
-
-
 
 struct sc_packet_player_remove
 {
@@ -144,5 +206,57 @@ struct sc_packet_player_remove
 	unsigned char type;
 	unsigned short id;
 };
+
+struct sc_packet_player_degree
+{
+	unsigned char size;
+	unsigned char type;
+	unsigned short id;
+	short degree;
+};
+
+struct sc_packet_player_animation
+{
+	unsigned char size;
+	unsigned char type;
+	unsigned char id;
+	unsigned char animation;
+};
+
+struct sc_packet_bullet_put
+{
+	unsigned char size;
+	unsigned char type;
+	unsigned char id;
+	unsigned char kind;
+	float         x;
+	float         z;
+};
+
+struct sc_packet_bullet_pos
+{
+	unsigned char size;
+	unsigned char type;
+	unsigned char id;
+	unsigned char kind;
+	float         x;
+	float         z;
+};
+
+struct sc_packet_bullet_remove
+{
+	unsigned char size;
+	unsigned char type;
+	unsigned char id;
+	unsigned char kind;
+};
+
+struct sc_packet_boss_hp
+{
+	unsigned char size;
+	unsigned char type;
+	unsigned short hp;
+};
+
 
 #pragma pack (pop)

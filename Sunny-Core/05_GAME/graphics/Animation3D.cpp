@@ -10,8 +10,6 @@ namespace game
 
 	void Animation3D::SetAnimation(int index)
 	{
-		if (m_roll) return;
-
 		if (m_preAnimationIndex != index)
 			m_frame = 0;
 		else

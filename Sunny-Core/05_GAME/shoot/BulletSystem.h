@@ -37,13 +37,13 @@ public:
 	virtual void Update(float elapsedTime) = 0;
 	virtual void SetTarget(float x, float y) {}
 	void SetAngle(float angle) { m_angle = angle; }
-	void SetPosition(const float x,const float y,const float z) { m_startPosition.x = x; m_startPosition.y = y; m_startPosition.z = z;}
-	
-	Point GetPosition() const{ return m_startPosition; }
+	void SetPosition(const float x, const float y, const float z) { m_startPosition.x = x; m_startPosition.y = y; m_startPosition.z = z; }
+
+	Point GetPosition() const { return m_startPosition; }
 protected:
 	Point m_startPosition = { 0,0,0 };
-	Model* m_mesh=nullptr;
-	Layer3D* m_layer=nullptr;
+	Model* m_mesh = nullptr;
+	Layer3D* m_layer = nullptr;
 	float m_angle = { 0.25 };
 public:
 	vector<CBullet*> bullets;
@@ -55,7 +55,7 @@ public:
 class AmingSystem : public BulletSystem
 {
 	using BulletSystem::BulletSystem;
-	virtual void SetTarget(float x, float y) { m_angle = atan2f(y -m_startPosition.y, x - m_startPosition.x) / 3.1415 / 2; };
+	virtual void SetTarget(float x, float y) { m_angle = atan2f(y - m_startPosition.y, x - m_startPosition.x) / 3.1415 / 2; };
 
 };
 
@@ -66,27 +66,50 @@ public:
 	using BulletSystem::BulletSystem;
 	void Update(float elapsedTime);
 public:
-	float m_angle[2] = {0,0};
-	float m_shotAnglerate[2] = {0.03f,-0.02f};
+	float m_angle[2] = { 0,0 };
+	float m_shotAnglerate[2] = { 0.03f,-0.02f };
 	float m_firerate = 0;
-	float m_speed = 8;
+	float m_speed = 1;
 	int multiShotCount = 4;
 };
 
 
-class BentSystem : public BulletSystem
+class BulletGenerator11 : public BulletSystem
 {
 public:
 	using BulletSystem::BulletSystem;
 	void Update(float elapsedTime);
 public:
-	float m_angle = {0 };
-	float m_shotAnglerate = { -0.02f };
-	float m_angleAcceleration=-0.03f;
-	float m_speedAcceleration=1.f;
+	float m_bentAngle = { 0 };
+	float m_angle[2] = { 0,0 };
+	float m_shotAnglerate[2] = { 0.03f,-0.02f };
+
+	float m_bentshotAnglerate = { -0.02f };
+	float m_angleAcceleration = -0.03f;
+	float m_speedAcceleration = 1.f;
 	float m_firerate = 0;
 	float m_speed = 3;
 	int multiShotCount = 4;
+};
+
+class BulletGenerator1 : public BulletSystem
+{
+public:
+	using BulletSystem::BulletSystem;
+	void Update(float elapsedTime);
+public:
+	float StarAngle = 0;
+	float StarSize = 10.0f;
+	int ShotTime = 100;
+	int WaitTime = 30;
+	int Interval = 2;
+	int Cycle = 150;
+	int Time;
+	int BulletShapeId;
+	float BulletSpeed = 1.0f;
+	float BulletAngle = 0.4f;
+
+	float m_totalTime = 0;
 };
 
 class BulletGenerator3 :public BulletSystem
@@ -101,7 +124,7 @@ public:
 	float m_speedAcceleration = 1.f;
 	float m_firerate = 0;
 	float m_speed = 3;
-	float m_angleRange=1;
+	float m_angleRange = 1;
 	int multiShotCount = 25;
 };
 

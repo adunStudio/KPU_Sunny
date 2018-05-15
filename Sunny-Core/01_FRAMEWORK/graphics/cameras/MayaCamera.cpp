@@ -42,7 +42,7 @@ namespace sunny
 
 		void MayaCamera::Focus()
 		{
-			Input::GetInputManager()->SetMouseCursor(1);
+			//Input::GetInputManager()->SetMouseCursor(1);
 		}
 
 		void MayaCamera::Update()

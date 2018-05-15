@@ -27,28 +27,16 @@ namespace sunny
 
 		void QuaterCamera::Focus()
 		{
-			Input::GetInputManager()->SetMouseCursor(1);
+			//Input::GetInputManager()->SetMouseCursor(1);
 		}
 
 		void QuaterCamera::Update()
 		{
-			if (Input::IsKeyPressed(SUNNY_KEY_ALT))
-			{
-				const maths::vec2& mouse = Input::GetMousePosition();
-				maths::vec2 delta = mouse - m_initialMousePosition;
-				m_initialMousePosition = mouse;
-
-				if (Input::IsMouseButtonPressed(SUNNY_MOUSE_MIDDLE))
-					MousePan(delta);
-				else if (Input::IsMouseButtonPressed(SUNNY_MOUSE_LEFT))
-					MouseRotate(delta);
-				else if (Input::IsMouseButtonPressed(SUNNY_MOUSE_RIGHT))
-					MouseZoom(delta.y);
-			}
-
 			m_position = CalcuatePosition();
+			
 			m_position.x = m_renderable->GetTransformComponent()->GetPosition().x;
 			m_position.z = m_renderable->GetTransformComponent()->GetPosition().z + 700;
+			
 
 			maths::Quaternion orientation = GetOrientation();
 			m_rotation = orientation.ToEulerAngles() * (180.0f / maths::SUNNY_PI);

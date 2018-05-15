@@ -1,0 +1,86 @@
+[
+  {
+    "name": "14_idle_basic",
+    "path": "/SUN/Characters/14_idle_basic.sun"
+  },
+  {
+    "name": "14_dead",
+    "path": "/SUN/Characters/14_dead.sun"
+  },
+  {
+    "name": "14_idle_attack",
+    "path": "/SUN/Characters/14_idle_attack.sun"
+  },
+  {
+    "name": "14_attack_basic",
+    "path": "/SUN/Characters/14_attack_basic.sun"
+  },
+  {
+    "name": "14_roll_basic",
+    "path": "/SUN/Characters/14_roll_basic.sun"
+  },
+  {
+    "name": "14_run_attack",
+    "path": "/SUN/Characters/14_run_attack.sun"
+  },
+  {
+    "name": "14_run_basic",
+    "path": "/SUN/Characters/14_run_basic.sun"
+  },
+  {
+    "name": "15_idle_basic",
+    "path": "/SUN/Characters/15_idle_basic.sun"
+  },
+  {
+    "name": "15_dead",
+    "path": "/SUN/Characters/15_dead.sun"
+  },
+  {
+    "name": "15_idle_attack",
+    "path": "/SUN/Characters/15_idle_attack.sun"
+  },
+  {
+    "name": "15_attack_basic",
+    "path": "/SUN/Characters/15_attack_basic.sun"
+  },
+  {
+    "name": "15_roll_basic",
+    "path": "/SUN/Characters/15_roll_basic.sun"
+  },
+  {
+    "name": "15_run_attack",
+    "path": "/SUN/Characters/15_run_attack.sun"
+  },
+  {
+    "name": "15_run_basic",
+    "path": "/SUN/Characters/15_run_basic.sun"
+  },
+  {
+    "name": "20_idle_basic",
+    "path": "/SUN/Characters/20_idle_basic.sun"
+  },
+  {
+    "name": "20_dead",
+    "path": "/SUN/Characters/20_dead.sun"
+  },
+  {
+    "name": "20_idle_attack",
+    "path": "/SUN/Characters/20_idle_attack.sun"
+  },
+  {
+    "name": "20_attack_basic",
+    "path": "/SUN/Characters/20_attack_basic.sun"
+  },
+  {
+    "name": "20_roll_basic",
+    "path": "/SUN/Characters/20_roll_basic.sun"
+  },
+  {
+    "name": "20_run_attack",
+    "path": "/SUN/Characters/20_run_attack.sun"
+  },
+  {
+    "name": "20_run_basic",
+    "path": "/SUN/Characters/20_run_basic.sun"
+  }
+]

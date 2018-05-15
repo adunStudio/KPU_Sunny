@@ -2,7 +2,9 @@
 
 #include <iostream>
 #include <SUNNY.h>
+#include "../06_LAYER/TestGameLayer3D.h"
 #include "../07_SERVER/BossLockerProtocol.h"
+#include "../07_SERVER/BossLocker.h"
 #include "../05_GAME/Player.h"
 
 using namespace std;
@@ -23,11 +25,9 @@ public:
 	unordered_map<string, Sprite*> m_sprites;
 	unordered_map<string, Button*> m_buttons;
 
+	Sprite* m_mouse;
+
 	int m_mapSelect = 0;
-
-	unordered_map<int, Player*> m_players;
-
-	Player* m_player;
 	
 private:
 	bool firstTime;
@@ -55,6 +55,7 @@ public:
 	void OnRender(Renderer2D& renderer);
 	void OnEvent(Event& event) override;
 
+	bool OnMouseMovedEvent(MouseMovedEvent& event);
 	bool OnKeyPressedEvent(KeyPressedEvent& event);
 	bool OnServerPacketEvent(ServerPacketEvent& event);
 

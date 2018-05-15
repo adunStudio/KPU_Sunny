@@ -150,18 +150,6 @@
     <ClCompile Include="01_FRAMEWORK\utils\Timer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="06_LAYER\BossLayer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="06_LAYER\NPCLayer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="06_LAYER\TestLayer2D.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="06_LAYER\TestLayer3D.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="05_GAME\assets\AssetLoader.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -303,13 +291,28 @@
     <ClCompile Include="06_LAYER\RoomLayer2D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="06_LAYER\ShootingLayer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="05_GAME\shoot\BulletSystem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="05_GAME\shoot\CBullet.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="06_LAYER\TestGameLayer2D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="06_LAYER\TestGameLayer3D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="07_SERVER\BossLocker.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="06_LAYER\TestLayer2D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="06_LAYER\TestLayer3D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="06_LAYER\ShootingLayer3D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -497,18 +500,6 @@
     <ClInclude Include="01_FRAMEWORK\SUNNY.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="06_LAYER\BossLayer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="06_LAYER\NPCLayer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="06_LAYER\TestLayer2D.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="06_LAYER\TestLayer3D.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="05_GAME\assets\AssetLoader.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -668,19 +659,34 @@
     <ClInclude Include="06_LAYER\RoomLayer2D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="06_LAYER\ShootingLayer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="05_GAME\shoot\BulletSystem.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="05_GAME\shoot\CBullet.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="05_GAME\Player.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="06_LAYER\TestGameLayer2D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="06_LAYER\TestGameLayer3D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="07_SERVER\BossLocker.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="07_SERVER\BossLockerProtocol.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="05_GAME\Player.h">
+    <ClInclude Include="06_LAYER\TestLayer2D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="06_LAYER\TestLayer3D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="06_LAYER\ShootingLaye3D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

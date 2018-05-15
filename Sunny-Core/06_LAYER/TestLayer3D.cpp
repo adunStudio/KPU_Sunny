@@ -98,12 +98,12 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 	}
 
 
-	Model* attack_basic = new Model("/SUN/14_attack_basic.sun");
-	Model* idle_attack  = new Model("/SUN/14_idle_attack.sun");
-	Model* idle_basic   = new Model("/SUN/14_idle_basic.sun");
-	Model* roll_basic   = new Model("/SUN/14_roll_basic.sun");
-	Model* run_attack   = new Model("/SUN/14_run_attack.sun");
-	Model* run_basic    = new Model("/SUN/14_run_basic.sun");
+	Model* attack_basic = new Model("/SUN/Characters/20_attack_basic.sun");
+	Model* idle_attack  = new Model("/SUN/Characters/20_idle_attack.sun");
+	Model* idle_basic   = new Model("/SUN/Characters/20_idle_basic.sun");
+	Model* roll_basic   = new Model("/SUN/Characters/20_roll_basic.sun");
+	Model* run_attack   = new Model("/SUN/Characters/20_run_attack.sun");
+	Model* run_basic    = new Model("/SUN/Characters/20_run_basic.sun");
 
 	vector<Mesh*> animations;
 	animations.push_back(attack_basic->GetMesh());
@@ -113,11 +113,11 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 	animations.push_back(run_attack->GetMesh());
 	animations.push_back(run_basic->GetMesh());
 
-	m_character = new Animation3D(animations, new Texture2D("/TEXTURE/14_body.png"), new Texture2D("/TEXTURE/14_face.png"));
+	m_character = new Animation3D(animations, new Texture2D("/TEXTURE/20_body.png"), new Texture2D("/TEXTURE/20_face.png"));
 	m_character->GetTransformComponent()->SetPosition(vec3(0, 0, 0));
 	m_character->GetTransformComponent()->SetRotation(vec3(0, 0, 0));
 	m_character->GetTransformComponent()->SetScale(vec3(100, 100, 100));
-	//SetCamera(new QuaterCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.0f), m_character));
+	SetCamera(new QuaterCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.0f), m_character));
 
 	Add(m_character);
 

@@ -17,11 +17,15 @@ namespace sunny
 		private:
 			std::vector<Widget*> m_widgets;
 
+			Widget* m_mouse;
+
 		public:
 			Panel();
 			~Panel();
 
 			Widget* Add(Widget* widget);
+			Widget* SetMouse(Widget* widget);
+
 			void Remove(Widget* widget);
 			void Clear();
 
