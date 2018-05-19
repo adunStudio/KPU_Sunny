@@ -42,8 +42,7 @@ namespace sunny
 				layout.Push<maths::vec3>("POSITION");
 				layout.Push<maths::vec3>("NORMAL");
 				layout.Push<maths::vec2>("TEXCOORD");
-				layout.Push<maths::vec3>("BINORMAL");
-				layout.Push<maths::vec3>("TANGENT");
+				layout.Push<float      >("TID");
 				buffer->SetLayout(layout);
 
 				directx::VertexArray* va = new directx::VertexArray();
@@ -69,20 +68,20 @@ namespace sunny
 				Vertex3D data[4];
 
 				data[0].position = maths::vec3(x, y, 0);
-				data[0].uv = maths::vec2(0, 1);
 				data[0].normal = maths::vec3(0, 1, 0);
+				data[0].uv = maths::vec2(0, 1);
 
 				data[1].position = maths::vec3(x + width, y, 0);
-				data[1].uv = maths::vec2(1, 1);
 				data[1].normal = maths::vec3(0, 1, 0);
+				data[1].uv = maths::vec2(1, 1);
 
 				data[2].position = maths::vec3(x + width, y + height, 0);
-				data[2].uv = maths::vec2(1, 0);
 				data[2].normal = maths::vec3(0, 1, 0);
+				data[2].uv = maths::vec2(1, 0);
 
 				data[3].position = maths::vec3(x, y + height, 0);
-				data[3].uv = maths::vec2(0, 0);
 				data[3].normal = maths::vec3(0, 1, 0);
+				data[3].uv = maths::vec2(0, 0);
 
 				directx::VertexBuffer* buffer = new directx::VertexBuffer();
 				buffer->SetData(sizeof(Vertex3D) * 4, data);
@@ -91,8 +90,7 @@ namespace sunny
 				layout.Push<maths::vec3>("POSITION");
 				layout.Push<maths::vec3>("NORMAL");
 				layout.Push<maths::vec2>("TEXCOORD");
-				layout.Push<maths::vec3>("BINORMAL");
-				layout.Push<maths::vec3>("TANGENT");
+				layout.Push<float      >("TID");
 				buffer->SetLayout(layout);
 
 				directx::VertexArray* va = new directx::VertexArray();
@@ -116,26 +114,18 @@ namespace sunny
 				data[0].position = rotation * maths::vec3(-width / 2.0f, 0.0f, height / 2.0f);
 				data[0].normal   = normal;
 				data[0].uv       = maths::vec2(0, 1);
-				data[0].binormal = maths::mat4::Rotate(90.0f, maths::vec3(0, 1, 0)) * normal;
-				data[0].tangent  = maths::mat4::Rotate(90.0f, maths::vec3(0, 0, 1)) * normal;
 			
 				data[1].position = rotation * maths::vec3( width / 2.0f, 0.0f, height / 2.0f);
 				data[1].normal = normal;
 				data[1].uv = maths::vec2(1, 1);
-				data[1].binormal = maths::mat4::Rotate(90.0f, maths::vec3(0, 1, 0)) * normal;
-				data[1].tangent = maths::mat4::Rotate(90.0f, maths::vec3(0, 0, 1)) * normal;
 
 				data[2].position = rotation * maths::vec3(width / 2.0f, 0.0f, -height / 2.0f);
 				data[2].normal = normal;
 				data[2].uv = maths::vec2(1, 0);
-				data[2].binormal = maths::mat4::Rotate(90.0f, maths::vec3(0, 1, 0)) * normal;
-				data[2].tangent = maths::mat4::Rotate(90.0f, maths::vec3(0, 0, 1)) * normal;
 
 				data[3].position = rotation * maths::vec3(-width / 2.0f, 0.0f, -height / 2.0f);
 				data[3].normal = normal;
 				data[3].uv = maths::vec2(0, 0);
-				data[3].binormal = maths::mat4::Rotate(90.0f, maths::vec3(0, 1, 0)) * normal;
-				data[3].tangent = maths::mat4::Rotate(90.0f, maths::vec3(0, 0, 1)) * normal;
 
 
 				ShaderFactory::Default3DForwardShader()->Bind();
@@ -147,8 +137,7 @@ namespace sunny
 				layout.Push<maths::vec3>("POSITION");
 				layout.Push<maths::vec3>("NORMAL");
 				layout.Push<maths::vec2>("TEXCOORD");
-				layout.Push<maths::vec3>("BINORMAL");
-				layout.Push<maths::vec3>("TANGENT");
+				layout.Push<float      >("TID");
 				buffer->SetLayout(layout);
 
 				directx::VertexArray* va = new directx::VertexArray();
@@ -170,20 +159,20 @@ namespace sunny
 				Vertex3D data[4];
 
 				data[0].position = maths::vec3(0, 0, 0);
-				data[0].uv = maths::vec2(0, 1);
 				data[0].normal = maths::vec3(0, 1, 1);
+				data[0].uv = maths::vec2(0, 1);
 
 				data[1].position = maths::vec3(15, 0, 0);
-				data[1].uv = maths::vec2(1, 1);
 				data[1].normal = maths::vec3(0, 1, 1);
+				data[1].uv = maths::vec2(1, 1);
 
 				data[2].position = maths::vec3(15, 0.1, 0);
-				data[2].uv = maths::vec2(1, 0);
 				data[2].normal = maths::vec3(0, 1, 1);
+				data[2].uv = maths::vec2(1, 0);
 
 				data[3].position = maths::vec3(0, 0.1, 0);
-				data[3].uv = maths::vec2(0, 0);
 				data[3].normal = maths::vec3(0, 1, 1);
+				data[3].uv = maths::vec2(0, 0);
 
 				ShaderFactory::Default3DForwardShader()->Bind();
 
@@ -194,8 +183,7 @@ namespace sunny
 				layout.Push<maths::vec3>("POSITION");
 				layout.Push<maths::vec3>("NORMAL");
 				layout.Push<maths::vec2>("TEXCOORD");
-				layout.Push<maths::vec3>("BINORMAL");
-				layout.Push<maths::vec3>("TANGENT");
+				layout.Push<float      >("TID");
 				buffer->SetLayout(layout);
 
 				directx::VertexArray* va = new directx::VertexArray();
@@ -213,20 +201,20 @@ namespace sunny
 				Vertex3D data[4];
 
 				data[0].position = maths::vec3(0, 0, 0);
-				data[0].uv = maths::vec2(0, 1);
 				data[0].normal = maths::vec3(0, 1, 1);
+				data[0].uv = maths::vec2(0, 1);
 
 				data[1].position = maths::vec3(0.1, 0, 0);
-				data[1].uv = maths::vec2(1, 1);
 				data[1].normal = maths::vec3(0, 1, 1);
+				data[1].uv = maths::vec2(1, 1);
 
 				data[2].position = maths::vec3(0.1, 15, 0);
-				data[2].uv = maths::vec2(1, 0);
 				data[2].normal = maths::vec3(0, 1, 1);
+				data[2].uv = maths::vec2(1, 0);
 
 				data[3].position = maths::vec3(0, 15, 0);
-				data[3].uv = maths::vec2(0, 0);
 				data[3].normal = maths::vec3(0, 1, 1);
+				data[3].uv = maths::vec2(0, 0);
 
 				ShaderFactory::Default3DForwardShader()->Bind();
 
@@ -237,8 +225,7 @@ namespace sunny
 				layout.Push<maths::vec3>("POSITION");
 				layout.Push<maths::vec3>("NORMAL");
 				layout.Push<maths::vec2>("TEXCOORD");
-				layout.Push<maths::vec3>("BINORMAL");
-				layout.Push<maths::vec3>("TANGENT");
+				layout.Push<float      >("TID");
 				buffer->SetLayout(layout);
 
 				directx::VertexArray* va = new directx::VertexArray();
@@ -256,20 +243,20 @@ namespace sunny
 				Vertex3D data[4];
 
 				data[0].position = maths::vec3(0, 0, 0);
-				data[0].uv = maths::vec2(0, 1);
 				data[0].normal = maths::vec3(0, 1, 1);
+				data[0].uv = maths::vec2(0, 1);
 
 				data[1].position = maths::vec3(0.1, 0, 0);
-				data[1].uv = maths::vec2(1, 1);
 				data[1].normal = maths::vec3(0, 1, 1);
+				data[1].uv = maths::vec2(1, 1);
 
 				data[2].position = maths::vec3(0.1, 0, 15);
-				data[2].uv = maths::vec2(1, 0);
 				data[2].normal = maths::vec3(0, 1, 1);
+				data[2].uv = maths::vec2(1, 0);
 
 				data[3].position = maths::vec3(0.1, 0, 15);
-				data[3].uv = maths::vec2(0, 0);
 				data[3].normal = maths::vec3(0, 1, 1);
+				data[3].uv = maths::vec2(0, 0);
 
 				ShaderFactory::Default3DForwardShader()->Bind();
 
@@ -280,8 +267,7 @@ namespace sunny
 				layout.Push<maths::vec3>("POSITION");
 				layout.Push<maths::vec3>("NORMAL");
 				layout.Push<maths::vec2>("TEXCOORD");
-				layout.Push<maths::vec3>("BINORMAL");
-				layout.Push<maths::vec3>("TANGENT");
+				layout.Push<float      >("TID");
 				buffer->SetLayout(layout);
 
 				directx::VertexArray* va = new directx::VertexArray();

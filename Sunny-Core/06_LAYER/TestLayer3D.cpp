@@ -117,7 +117,7 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 	m_character->GetTransformComponent()->SetPosition(vec3(0, 0, 0));
 	m_character->GetTransformComponent()->SetRotation(vec3(0, 0, 0));
 	m_character->GetTransformComponent()->SetScale(vec3(100, 100, 100));
-	SetCamera(new QuaterCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.0f), m_character));
+	SetCamera(new QuaterCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.1f), m_character));
 
 	Add(m_character);
 
@@ -134,8 +134,8 @@ void TestLayer3D::OnUpdate(const utils::Timestep& ts)
 {
 	if (Input::IsKeyPressed(SUNNY_KEY_A))		m_character->GetTransformComponent()->Translate(vec3(-5, 0, 0));
 	if (Input::IsKeyPressed(SUNNY_KEY_D))		m_character->GetTransformComponent()->Translate(vec3(5, 0, 0));
-	if (Input::IsKeyPressed(SUNNY_KEY_W))		m_character->GetTransformComponent()->Translate(vec3(0, 0, -5));
-	if (Input::IsKeyPressed(SUNNY_KEY_S))		m_character->GetTransformComponent()->Translate(vec3(0, 0, 5));
+	if (Input::IsKeyPressed(SUNNY_KEY_W))		m_character->GetTransformComponent()->Translate(vec3(0, 0, 5));
+	if (Input::IsKeyPressed(SUNNY_KEY_S))		m_character->GetTransformComponent()->Translate(vec3(0, 0, -5));
 
 	if(!Input::IsKeyPressed(SUNNY_KEY_A) && !Input::IsKeyPressed(SUNNY_KEY_D) && !Input::IsKeyPressed(SUNNY_KEY_W) && !Input::IsKeyPressed(SUNNY_KEY_S))
 		if (Input::IsMouseButtonPressed(SUNNY_MOUSE_LEFT))
@@ -232,21 +232,22 @@ bool TestLayer3D::OnMouseReleasedEvent(MouseReleasedEvent& event)
 
 bool TestLayer3D::OnMouseMovedEvent(MouseMovedEvent& event)
 {
-	maths::vec2 mouse_xy(event.GetX(), Window::GetWindowClass()->GetHeight() - event.GetY());
+	maths::vec2 mouse_xy(event.GetX(), event.GetY());
 
 	vec3 viewProjection = (GetCamera()->GetProjectionMatrix() * GetCamera()->GetViewMatrix() * m_character->GetTransformComponent()->GetTransform()).GetPosition();
+	
 	double x = viewProjection.x / viewProjection.z;
 	double y = viewProjection.y / viewProjection.z;
 	double z = viewProjection.z / viewProjection.z;
 
-	double screenX = x * (Window::GetWindowClass()->GetWidth() / 2.0f) + 0 + (Window::GetWindowClass()->GetWidth() / 2.0f);
-	double screenY = y * (Window::GetWindowClass()->GetHeight() / 2.0f)+0 + (Window::GetWindowClass()->GetHeight() / 2.0f);
+	double screenX =  x * (Window::GetWindowClass()->GetWidth()  / 2.0f) + (Window::GetWindowClass()->GetWidth()  / 2.0f);
+	double screenY = -y * (Window::GetWindowClass()->GetHeight() / 2.0f) + (Window::GetWindowClass()->GetHeight() / 2.0f);
 
-	m_radian = maths::atan2(mouse_xy.y - screenY, mouse_xy.x - screenX);
+	m_radian = maths::atan2(mouse_xy.y - screenY, mouse_xy.x -  screenX);
 
 	m_degree = m_radian * 180 / maths::SUNNY_PI;
 
-	m_character->GetTransformComponent()->SetRotation({ 0, m_degree + 90, 0 });
+	m_character->GetTransformComponent()->SetRotation({ 0, m_degree + 90.0f , 0 });
 
 
 	return false;

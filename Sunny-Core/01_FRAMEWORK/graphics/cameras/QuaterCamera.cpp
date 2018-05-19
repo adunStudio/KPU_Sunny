@@ -14,7 +14,7 @@ namespace sunny
 			m_rotationSpeed = 0.002f;
 			m_zoomSpeed = 0.2f;
 
-			m_position = maths::vec3(0.0f, 100.0f, 1165.0f);
+			m_position = maths::vec3(0.0f, 1000.0f, -1165.0f);
 			m_rotation = maths::vec3(90.0f, 0.0f, 0.0f);
 
 			m_focalPoint = maths::vec3::Zero();
@@ -22,7 +22,7 @@ namespace sunny
 			m_distance = m_position.Distance(m_focalPoint);
 
 			m_yaw = 0; //maths::SUNNY_PI / 4.0f;
-			m_pitch = 1;// maths::SUNNY_PI / 4.0f;
+			m_pitch = -1;// maths::SUNNY_PI / 4.0f;
 		}
 
 		void QuaterCamera::Focus()
@@ -32,16 +32,17 @@ namespace sunny
 
 		void QuaterCamera::Update()
 		{
-			m_position = CalcuatePosition();
+			//m_position = CalcuatePosition();
 			
 			m_position.x = m_renderable->GetTransformComponent()->GetPosition().x;
-			m_position.z = m_renderable->GetTransformComponent()->GetPosition().z + 700;
+			m_position.y = m_renderable->GetTransformComponent()->GetPosition().y + 1300;
+			m_position.z = m_renderable->GetTransformComponent()->GetPosition().z - 800;
 			
 
 			maths::Quaternion orientation = GetOrientation();
 			m_rotation = orientation.ToEulerAngles() * (180.0f / maths::SUNNY_PI);
 
-			m_viewMatrix = maths::mat4::Translate(maths::vec3(0, 0, 1)) * maths::mat4::Rotate(orientation.Conjugate()) * maths::mat4::Translate(-m_position);
+			m_viewMatrix = maths::mat4::Translate(maths::vec3(0, 0, 0)) * maths::mat4::Rotate(orientation.Conjugate()) * maths::mat4::Translate(-m_position);
 		}
 
 		void QuaterCamera::MousePan(const maths::vec2& delta)
@@ -81,7 +82,7 @@ namespace sunny
 
 		maths::vec3 QuaterCamera::GetForwardDirection()
 		{
-			return maths::Quaternion::Rotate(GetOrientation(), -maths::vec3::ZAxis());
+			return maths::Quaternion::Rotate(GetOrientation(), maths::vec3::ZAxis());
 		}
 
 		maths::vec3 QuaterCamera::CalcuatePosition()

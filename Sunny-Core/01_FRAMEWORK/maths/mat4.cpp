@@ -249,6 +249,13 @@ namespace sunny
         {
             mat4 result(1.0f);
 
+
+			float yScale = 1.0f / tan(toRadians(0.5f * fov));
+			float xScale = yScale / aspectRatio;
+
+			float zn = near;
+			float zf = far;
+
             float q = 1.0f / tan(toRadians(0.5f * fov));
             float a = q / aspectRatio;
 
@@ -256,21 +263,29 @@ namespace sunny
             float c = (2.0f * near * far) / (near - far);
 
 			// right-handed
-            result.elements[0 + 0 * 4] = a;
-            result.elements[1 + 1 * 4] = q;
-            result.elements[2 + 2 * 4] = b;
-            result.elements[2 + 3 * 4] = -1.0f;
-            result.elements[3 + 2 * 4] = c;
+            //result.elements[0 + 0 * 4] = a;
+            //result.elements[1 + 1 * 4] = q;
+            //result.elements[2 + 2 * 4] = b;
+            //result.elements[2 + 3 * 4] = -1.0f;
+            //result.elements[3 + 2 * 4] = c;
 
-			// left-handed
-			//result.elements[0 + 0 * 4] = a;
-			//result.elements[1 + 1 * 4] = q;
-			//result.elements[2 + 2 * 4] = b;
-			//result.elements[2 + 3 * 4] = 1.0f;
-			//result.elements[3 + 2 * 4] = c;
+		/*	result.a11 = a;
+			result.a22 = q;
+			result.a33 = b;
+			result.a34 = c;
+			result.a43 = -1.0f;*/
+
+			result.a11 = xScale;
+			result.a22 = yScale;
+			result.a33 = zf / (zf - zn);
+			result.a34 = -zn * zf / (zf - zn); //-1.0f;
+			result.a43 = 1.0f;// zn * zf / (zn - zf);
+
 
             return result;
         }
+
+	
 
         mat4 mat4::LookAt(const vec3& camera, const vec3& object, const vec3& up)
         {

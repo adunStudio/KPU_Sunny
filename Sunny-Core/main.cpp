@@ -5,12 +5,13 @@
 #include "05_GAME/assets/AssetLoader.h"
 
 #include "06_LAYER/RoomLayer2D.h"
+#include "06_LAYER/TestLayer2D.h"
 
 
 class Game : public Application
 {
 public:
-	Game() : Application("sunny", { 1600, 900, false, true })
+	Game() : Application("sunny", { 1600, 900, false, false })
 	{}
 
 	~Game()
@@ -28,7 +29,7 @@ public:
 		VFS::Get()->Mount("TEXTURE", "04_ASSET/TEXTURE");
 		VFS::Get()->Mount("RAW",     "04_ASSET/RAW");
 		
-		Server::Connect("221.142.221.186", "7711");
+		//Server::Connect("221.142.221.186", "7711");
 
 
 		if (Server::IsConnected())
@@ -38,12 +39,13 @@ public:
 
 		game::AssetLoader::LoadModelData("/JSON/MODEL/Trees.json");
 		game::AssetLoader::LoadModelData("/JSON/MODEL/LowPolyNatures.json");
-		game::AssetLoader::LoadModel("/JSON/CHARACTER/Characters.json");
-		game::AssetLoader::LoadTexture("/JSON/TEXTURE/Rooms.json");
+	//	game::AssetLoader::LoadModel("/JSON/CHARACTER/Characters.json");
+		//game::AssetLoader::LoadTexture("/JSON/TEXTURE/Rooms.json");
 
-		Input::GetInputManager()->SetMouseCursor(SUNNY_NO_CURSOR);
+		//Input::GetInputManager()->SetMouseCursor(SUNNY_NO_CURSOR);
 
-		PushOverlay(new RoomLayer2D());
+		//PushOverlay(new RoomLayer2D());
+		PushOverlay(new TestLayer2D());
 	}
 };
 

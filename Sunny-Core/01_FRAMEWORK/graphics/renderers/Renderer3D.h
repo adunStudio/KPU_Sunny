@@ -39,6 +39,9 @@ namespace sunny
 
 			Renderable3D* m_skybox;
 
+			maths::mat4 m_viewProjectionMatrix;
+			maths::mat4 m_modelViewProjectionMatrix;
+
 			directx::Shader* m_default_forward_shader;          // 포워드     셰이더
 			directx::Shader* m_default_geometry_shader;         // 지오메트리 셰이더 
 			directx::Shader* m_default_shadow_shader;           // 그림자     셰이더 

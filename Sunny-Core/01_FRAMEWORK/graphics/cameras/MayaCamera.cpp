@@ -29,15 +29,15 @@ namespace sunny
 			m_rotationSpeed = 0.002f;
 			m_zoomSpeed = 0.2f;
 
-			m_position = maths::vec3(0.0f, 1500.0f, 0.0f);
-			m_rotation = maths::vec3(90.0f, 0.0f, 0.0f);
+			m_position = maths::vec3(0.0f, 0.0f, -1500.0f);
+			//m_rotation = maths::vec3(90.0f, 0.0f, 0.0f);
 
 			m_focalPoint = maths::vec3::Zero();
 
 			m_distance = m_position.Distance(m_focalPoint);
 
 			m_yaw = 0;
-			m_pitch = 1.55;
+			m_pitch = 0;
 		}
 
 		void MayaCamera::Focus()
@@ -106,7 +106,7 @@ namespace sunny
 
 		maths::vec3 MayaCamera::GetForwardDirection()
 		{
-			return maths::Quaternion::Rotate(GetOrientation(), -maths::vec3::ZAxis());
+			return maths::Quaternion::Rotate(GetOrientation(), maths::vec3::ZAxis());
 		}
 
 		maths::vec3 MayaCamera::CalcuatePosition()

@@ -167,8 +167,7 @@ namespace sunny
 				layout.Push<maths::vec3>("POSITION");
 				layout.Push<maths::vec3>("NORMAL");
 				layout.Push<maths::vec2>("TEXCOORD");
-				layout.Push<maths::vec3>("BINORMAL");
-				layout.Push<maths::vec3>("TANGENT");
+				layout.Push<float      >("TID");
 				buffer->SetLayout(layout);
 
 				va->PushBuffer(buffer);
@@ -283,8 +282,7 @@ namespace sunny
 			layout.Push<maths::vec3>("POSITION");
 			layout.Push<maths::vec3>("NORMAL");
 			layout.Push<maths::vec2>("TEXCOORD");
-			layout.Push<maths::vec3>("BINORMAL");
-			layout.Push<maths::vec3>("TANGENT");
+			layout.Push<float      >("TID");
 			buffer->SetLayout(layout);
 
 			directx::VertexArray* va = new directx::VertexArray();
@@ -309,7 +307,7 @@ namespace sunny
 				// 인덱스가 없다면 새로운 정점 정보 추가
 				mapping[indexSet] = (int)vertices.size();
 				indices.push_back(vertices.size());
-				Vertex3D vertex = { inputVertices.position[indexSet.position - 1], inputVertices.normals[indexSet.normal - 1], inputVertices.uvs[indexSet.uv - 1], maths::vec3(1, 1, 1), maths::vec3(1, 1, 1) };
+				Vertex3D vertex = { inputVertices.position[indexSet.position - 1], inputVertices.normals[indexSet.normal - 1], inputVertices.uvs[indexSet.uv - 1] };
 				vertices.push_back(vertex);
 			}
 		}

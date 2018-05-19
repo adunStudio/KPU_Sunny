@@ -20,8 +20,7 @@ namespace sunny
 			maths::vec3 position;
 			maths::vec3 normal;
 			maths::vec2 uv;
-			maths::vec3 binormal;
-			maths::vec3 tangent;
+			float       tid;
 		};
 
 		class Mesh
