@@ -23,3 +23,4 @@ using namespace sunny::graphics;
 using namespace sunny::directx;
 using namespace sunny::system; 
 using namespace sunny::ui;
+using namespace sunny::events;

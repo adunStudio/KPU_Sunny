@@ -1,10 +1,11 @@
 #include "Layer.h"
+#include "../../app/Application.h"
 
 namespace sunny
 {
 	namespace graphics
 	{
-		Layer::Layer() : m_window(Window::GetWindowClass(nullptr)), m_visible(true), m_active(true)
+		Layer::Layer() : m_window(Window::GetWindowClass(nullptr)), m_visible(true), m_active(true), m_windowWidth(Application::GetApplication().GetWindowWidth()), m_windowHeight(Application::GetApplication().GetWindowHeight())
 		{
 
 		}

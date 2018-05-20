@@ -19,6 +19,8 @@ namespace sunny
 
 			bool m_active;
 
+			int m_windowWidth, m_windowHeight;
+
 		public:
 			Layer();
 			virtual ~Layer();
