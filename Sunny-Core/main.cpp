@@ -4,6 +4,7 @@
 
 #include "05_GAME/assets/AssetLoader.h"
 
+#include "06_LAYER/FPSLayer2D.h"
 #include "06_LAYER/RoomLayer2D.h"
 #include "06_LAYER/TestLayer2D.h"
 
@@ -45,7 +46,11 @@ public:
 		//Input::GetInputManager()->SetMouseCursor(SUNNY_NO_CURSOR);
 
 		//PushOverlay(new RoomLayer2D());
+		PushOverlay(new FPSLayer2D());
+		FPSLayer2D::SetColor(RGBA(0.f, 0.f, 0.f, 0.7f));
+
 		PushOverlay(new TestLayer2D());
+
 	}
 };
 

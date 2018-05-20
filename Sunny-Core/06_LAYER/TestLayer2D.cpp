@@ -23,7 +23,7 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 	// FPS
 	m_fps   = new Label("fps", windowWidth - 5,  windowHeight - 15, RGBA(0, 0, 0, 0.8));
 	m_fps->SetAlignment(Label::Alignment::RIGHT);
-	Add(m_fps);
+	//Add(m_fps);
 
 	// Model
 	model_position = new Label("[T] x: 10 \t\t y: 10 \t\t z:10 \t", windowWidth - 10, windowHeight - 75,  FontManager::Get("nanum", 24), RGBA(1, 1, 1, 0.8), Label::Alignment::RIGHT);
