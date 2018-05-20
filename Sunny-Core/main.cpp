@@ -14,7 +14,7 @@
 class Game : public Application
 {
 public:
-	Game() : Application("sunny", { 1600, 900, false, false })
+	Game() : Application("sunny", { 1600, 900, false, true })
 	{}
 
 	~Game()
@@ -40,8 +40,8 @@ public:
 		else
 			cout << "서버 연결 실패" << endl;
 
-		game::AssetLoader::LoadModelData("/JSON/MODEL/Trees.json");
-		game::AssetLoader::LoadModelData("/JSON/MODEL/LowPolyNatures.json");
+	//	game::AssetLoader::LoadModelData("/JSON/MODEL/Trees.json");
+		//game::AssetLoader::LoadModelData("/JSON/MODEL/LowPolyNatures.json");
 	//	game::AssetLoader::LoadModel("/JSON/CHARACTER/Characters.json");
 		//game::AssetLoader::LoadTexture("/JSON/TEXTURE/Rooms.json");
 

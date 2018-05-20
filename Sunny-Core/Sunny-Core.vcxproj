@@ -58,6 +58,8 @@
     <ClCompile Include="05_GAME\graphics\Model3D.cpp" />
     <ClCompile Include="05_GAME\shoot\BulletSystem.cpp" />
     <ClCompile Include="05_GAME\shoot\CBullet.cpp" />
+    <ClCompile Include="06_LAYER\FPSLayer2D.cpp" />
+    <ClCompile Include="06_LAYER\LoadingLayer2D.cpp" />
     <ClCompile Include="06_LAYER\RoomLayer2D.cpp" />
     <ClCompile Include="06_LAYER\ShootingLayer3D.cpp" />
     <ClCompile Include="06_LAYER\TestGameLayer2D.cpp" />
@@ -168,6 +170,8 @@
     <ClInclude Include="05_GAME\Player.h" />
     <ClInclude Include="05_GAME\shoot\BulletSystem.h" />
     <ClInclude Include="05_GAME\shoot\CBullet.h" />
+    <ClInclude Include="06_LAYER\FPSLayer2D.h" />
+    <ClInclude Include="06_LAYER\LoadingLayer2D.h" />
     <ClInclude Include="06_LAYER\RoomLayer2D.h" />
     <ClInclude Include="06_LAYER\ShootingLaye3D.h" />
     <ClInclude Include="06_LAYER\TestGameLayer2D.h" />

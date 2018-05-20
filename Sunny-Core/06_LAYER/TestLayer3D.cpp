@@ -234,14 +234,22 @@ bool TestLayer3D::OnMouseMovedEvent(MouseMovedEvent& event)
 {
 	maths::vec2 mouse_xy(event.GetX(), event.GetY());
 
-	vec3 viewProjection = (GetCamera()->GetProjectionMatrix() * GetCamera()->GetViewMatrix() * m_character->GetTransformComponent()->GetTransform()).GetPosition();
+	vec3 P  = m_character->GetTransformComponent()->GetPosition();
+	mat4 VP = GetCamera()->GetViewMatrix() * GetCamera()->GetProjectionMatrix();
 	
-	double x = viewProjection.x / viewProjection.z;
-	double y = viewProjection.y / viewProjection.z;
-	double z = viewProjection.z / viewProjection.z;
+	float x = P.x * VP.a11 + P.y * VP.a21 + P.z * VP.a31 + VP.a41;
+	float y = P.x * VP.a12 + P.y * VP.a22 + P.z * VP.a31 + VP.a42;
+	float z = P.x * VP.a13 + P.y * VP.a23 + P.z * VP.a31 + VP.a43;
+	float w = P.x * VP.a14 + P.y * VP.a24 + P.z * VP.a31 + VP.a44;
 
-	double screenX =  x * (Window::GetWindowClass()->GetWidth()  / 2.0f) + (Window::GetWindowClass()->GetWidth()  / 2.0f);
-	double screenY = -y * (Window::GetWindowClass()->GetHeight() / 2.0f) + (Window::GetWindowClass()->GetHeight() / 2.0f);
+	x /= w;
+	y /= w;
+	z /= w;
+
+	double screenX = Window::GetWindowClass()->GetWidth()   * (x + 1.0f) / 2.0f + 0;
+	double screenY = Window::GetWindowClass()->GetHeight()  * (2.0f - (y + 1.0f)) / 2.0f + 0;
+
+
 
 	m_radian = maths::atan2(mouse_xy.y - screenY, mouse_xy.x -  screenX);
 
