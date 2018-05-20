@@ -8,15 +8,15 @@ namespace sunny
 {
     namespace maths
     {
-        Rectangle::Rectangle() : position(vec2()), size(vec2())
+        Rectangle::Rectangle(PIVOT pivot) : position(vec2()), size(vec2()), pivot(pivot)
         {
         }
 
-        Rectangle::Rectangle(const vec2& position, const vec2& size) : position(position), size(size)
+        Rectangle::Rectangle(const vec2& position, const vec2& size, PIVOT pivot) : position(position), size(size), pivot(pivot)
         {
         }
 
-        Rectangle::Rectangle(float x, float y, float width, float height) : position(vec2(x, y)), size(vec2(width, height))
+        Rectangle::Rectangle(float x, float y, float width, float height, PIVOT pivot) : position(vec2(x, y)), size(vec2(width, height)), pivot(pivot)
         {
         }
 

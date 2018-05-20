@@ -14,8 +14,8 @@ namespace sunny
 		public:
 			Sprite(directx::Texture2D* texture);
 			Sprite(float x, float y, directx::Texture2D* texture);
-			Sprite(float x, float y, float width, float height, const maths::vec4& color);
-			Sprite(float x, float y, float width, float height, directx::Texture2D* texture);
+			Sprite(float x, float y, float width, float height, const maths::vec4& color, PIVOT pivot = PIVOT_LEFT);
+			Sprite(float x, float y, float width, float height, directx::Texture2D* texture, PIVOT pivot = PIVOT_LEFT);
 
 			void SetUV(const std::vector<maths::vec2>& uv);
 

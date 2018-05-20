@@ -28,9 +28,10 @@ namespace sunny
 #define RENDERER_VERTEX_SIZE sizeof(Vertex2DData)
 
 		// 스프라이트와 라벨의 부모
-		// 포지션은 중앙 앵커포인트를 가진다.
+
+		// 포지션은 왼쪽 하단 or 중앙 앵커포인트를 가진다.
 		class Renderable2D
-		{
+		{		
 		protected:
 			maths::Rectangle m_bounds;
 			maths::vec4 m_color;
@@ -42,7 +43,7 @@ namespace sunny
 			Renderable2D();
 
 		public:
-			Renderable2D(const maths::vec2& position, const maths::vec2& size, const maths::vec4& color);
+			Renderable2D(const maths::vec2& position, const maths::vec2& size, const maths::vec4& color, PIVOT pivot = PIVOT_LEFT);
 			virtual ~Renderable2D();
 
 			virtual void Submit(Renderer2D* renderer) const;

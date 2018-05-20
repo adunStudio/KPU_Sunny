@@ -5,6 +5,8 @@
 #include "05_GAME/assets/AssetLoader.h"
 
 #include "06_LAYER/FPSLayer2D.h"
+#include "06_LAYER/LoadingLayer2D.h"
+
 #include "06_LAYER/RoomLayer2D.h"
 #include "06_LAYER/TestLayer2D.h"
 
@@ -49,8 +51,8 @@ public:
 		PushOverlay(new FPSLayer2D());
 		FPSLayer2D::SetColor(RGBA(0.f, 0.f, 0.f, 0.7f));
 
-		PushOverlay(new TestLayer2D());
-
+		PushLayer(new LoadingLayer2D());
+		
 	}
 };
 

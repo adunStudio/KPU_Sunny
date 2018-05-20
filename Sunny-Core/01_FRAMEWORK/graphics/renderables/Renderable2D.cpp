@@ -11,8 +11,8 @@ namespace sunny
 			m_UVs = GetDefaultUVs();
 		}
 
-		Renderable2D::Renderable2D(const maths::vec2& position, const maths::vec2& size, const maths::vec4& color)
-		: m_bounds(position, size), m_color(color), m_texture(nullptr), m_visible(true)
+		Renderable2D::Renderable2D(const maths::vec2& position, const maths::vec2& size, const maths::vec4& color, PIVOT pivot)
+		: m_bounds(position, size, pivot), m_color(color), m_texture(nullptr), m_visible(true)
 		{
 			m_UVs = GetDefaultUVs();
 		}
