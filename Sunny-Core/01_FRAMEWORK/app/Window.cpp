@@ -6,6 +6,7 @@
 #include "../directx/Context.h"
 #include "../directx/Renderer.h"
 #include "../graphics/fonts/FontManager.h"
+#include "../audio/AudioEngine.h"
 #include <atlstr.h>
 
 EXTERN_C IMAGE_DOS_HEADER __ImageBase;
@@ -75,12 +76,13 @@ namespace sunny
 
 		m_inputManager  = new InputManager();
 		m_serverManager = new ServerManager();
+		audio::AudioEngine::Init();
 
     }
 
     Window::~Window()
     {
-
+		audio::AudioEngine::Clear();
     }
 
     bool Window::Init()
@@ -124,7 +126,7 @@ namespace sunny
 			_T("가나sunny"),                                                // 만들어질 윈도우의 타이틀 바에 나타내는 문자열
                 WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,        // 윈도우 스타일 조합
                 GetSystemMetrics(SM_CXSCREEN) / 2 - m_properties.width / 2,     // 윈도우 생성 위치 x
-                GetSystemMetrics(SM_CYSCREEN) / 2 - m_properties.height / 2,    // 윈도우 생성 위치 y
+                GetSystemMetrics(SM_CYSCREEN) / 2 - m_properties.height / 2 - 40,    // 윈도우 생성 위치 y
                 // TODO: This requires some... attention
                 size.right + (-size.left), size.bottom + (-size.top),           // 생성되는 윈도우의 폭과 높이
                 NULL,
@@ -175,6 +177,8 @@ namespace sunny
             TranslateMessage(&message);
             DispatchMessage(&message);
         }
+
+		audio::AudioEngine::Update();
 		m_inputManager->Update();
 		directx::Renderer::Present();
     }

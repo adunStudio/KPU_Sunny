@@ -13,6 +13,8 @@ LoadingLayer2D::~LoadingLayer2D()
 
 void LoadingLayer2D::OnInit(Renderer2D& renderer)
 {
+	AudioEngine::LoadSound("04_ASSET/MP3/sunny_loading.mp3", false, true);
+	AudioEngine::Play("04_ASSET/MP3/sunny_loading.mp3");
 	m_backgroundTexture = new Texture2D("/TEXTURE/Loadings/background.png");
 	m_background = new Sprite(0, 0, m_windowWidth, m_windowHeight, m_backgroundTexture);
 	Add(m_background);
@@ -21,60 +23,60 @@ void LoadingLayer2D::OnInit(Renderer2D& renderer)
 
 	for (int i = 0; i < 13; ++i)
 	{
-		RoadingCircle* circle = new RoadingCircle(i * 160, 860 - 142 * 0, 20, m_circleTexture);
+		RoadingCircle* circle = new RoadingCircle(i * 160, 860 - 142 * 0, 10, m_circleTexture);
 		m_circles.push_back(circle);
 		Add(circle);
 	}
 
 	for (int i = 0; i < 11; ++i)
 	{
-		RoadingCircle* circle = new RoadingCircle(i * 160 + 80, 860 - 142 * 1, 20, m_circleTexture);
+		RoadingCircle* circle = new RoadingCircle(i * 160 + 80, 860 - 142 * 1, 10, m_circleTexture);
 		m_circles.push_back(circle);
 		Add(circle);
 	}
 
 	for (int i = 0; i < 13; ++i)
 	{
-		RoadingCircle* circle = new RoadingCircle(i * 160, 860 - 142 * 2, 20, m_circleTexture);
+		RoadingCircle* circle = new RoadingCircle(i * 160, 860 - 142 * 2, 10, m_circleTexture);
 		m_circles.push_back(circle);
 		Add(circle);
 	}
 
 	for (int i = 0; i < 11; ++i)
 	{
-		RoadingCircle* circle = new RoadingCircle(i * 160 + 80, 860 - 142 * 3, 20, m_circleTexture);
+		RoadingCircle* circle = new RoadingCircle(i * 160 + 80, 860 - 142 * 3, 10, m_circleTexture);
 		m_circles.push_back(circle);
 		Add(circle);
 	}
 
 	for (int i = 0; i < 13; ++i)
 	{
-		RoadingCircle* circle = new RoadingCircle(i * 160, 860 - 142 * 4, 20, m_circleTexture);
+		RoadingCircle* circle = new RoadingCircle(i * 160, 860 - 142 * 4, 10, m_circleTexture);
 		m_circles.push_back(circle);
 		Add(circle);
 	}
 
 	for (int i = 0; i < 11; ++i)
 	{
-		RoadingCircle* circle = new RoadingCircle(i * 160 + 80, 860 - 142 * 5, 20, m_circleTexture);
+		RoadingCircle* circle = new RoadingCircle(i * 160 + 80, 860 - 142 * 5, 10, m_circleTexture);
 		m_circles.push_back(circle);
 		Add(circle);
 	}
 
 	for (int i = 0; i < 13; ++i)
 	{
-		RoadingCircle* circle = new RoadingCircle(i * 160, 860 - 142 * 6, 20, m_circleTexture);
+		RoadingCircle* circle = new RoadingCircle(i * 160, 860 - 142 * 6, 10, m_circleTexture);
 		m_circles.push_back(circle);
 		Add(circle);
 	}
 
 	m_logoTexture = new Texture2D("/TEXTURE/Loadings/boo2.png");
 	m_logo = new Sprite(m_windowWidth/ 2 , m_windowHeight / 2 + 65, m_logoTexture, PIVOT_CENTER);
-	Add(m_logo);
+	//Add(m_logo);
 	
 	m_panel = new Panel();
 
-	m_state = new Label("LOADING¾ÈµÅ...", m_windowWidth / 2, 107, "nanum", RGBA(1, 1, 1, 0.9), Label::Alignment::CENTER);
+	m_state = new Label("LOADING...", m_windowWidth / 2, 107, "power", RGBA(1, 1, 1, 0.9), Label::Alignment::CENTER);
 	Add(m_state);
 	m_loadingBar = new Progressbar(maths::Rectangle(400, 65, 400, 15));
 	m_loadingBar->SetValue(0.7);

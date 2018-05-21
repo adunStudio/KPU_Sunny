@@ -16,6 +16,8 @@
 #include "graphics/ModelManager.h"
 #include "graphics/TextureManager.h"
 
+#include "audio/AudioEngine.h"
+
 using namespace std;
 using namespace sunny;
 using namespace sunny::maths;
@@ -24,3 +26,4 @@ using namespace sunny::directx;
 using namespace sunny::system; 
 using namespace sunny::ui;
 using namespace sunny::events;
+using namespace sunny::audio;
