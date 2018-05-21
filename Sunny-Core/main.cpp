@@ -1,3 +1,5 @@
+#pragma setlocale("kor")
+
 #include <iostream>
 
 #include <SUNNY.h>
@@ -41,9 +43,9 @@ public:
 			cout << "서버 연결 실패" << endl;
 
 	//	game::AssetLoader::LoadModelData("/JSON/MODEL/Trees.json");
-		//game::AssetLoader::LoadModelData("/JSON/MODEL/LowPolyNatures.json");
-	//	game::AssetLoader::LoadModel("/JSON/CHARACTER/Characters.json");
-		//game::AssetLoader::LoadTexture("/JSON/TEXTURE/Rooms.json");
+	//	game::AssetLoader::LoadModelData("/JSON/MODEL/LowPolyNatures.json");
+     //	game::AssetLoader::LoadModel("/JSON/CHARACTER/Characters.json");
+	//	game::AssetLoader::LoadTexture("/JSON/TEXTURE/Rooms.json");
 
 		//Input::GetInputManager()->SetMouseCursor(SUNNY_NO_CURSOR);
 
@@ -52,7 +54,7 @@ public:
 		FPSLayer2D::SetColor(RGBA(0.f, 0.f, 0.f, 0.7f));
 
 		PushLayer(new LoadingLayer2D());
-		
+
 	}
 };
 

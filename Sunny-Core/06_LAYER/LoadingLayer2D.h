@@ -18,8 +18,13 @@ public:
 	Texture2D*       m_circleTexture;
 	vector<RoadingCircle*> m_circles;
 
+	Texture2D* m_logoTexture;
+	Sprite*    m_logo;
 
 	Sprite* m_mouse;
+
+	Label* m_state;
+	Progressbar* m_loadingBar;
 
 
 private:
@@ -71,12 +76,12 @@ public:
 
 		if (up)
 			if (first)
-				m_size += 2.5;
+				m_size += 1.5;
 			else
-				m_size += 0.2;
+				m_size += 0.17;
 		
 		else
-			m_size -= 0.2;
+			m_size -= 0.15;
 		
 
 

@@ -67,6 +67,18 @@ void LoadingLayer2D::OnInit(Renderer2D& renderer)
 		m_circles.push_back(circle);
 		Add(circle);
 	}
+
+	m_logoTexture = new Texture2D("/TEXTURE/Loadings/boo2.png");
+	m_logo = new Sprite(m_windowWidth/ 2 , m_windowHeight / 2 + 65, m_logoTexture, PIVOT_CENTER);
+	Add(m_logo);
+	
+	m_panel = new Panel();
+
+	m_state = new Label("LOADING¾ÈµÅ...", m_windowWidth / 2, 107, "nanum", RGBA(1, 1, 1, 0.9), Label::Alignment::CENTER);
+	Add(m_state);
+	m_loadingBar = new Progressbar(maths::Rectangle(400, 65, 400, 15));
+	m_loadingBar->SetValue(0.7);
+	m_panel->Add(m_loadingBar);
 }
 
 void LoadingLayer2D::OnTick()

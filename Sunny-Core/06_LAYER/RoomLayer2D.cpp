@@ -80,7 +80,7 @@ void RoomLayer2D::OnInit(Renderer2D & renderer)
 
 	Add(m_sprites["background"]);
 	Add(m_sprites["layout"]);
-	Add(m_fps);
+	//Add(m_fps);
 
 	Add(m_sprites["player_0"]);
 	Add(m_sprites["player_1"]);

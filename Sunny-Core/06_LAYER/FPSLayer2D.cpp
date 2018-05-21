@@ -11,7 +11,12 @@ void FPSLayer2D::SetColor(vec4& color)
 FPSLayer2D::FPSLayer2D()
 : Layer2D(maths::mat4::Orthographic(0.0f, Application::GetApplication().GetWindowWidth(), 0.0f, Application::GetApplication().GetWindowHeight(), -1.0f, 1.0f))
 {
-	m_fps = new Label("fps", m_windowWidth - 5, m_windowHeight - 30, RGBA(1, 1, 1, 0.7), Label::Alignment::RIGHT);
+
+	Texture2D* sunny_engine_mark = new Texture2D("/TEXTURE/Loadings/sunny_engine.png");
+	Sprite* mark = new Sprite(m_windowWidth - 83, m_windowHeight - 18, sunny_engine_mark);
+	Add(mark);
+
+	m_fps = new Label("fps", m_windowWidth - 4, m_windowHeight - 43, "dash", 28, RGBA(1, 1, 1, 0.7), Label::Alignment::RIGHT);
 
 	Add(m_fps);
 

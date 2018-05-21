@@ -321,30 +321,6 @@
     <ClCompile Include="06_LAYER\FPSLayer2D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\audio\Sound.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\audio\SoundManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\dependency\gorilla\ga.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\dependency\gorilla\ga_stream.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\dependency\gorilla\gau.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\dependency\gorilla\devices\ga_openal.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\dependency\gorilla\common\gc_common.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\dependency\gorilla\common\gc_thread.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="01_FRAMEWORK\app\Application.h">
@@ -723,48 +699,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="06_LAYER\FPSLayer2D.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\audio\Sound.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\audio\SoundManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\OpenAL\include\OpenAL\al.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\OpenAL\include\OpenAL\alc.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\OpenAL\include\OpenAL\efx-creative.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\OpenAL\include\OpenAL\EFX-Util.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\OpenAL\include\OpenAL\xram.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\gorilla\ga.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\gorilla\ga_internal.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\gorilla\gau.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\gorilla\devices\ga_openal.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\gorilla\common\gc_common.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\gorilla\common\gc_thread.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\gorilla\common\gc_types.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

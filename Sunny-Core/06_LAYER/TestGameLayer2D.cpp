@@ -23,7 +23,7 @@ void TestGameLayer2D::OnInit(Renderer2D& renderer)
 	m_windowHeight = Application::GetApplication().GetWindowHeight();
 
 	// FPS
-	m_fps = new Label("fps", m_windowWidth - 5, m_windowHeight - 30, RGBA(0, 0, 0, 0.7), Label::Alignment::RIGHT);
+	m_fps = new Label("fps", m_windowWidth - 5, m_windowHeight - 30, "dot", RGBA(0, 0, 0, 0.7), Label::Alignment::RIGHT);
 	Add(m_fps);
 	//Add(m_mouse);
 

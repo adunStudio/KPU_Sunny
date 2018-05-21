@@ -1,6 +1,7 @@
 #include "Renderer2D.h"
 
 #include "../../dependency/freetype/freetype-gl/freetype-gl.h"
+#include <atlstr.h>
 
 namespace sunny
 {
@@ -461,10 +462,10 @@ namespace sunny
 
 		void Renderer2D::DrawRect(float x, float y, float width, float height, const maths::vec4& color)
 		{
-			DrawLine(x        , y         , x + width, y         , color); // 아래
-			DrawLine(x + width, y         , x + width, y + height, color); // 우측
-			DrawLine(x + width, y + height, x        , y + height, color); // 위
-			DrawLine(x        , y + height, x        , y         , color); // 좌측
+			DrawLine(x        , y         , x + width, y         , color, 0.5f); // 아래
+			DrawLine(x + width, y         , x + width, y + height, color, 0.5f); // 우측
+			DrawLine(x + width, y + height, x        , y + height, color, 0.5f); // 위
+			DrawLine(x        , y + height, x        , y         , color, 0.5f); // 좌측
 		}
 		void Renderer2D::DrawRect(const maths::vec2& position, const maths::vec2& size, const maths::vec4& color)
 		{
@@ -592,17 +593,19 @@ namespace sunny
 
 			texture_font_t* ftFont = font.GetFTFont();
 
-			for (unsigned int i = 0; i < text.length(); ++i)
-			{
-				char c = text[i];
+			//std::wstring widestr = std::wstring(text.begin(), text.end());
 
-				texture_glyph_t* glyph = texture_font_get_glyph(ftFont, c);
+			wchar_t* ttext = CA2W(text.c_str());
+
+			for (unsigned int i = 0; i < wcslen(ttext); ++i)
+			{
+				texture_glyph_t* glyph = texture_font_get_glyph(ftFont, ttext[i]);
 
 				if (glyph)
 				{
 					if (i > 0)
 					{
-						float kerning = texture_glyph_get_kerning(glyph, text[i - 1]);
+						float kerning = texture_glyph_get_kerning(glyph, ttext[i - 1]);
 						x += kerning / scale.x;
 					}
 

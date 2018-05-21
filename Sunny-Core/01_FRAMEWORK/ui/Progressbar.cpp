@@ -30,11 +30,11 @@ namespace sunny
 
 		void Progressbar::OnRender(Renderer2D& renderer)
 		{
-			renderer.FillRect(m_bounds, RGBA(0.81, 0.75, 0.7, 1));
-			renderer.DrawRect(m_bounds);
+			renderer.FillRect(m_bounds, RGBA(0.5, 0.5, 0.5, 0.7));
+			renderer.DrawRect(m_bounds, RGBA(0.9, 0.9, 0.9, 0.7));
 
-			renderer.FillRect(m_progressBounds, RGBA(0.81, 0, 0, 1));
-			renderer.DrawRect(m_progressBounds);
+			renderer.FillRect(m_progressBounds, RGBA(0.7, 0.7, 0.7, 0.5));
+			//renderer.DrawRect(m_progressBounds, RGBA(0.9, 0.9, 0.9, 0.7));
 		}
 
 		void Progressbar::SetValue(float value)

@@ -6,6 +6,7 @@
 #include "../directx/Context.h"
 #include "../directx/Renderer.h"
 #include "../graphics/fonts/FontManager.h"
+#include <atlstr.h>
 
 EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 
@@ -61,6 +62,16 @@ namespace sunny
 		FontManager::Add(new Font("nanum",         "01_FRAMEWORK/graphics/fonts/default/NanumGothic.ttf",         16));
 		FontManager::Add(new Font("consola",       "01_FRAMEWORK/graphics/fonts/default/consola.ttf",             32));
 		FontManager::Add(new Font("SourceSansPro", "01_FRAMEWORK/graphics/fonts/default/SourceSansPro-Light.ttf", 32));
+		FontManager::Add(new Font("dot",           "01_FRAMEWORK/graphics/fonts/default/small_dot_digital-7.ttf", 32));
+		FontManager::Add(new Font("dot",           "01_FRAMEWORK/graphics/fonts/default/small_dot_digital-7.ttf", 24));
+		FontManager::Add(new Font("dot",           "01_FRAMEWORK/graphics/fonts/default/small_dot_digital-7.ttf", 16));
+		FontManager::Add(new Font("power",         "01_FRAMEWORK/graphics/fonts/default/power_pixel-7.ttf",       32));
+		FontManager::Add(new Font("power",         "01_FRAMEWORK/graphics/fonts/default/power_pixel-7.ttf",       24));
+		FontManager::Add(new Font("power",         "01_FRAMEWORK/graphics/fonts/default/power_pixel-7.ttf",       16));
+		FontManager::Add(new Font("dash",          "01_FRAMEWORK/graphics/fonts/default/dash_dot_lcd-7.ttf",      32));
+		FontManager::Add(new Font("dash",          "01_FRAMEWORK/graphics/fonts/default/dash_dot_lcd-7.ttf",      28));
+		FontManager::Add(new Font("dash",          "01_FRAMEWORK/graphics/fonts/default/dash_dot_lcd-7.ttf",      24));
+		FontManager::Add(new Font("dash",          "01_FRAMEWORK/graphics/fonts/default/dash_dot_lcd-7.ttf",      16));
 
 		m_inputManager  = new InputManager();
 		m_serverManager = new ServerManager();
@@ -110,7 +121,7 @@ namespace sunny
                 WS_EX_APPWINDOW | WS_EX_WINDOWEDGE,                             // 태스크바에 나타낸다.
                 winClass.lpszClassName,                                         // 윈도우 클래스의 이름
 			//(LPCWSTR)m_title.c_str(),                                                // 만들어질 윈도우의 타이틀 바에 나타내는 문자열
-			_T("sunny"),                                                // 만들어질 윈도우의 타이틀 바에 나타내는 문자열
+			_T("가나sunny"),                                                // 만들어질 윈도우의 타이틀 바에 나타내는 문자열
                 WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,        // 윈도우 스타일 조합
                 GetSystemMetrics(SM_CXSCREEN) / 2 - m_properties.width / 2,     // 윈도우 생성 위치 x
                 GetSystemMetrics(SM_CYSCREEN) / 2 - m_properties.height / 2,    // 윈도우 생성 위치 y
@@ -121,6 +132,7 @@ namespace sunny
                 hInstance,
                 NULL
         );
+
 
 		m_handle = hWnd;
 
@@ -181,8 +193,8 @@ namespace sunny
     void Window::SetTitle(const std::string title)
     {
         m_title = title;
-		std::wstring wstr(title.begin(), title.end());
-        SetWindowText(hWnd, wstr.c_str());
+		wchar_t* text = CA2W(title.c_str());
+        SetWindowText(hWnd, text);
     }
 
     LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

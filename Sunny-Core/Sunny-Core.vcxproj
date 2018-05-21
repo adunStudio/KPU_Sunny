@@ -23,20 +23,12 @@
     <ClCompile Include="01_FRAMEWORK\app\Input.cpp" />
     <ClCompile Include="01_FRAMEWORK\app\Server.cpp" />
     <ClCompile Include="01_FRAMEWORK\app\Window.cpp" />
-    <ClCompile Include="01_FRAMEWORK\audio\Sound.cpp" />
-    <ClCompile Include="01_FRAMEWORK\audio\SoundManager.cpp" />
     <ClCompile Include="01_FRAMEWORK\component\Component.cpp" />
     <ClCompile Include="01_FRAMEWORK\component\TransformComponent.cpp" />
     <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\platform.c" />
     <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\texture-atlas.c" />
     <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\texture-font.c" />
     <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\vector.c" />
-    <ClCompile Include="01_FRAMEWORK\dependency\gorilla\common\gc_common.c" />
-    <ClCompile Include="01_FRAMEWORK\dependency\gorilla\common\gc_thread.c" />
-    <ClCompile Include="01_FRAMEWORK\dependency\gorilla\devices\ga_openal.c" />
-    <ClCompile Include="01_FRAMEWORK\dependency\gorilla\ga.c" />
-    <ClCompile Include="01_FRAMEWORK\dependency\gorilla\gau.c" />
-    <ClCompile Include="01_FRAMEWORK\dependency\gorilla\ga_stream.c" />
     <ClCompile Include="01_FRAMEWORK\directx\BufferLayout.cpp" />
     <ClCompile Include="01_FRAMEWORK\directx\Context.cpp" />
     <ClCompile Include="01_FRAMEWORK\directx\DebugBuffer.cpp" />
@@ -135,8 +127,6 @@
     <ClInclude Include="01_FRAMEWORK\app\Input.h" />
     <ClInclude Include="01_FRAMEWORK\app\Server.h" />
     <ClInclude Include="01_FRAMEWORK\app\Window.h" />
-    <ClInclude Include="01_FRAMEWORK\audio\Sound.h" />
-    <ClInclude Include="01_FRAMEWORK\audio\SoundManager.h" />
     <ClInclude Include="01_FRAMEWORK\component\Component.h" />
     <ClInclude Include="01_FRAMEWORK\component\Components.h" />
     <ClInclude Include="01_FRAMEWORK\component\TransformComponent.h" />
@@ -148,18 +138,6 @@
     <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\texture-font.h" />
     <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\vec234.h" />
     <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\vector.h" />
-    <ClInclude Include="01_FRAMEWORK\dependency\gorilla\common\gc_common.h" />
-    <ClInclude Include="01_FRAMEWORK\dependency\gorilla\common\gc_thread.h" />
-    <ClInclude Include="01_FRAMEWORK\dependency\gorilla\common\gc_types.h" />
-    <ClInclude Include="01_FRAMEWORK\dependency\gorilla\devices\ga_openal.h" />
-    <ClInclude Include="01_FRAMEWORK\dependency\gorilla\ga.h" />
-    <ClInclude Include="01_FRAMEWORK\dependency\gorilla\gau.h" />
-    <ClInclude Include="01_FRAMEWORK\dependency\gorilla\ga_internal.h" />
-    <ClInclude Include="01_FRAMEWORK\dependency\OpenAL\include\OpenAL\al.h" />
-    <ClInclude Include="01_FRAMEWORK\dependency\OpenAL\include\OpenAL\alc.h" />
-    <ClInclude Include="01_FRAMEWORK\dependency\OpenAL\include\OpenAL\efx-creative.h" />
-    <ClInclude Include="01_FRAMEWORK\dependency\OpenAL\include\OpenAL\EFX-Util.h" />
-    <ClInclude Include="01_FRAMEWORK\dependency\OpenAL\include\OpenAL\xram.h" />
     <ClInclude Include="01_FRAMEWORK\directx\BufferLayout.h" />
     <ClInclude Include="01_FRAMEWORK\directx\Common.h" />
     <ClInclude Include="01_FRAMEWORK\directx\Context.h" />
@@ -371,13 +349,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_WINSOCKAPI_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>$(VC_SourcePath)01_FRAMEWORK\dependency\OpenAL\include\;$(VC_SourcePath)01_FRAMEWORK\dependency\freetype\include;$(VC_SourcePath)01_FRAMEWORK;$(VC_SourcePath)01_FRAMEWORK\dependency\gorilla;$(VC_SourcePath)01_FRAMEWORK\dependency\libogg/include\;$(VC_SourcePath)01_FRAMEWORK\dependency\libvorbis/include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VC_SourcePath)01_FRAMEWORK\dependency\freetype\include;$(VC_SourcePath)01_FRAMEWORK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(VC_SourcePath)01_FRAMEWORK\dependency\libvorbis\bin\;$(VC_SourcePath)01_FRAMEWORK\dependency\libogg\bin\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ws2_32.lib;libvorbis.lib;libogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -410,15 +388,15 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;_WINSOCKAPI_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>$(VC_SourcePath)01_FRAMEWORK\dependency\OpenAL\include\;$(VC_SourcePath)01_FRAMEWORK\dependency\freetype\include;$(VC_SourcePath)01_FRAMEWORK;$(VC_SourcePath)01_FRAMEWORK\dependency\gorilla;$(VC_SourcePath)01_FRAMEWORK\dependency\libogg/include\;$(VC_SourcePath)01_FRAMEWORK\dependency\libvorbis/include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VC_SourcePath)01_FRAMEWORK\dependency\freetype\include;$(VC_SourcePath)01_FRAMEWORK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(VC_SourcePath)01_FRAMEWORK\dependency\libvorbis\bin\;$(VC_SourcePath)01_FRAMEWORK\dependency\libogg\bin\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ws2_32.lib;libvorbis.lib;libogg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
