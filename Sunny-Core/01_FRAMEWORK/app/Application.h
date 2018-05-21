@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <mutex>
 #include "../include.h"
 #include "Window.h"
 #include "../utils/Timer.h"
@@ -12,13 +13,14 @@
 #include "../graphics/layers/Layer.h"
 #include "../system/VFS.h"
 #include "../events/Events.h"
-
 namespace sunny
 {
     class Application
     {
     public:
         Window* window;
+
+		std::mutex m_mutex;
 
         inline static Application& GetApplication() { return *s_instance; }
     private:

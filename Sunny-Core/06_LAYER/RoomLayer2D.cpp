@@ -1,5 +1,10 @@
 #include "RoomLayer2D.h"
 
+template <typename T> string tostr(const T& t) {
+	ostringstream os;
+	os << t;
+	return os.str();
+}
 RoomLayer2D::RoomLayer2D()
 : Layer2D(maths::mat4::Orthographic(0.0f, Application::GetApplication().GetWindowWidth(), 0.0f, Application::GetApplication().GetWindowHeight(), -1.0f, 1.0f))
 , m_saved_packet_size(0), m_packet_size(0), m_io_flag(0), firstTime(true)

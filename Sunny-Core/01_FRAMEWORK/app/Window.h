@@ -5,6 +5,7 @@
 #pragma once
 
 #include <tchar.h>
+#include <mutex>
 #include <WinSock2.h>
 #include <Windows.h>
 #include <Windowsx.h>

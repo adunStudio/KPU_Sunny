@@ -12,13 +12,13 @@ namespace sunny
 		public:
 			typedef std::function<void(float)>    CompletedCallback;
 
-		private:
+		protected:
 			enum class ProgressbarState
 			{
 				LOADING, COMPLETED
 			};
 
-		private:
+		protected:
 			maths::Rectangle m_progressBounds;
 
 			float m_value;

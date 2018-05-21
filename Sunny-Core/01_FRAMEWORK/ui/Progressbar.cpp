@@ -34,6 +34,7 @@ namespace sunny
 			renderer.DrawRect(m_bounds, RGBA(0.9, 0.9, 0.9, 0.7));
 
 			renderer.FillRect(m_progressBounds, RGBA(0.7, 0.7, 0.7, 0.5));
+
 			//renderer.DrawRect(m_progressBounds, RGBA(0.9, 0.9, 0.9, 0.7));
 		}
 

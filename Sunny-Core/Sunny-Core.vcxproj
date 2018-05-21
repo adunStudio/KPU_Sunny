@@ -59,12 +59,12 @@
     <ClCompile Include="05_GAME\graphics\Model3D.cpp" />
     <ClCompile Include="05_GAME\shoot\BulletSystem.cpp" />
     <ClCompile Include="05_GAME\shoot\CBullet.cpp" />
+    <ClCompile Include="05_GAME\ui\Loadingbar.cpp" />
     <ClCompile Include="06_LAYER\FPSLayer2D.cpp" />
     <ClCompile Include="06_LAYER\LoadingLayer2D.cpp" />
     <ClCompile Include="06_LAYER\RoomLayer2D.cpp" />
     <ClCompile Include="06_LAYER\ShootingLayer3D.cpp" />
     <ClCompile Include="06_LAYER\TestGameLayer2D.cpp" />
-    <ClCompile Include="06_LAYER\TestGameLayer3D.cpp" />
     <ClCompile Include="01_FRAMEWORK\graphics\cameras\Camera.cpp" />
     <ClCompile Include="01_FRAMEWORK\graphics\cameras\FPSCamera.cpp" />
     <ClCompile Include="01_FRAMEWORK\graphics\cameras\LightCamera.cpp" />
@@ -105,6 +105,7 @@
     <ClCompile Include="01_FRAMEWORK\ui\Progressbar.cpp" />
     <ClCompile Include="01_FRAMEWORK\ui\Slider.cpp" />
     <ClCompile Include="01_FRAMEWORK\ui\Widget.cpp" />
+    <ClCompile Include="06_LAYER\TestGameLayer3D.cpp" />
     <ClCompile Include="06_LAYER\TestLayer2D.cpp" />
     <ClCompile Include="06_LAYER\TestLayer3D.cpp" />
     <ClCompile Include="07_SERVER\BossLocker.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="01_FRAMEWORK\directx\Common.h" />
     <ClInclude Include="01_FRAMEWORK\directx\Context.h" />
     <ClInclude Include="01_FRAMEWORK\directx\DebugBuffer.h" />
+    <ClInclude Include="01_FRAMEWORK\directx\DeferredContext.h" />
     <ClInclude Include="01_FRAMEWORK\directx\GeometryBuffer.h" />
     <ClInclude Include="01_FRAMEWORK\directx\IndexBuffer.h" />
     <ClInclude Include="01_FRAMEWORK\directx\Renderer.h" />
@@ -172,6 +174,7 @@
     <ClInclude Include="05_GAME\Player.h" />
     <ClInclude Include="05_GAME\shoot\BulletSystem.h" />
     <ClInclude Include="05_GAME\shoot\CBullet.h" />
+    <ClInclude Include="05_GAME\ui\Loadingbar.h" />
     <ClInclude Include="06_LAYER\FPSLayer2D.h" />
     <ClInclude Include="06_LAYER\LoadingLayer2D.h" />
     <ClInclude Include="06_LAYER\RoomLayer2D.h" />

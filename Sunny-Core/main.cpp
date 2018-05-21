@@ -4,7 +4,6 @@
 
 #include <SUNNY.h>
 
-#include "05_GAME/assets/AssetLoader.h"
 
 #include "06_LAYER/FPSLayer2D.h"
 #include "06_LAYER/LoadingLayer2D.h"
@@ -42,10 +41,8 @@ public:
 		else
 			cout << "서버 연결 실패" << endl;
 
-	//	game::AssetLoader::LoadModelData("/JSON/MODEL/Trees.json");
-	//	game::AssetLoader::LoadModelData("/JSON/MODEL/LowPolyNatures.json");
-     //	game::AssetLoader::LoadModel("/JSON/CHARACTER/Characters.json");
-	//	game::AssetLoader::LoadTexture("/JSON/TEXTURE/Rooms.json");
+		game::AssetLoader::LoadModelData("/JSON/MODEL/Trees.json");
+    
 
 		//Input::GetInputManager()->SetMouseCursor(SUNNY_NO_CURSOR);
 

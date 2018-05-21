@@ -65,6 +65,7 @@ namespace sunny
 			}
 
 			const Shader* shader = Shader::CurrentlyBound();
+			
 
 			// 입력 배치 서술 구조체 배열을 완성하고 입력 배치를 위한 ID3D11InputLayout 인터페이스를 얻었다면, 
 			// 이제 ID3D11Device::CreateInputLayout 메서드를 호출해서 입력 배치를 생성한다.

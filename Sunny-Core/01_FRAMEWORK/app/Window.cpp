@@ -58,22 +58,26 @@ namespace sunny
 		using namespace graphics;
 
 		//FontManager::SetScale(maths::vec2(m_properties.width, m_properties.height));
-		FontManager::Add(new Font("nanum",         "01_FRAMEWORK/graphics/fonts/default/NanumGothic.ttf",         32));
-		FontManager::Add(new Font("nanum",         "01_FRAMEWORK/graphics/fonts/default/NanumGothic.ttf",         24));
-		FontManager::Add(new Font("nanum",         "01_FRAMEWORK/graphics/fonts/default/NanumGothic.ttf",         16));
-		FontManager::Add(new Font("consola",       "01_FRAMEWORK/graphics/fonts/default/consola.ttf",             32));
-		FontManager::Add(new Font("SourceSansPro", "01_FRAMEWORK/graphics/fonts/default/SourceSansPro-Light.ttf", 32));
-		FontManager::Add(new Font("dot",           "01_FRAMEWORK/graphics/fonts/default/small_dot_digital-7.ttf", 32));
-		FontManager::Add(new Font("dot",           "01_FRAMEWORK/graphics/fonts/default/small_dot_digital-7.ttf", 24));
-		FontManager::Add(new Font("dot",           "01_FRAMEWORK/graphics/fonts/default/small_dot_digital-7.ttf", 16));
-		FontManager::Add(new Font("power",         "01_FRAMEWORK/graphics/fonts/default/power_pixel-7.ttf",       32));
-		FontManager::Add(new Font("power",         "01_FRAMEWORK/graphics/fonts/default/power_pixel-7.ttf",       24));
-		FontManager::Add(new Font("power",         "01_FRAMEWORK/graphics/fonts/default/power_pixel-7.ttf",       16));
-		FontManager::Add(new Font("dash",          "01_FRAMEWORK/graphics/fonts/default/dash_dot_lcd-7.ttf",      32));
-		FontManager::Add(new Font("dash",          "01_FRAMEWORK/graphics/fonts/default/dash_dot_lcd-7.ttf",      28));
-		FontManager::Add(new Font("dash",          "01_FRAMEWORK/graphics/fonts/default/dash_dot_lcd-7.ttf",      24));
-		FontManager::Add(new Font("dash",          "01_FRAMEWORK/graphics/fonts/default/dash_dot_lcd-7.ttf",      16));
-
+		FontManager::Add(new Font("nanum",         "04_ASSET/FONT/NanumGothic.ttf",         32));
+		FontManager::Add(new Font("nanum",         "04_ASSET/FONT/NanumGothic.ttf",         24));
+		FontManager::Add(new Font("nanum",         "04_ASSET/FONT/NanumGothic.ttf",         16));
+		FontManager::Add(new Font("consola",       "04_ASSET/FONT/consola.ttf",             32));
+		FontManager::Add(new Font("SourceSansPro", "04_ASSET/FONT/SourceSansPro-Light.ttf", 32));
+		FontManager::Add(new Font("dot",           "04_ASSET/FONT/small_dot_digital-7.ttf", 32));
+		FontManager::Add(new Font("dot",           "04_ASSET/FONT/small_dot_digital-7.ttf", 24));
+		FontManager::Add(new Font("dot",           "04_ASSET/FONT/small_dot_digital-7.ttf", 16));
+		FontManager::Add(new Font("power",         "04_ASSET/FONT/power_pixel-7.ttf",       32));
+		FontManager::Add(new Font("power",         "04_ASSET/FONT/power_pixel-7.ttf",       24));
+		FontManager::Add(new Font("power",         "04_ASSET/FONT/power_pixel-7.ttf",       16));
+		FontManager::Add(new Font("dash",          "04_ASSET/FONT/dash_dot_lcd-7.ttf",      32));
+		FontManager::Add(new Font("dash",          "04_ASSET/FONT/dash_dot_lcd-7.ttf",      28));
+		FontManager::Add(new Font("dash",          "04_ASSET/FONT/dash_dot_lcd-7.ttf",      24));
+		FontManager::Add(new Font("dash",          "04_ASSET/FONT/dash_dot_lcd-7.ttf",      16));
+		FontManager::Add(new Font("kopub",          "04_ASSET/FONT/KoPub_Dotum_Medium.ttf", 16));
+		FontManager::Add(new Font("kopub",          "04_ASSET/FONT/KoPub_Dotum_Medium.ttf", 24));
+		FontManager::Add(new Font("kopub",          "04_ASSET/FONT/KoPub_Dotum_Medium.ttf", 28));
+		FontManager::Add(new Font("kopub",          "04_ASSET/FONT/KoPub_Dotum_Medium.ttf", 32));
+		
 		m_inputManager  = new InputManager();
 		m_serverManager = new ServerManager();
 		audio::AudioEngine::Init();

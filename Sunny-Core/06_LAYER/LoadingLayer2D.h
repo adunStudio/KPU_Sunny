@@ -1,7 +1,13 @@
 #pragma once
 
 #include <SUNNY.h>
+#include <thread>
+#include <future>
+#include <unordered_map>
+#include "../05_GAME/ui/Loadingbar.h"
+#include "../05_GAME/assets/AssetLoader.h"
 
+using namespace game;
 
 class RoadingCircle;
 
@@ -24,8 +30,12 @@ public:
 	Sprite* m_mouse;
 
 	Label* m_state;
-	Progressbar* m_loadingBar;
+	Loadingbar* m_loadingBar;
+	Label* m_ing;
 
+	int m_tickCount = 0;
+
+	thread* m_thread;
 
 private:
 
@@ -44,6 +54,7 @@ public:
 	bool OnKeyPressedEvent  (KeyPressedEvent&   event);
 };
 
+
 class RoadingCircle : public Sprite
 {
 private:
@@ -55,14 +66,15 @@ private:
 
 	bool first;
 
-	bool random;
 
 	bool up;
 
 public:
+	float start = 27;
+	float time  = 0;
 
 	RoadingCircle(float x, float y, float size, directx::Texture2D* texture)
-	: Sprite::Sprite(x, y, size, size, texture, PIVOT_CENTER), m_size(size), first(true), random(true), up(true)
+	: Sprite::Sprite(x, y, size, size, texture, PIVOT_CENTER), m_size(size), first(true), up(true)
 	{
 		m_max = 53 + rand() % 5;
 		m_min = 45 + rand() % 5;
@@ -70,9 +82,9 @@ public:
 
 	void Update()
 	{
-		if (random && rand() % 900 > 90) return;
+		time++;
 
-		random = false;
+		if (time < start) return;
 
 		if (up)
 			if (first)

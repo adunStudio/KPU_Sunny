@@ -54,7 +54,10 @@ namespace sunny
 	void Application::PushLayer(graphics::Layer* layer)
 	{
 		m_layerStack.push_back(layer);
+
+
 		layer->Init();
+
 	}
 
 	graphics::Layer* Application::PopLayer()
@@ -81,7 +84,10 @@ namespace sunny
 	void Application::PushOverlay(graphics::Layer* layer)
 	{
 		m_overlayStack.push_back(layer);
+
+
 		layer->Init();
+
 	}
 
 	graphics::Layer* Application::PopOverlay()
@@ -120,24 +126,33 @@ namespace sunny
 
         while(m_running)
         {
+			m_mutex.lock();
+
             window->Clear();
 
             float now = m_timer->ElapsedMillis();
+
 
             // updateTick(1000 / 60)마다 실행
             if(now - updateTimer > updateTick)
             {
                 timestep.Update(now);
                 OnUpdate(timestep);
+
                 updates++;
                 updateTimer += updateTick;
             }
+
+
             { // 가능한한 빠르게
                 utils::Timer frametime;
-                OnRender();
+
+				OnRender();
+
                 frames++;
                 m_frameTime = frametime.ElapsedMillis();
             }
+
 
             window->Update();
 
@@ -149,12 +164,16 @@ namespace sunny
                 m_updatesPerSecond = updates;
                 frames = 0;
                 updates = 0;
-                OnTick();
+              
+				OnTick();
             }
 
             if(window->Closed())
                 m_running = false;
-        }
+
+			m_mutex.unlock();
+
+		}
     }
 
     void Application::OnTick()
