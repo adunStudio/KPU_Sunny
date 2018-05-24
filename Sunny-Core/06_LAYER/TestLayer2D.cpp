@@ -17,7 +17,7 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 	int windowHeight = Application::GetApplication().GetWindowHeight();
 
 	// 맵툴 레이어
-	m_testLayer3D = new TestLayer3D(*this);
+	//m_testLayer3D = new TestLayer3D(*this);
 	Application::GetApplication().PushLayer(m_testLayer3D);
 
 	// FPS

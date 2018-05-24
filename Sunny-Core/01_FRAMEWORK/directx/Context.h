@@ -36,9 +36,13 @@ namespace sunny
 
 			// 디바이스 컨텍스트에 대한 포인터다.    주로 파이프라인을 설정하는 데 필요하다.
 			ID3D11DeviceContext* devcon;
+			ID3D11DeviceContext* deferred_devcon;
 
 			// 스왑 체인 인터페이스에 대한 포인터다. 주로 디스플레이를 제어하는 데 필요하다.
 			IDXGISwapChain* swapchain;
+
+			// 디퍼드 디바이스 컨텍스트의 커맨드 큐
+			ID3D11CommandList* commandList;
 
 		private:
 			D3D_FEATURE_LEVEL m_d3dFeatureLevel; // 기능 수준 레벨
@@ -49,9 +53,12 @@ namespace sunny
 			ID3D11Texture2D* m_texture;
 
 			ID3D11RenderTargetView* m_renderTargetView; // 화면에 보여지는 버퍼 객체(렌더 타겟 뷰) 인터페이스(swapchain에서 생성되고 관리된다.)
+			ID3D11RenderTargetView* m_renderTargetView2; // 화면에 보여지는 버퍼 객체(렌더 타겟 뷰) 인터페이스(swapchain에서 생성되고 관리된다.)
 			ID3D11DepthStencilView* m_depthStencilView; // 깊이/스텐실 정보를 기반으로 View를 관리하는 객체의 인터페이스
+			ID3D11DepthStencilView* m_depthStencilView2; // 깊이/스텐실 정보를 기반으로 View를 관리하는 객체의 인터페이스
 			
 			D3D11_VIEWPORT m_screenViewport;            // 뷰포트(윈도우에 그림이 그려지는 영역을  지정)
+			D3D11_VIEWPORT m_screenViewport2;            // 뷰포트(윈도우에 그림이 그려지는 영역을  지정)
 
 			ID3D11Texture2D* m_depthStencilBuffer;      // 일반적인 2D 이미지를 관리하는 객체 인터페이스(여기서는 깊이/스텐실 정보 저장용)
 
@@ -59,13 +66,18 @@ namespace sunny
 
 		public:
 			Context(WindowProperties properties, void* deviceContext);
-
+			
+			void DeferredContextDraw();
+			
 			void Present();
+
 
 		private:		
 			void InitD3D(HWND hWnd);
 
 			void Resize();
+
+			void CreateDeferredContext();
 
 			void BindInternal();
 
@@ -77,6 +89,7 @@ namespace sunny
 			inline static IDXGISwapChain* GetSwapChain() { return GetContext()->swapchain; }
 			inline static ID3D11Device* GetDevice() { return GetContext()->dev; }
 			inline static ID3D11DeviceContext* GetDeviceContext() { return GetContext()->devcon; }
+			inline static ID3D11DeviceContext* GetDeferredDeviceContext() { return GetContext()->deferred_devcon; }
 			inline static ID3D11RenderTargetView* GetBackBuffer() { return GetContext()->m_renderTargetView; }
 			inline static ID3D11DepthStencilView* GetDepthStencilBuffer() { return GetContext()->m_depthStencilView; }
 

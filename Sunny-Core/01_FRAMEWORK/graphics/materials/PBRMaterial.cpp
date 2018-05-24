@@ -9,7 +9,7 @@ namespace sunny
 		PBRMaterial::PBRMaterial(directx::Shader* shader) : Material(shader)
 		{
 			if (s_PreintegratedFG == nullptr)
-				s_PreintegratedFG = directx::Texture2D::CreateFromFile("PreintegratedFG", "resource/pbr/PreintegratedFG.bmp");
+				s_PreintegratedFG = new directx::Texture2D("PreintegratedFG", "resource/pbr/PreintegratedFG.bmp");
 
 			SetTexture("u_PreintegratedFG", s_PreintegratedFG);
 			SetUniform("u_UsingNormalMap", 0.0f);

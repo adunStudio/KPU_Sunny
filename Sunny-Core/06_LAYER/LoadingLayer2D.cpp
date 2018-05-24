@@ -23,13 +23,14 @@ LoadingLayer2D::~LoadingLayer2D()
 
 void LoadingLayer2D::OnInit(Renderer2D& renderer)
 {
+	
 	AudioEngine::LoadSound("04_ASSET/MP3/sunny_loading.mp3", false, true);
 	AudioEngine::Play("04_ASSET/MP3/sunny_loading.mp3");
-	m_backgroundTexture = new Texture2D("/TEXTURE/Loadings/background.png");
+	m_backgroundTexture = new Texture2D("/TEXTURE/Loadings/background.png", DIMENSION::D3);
 	m_background = new Sprite(0, 0, m_windowWidth, m_windowHeight, m_backgroundTexture);
 	Add(m_background);
 
-	m_circleTexture = new Texture2D("/TEXTURE/Loadings/circle.png");
+	m_circleTexture = new Texture2D("/TEXTURE/Loadings/circle.png", DIMENSION::D3);
 
 	for (int i = 0; i < 13; ++i)
 	{
@@ -119,7 +120,7 @@ void LoadingLayer2D::OnInit(Renderer2D& renderer)
 	m_circles[40]->start = 17;
 	m_circles[52]->start = 17;
 
-	m_logoTexture = new Texture2D("/TEXTURE/Loadings/boo2.png");
+	m_logoTexture = new Texture2D("/TEXTURE/Loadings/boo2.png", DIMENSION::D3);
 	m_logo = new Sprite(m_windowWidth/ 2 , m_windowHeight / 2 + 65, m_logoTexture, PIVOT_CENTER);
 	//Add(m_logo);
 	
@@ -218,7 +219,6 @@ void StartLoad(LoadingLayer2D* layer)
 			path = root[i]["path"].asString();
 			textureLen = root[i]["textures"].size();
 
-			Application::GetApplication().m_mutex.lock();
 
 			for (int texture_i = 0; texture_i < textureLen; ++texture_i)
 			{
@@ -226,10 +226,13 @@ void StartLoad(LoadingLayer2D* layer)
 
 				data->textures.push_back(texture_path);
 
-				if (!sunny::graphics::TextureManager::Get(texture_path))
-					sunny::graphics::TextureManager::Add(new sunny::directx::Texture2D(texture_path));
+				//if (!sunny::graphics::TextureManager::Get(texture_path))
+				//	sunny::graphics::TextureManager::Add(new sunny::directx::Texture2D(texture_path, DIMENSION::D3));
 			}
 
+			/*
+
+			Application::GetApplication().m_mutex.lock();
 
 			if (!sunny::graphics::ModelManager::Get(name))
 			{
@@ -243,7 +246,7 @@ void StartLoad(LoadingLayer2D* layer)
 
 			Application::GetApplication().m_mutex.unlock();
 
-			AssetData::AddModelData(name, data);
+			AssetData::AddModelData(name, data);*/
 
 			layer->m_loadingBar->SetValue(++count / ex);
 

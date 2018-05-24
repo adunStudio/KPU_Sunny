@@ -5,37 +5,6 @@ namespace sunny
 	namespace directx
 	{
 		/* STATIC */
-
-		Texture2D* Texture2D::Create(unsigned int width, unsigned int height, TextureParameters parameters, TextureLoadOptions loadOptions)
-		{
-			return new Texture2D(width, height, parameters, loadOptions);
-		}
-
-		Texture2D* Texture2D::CreateFromFile(const std::string& filepath, TextureParameters parameters, TextureLoadOptions loadOptions)
-		{
-			return new Texture2D(filepath, filepath, parameters, loadOptions);
-		}
-
-		Texture2D* Texture2D::CreateFromFile(const std::string& filepath, TextureLoadOptions loadOptions)
-		{
-			return new Texture2D(filepath, filepath, TextureParameters(), loadOptions);
-		}
-		
-		Texture2D* Texture2D::CreateFromFile(const std::string& name, const std::string& filepath, TextureParameters parameters, TextureLoadOptions loadOptions)
-		{
-			return new Texture2D(name, filepath, parameters, loadOptions);
-		}
-		
-		Texture2D* Texture2D::CreateFromFile(const std::string& name, const std::string& filepath, TextureLoadOptions loadOptions)
-		{
-			return new Texture2D(name, filepath, TextureParameters(), loadOptions);
-		}
-
-		Texture2D* Texture2D::FromFile(const std::string&  filepath)
-		{
-			return new Texture2D(filepath, filepath);
-		}
-
 		DXGI_FORMAT Texture2D::TextureFormatToD3D(TextureFormat format)
 		{
 			switch (format)
@@ -52,20 +21,22 @@ namespace sunny
 
 		/* 생성자 */
 
-		Texture2D::Texture2D(unsigned int width, unsigned int height, TextureParameters parameters, TextureLoadOptions loadOptions)
-		: m_fileName("NULL"), m_width(width), m_height(height), m_parameters(parameters), m_loadOptions(loadOptions)
-		{
-			Load();
-		}
-		
-		Texture2D::Texture2D(const std::string& name, const std::string& filename, TextureParameters parameters, TextureLoadOptions loadOptions)
-		: m_fileName(filename), m_name(name), m_parameters(parameters), m_loadOptions(loadOptions)
+		Texture2D::Texture2D(unsigned int width, unsigned int height, DIMENSION dimension)
+			: m_fileName("NULL"), m_width(width), m_height(height), m_dimension(dimension)
 		{
 			Load();
 		}
 
-		Texture2D::Texture2D(const std::string& filename, TextureParameters parameters, TextureLoadOptions loadOptions)
-		: m_fileName(filename), m_name(filename), m_parameters(parameters), m_loadOptions(loadOptions)
+		Texture2D::Texture2D(const std::string& name, const std::string& filename, DIMENSION dimension)
+			: m_fileName(filename), m_name(name), m_dimension(dimension)
+		{
+			Load();
+		}
+
+
+
+		Texture2D::Texture2D(const std::string& filename, DIMENSION dimension)
+			: m_fileName(filename), m_name(filename), m_dimension(dimension)
 		{
 			Load();
 		}
@@ -81,11 +52,10 @@ namespace sunny
 		void Texture2D::Load()
 		{
 			unsigned char* data = nullptr;
-		
+
 			if (m_fileName != "NULL")
 			{
-				data = utils::LoadSunnyImage(m_fileName, &m_width, &m_height, &m_bitsPerPixel, !m_loadOptions.flipY);
-				m_parameters.format = m_bitsPerPixel == 24 ? TextureFormat::RGB : TextureFormat::RGBA;
+				data = utils::LoadSunnyImage(m_fileName, &m_width, &m_height, &m_bitsPerPixel, true);
 			}
 
 			bool generateMips = (data != nullptr);
@@ -93,8 +63,8 @@ namespace sunny
 			unsigned int stride = 4;
 
 			D3D11_SUBRESOURCE_DATA initData;
-			initData.pSysMem          = data;                         // 초기화 데이터에 대한 포인터
-			initData.SysMemPitch      = stride * m_width;             // 텍스처의 특정 줄의 시작에서 다음 줄 시작까지의 바이트 수
+			initData.pSysMem = data;                         // 초기화 데이터에 대한 포인터
+			initData.SysMemPitch = stride * m_width;             // 텍스처의 특정 줄의 시작에서 다음 줄 시작까지의 바이트 수
 			initData.SysMemSlicePitch = m_width * m_height * stride;  // 특정 깊이 레벨의 시작에서 다음 깊이 레벨까지의 바이트 수(3차원이 아닐 경우 의미 없다.)
 
 			D3D11_SUBRESOURCE_DATA* initDataPtr = nullptr;
@@ -104,13 +74,13 @@ namespace sunny
 			// 밉맵
 			if (generateMips)
 			{
-				unsigned int width  = m_width;
+				unsigned int width = m_width;
 				unsigned int height = m_height;
 
 				while (width > 1 && height > 1)
 				{
 					// 2배씩 작아진다.
-					width  = max(width  / 2, 1u);
+					width = max(width / 2, 1u);
 					height = max(height / 2, 1u);
 					++mipLevels;
 				}
@@ -121,13 +91,13 @@ namespace sunny
 					initDataPtr = &initData;
 			}
 
-			DXGI_FORMAT format = TextureFormatToD3D(m_parameters.format);
+			DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM;
 
 
 			// 텍스쳐 정보 구조체
 			ZeroMemory(&m_desc, sizeof(D3D11_TEXTURE2D_DESC));
 
-			m_desc.Width  = m_width; // 생성할 텍스쳐의 너비 길이
+			m_desc.Width = m_width; // 생성할 텍스쳐의 너비 길이
 			m_desc.Height = m_height; // 생성할 텍스쳐의 높이 길이
 			m_desc.MipLevels = mipLevels; // // 최대 밉맵 레벨을 지정 (밉맵: 한 장의 그림에 여러 스케일 장면을 포함한 텍스쳐)
 			m_desc.ArraySize = 1;              // 텍스쳐 배열의 텍스쳐 갯수
@@ -146,7 +116,7 @@ namespace sunny
 			// 생성할 텍스쳐 정보 구조체
 			// 초기화 데이터(배열 포인터)
 			// 생성된 2D 텍스쳐를 반환받는 포인터
-				
+
 			/* 텍스쳐에 대한 셰이더 자원 뷰를 생성한다. */
 
 			D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
@@ -156,10 +126,19 @@ namespace sunny
 			srvDesc.Texture2D.MipLevels = m_desc.MipLevels;
 
 			Context::GetDevice()->CreateShaderResourceView(m_texture, &srvDesc, &m_resourceView);
+
 			if (generateMips)
 			{
-				Context::GetDeviceContext()->UpdateSubresource(m_texture, 0, nullptr, initData.pSysMem, initData.SysMemPitch, initData.SysMemSlicePitch);	
-				Context::GetDeviceContext()->GenerateMips(m_resourceView);
+				if (m_dimension == DIMENSION::D3)
+				{
+					Context::GetDeviceContext()->UpdateSubresource(m_texture, 0, nullptr, initData.pSysMem, initData.SysMemPitch, initData.SysMemSlicePitch);
+					Context::GetDeviceContext()->GenerateMips(m_resourceView);
+				}
+				else
+				{
+					Context::GetDeferredDeviceContext()->UpdateSubresource(m_texture, 0, nullptr, initData.pSysMem, initData.SysMemPitch, initData.SysMemSlicePitch);
+					Context::GetDeferredDeviceContext()->GenerateMips(m_resourceView);
+				}
 			}
 
 			m_desc.Usage = D3D11_USAGE_DEFAULT;
@@ -184,17 +163,30 @@ namespace sunny
 
 
 		/*     */
-		
+
 		void Texture2D::Bind(unsigned int slot) const
 		{
-			Context::GetDeviceContext()->PSSetShaderResources(slot, 1, &m_resourceView);
-			Context::GetDeviceContext()->PSSetSamplers(slot, 1, &m_samplerState);
+			if (m_dimension == DIMENSION::D3)
+			{
+				Context::GetDeviceContext()->PSSetShaderResources(slot, 1, &m_resourceView);
+				Context::GetDeviceContext()->PSSetSamplers(slot, 1, &m_samplerState);
+			}
+			else
+			{
+				Context::GetDeferredDeviceContext()->PSSetShaderResources(slot, 1, &m_resourceView);
+				Context::GetDeferredDeviceContext()->PSSetSamplers(slot, 1, &m_samplerState);
+			}
 		}
 
 		void Texture2D::UnBind(unsigned int slot) const
 		{
 			ID3D11ShaderResourceView* rv = nullptr;
-			Context::GetDeviceContext()->PSSetShaderResources(slot, 1, &rv);
+
+			if (m_dimension == DIMENSION::D3)
+				Context::GetDeviceContext()->PSSetShaderResources(slot, 1, &rv);
+			else
+				Context::GetDeferredDeviceContext()->PSSetShaderResources(slot, 1, &rv);
+
 		}
 
 		void Texture2D::SetData(const void* pixels)
@@ -202,17 +194,24 @@ namespace sunny
 			D3D11_MAPPED_SUBRESOURCE msr;
 			memset(&msr, 0, sizeof(D3D11_MAPPED_SUBRESOURCE));
 
-			Context::GetDeviceContext()->Map(m_texture, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
-			
-			for (unsigned int i = 0; i < m_width * m_height * GetStrideFromFormat(m_parameters.format); i += 4)
+			if (m_dimension == DIMENSION::D3)
+				Context::GetDeviceContext()->Map(m_texture, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			else
+				Context::GetDeferredDeviceContext()->Map(m_texture, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+
+			for (unsigned int i = 0; i < m_width * m_height * GetStrideFromFormat(TextureFormat::RGBA); i += 4)
 			{
 				((byte*)msr.pData)[i + 0] = 0xff;
 				((byte*)msr.pData)[i + 1] = 0xff;
 				((byte*)msr.pData)[i + 2] = 0xff;
 				((byte*)msr.pData)[i + 3] = ((byte*)pixels)[i / 2 + 1];
 			}
-			
-			Context::GetDeviceContext()->Unmap(m_texture, NULL);
+
+			if (m_dimension == DIMENSION::D3)
+				Context::GetDeviceContext()->Unmap(m_texture, NULL);
+			else
+				Context::GetDeferredDeviceContext()->Unmap(m_texture, NULL);
+
 		}
 	}
 }

@@ -65,8 +65,10 @@ namespace sunny
 			ID3D11Buffer** m_PSConstantBuffers;                        // 픽셀 셰이더 상수 버퍼들
 			unsigned int   m_PSConstantBuffersCount;
 
+			DIMENSION m_dimension;
+
 		public:
-			Shader(const std::string& name, const std::string& source);
+			Shader(const std::string& name, const std::string& source, DIMENSION dimension = DIMENSION::D2);
 			~Shader();
 
 			inline Data& GetData() const { return m_data; }

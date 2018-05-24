@@ -1,5 +1,4 @@
 #include "TestLayer3D.h"
-#include "TestLayer2D.h"
 
 template <typename T> string tostr(const T& t) {
 	ostringstream os;
@@ -7,8 +6,9 @@ template <typename T> string tostr(const T& t) {
 	return os.str();
 }
 
-TestLayer3D::TestLayer3D(TestLayer2D& layer)
-: m_testLayer2D(layer)
+
+
+TestLayer3D::TestLayer3D()
 {
 
 }
@@ -68,7 +68,7 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 
 	bool parsingSuccessful = reader.parse(mapData.c_str(), root);
 
-	if (parsingSuccessful)
+	/*if (parsingSuccessful)
 	{
 		for (int i = 0; i < root.size(); ++i)
 		{
@@ -95,7 +95,7 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 			
 			AddStatic(a);
 		}
-	}
+	}*/
 
 
 	Model* attack_basic = new Model("/SUN/Characters/20_attack_basic.sun");
@@ -132,7 +132,7 @@ void TestLayer3D::OnTick()
 
 void TestLayer3D::OnUpdate(const utils::Timestep& ts)
 {
-	if (Input::IsKeyPressed(SUNNY_KEY_A))		m_character->GetTransformComponent()->Translate(vec3(-5, 0, 0));
+	/*if (Input::IsKeyPressed(SUNNY_KEY_A))		m_character->GetTransformComponent()->Translate(vec3(-5, 0, 0));
 	if (Input::IsKeyPressed(SUNNY_KEY_D))		m_character->GetTransformComponent()->Translate(vec3(5, 0, 0));
 	if (Input::IsKeyPressed(SUNNY_KEY_W))		m_character->GetTransformComponent()->Translate(vec3(0, 0, 5));
 	if (Input::IsKeyPressed(SUNNY_KEY_S))		m_character->GetTransformComponent()->Translate(vec3(0, 0, -5));
@@ -167,7 +167,7 @@ void TestLayer3D::OnUpdate(const utils::Timestep& ts)
 		b->GetTransformComponent()->SetPosition({x, 100, z});
 		m_bullets.push_back(b);
 		Add(b);
-	}
+	}*/
 
 
 	mat4 vp = GetCamera()->GetProjectionMatrix() * GetCamera()->GetViewMatrix();
@@ -189,7 +189,7 @@ void TestLayer3D::OnEvent(Event& event)
 
 bool TestLayer3D::OnKeyPressedEvent(KeyPressedEvent& event)
 {
-	switch (event.GetKeyCode())
+	/*switch (event.GetKeyCode())
 	{
 	
 		
@@ -198,7 +198,7 @@ bool TestLayer3D::OnKeyPressedEvent(KeyPressedEvent& event)
 		m_character->SetRoll(true);
 
 	}
-
+	*/
 	return false;
 }
 
@@ -232,7 +232,7 @@ bool TestLayer3D::OnMouseReleasedEvent(MouseReleasedEvent& event)
 
 bool TestLayer3D::OnMouseMovedEvent(MouseMovedEvent& event)
 {
-	maths::vec2 mouse_xy(event.GetX(), event.GetY());
+	/*maths::vec2 mouse_xy(event.GetX(), event.GetY());
 
 	vec3 P  = m_character->GetTransformComponent()->GetPosition();
 	mat4 VP = GetCamera()->GetViewMatrix() * GetCamera()->GetProjectionMatrix();
@@ -256,7 +256,7 @@ bool TestLayer3D::OnMouseMovedEvent(MouseMovedEvent& event)
 	m_degree = m_radian * 180 / maths::SUNNY_PI;
 
 	m_character->GetTransformComponent()->SetRotation({ 0, m_degree + 90.0f , 0 });
-
+	*/
 
 	return false;
 }

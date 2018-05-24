@@ -172,49 +172,12 @@ namespace sunny
 			m_buffer->color = color;
 			m_buffer++;
 
-
-			// 반시계 방향
-			/*vec3 vertex = *m_transformationBack * vec3(min.x, max.y);
-			m_buffer->vertex = vertex;
-			m_buffer->uv = uv[3];
-			m_buffer->mask_uv = maskTransform * vertex;
-			m_buffer->tid = textureSlot;
-			m_buffer->mid = ms;
-			m_buffer->color = color;
-			m_buffer++;
-
-			vertex = *m_transformationBack * max;
-			m_buffer->vertex = vertex;
-			m_buffer->uv = uv[2];
-			m_buffer->mask_uv = maskTransform * vertex;
-			m_buffer->tid = textureSlot;
-			m_buffer->mid = ms;
-			m_buffer->color = color;
-			m_buffer++;
-
-			vertex = *m_transformationBack * vec3(max.x, min.y);
-			m_buffer->vertex = vertex;
-			m_buffer->uv = uv[1];
-			m_buffer->mask_uv = maskTransform * vertex;
-			m_buffer->tid = textureSlot;
-			m_buffer->mid = ms;
-			m_buffer->color = color;
-			m_buffer++;
-
-			 vertex = *m_transformationBack * min;
-			m_buffer->vertex = vertex;
-			m_buffer->uv = uv[0];
-			m_buffer->mask_uv = maskTransform * vertex;
-			m_buffer->tid = textureSlot;
-			m_buffer->mid = ms;
-			m_buffer->color = color;
-			m_buffer++;*/
-
 			m_indexCount += 6;
 		}
 
 		void Renderer2D::End()
 		{
+
 			m_vertexArray->GetBuffer()->ReleasePointer();
 		}
 
@@ -237,6 +200,8 @@ namespace sunny
 
 			m_indexBuffer->Bind(); // 인덱스 버퍼 연결
 			m_vertexArray->Draw(m_indexCount);
+
+			directx::Context::GetContext()->DeferredContextDraw();
 
 			// 텍스쳐 연결 해제
 			for (unsigned int i = 0; i < m_textures.size(); ++i)
@@ -286,7 +251,7 @@ namespace sunny
 
 			m_shader->Bind();
 
-			directx::VertexBuffer* buffer = new directx::VertexBuffer();
+			directx::VertexBuffer* buffer = new directx::VertexBuffer(DIMENSION::D3);
 			buffer->Resize(RENDERER_BUFFER_SIZE);
 
 			// 입력레이아웃 설정
@@ -299,7 +264,7 @@ namespace sunny
 			layout.Push<vec4>("COLOR");
 			buffer->SetLayout(layout);
 
-			m_vertexArray = new directx::VertexArray();
+			m_vertexArray = new directx::VertexArray(DIMENSION::D3);
 			m_vertexArray->PushBuffer(buffer);
 
 			unsigned int* indices = new unsigned int[RENDERER_INDICES_SIZE];
@@ -319,7 +284,7 @@ namespace sunny
 				offset += 4;
 			}
 
-			m_indexBuffer = new directx::IndexBuffer(indices, RENDERER_INDICES_SIZE);		
+			m_indexBuffer = new directx::IndexBuffer(indices, RENDERER_INDICES_SIZE, DIMENSION::D3);
 		}
 
 		float Renderer2D::SubmitTexture(directx::Texture* texture)

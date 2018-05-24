@@ -12,14 +12,6 @@ namespace sunny
 		class Texture2D : public Texture
 		{
 		public:
-			static Texture2D* Create(unsigned int width, unsigned int height, TextureParameters parameters = TextureParameters(), TextureLoadOptions loadOptions = TextureLoadOptions());
-			static Texture2D* CreateFromFile(const std::string& filepath, TextureParameters parameters = TextureParameters(), TextureLoadOptions loadOptions = TextureLoadOptions());
-			static Texture2D* CreateFromFile(const std::string& filepath, TextureLoadOptions loadOptions);
-			static Texture2D* CreateFromFile(const std::string& name, const std::string& filepath, TextureParameters parameters = TextureParameters(), TextureLoadOptions loadOptions = TextureLoadOptions());
-			static Texture2D* CreateFromFile(const std::string& name, const std::string& filepath, TextureLoadOptions loadOptions);
-		
-			static Texture2D* FromFile(const std::string&  filepath);
-
 			static DXGI_FORMAT  TextureFormatToD3D(TextureFormat format);
 
 		private:
@@ -32,8 +24,7 @@ namespace sunny
 
 			unsigned int m_bitsPerPixel;
 
-			TextureParameters m_parameters;
-			TextureLoadOptions m_loadOptions;
+			DIMENSION m_dimension;
 
 			D3D11_TEXTURE2D_DESC m_desc;
 			ID3D11Texture2D* m_texture;
@@ -45,9 +36,9 @@ namespace sunny
 			void Load();
 
 		public:
-			Texture2D(unsigned int width, unsigned int height, TextureParameters parameters = TextureParameters(), TextureLoadOptions loadOptions = TextureLoadOptions());
-			Texture2D(const std::string& name, const std::string& filename, TextureParameters parameters = TextureParameters(), TextureLoadOptions loadOptions = TextureLoadOptions());
-			Texture2D(const std::string& filename, TextureParameters parameters = TextureParameters(), TextureLoadOptions loadOptions = TextureLoadOptions());
+			Texture2D(unsigned int width, unsigned int height,              DIMENSION dimension = DIMENSION::D3);
+			Texture2D(const std::string& name, const std::string& filename, DIMENSION dimension = DIMENSION::D3);
+			Texture2D(const std::string& filename,                          DIMENSION dimension = DIMENSION::D3);
 
 			~Texture2D() override;
 

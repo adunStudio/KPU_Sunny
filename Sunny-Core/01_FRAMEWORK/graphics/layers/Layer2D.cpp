@@ -54,6 +54,7 @@ namespace sunny
 
 		void Layer2D::OnRender()
 		{
+
 			m_camera->Update();
 
 			m_renderer->Begin();

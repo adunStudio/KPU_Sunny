@@ -10,6 +10,7 @@
 
 #include "06_LAYER/RoomLayer2D.h"
 #include "06_LAYER/TestLayer2D.h"
+#include "06_LAYER/TestLayer3D.h"
 
 
 class Game : public Application
@@ -51,6 +52,7 @@ public:
 		FPSLayer2D::SetColor(RGBA(0.f, 0.f, 0.f, 0.7f));
 
 		PushLayer(new LoadingLayer2D());
+		//PushLayer(new TestLayer3D());
 
 	}
 };

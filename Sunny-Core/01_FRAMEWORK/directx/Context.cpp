@@ -22,6 +22,7 @@ namespace sunny
 		Context::Context(WindowProperties properties, void* deviceContext)
 		: m_properties(properties), m_MSAAEnabled(true), m_debugLayerEnabled(true)
 		{
+			commandList = nullptr;
 			m_renderTargetView   = nullptr;
 			m_depthStencilView   = nullptr;
 			m_depthStencilBuffer = nullptr;
@@ -50,6 +51,16 @@ namespace sunny
 
 			// 멀티샘플링 품질 지원 여부(지원하는 퀄리티 레벨)를 알아낸다. (지원 X → 0)
 			dev->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, 4, &m_MSAAQuality);
+
+			D3D11_FEATURE_DATA_THREADING threadingFeature;
+			dev->CheckFeatureSupport(D3D11_FEATURE_THREADING, &threadingFeature, sizeof(threadingFeature));
+
+			std::cout << "cout: " << threadingFeature.DriverConcurrentCreates << std::endl;
+			std::cout << "cout: " << threadingFeature.DriverCommandLists << std::endl;
+			
+
+
+			CreateDeferredContext();
 
 			/* 2. CreateSwapChain() 함수를 통하여 스왑 체인을 생성한다. */
 
@@ -106,6 +117,7 @@ namespace sunny
 
 			/* 렌더 타겟 뷰를 설정한다. */
 			Resize();
+
 		}
 
 		void Context::Resize()
@@ -185,6 +197,7 @@ namespace sunny
 
 			/* 5. 렌더 타겟을 디바이스 컨텍스트의 출력 병합 단계에 연결한다. */
 			devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
+			//deferred_devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
 			//devcon->OMSetRenderTargets(1, &m_renderTargetView, DeferredBuffer::GetDepthStencilBuffer());
 			// NumViews : 뷰의 개수 (현재 1)
 			// ppRenderTargetViews: 렌더 뷰의 포인터        (CreateRenderTargetView 에서 생성)
@@ -199,6 +212,15 @@ namespace sunny
 			m_screenViewport.MinDepth = 0.0f;
 			m_screenViewport.MaxDepth = 1.0f;
 			devcon->RSSetViewports(1, &m_screenViewport);
+
+
+			m_screenViewport2.TopLeftX = 10;
+			m_screenViewport2.TopLeftY = 10;
+			m_screenViewport2.Width = (float)width / 2;
+			m_screenViewport2.Height = (float)height / 2;
+			m_screenViewport2.MinDepth = 0.0f;
+			m_screenViewport2.MaxDepth = 1.0f;
+			deferred_devcon->RSSetViewports(1, &m_screenViewport2);
 
 			/* 7. 래스터라이저를 설정하고 적용한다.(도형이 어떻게 그려지는지에 대한 제어) &*/
 			D3D11_RASTERIZER_DESC rasterDesc;
@@ -221,14 +243,39 @@ namespace sunny
 			ID3D11RasterizerState* rs;
 			dev->CreateRasterizerState(&rasterDesc, &rs);
 			devcon->RSSetState(rs);
+			deferred_devcon->RSSetState(rs);
 
 			ReleaseCOM(rs);
+		}
+
+		void Context::CreateDeferredContext()
+		{
+			dev->CreateDeferredContext(0, &deferred_devcon);
+			
+
 		}
 
 		void Context::BindInternal()
 		{
 			devcon->RSSetViewports(1, &m_screenViewport);
 			devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
+			deferred_devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
+		}
+
+		void Context::DeferredContextDraw()
+		{
+
+			auto a = deferred_devcon->FinishCommandList(FALSE, &commandList);
+
+			if (a == S_OK)
+				std::cout << 3 << std::endl;
+
+			devcon->ExecuteCommandList(commandList, TRUE);
+
+			commandList->Release();;
+
+			if (commandList == nullptr)
+				std::cout << "nullptr" << std::endl;
 		}
 
 		void Context::Present()

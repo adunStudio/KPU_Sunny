@@ -33,7 +33,6 @@ public:
 
 	vector<Model3D*> m_mapObjects;
 
-	TestLayer2D& m_testLayer2D;
 
 	Model3D* m_pickedModel = nullptr;
 
@@ -41,7 +40,7 @@ public:
 	float m_degree = 0;
 
 public:
-	TestLayer3D(TestLayer2D& layer);
+	TestLayer3D();
 	~TestLayer3D();
 
 	void OnInit(Renderer3D& renderer) override;

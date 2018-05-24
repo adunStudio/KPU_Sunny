@@ -31,7 +31,11 @@ namespace sunny
 
 		void Renderer::ClearInternal(unsigned int buffer)
 		{
-			float color[4] = { 0.87f, 1.f, 1.f, 1.0f }; // 블랙
+			float color[4] = { 0.87f, 1.f, 1.f, 1.0f };
+			float color2[4] = { 0.5f, 0.f, 0.f, 1.0f };
+
+			//Context::GetDeferredDeviceContext()->ClearRenderTargetView(Context::GetBackBuffer(), color2);
+			//Context::GetDeferredDeviceContext()->ClearDepthStencilView(Context::GetDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 			if (buffer & RendererBufferType::RENDERER_BUFFER_COLOR)
 				Context::GetDeviceContext()->ClearRenderTargetView(Context::GetBackBuffer(), color);
@@ -69,12 +73,14 @@ namespace sunny
 		void Renderer::SetDepthTestingInternal(bool enabled)
 		{
 			Context::GetDeviceContext()->OMSetDepthStencilState(enabled ? s_depthStencilStates[0] : s_depthStencilStates[1], NULL);
+			Context::GetDeferredDeviceContext()->OMSetDepthStencilState(enabled ? s_depthStencilStates[0] : s_depthStencilStates[1], NULL);
 		}
 
 		// 혼합 상태를 출력 병합기 단계에 묶는다.
 		void Renderer::SetBlendInternal(bool enabled)
 		{
 			Context::GetDeviceContext()->OMSetBlendState(enabled ? s_blendStates[1] : s_blendStates[0], NULL, 0xffffffff);
+			Context::GetDeferredDeviceContext()->OMSetBlendState(enabled ? s_blendStates[1] : s_blendStates[0], NULL, 0xffffffff);
 		}
 
 		// 혼합 설정 및 상태 생성
