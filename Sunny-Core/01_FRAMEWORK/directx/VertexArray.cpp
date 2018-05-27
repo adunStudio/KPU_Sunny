@@ -4,7 +4,7 @@ namespace sunny
 {
 	namespace directx
 	{
-		VertexArray::VertexArray(DIMENSION dimension) : m_dimension(dimension)
+		VertexArray::VertexArray()
 		{}
 
 		VertexArray::~VertexArray()
@@ -34,14 +34,8 @@ namespace sunny
 				// IndexCount         : 이 그리기 호출에서 사용할 인덱스의 개수이다. 이것이 인덱스 버퍼의 전체 크기(모든 인덱스의 개수)일 필요는 없다. 즉, 인덱스들의 연속된 한 부분집한만 사용하는 것이 가능하다.
 				// StartIndexLocation : 사용할 첫 인덱스의 위치(버퍼 안에서의 인덱스). 
 				// BaseVertexLocation : 정점들을 가져오기 전에, 이 그리기 호출에서 사용할 인덱스들에 더해지는 정수 값.
-				if (m_dimension == DIMENSION::D3)
-				{
-					Context::GetDeviceContext3D()->DrawIndexed(count, 0, 0);
-				}
-				else
-				{
-					Context::GetDeviceContext2D()->DrawIndexed(count, 0, 0);
-				}
+				Context::GetDeviceContext()->DrawIndexed(count, 0, 0);
+
 		
 				//Context::GetDeviceContext()->DrawIndexedInstanced()
 			}
@@ -53,16 +47,7 @@ namespace sunny
 
 			buffer->Bind();
 
-			if (m_dimension == DIMENSION::D3)
-			{
-				Context::GetDeviceContext3D()->DrawIndexed(count, 0, 0);
-			}
-			else
-			{
-				Context::GetDeviceContext2D()->DrawIndexed(count, 0, 0);
-			}
-	
-
+			Context::GetDeviceContext()->DrawIndexed(count, 0, 0);
 		}
 
 	}

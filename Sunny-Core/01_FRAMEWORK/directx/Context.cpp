@@ -22,7 +22,6 @@ namespace sunny
 		Context::Context(WindowProperties properties, void* deviceContext)
 		: m_properties(properties), m_MSAAEnabled(true), m_debugLayerEnabled(true)
 		{
-			commandList3D = nullptr;
 			m_renderTargetView   = nullptr;
 			m_depthStencilView   = nullptr;
 			m_depthStencilBuffer = nullptr;
@@ -52,15 +51,6 @@ namespace sunny
 			// 멀티샘플링 품질 지원 여부(지원하는 퀄리티 레벨)를 알아낸다. (지원 X → 0)
 			dev->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, 4, &m_MSAAQuality);
 
-			D3D11_FEATURE_DATA_THREADING threadingFeature;
-			dev->CheckFeatureSupport(D3D11_FEATURE_THREADING, &threadingFeature, sizeof(threadingFeature));
-
-			std::cout << "cout: " << threadingFeature.DriverConcurrentCreates << std::endl;
-			std::cout << "cout: " << threadingFeature.DriverCommandLists << std::endl;
-			
-
-			
-			CreateDeferredContext();
 
 			/* 2. CreateSwapChain() 함수를 통하여 스왑 체인을 생성한다. */
 
@@ -198,9 +188,6 @@ namespace sunny
 			/* 5. 렌더 타겟을 디바이스 컨텍스트의 출력 병합 단계에 연결한다. */
 			//devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
 			devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
-			devcon3D->OMSetRenderTargets(1, &m_renderTargetView, NULL);
-			//deferred_devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
-			//devcon->OMSetRenderTargets(1, &m_renderTargetView, DeferredBuffer::GetDepthStencilBuffer());
 			// NumViews : 뷰의 개수 (현재 1)
 			// ppRenderTargetViews: 렌더 뷰의 포인터        (CreateRenderTargetView 에서 생성)
 			// pDepthStencilView : DepthStencil 뷰의 포인터 (CreateDepthStencilView 에서 생성)
@@ -215,8 +202,6 @@ namespace sunny
 			m_screenViewport.MaxDepth = 1.0f;
 			
 			devcon->RSSetViewports(1, &m_screenViewport);
-			devcon3D->RSSetViewports(1, &m_screenViewport);
-
 
 			/* 7. 래스터라이저를 설정하고 적용한다.(도형이 어떻게 그려지는지에 대한 제어) &*/
 			D3D11_RASTERIZER_DESC rasterDesc;
@@ -239,35 +224,18 @@ namespace sunny
 			ID3D11RasterizerState* rs;
 			dev->CreateRasterizerState(&rasterDesc, &rs);
 			devcon->RSSetState(rs);
-			devcon3D->RSSetState(rs);
 
 			ReleaseCOM(rs);
-		}
-
-		void Context::CreateDeferredContext()
-		{
-			dev->CreateDeferredContext(0, &devcon3D);
 		}
 
 		void Context::BindInternal()
 		{
 			devcon->RSSetViewports(1, &m_screenViewport);
 			devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
-			devcon3D->RSSetViewports(1, &m_screenViewport);
-			devcon3D->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
 		}
-
 
 		void Context::Present()
 		{
-			//devcon3D->FinishCommandList(FALSE, &commandList3D);
-			
-			//devcon->ExecuteCommandList(commandList3D, TRUE);
-
-			//commandList3D->Release();
-			
-
-
 			// 이중 버퍼링을 사용할 때 후면 버퍼의 내용을 전면 버퍼로 복사하는 것을 프레젠테이션이라고 한다.
 			swapchain->Present(m_properties.vsync, 0);
 		}

@@ -14,20 +14,21 @@ RoomLayer2D::RoomLayer2D()
 	m_recv_wsabuf.buf = m_recv_buffer;
 	m_recv_wsabuf.len = MAX_BUFF_SIZE;
 
+	Server::Connect("127.0.0.1", "7711");
+
+	if (Server::IsConnected())
+		cout << "서버 연결 완료" << endl;
+	else
+		cout << "서버 연결 실패" << endl;
 }
 
 RoomLayer2D::~RoomLayer2D()
 {
-
+	
 }
 
 void RoomLayer2D::OnInit(Renderer2D & renderer)
 {
-	m_windowWidth = Application::GetApplication().GetWindowWidth();
-	m_windowHeight = Application::GetApplication().GetWindowHeight();
-
-	m_fps = new Label("fps", m_windowWidth - 5, m_windowHeight - 30, RGBA(1, 1, 1, 0.7), Label::Alignment::RIGHT);
-
 	m_sprites["background"] = new Sprite(0, 0, 1600, 900, TextureManager::Get2D("room_background"));
 	m_sprites["layout"] = new Sprite(320, 90, 960, 720, TextureManager::Get2D("room_layout"));
 
@@ -82,7 +83,6 @@ void RoomLayer2D::OnInit(Renderer2D & renderer)
 
 	Add(m_sprites["background"]);
 	Add(m_sprites["layout"]);
-	//Add(m_fps);
 
 	Add(m_sprites["player_0"]);
 	Add(m_sprites["player_1"]);
@@ -106,12 +106,10 @@ void RoomLayer2D::OnInit(Renderer2D & renderer)
 		m_panel->Add(m_buttons["button_face_15"]);
 		m_panel->Add(m_buttons["button_face_20"]);
 	}
-
 }
 
 void RoomLayer2D::OnTick()
 {
-	m_fps->SetText(std::to_string(Application::GetApplication().GetFPS()) + "fps");
 }
 
 void RoomLayer2D::OnUpdate(const utils::Timestep & ts)
@@ -294,9 +292,9 @@ void RoomLayer2D::ProcessPacket(char* ptr)
 
 	case SC_PLAYER_START:
 		std::cout << "START!!!" << std::endl;
-		Application::GetApplication().PopOverlay(m_panel);
-		Application::GetApplication().PopOverlay(this);
-		Application::GetApplication().PushOverlay(new TestGameLayer3D());
+		delete m_panel;
+		Application::GetApplication().PopLayer(this);
+		Application::GetApplication().PushLayer3D(new TestGameLayer3D());
 		break;
 	}
 }

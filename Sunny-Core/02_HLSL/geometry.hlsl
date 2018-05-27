@@ -3,8 +3,6 @@ struct VSInput
 	float4 position : POSITION;
 	float3 normal : NORMAL;
 	float2 uv : TEXCOORD;
-	float3 binormal : BINORMAL;
-	float3 tangent : TANGENT;
 };
 
 struct VSOutput
@@ -38,12 +36,10 @@ VSOutput VSMain(in VSInput input)
 	output.position = mul(input.position, SUNNY_ModelMatrix);
 	output.positionCS =  mul(output.position, mul(SUNNY_ViewMatrix, SUNNY_ProjectionMatrix));
 	output.normal = mul(input.normal, wsTransform);
-	output.binormal = mul(input.binormal, wsTransform);
-	output.tangent = mul(input.tangent, wsTransform);
 	output.uv = input.uv;
 	output.color = float3(1.0f, 1.0f, 1.0f);
 	output.shadowCoord = float4(0.0f, 0.0f, 0.0f, 0.0f); // output.shadowCoord = mul(output.position, depthBias);
-	output.tid = input.tangent.x;
+	output.tid = 0;
 
 	output.cameraPosition = SUNNY_CameraPosition;
 

@@ -23,14 +23,14 @@ namespace sunny
 
 		void TextureCube::Bind(unsigned int slot) const
 		{
-			Context::GetDeviceContext3D()->PSSetShaderResources(slot, 1, &m_resourceView);
-			Context::GetDeviceContext3D()->PSSetSamplers(slot, 1, &m_samplerState);
+			Context::GetDeviceContext()->PSSetShaderResources(slot, 1, &m_resourceView);
+			Context::GetDeviceContext()->PSSetSamplers(slot, 1, &m_samplerState);
 		}
 
 		void TextureCube::UnBind(unsigned int slot) const
 		{
 			ID3D11ShaderResourceView* rv = nullptr;
-			Context::GetDeviceContext3D()->PSSetShaderResources(slot, 1, &rv);
+			Context::GetDeviceContext()->PSSetShaderResources(slot, 1, &rv);
 		}
 
 		void TextureCube::LoadFromVCross(int mips)

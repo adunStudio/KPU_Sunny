@@ -15,11 +15,7 @@ using namespace game;
 
 class RoomLayer2D : public Layer2D
 {
-public:
-	int m_windowWidth, m_windowHeight;
-	
-	Label*  m_fps;
-
+public:	
 	Panel* m_panel;
 
 	unordered_map<string, Sprite*> m_sprites;

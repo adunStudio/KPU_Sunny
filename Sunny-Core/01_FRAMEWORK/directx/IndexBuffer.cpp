@@ -4,7 +4,7 @@ namespace sunny
 {
 	namespace directx
 	{
-		IndexBuffer::IndexBuffer(unsigned int* data, unsigned int count, DIMENSION dimension) : m_count(count), m_dimension(dimension)
+		IndexBuffer::IndexBuffer(unsigned int* data, unsigned int count) : m_count(count)
 		{
 			// 인덱스 버퍼를 서술하는 구조체를 채운다. (전체적으로 정점 버퍼와 비슷하다.)
 			D3D11_BUFFER_DESC ibd;
@@ -26,23 +26,15 @@ namespace sunny
 
 		void IndexBuffer::Bind() const
 		{
-			if (m_dimension == DIMENSION::D3)
-			{
-				// 입력 조립기 단계에 프리미티브 타입을 설정한다.
-				// D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST : 위상 구조가 삼각형 목록임을 뜻한다.
-				Context::GetDeviceContext3D()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+			// 입력 조립기 단계에 프리미티브 타입을 설정한다.
+			// D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST : 위상 구조가 삼각형 목록임을 뜻한다.
+			Context::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 
-				// 인덱스 버퍼를 사용하려면 먼저 인덱스 버퍼를 파이프 라인에 묶어야 한다. 인덱스 버퍼는 입력 조립기 단계에 묶어야 한다.
-				// DXGI_FORMAT_R32_UINT: 32비트 부호 없는 정수를 뜻한다.
-				// ㄴ D3D11_BUFFER_DESC::ByteWidth 멤버와 관련이 있으므로, 그 둘이 모순되지 않도록 하는 것이 중요하다
-				Context::GetDeviceContext3D()->IASetIndexBuffer(m_bufferHandle, DXGI_FORMAT_R32_UINT, 0);
-			}
-			else
-			{
-				Context::GetDeviceContext2D()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-				Context::GetDeviceContext2D()->IASetIndexBuffer(m_bufferHandle, DXGI_FORMAT_R32_UINT, 0);
-			}
+			// 인덱스 버퍼를 사용하려면 먼저 인덱스 버퍼를 파이프 라인에 묶어야 한다. 인덱스 버퍼는 입력 조립기 단계에 묶어야 한다.
+			// DXGI_FORMAT_R32_UINT: 32비트 부호 없는 정수를 뜻한다.
+			// ㄴ D3D11_BUFFER_DESC::ByteWidth 멤버와 관련이 있으므로, 그 둘이 모순되지 않도록 하는 것이 중요하다
+			Context::GetDeviceContext()->IASetIndexBuffer(m_bufferHandle, DXGI_FORMAT_R32_UINT, 0);
 		}
 
 	}

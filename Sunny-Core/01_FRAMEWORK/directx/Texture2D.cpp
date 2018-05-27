@@ -21,22 +21,20 @@ namespace sunny
 
 		/* »ý¼ºÀÚ */
 
-		Texture2D::Texture2D(unsigned int width, unsigned int height, DIMENSION dimension)
-			: m_fileName("NULL"), m_width(width), m_height(height), m_dimension(dimension)
+		Texture2D::Texture2D(unsigned int width, unsigned int height)
+			: m_fileName("NULL"), m_width(width), m_height(height)
 		{
 			Load();
 		}
 
-		Texture2D::Texture2D(const std::string& name, const std::string& filename, DIMENSION dimension)
-			: m_fileName(filename), m_name(name), m_dimension(dimension)
+		Texture2D::Texture2D(const std::string& name, const std::string& filename)
+			: m_fileName(filename), m_name(name)
 		{
 			Load();
 		}
 
-
-
-		Texture2D::Texture2D(const std::string& filename, DIMENSION dimension)
-			: m_fileName(filename), m_name(filename), m_dimension(dimension)
+		Texture2D::Texture2D(const std::string& filename)
+			: m_fileName(filename), m_name(filename)
 		{
 			Load();
 		}
@@ -125,24 +123,14 @@ namespace sunny
 			srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 			srvDesc.Texture2D.MipLevels = m_desc.MipLevels;
 
-			auto  z = Context::GetDevice()->CreateShaderResourceView(m_texture, &srvDesc, &m_resourceView);
-
-			std::cout << "Z: " << z << std::endl;
+			Context::GetDevice()->CreateShaderResourceView(m_texture, &srvDesc, &m_resourceView);
 
 			if (generateMips)
 			{
-				if (m_dimension == DIMENSION::D3)
-				{
-					Context::GetDeviceContext3D()->UpdateSubresource(m_texture, 0, nullptr, initData.pSysMem, initData.SysMemPitch, initData.SysMemSlicePitch);
-					Context::GetDeviceContext3D()->GenerateMips(m_resourceView);
-				}
-				else
-				{
-					Context::GetDeviceContext2D()->UpdateSubresource(m_texture, 0, nullptr, initData.pSysMem, initData.SysMemPitch, initData.SysMemSlicePitch);
-					Context::GetDeviceContext2D()->GenerateMips(m_resourceView);
-				}
+				Context::GetDeviceContext()->UpdateSubresource(m_texture, 0, nullptr, initData.pSysMem, initData.SysMemPitch, initData.SysMemSlicePitch);
+				Context::GetDeviceContext()->GenerateMips(m_resourceView);
 			}
-
+			
 			m_desc.Usage = D3D11_USAGE_DEFAULT;
 			m_desc.CPUAccessFlags = 0;
 			m_desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
@@ -168,30 +156,15 @@ namespace sunny
 
 		void Texture2D::Bind(unsigned int slot) const
 		{
-			if (m_dimension == DIMENSION::D3)
-			{
-				Context::GetDeviceContext3D()->PSSetShaderResources(slot, 1, &m_resourceView);
-				Context::GetDeviceContext3D()->PSSetSamplers(slot, 1, &m_samplerState);
-			}
-			else
-			{
-				Context::GetDeviceContext2D()->PSSetShaderResources(slot, 1, &m_resourceView);
-				Context::GetDeviceContext2D()->PSSetSamplers(slot, 1, &m_samplerState);
-			}
+			Context::GetDeviceContext()->PSSetShaderResources(slot, 1, &m_resourceView);
+			Context::GetDeviceContext()->PSSetSamplers(slot, 1, &m_samplerState);
 		}
 
 		void Texture2D::UnBind(unsigned int slot) const
 		{
 			ID3D11ShaderResourceView* rv = nullptr;
 
-			if (m_dimension == DIMENSION::D3)
-			{
-				Context::GetDeviceContext3D()->PSSetShaderResources(slot, 1, &rv);
-			}
-			else
-			{
-				Context::GetDeviceContext2D()->PSSetShaderResources(slot, 1, &rv);
-			}
+			Context::GetDeviceContext()->PSSetShaderResources(slot, 1, &rv);
 		}
 
 		void Texture2D::SetData(const void* pixels)
@@ -199,14 +172,7 @@ namespace sunny
 			D3D11_MAPPED_SUBRESOURCE msr;
 			memset(&msr, 0, sizeof(D3D11_MAPPED_SUBRESOURCE));
 
-			if (m_dimension == DIMENSION::D3)
-			{
-				Context::GetDeviceContext3D()->Map(m_texture, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
-			}
-			else
-			{
-				Context::GetDeviceContext2D()->Map(m_texture, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
-			}
+			Context::GetDeviceContext()->Map(m_texture, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
 
 			for (unsigned int i = 0; i < m_width * m_height * GetStrideFromFormat(TextureFormat::RGBA); i += 4)
 			{
@@ -216,14 +182,7 @@ namespace sunny
 				((byte*)msr.pData)[i + 3] = ((byte*)pixels)[i / 2 + 1];
 			}
 
-			if (m_dimension == DIMENSION::D3)
-			{
-				Context::GetDeviceContext3D()->Unmap(m_texture, NULL);
-			}
-			else
-			{
-				Context::GetDeviceContext2D()->Unmap(m_texture, NULL);
-			}
+			Context::GetDeviceContext()->Unmap(m_texture, NULL);
 		}
 	}
 }

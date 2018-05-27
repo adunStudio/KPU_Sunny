@@ -21,7 +21,7 @@ TestGameLayer3D::~TestGameLayer3D()
 void TestGameLayer3D::OnInit(Renderer3D& renderer)
 {
 	m_layer2D = new TestGameLayer2D();
-	Application::GetApplication().PushOverlay(m_layer2D);
+	Application::GetApplication().PushLayer2D(m_layer2D);
 
 	LightSetup* lights = new LightSetup();
 	Light* light = new Light(vec3(0.3, 0.3, 0.3), 2, vec4(1.f, 1.f, 1.f, 1.f));
@@ -80,7 +80,7 @@ void TestGameLayer3D::OnInit(Renderer3D& renderer)
 			a->GetTransformComponent()->Rotate(rotation);
 			a->GetTransformComponent()->SetScale(scale);
 
-			AddStatic(a);
+			//AddStatic(a);
 		}
 	}
 
@@ -212,45 +212,26 @@ void TestGameLayer3D::OnEvent(Event& event)
 
 bool TestGameLayer3D::OnKeyPressedEvent(KeyPressedEvent& event)
 {
-	/*switch (event.GetKeyCode())
-	{
-
-
-	case SUNNY_KEY_SPACE:
-		m_character->SetAnimation(3);
-		m_character->SetRoll(true);
-
-	}
-
-	return false;*/
 	return false;
 }
 
 bool TestGameLayer3D::OnKeyReleasedEvent(KeyReleasedEvent& event)
 {
-	//if (event.GetKeyCode() == SUNNY_KEY_CONTROL) Renderer3D::DEFERRED_MODE = false;
-
 	return false;
 }
 
 bool TestGameLayer3D::OnMousePressedEvent(MousePressedEvent& event)
 {
-	//std::cout << "pressed (" << event.GetX()  << ", " << event.GetY() << ")" << std::endl;
-
 	float scaleX = Window::GetWindowClass()->GetResolutionWidth() / Window::GetWindowClass()->GetWidth();
 	float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
 
 	maths::vec2 mouse(event.GetX() * scaleX, event.GetY() * scaleY);
-
-
 
 	return false;
 }
 
 bool TestGameLayer3D::OnMouseReleasedEvent(MouseReleasedEvent& event)
 {
-
-
 	return false;
 }
 

@@ -15,67 +15,70 @@
 #include "../events/Events.h"
 namespace sunny
 {
-    class Application
-    {
-    public:
-        Window* window;
+	class Application
+	{
+	public:
+		Window * window;
 
 		std::mutex m_mutex;
 
-        inline static Application& GetApplication() { return *s_instance; }
-    private:
-        static Application* s_instance;
+		inline static Application& GetApplication() { return *s_instance; }
+	private:
+		static Application* s_instance;
 
-    private:
-        bool m_running, m_paused;
-        utils::Timer* m_timer;
+	private:
+		bool m_running, m_paused;
+		utils::Timer* m_timer;
 
-        int m_updatesPerSecond, m_framesPerSecond;
-        float m_frameTime;
+		int m_updatesPerSecond, m_framesPerSecond;
+		float m_frameTime;
 
-        std::string m_name;
-        WindowProperties m_properties;
+		std::string m_name;
+		WindowProperties m_properties;
 
-		std::vector<graphics::Layer*> m_layerStack;
+		std::vector<graphics::Layer*> m_layer2DStack;
+		std::vector<graphics::Layer*> m_layer3DStack;
 		std::vector<graphics::Layer*> m_overlayStack;
 
-    public:
-        Application(const std::string& name, const WindowProperties& properties);
-        ~Application();
+	public:
+		Application(const std::string& name, const WindowProperties& properties);
+		~Application();
 
-        virtual void Init();
+		virtual void Init();
 
-        void Start();
-        void Pause();
-        void Resume();
-        void Stop();
+		void Start();
+		void Pause();
+		void Resume();
+		void Stop();
 
-		void PushLayer(graphics::Layer* layer);
-		graphics::Layer* PopLayer();
+		void PushLayer2D(graphics::Layer* layer);
+		void PushLayer3D(graphics::Layer* layer);
+		graphics::Layer* PopLayer2D();
+		graphics::Layer* PopLayer3D();
 		graphics::Layer* PopLayer(graphics::Layer* layer);
 
 		void PushOverlay(graphics::Layer* layer);
 		graphics::Layer* PopOverlay();
 		graphics::Layer* PopOverlay(graphics::Layer* layer);
 
-        inline int GetFPS() const { return m_framesPerSecond;   }
-        inline int GetTPS() const { return m_updatesPerSecond;  }
-        inline float GetFrameTime() const { return m_frameTime; }
+		inline int GetFPS() const { return m_framesPerSecond; }
+		inline int GetTPS() const { return m_updatesPerSecond; }
+		inline float GetFrameTime() const { return m_frameTime; }
 
-        inline int GetWindowWidth()  const { return window->GetWidth();  }
-        inline int GetWindowHeight() const { return window->GetHeight(); }
-        inline maths::vec2 GetWindowSize() const
-        {
-            return maths::vec2(static_cast<float>(window->GetWidth()), static_cast<float>(window->GetHeight()));
-        }
+		inline int GetWindowWidth()  const { return window->GetWidth(); }
+		inline int GetWindowHeight() const { return window->GetHeight(); }
+		inline maths::vec2 GetWindowSize() const
+		{
+			return maths::vec2(static_cast<float>(window->GetWidth()), static_cast<float>(window->GetHeight()));
+		}
 
-    private:
-        void Run();
+	private:
+		void Run();
 
-        void OnTick();
-        void OnUpdate(const utils::Timestep& ts);
-        void OnRender();
+		void OnTick();
+		void OnUpdate(const utils::Timestep& ts);
+		void OnRender();
 
 		void OnEvent(events::Event& event);
-    };
+	};
 }

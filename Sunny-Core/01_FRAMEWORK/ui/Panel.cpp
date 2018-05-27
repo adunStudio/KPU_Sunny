@@ -10,7 +10,7 @@ namespace sunny
 	{
 		Panel::Panel() : Layer2D(maths::mat4::Orthographic(0.0f, 32.0f, 0.0f, 18.0f, -1.0f, 1.0f))
 		{
-			Application::GetApplication().PushLayer(this);
+			Application::GetApplication().PushLayer2D(this);
 		}
 
 		Panel::~Panel()

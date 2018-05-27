@@ -4,7 +4,7 @@ namespace sunny
 {
 	namespace directx
 	{
-		VertexBuffer::VertexBuffer(DIMENSION dimension) : m_size(0), m_dimension(dimension)
+		VertexBuffer::VertexBuffer() : m_size(0)
 		{
 			ZeroMemory(&m_bufferDesc, sizeof(D3D11_BUFFER_DESC));
 
@@ -82,14 +82,8 @@ namespace sunny
 		{
 			// 서브 리소스에 포함된 데이터에 대한 포인터를 얻어오기위해 ID3D11DeviceContext::Map() 함수를 사용한다. 이 함수를 호출하면 GPU는 서브 리소스에 접근할 수 없게 된다.
 			// 즉, 정점 버퍼에 대한 메모리 주소를 가져온다.
-			if (m_dimension == DIMENSION::D3)
-			{
-				Context::GetDeviceContext3D()->Map(m_bufferHandle, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &m_mappedSubresource);
-			}
-			else
-			{
-				Context::GetDeviceContext2D()->Map(m_bufferHandle, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &m_mappedSubresource);
-			}
+			
+			Context::GetDeviceContext()->Map(m_bufferHandle, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &m_mappedSubresource);
 			// pResource       : ID3D11Resource 인터페이스에 대한 포인터다.
 			// SubResource     : 서브 리소스의 인덱스
 			// MapType         : 리소스에 대한 CPU의 읽기/쓰기 권한을 나타내는 D3D11_MAP 열겨형 상수다.        
@@ -102,14 +96,7 @@ namespace sunny
 
 		void VertexBuffer::ReleasePointer()
 		{
-			if (m_dimension == DIMENSION::D3)
-			{
-				Context::GetDeviceContext3D()->Unmap(m_bufferHandle, NULL);
-			}
-			else
-			{
-				Context::GetDeviceContext2D()->Unmap(m_bufferHandle, NULL);
-			}
+			Context::GetDeviceContext()->Unmap(m_bufferHandle, NULL);
 		}
 
 		void VertexBuffer::Bind()
@@ -120,18 +107,8 @@ namespace sunny
 			
 			// 이렇게 생성한 입력 배치는 아직 장치에 묶이지 않은 상태이다.
 			// 따라서 입력 배치 설정의 마지막 단계는 입력 배치를 사용하고자 하는 장치에 묶는 것이다.
-			if (m_dimension == DIMENSION::D3)
-			{
-				Context::GetDeviceContext3D()->IASetInputLayout(m_inputLayout);
-				Context::GetDeviceContext3D()->IASetVertexBuffers(0, 1, &m_bufferHandle, &stride, &offset);
-			}
-			else
-			{
-				Context::GetDeviceContext2D()->IASetInputLayout(m_inputLayout);
-				Context::GetDeviceContext2D()->IASetVertexBuffers(0, 1, &m_bufferHandle, &stride, &offset);
-			}
-			
-
+			Context::GetDeviceContext()->IASetInputLayout(m_inputLayout);
+			Context::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_bufferHandle, &stride, &offset);
 			// ID3D11DeviceContext::IASetVertexBuffers() 함수를 이용해 정점 버퍼를 입력 조립단계에 연결 한다.
 			// StartSlot       : 연결할 첫 번째 입력 슬롯 인덱스다. 첫 번째 정점 버퍼는 시작 슬롯에 연결되고 순서대로 다음 슬롯에 연결된다. 최대 16개의 입력 슬롯을 제공한다.
 			// NumBuffers      : ppVertexBuffers가 나타내는 배열의 원소 개수다. 버퍼의 개수는 입력 슬롯 전체 개수를 넘을 수 없다.

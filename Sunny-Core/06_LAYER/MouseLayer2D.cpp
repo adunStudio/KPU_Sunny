@@ -6,7 +6,7 @@ MouseLayer2D::MouseLayer2D()
 	: Layer2D(maths::mat4::Orthographic(0.0f, Application::GetApplication().GetWindowWidth(), 0.0f, Application::GetApplication().GetWindowHeight(), -1.0f, 1.0f))
 {
 
-	m_textures["cursor"]  = new Texture2D("/TEXTURE/cursor1.png", DIMENSION::D2);
+	m_textures["cursor"]  = new Texture2D("/TEXTURE/cursor1.png");
 	m_mouse = new Sprite(0, 0, m_textures["cursor"]);
 
 	Add(m_mouse);

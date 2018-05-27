@@ -24,8 +24,6 @@ namespace sunny
 
 			unsigned int m_bitsPerPixel;
 
-			DIMENSION m_dimension;
-
 			D3D11_TEXTURE2D_DESC m_desc;
 			ID3D11Texture2D* m_texture;
 			ID3D11ShaderResourceView* m_resourceView;
@@ -36,9 +34,9 @@ namespace sunny
 			void Load();
 
 		public:
-			Texture2D(unsigned int width, unsigned int height,              DIMENSION dimension = DIMENSION::D3);
-			Texture2D(const std::string& name, const std::string& filename, DIMENSION dimension = DIMENSION::D3);
-			Texture2D(const std::string& filename,                          DIMENSION dimension = DIMENSION::D3);
+			Texture2D(unsigned int width, unsigned int height             );
+			Texture2D(const std::string& name, const std::string& filename);
+			Texture2D(const std::string& filename                         );
 
 			~Texture2D() override;
 

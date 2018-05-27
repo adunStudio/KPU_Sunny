@@ -184,8 +184,8 @@ namespace sunny
 		void Renderer2D::Present()
 		{
 			// 2차원 렌더러이므로 스텐실/깊이 검사는 필요없다.
-			directx::Renderer::SetDepthTesting(false, DIMENSION::D2);
-			directx::Renderer::SetBlend(true, DIMENSION::D2);
+			directx::Renderer::SetDepthTesting(false);
+			directx::Renderer::SetBlend(true);
 
 			// 셰이더 연결
 			m_shader->Bind();
@@ -249,7 +249,7 @@ namespace sunny
 
 			m_shader->Bind();
 
-			directx::VertexBuffer* buffer = new directx::VertexBuffer(DIMENSION::D2);
+			directx::VertexBuffer* buffer = new directx::VertexBuffer();
 			buffer->Resize(RENDERER_BUFFER_SIZE);
 
 			// 입력레이아웃 설정
@@ -262,7 +262,7 @@ namespace sunny
 			layout.Push<vec4>("COLOR");
 			buffer->SetLayout(layout);
 
-			m_vertexArray = new directx::VertexArray(DIMENSION::D2);
+			m_vertexArray = new directx::VertexArray();
 			m_vertexArray->PushBuffer(buffer);
 
 			unsigned int* indices = new unsigned int[RENDERER_INDICES_SIZE];
@@ -282,7 +282,7 @@ namespace sunny
 				offset += 4;
 			}
 
-			m_indexBuffer = new directx::IndexBuffer(indices, RENDERER_INDICES_SIZE, DIMENSION::D2);
+			m_indexBuffer = new directx::IndexBuffer(indices, RENDERER_INDICES_SIZE);
 		}
 
 		float Renderer2D::SubmitTexture(directx::Texture* texture)

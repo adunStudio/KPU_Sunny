@@ -5,7 +5,6 @@
 #include "Context.h"
 #include "BufferLayout.h"
 #include "Shader.h"
-#include "../01_FRAMEWORK/graphics/shaders/ShaderFactory.h"
 #include "../01_FRAMEWORK/app/Application.h"
 
 /*
@@ -61,13 +60,12 @@ namespace sunny
 
 			BufferLayout m_layout;
 
-			DIMENSION m_dimension;
 
 		protected:
 			void* GetPointerInternal();
 
 		public:
-			VertexBuffer(DIMENSION dimension = DIMENSION::D3);
+			VertexBuffer();
 			~VertexBuffer();
 
 			void Resize(unsigned int size);

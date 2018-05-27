@@ -16,12 +16,6 @@ using namespace game;
 class TestGameLayer2D : public Layer2D
 {
 public:
-	int m_windowWidth, m_windowHeight;
-
-	Label* m_fps;
-
-	Sprite* m_mouse;
-
 	Panel* m_panel;
 
 	Progressbar* m_bossHPBar;

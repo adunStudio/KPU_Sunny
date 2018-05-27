@@ -12,10 +12,8 @@ namespace sunny
 		private:
 			std::vector<VertexBuffer*> m_buffers;
 
-			DIMENSION m_dimension;
-
 		public:
-			VertexArray(DIMENSION dimension = DIMENSION::D3);
+			VertexArray();
 			~VertexArray();
 
 			inline VertexBuffer* GetBuffer(unsigned int index = 0) { return m_buffers[index]; }

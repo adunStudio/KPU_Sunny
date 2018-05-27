@@ -92,7 +92,7 @@ namespace game
 		}
 	}
 
-	void AssetLoader::LoadTexture(const std::string& jsonPath, DIMENSION dimension)
+	void AssetLoader::LoadTexture(const std::string& jsonPath)
 	{
 		std::string txt = sunny::system::FileSystem::ReadTextFile(jsonPath);
 
@@ -113,7 +113,7 @@ namespace game
 
 				if (!sunny::graphics::TextureManager::Get(name))
 				{
-					sunny::graphics::TextureManager::Add(new sunny::directx::Texture2D(name, path, dimension));
+					sunny::graphics::TextureManager::Add(new sunny::directx::Texture2D(name, path));
 				}
 			}
 		}

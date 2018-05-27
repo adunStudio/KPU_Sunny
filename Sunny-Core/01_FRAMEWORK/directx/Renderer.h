@@ -52,8 +52,8 @@ namespace sunny
 			void ClearInternal(unsigned int buffer);
 			void PresentInternal();
 
-			void SetDepthTestingInternal(bool enabled, DIMENSION dimension);
-			void SetBlendInternal(bool enabled, DIMENSION dimension);
+			void SetDepthTestingInternal(bool enabled);
+			void SetBlendInternal(bool enabled);
 
 		private:
 			void CreateBlendStates();
@@ -65,8 +65,8 @@ namespace sunny
 			inline static void Clear(unsigned int buffer) { s_instance->ClearInternal(buffer); }
 			inline static void Present() { s_instance->PresentInternal(); }
 
-			inline static void SetDepthTesting(bool enabled, DIMENSION dimension = DIMENSION::D3) { s_instance->SetDepthTestingInternal(enabled, dimension); }
-			inline static void SetBlend(bool enabled, DIMENSION dimension = DIMENSION::D3) { s_instance->SetBlendInternal(enabled, dimension); }
+			inline static void SetDepthTesting(bool enabled) { s_instance->SetDepthTestingInternal(enabled); }
+			inline static void SetBlend(bool enabled) { s_instance->SetBlendInternal(enabled); }
 			
 		public:
 

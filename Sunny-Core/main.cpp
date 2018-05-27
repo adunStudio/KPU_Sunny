@@ -27,6 +27,9 @@ public:
 	{
 		Application::Init();
 
+		ShaderFactory::Default3DForwardShader();
+		ShaderFactory::Default2DShader();
+
 		VFS::Get()->Mount("HLSL",    "02_HLSL");
 		VFS::Get()->Mount("JSON",    "03_JSON");
 		VFS::Get()->Mount("CUBE",    "04_ASSET/CUBE");
@@ -35,22 +38,14 @@ public:
 		VFS::Get()->Mount("TEXTURE", "04_ASSET/TEXTURE");
 		VFS::Get()->Mount("RAW",     "04_ASSET/RAW");
 		
-		game::AssetLoader::LoadTexture("/JSON/TEXTURE/Rooms.json", DIMENSION::D2);
-
-
-		if (Server::IsConnected())
-			cout << "서버 연결 완료" << endl;
-		else
-			cout << "서버 연결 실패" << endl;    
+		game::AssetLoader::LoadTexture("/JSON/TEXTURE/Rooms.json");
 
 		Input::GetInputManager()->SetMouseCursor(SUNNY_NO_CURSOR);
 
 		PushOverlay(new FPSLayer2D());
 		PushOverlay(new MouseLayer2D());
 		FPSLayer2D::SetColor(RGBA(0.f, 0.f, 0.f, 0.7f));
-
-
-		PushLayer(new LoadingLayer2D());
+		PushLayer2D(new LoadingLayer2D());
 	}
 };
 

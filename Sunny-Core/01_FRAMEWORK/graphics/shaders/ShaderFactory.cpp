@@ -15,8 +15,6 @@ namespace sunny
 
 				shader = directx::Shader::CreateFromSource("default2D", sunny::graphics::default2DShader_src);
 
-				std::cout << "SDfsdfs " << std::endl;
-
 				ShaderManager::Add(shader);
 
 				return shader;

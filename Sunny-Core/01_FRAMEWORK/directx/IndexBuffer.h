@@ -15,10 +15,8 @@ namespace sunny
 
 			unsigned int m_count;
 
-			DIMENSION m_dimension;
-
 		public:
-			IndexBuffer(unsigned int* data, unsigned int count, DIMENSION dimension = DIMENSION::D3);
+			IndexBuffer(unsigned int* data, unsigned int count);
 
 			void Bind() const;
 

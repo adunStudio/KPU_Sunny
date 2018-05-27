@@ -37,11 +37,11 @@ void LoadingLayer2D::OnInit(Renderer2D& renderer)
 {
 	AudioEngine::LoadSound("04_ASSET/MP3/sunny_loading.mp3", false, true);
 	AudioEngine::Play("04_ASSET/MP3/sunny_loading.mp3");
-	m_backgroundTexture = new Texture2D("/TEXTURE/Loadings/background.png", DIMENSION::D2);
+	m_backgroundTexture = new Texture2D("/TEXTURE/Loadings/background.png");
 	m_background = new Sprite(0, 0, m_windowWidth, m_windowHeight, m_backgroundTexture);
 	Add(m_background);
 
-	m_circleTexture = new Texture2D("/TEXTURE/Loadings/circle.png", DIMENSION::D2);
+	m_circleTexture = new Texture2D("/TEXTURE/Loadings/circle.png");
 
 	for (int i = 0; i < 13; ++i)
 	{
@@ -131,7 +131,7 @@ void LoadingLayer2D::OnInit(Renderer2D& renderer)
 	m_circles[40]->start = 17;
 	m_circles[52]->start = 17;
 
-	m_logoTexture = new Texture2D("/TEXTURE/Loadings/boo2.png", DIMENSION::D2);
+	m_logoTexture = new Texture2D("/TEXTURE/Loadings/boo2.png");
 	m_logo = new Sprite(m_windowWidth/ 2 , m_windowHeight / 2 + 65, m_logoTexture, PIVOT_CENTER);
 	
 	m_panel = new Panel();
@@ -142,8 +142,6 @@ void LoadingLayer2D::OnInit(Renderer2D& renderer)
 	m_loadingBar = new Loadingbar(maths::Rectangle(400, 65, 400, 15), m_ing, RGBA(0.5, 0.5, 0.5, 0.7), RGBA(0.9, 0.9, 0.9, 0.7));
 	m_loadingBar->SetCallback(METHOD(&LoadingLayer2D::OnLoadingCompleted));
 	m_loadingBar->SetValue(0);
-
-
 
 	m_panel->Add(m_loadingBar);
 }
@@ -232,7 +230,7 @@ void LoadingLayer2D::GoToRoom()
 	if (m_loadingCompleted == false) return;
 
 	delete Application::GetApplication().PopLayer(this);
-	Application::GetApplication().PushLayer(new RoomLayer2D());
+	Application::GetApplication().PushLayer2D(new RoomLayer2D());
 }
 
 void StartLoad(LoadingLayer2D* layer)
@@ -277,8 +275,12 @@ void StartLoad(LoadingLayer2D* layer)
 
 				data->textures.push_back(texture_path);
 
+				Application::GetApplication().m_mutex.lock();
+
 				if (!sunny::graphics::TextureManager::Get(texture_path))
 					sunny::graphics::TextureManager::Add(new sunny::directx::Texture2D(texture_path));
+
+				Application::GetApplication().m_mutex.unlock();
 			}
 
 			
@@ -286,12 +288,13 @@ void StartLoad(LoadingLayer2D* layer)
 
 			if (!sunny::graphics::ModelManager::Get(name))
 			{
-				a = new sunny::graphics::Model(path, false);
+				Application::GetApplication().m_mutex.lock();
+
+				a = new sunny::graphics::Model(path);
 
 				sunny::graphics::ModelManager::Add(name, a);
-
-				a->LoadMesh();
-
+				
+				Application::GetApplication().m_mutex.unlock();
 			}
 
 

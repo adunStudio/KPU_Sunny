@@ -18,7 +18,7 @@ void TestLayer2D::OnInit(Renderer2D& renderer)
 
 	// 맵툴 레이어
 	//m_testLayer3D = new TestLayer3D(*this);
-	Application::GetApplication().PushLayer(m_testLayer3D);
+	Application::GetApplication().PushLayer3D(m_testLayer3D);
 
 	// FPS
 	m_fps   = new Label("fps", windowWidth - 5,  windowHeight - 15, RGBA(0, 0, 0, 0.8));

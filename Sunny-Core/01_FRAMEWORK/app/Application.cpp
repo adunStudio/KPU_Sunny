@@ -3,6 +3,7 @@
 //
 
 #include "Application.h"
+#include "../directx/Context.h"
 
 namespace sunny
 {
@@ -51,30 +52,51 @@ namespace sunny
         m_running = true;
     }
 
-	void Application::PushLayer(graphics::Layer* layer)
+	void Application::PushLayer2D(graphics::Layer* layer)
 	{
-		m_layerStack.push_back(layer);
-
+		m_layer2DStack.push_back(layer);
 
 		layer->Init();
-
 	}
 
-	graphics::Layer* Application::PopLayer()
+	void Application::PushLayer3D(graphics::Layer* layer)
 	{
-		graphics::Layer* layer = m_layerStack.back();
-		m_layerStack.pop_back();
+		m_layer3DStack.push_back(layer);
+
+		layer->Init();
+	}
+
+	graphics::Layer* Application::PopLayer2D()
+	{
+		graphics::Layer* layer = m_layer2DStack.back();
+		m_layer2DStack.pop_back();
+
+		return layer;
+	}
+
+	graphics::Layer* Application::PopLayer3D()
+	{
+		graphics::Layer* layer = m_layer3DStack.back();
+		m_layer3DStack.pop_back();
 
 		return layer;
 	}
 
 	graphics::Layer* Application::PopLayer(graphics::Layer* layer)
 	{
-		for (unsigned int i = 0; i < m_layerStack.size(); ++i)
+		for (unsigned int i = 0; i < m_layer2DStack.size(); ++i)
 		{
-			if (m_layerStack[i] == layer)
+			if (m_layer2DStack[i] == layer)
 			{
-				m_layerStack.erase(m_layerStack.begin() + i);
+				m_layer2DStack.erase(m_layer2DStack.begin() + i);
+			}
+		}
+
+		for (unsigned int i = 0; i < m_layer3DStack.size(); ++i)
+		{
+			if (m_layer3DStack[i] == layer)
+			{
+				m_layer3DStack.erase(m_layer3DStack.begin() + i);
 			}
 		}
 
@@ -126,12 +148,11 @@ namespace sunny
 
         while(m_running)
         {
-			m_mutex.lock();
-
             window->Clear();
 
-            float now = m_timer->ElapsedMillis();
+			m_mutex.lock();
 
+            float now = m_timer->ElapsedMillis();
 
             // updateTick(1000 / 60)마다 실행
             if(now - updateTimer > updateTick)
@@ -172,7 +193,6 @@ namespace sunny
                 m_running = false;
 
 			m_mutex.unlock();
-
 		}
     }
 
@@ -182,9 +202,13 @@ namespace sunny
 			if(m_overlayStack[i]->IsActive())
 				m_overlayStack[i]->OnTick();
 		
-		for (unsigned int i = 0; i < m_layerStack.size(); ++i)
-			if (m_layerStack[i]->IsActive())
-				m_layerStack[i]->OnTick();
+		for (unsigned int i = 0; i < m_layer3DStack.size(); ++i)
+			if (m_layer3DStack[i]->IsActive())
+				m_layer3DStack[i]->OnTick();
+
+		for (unsigned int i = 0; i < m_layer2DStack.size(); ++i)
+			if (m_layer2DStack[i]->IsActive())
+				m_layer2DStack[i]->OnTick();
 	}
 
     void Application::OnUpdate(const utils::Timestep& ts)
@@ -193,16 +217,24 @@ namespace sunny
 			if (m_overlayStack[i]->IsActive())
 				m_overlayStack[i]->OnUpdateInternal(ts);
 
-		for (unsigned int i = 0; i < m_layerStack.size(); ++i)
-			if (m_layerStack[i]->IsActive())
-				m_layerStack[i]->OnUpdateInternal(ts);
+		for (unsigned int i = 0; i < m_layer3DStack.size(); ++i)
+			if (m_layer3DStack[i]->IsActive())
+				m_layer3DStack[i]->OnUpdateInternal(ts);
+
+		for (unsigned int i = 0; i < m_layer2DStack.size(); ++i)
+			if (m_layer2DStack[i]->IsActive())
+				m_layer2DStack[i]->OnUpdateInternal(ts);
     }
 
     void Application::OnRender()
     {
-		for (unsigned int i = 0; i < m_layerStack.size(); ++i)
-			if (m_layerStack[i]->IsVisible())
-				m_layerStack[i]->OnRender();
+		for (unsigned int i = 0; i < m_layer3DStack.size(); ++i)
+			if (m_layer3DStack[i]->IsVisible())
+				m_layer3DStack[i]->OnRender();
+
+		for (unsigned int i = 0; i < m_layer2DStack.size(); ++i)
+			if (m_layer2DStack[i]->IsVisible())
+				m_layer2DStack[i]->OnRender();
 
 		for (unsigned int i = 0; i < m_overlayStack.size(); ++i)
 			if (m_overlayStack[i]->IsVisible())
@@ -222,10 +254,18 @@ namespace sunny
 			if (event.isHandled()) return;
 		}
 
-		for (int i = m_layerStack.size() - 1; i >= 0; --i)
+		for (int i = m_layer3DStack.size() - 1; i >= 0; --i)
 		{
-			if (m_layerStack[i]->IsActive())
-				m_layerStack[i]->OnEvent(event);
+			if (m_layer3DStack[i]->IsActive())
+				m_layer3DStack[i]->OnEvent(event);
+
+			if (event.isHandled()) return;
+		}
+
+		for (int i = m_layer2DStack.size() - 1; i >= 0; --i)
+		{
+			if (m_layer2DStack[i]->IsActive())
+				m_layer2DStack[i]->OnEvent(event);
 
 			if (event.isHandled()) return;
 		}

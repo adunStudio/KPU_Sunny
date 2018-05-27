@@ -17,16 +17,6 @@ TestGameLayer2D::~TestGameLayer2D()
 
 void TestGameLayer2D::OnInit(Renderer2D& renderer)
 {
-	m_mouse = new Sprite(new Texture2D("/TEXTURE/cursor2.png"));
-
-	m_windowWidth  = Application::GetApplication().GetWindowWidth();
-	m_windowHeight = Application::GetApplication().GetWindowHeight();
-
-	// FPS
-	m_fps = new Label("fps", m_windowWidth - 5, m_windowHeight - 30, "dot", RGBA(0, 0, 0, 0.7), Label::Alignment::RIGHT);
-	Add(m_fps);
-	//Add(m_mouse);
-
 	m_panel = new Panel();
 	m_bossHPBar = new Progressbar(maths::Rectangle(300, 830, 500, 20));
 	m_bossHPBar->SetValue(1);
@@ -35,7 +25,7 @@ void TestGameLayer2D::OnInit(Renderer2D& renderer)
 
 void TestGameLayer2D::OnTick()
 {
-	m_fps->SetText(std::to_string(Application::GetApplication().GetFPS()) + "fps");
+
 }
 
 void TestGameLayer2D::OnUpdate(const utils::Timestep& ts)
@@ -60,13 +50,6 @@ void TestGameLayer2D::OnEvent(Event& event)
 
 bool TestGameLayer2D::OnMouseMovedEvent(MouseMovedEvent& event)
 {
-	float scaleX = Window::GetWindowClass()->GetResolutionWidth() / Window::GetWindowClass()->GetWidth();
-	float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
-
-	maths::vec2 mouse(event.GetX() * scaleX, (Window::GetWindowClass()->GetHeight() - event.GetY()) * scaleY);
-
-	m_mouse->SetPosition(vec2(mouse.x - (16 * scaleX), mouse.y - (16 * scaleY)));
-
 	return false;
 }
 
