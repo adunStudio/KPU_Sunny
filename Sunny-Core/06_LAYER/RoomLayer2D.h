@@ -25,8 +25,6 @@ public:
 	unordered_map<string, Sprite*> m_sprites;
 	unordered_map<string, Button*> m_buttons;
 
-	Sprite* m_mouse;
-
 	int m_mapSelect = 0;
 	
 private:
@@ -55,7 +53,6 @@ public:
 	void OnRender(Renderer2D& renderer);
 	void OnEvent(Event& event) override;
 
-	bool OnMouseMovedEvent(MouseMovedEvent& event);
 	bool OnKeyPressedEvent(KeyPressedEvent& event);
 	bool OnServerPacketEvent(ServerPacketEvent& event);
 

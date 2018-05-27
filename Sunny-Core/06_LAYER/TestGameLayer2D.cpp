@@ -31,7 +31,6 @@ void TestGameLayer2D::OnInit(Renderer2D& renderer)
 	m_bossHPBar = new Progressbar(maths::Rectangle(300, 830, 500, 20));
 	m_bossHPBar->SetValue(1);
 	m_panel->Add(m_bossHPBar);
-	m_panel->SetMouse(new Button(m_mouse));
 }
 
 void TestGameLayer2D::OnTick()

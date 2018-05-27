@@ -26,9 +26,6 @@ void RoomLayer2D::OnInit(Renderer2D & renderer)
 	m_windowWidth = Application::GetApplication().GetWindowWidth();
 	m_windowHeight = Application::GetApplication().GetWindowHeight();
 
-	m_mouse = new Sprite(new Texture2D("/TEXTURE/cursor1.png", DIMENSION::D2));
-
-
 	m_fps = new Label("fps", m_windowWidth - 5, m_windowHeight - 30, RGBA(1, 1, 1, 0.7), Label::Alignment::RIGHT);
 
 	m_sprites["background"] = new Sprite(0, 0, 1600, 900, TextureManager::Get2D("room_background"));
@@ -105,7 +102,6 @@ void RoomLayer2D::OnInit(Renderer2D & renderer)
 
 	m_panel = new Panel();
 	{
-		m_panel->SetMouse(new Button(m_mouse));
 		m_panel->Add(m_buttons["button_face_14"]);
 		m_panel->Add(m_buttons["button_face_15"]);
 		m_panel->Add(m_buttons["button_face_20"]);
@@ -131,23 +127,10 @@ void RoomLayer2D::OnEvent(Event & event)
 {
 	Layer2D::OnEvent(event);
 	EventDispatcher dispatcher(event);
-	dispatcher.Dispatch<MouseMovedEvent>(METHOD(&RoomLayer2D::OnMouseMovedEvent));
 	dispatcher.Dispatch<KeyPressedEvent>(METHOD(&RoomLayer2D::OnKeyPressedEvent));
 	dispatcher.Dispatch<ServerPacketEvent>(METHOD(&RoomLayer2D::OnServerPacketEvent));
 }
 
-
-bool RoomLayer2D::OnMouseMovedEvent(MouseMovedEvent& event)
-{
-	float scaleX = Window::GetWindowClass()->GetResolutionWidth() / Window::GetWindowClass()->GetWidth();
-	float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
-
-	maths::vec2 mouse(event.GetX() * scaleX, (Window::GetWindowClass()->GetHeight() - event.GetY()) * scaleY);
-
-	m_mouse->SetPosition(vec2(mouse.x, mouse.y - (32 * scaleY)));
-
-	return false;
-}
 bool RoomLayer2D::OnKeyPressedEvent(KeyPressedEvent & event)
 {
 	return false;

@@ -6,6 +6,7 @@
 
 
 #include "06_LAYER/FPSLayer2D.h"
+#include "06_LAYER/MouseLayer2D.h"
 #include "06_LAYER/LoadingLayer2D.h"
 
 #include "06_LAYER/RoomLayer2D.h"
@@ -45,8 +46,10 @@ public:
 		Input::GetInputManager()->SetMouseCursor(SUNNY_NO_CURSOR);
 
 		PushOverlay(new FPSLayer2D());
+		PushOverlay(new MouseLayer2D());
 		FPSLayer2D::SetColor(RGBA(0.f, 0.f, 0.f, 0.7f));
-		
+
+
 		PushLayer(new LoadingLayer2D());
 	}
 };

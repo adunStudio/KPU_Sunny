@@ -26,9 +26,6 @@ public:
 	Texture2D* m_logoTexture;
 	Sprite*    m_logo;
 
-	Texture2D* m_mouseTexture;
-	Sprite*    m_mouse;
-
 	Label* m_state;
 	Loadingbar* m_loadingBar;
 	Label* m_ing;
@@ -52,7 +49,6 @@ public:
 	void OnRender(Renderer2D& renderer);
 	void OnEvent(Event& event) override;
 
-	bool OnMouseMovedEvent  (MouseMovedEvent&   event);
 	bool OnMousePressedEvent(MousePressedEvent& event);
 	bool OnKeyPressedEvent  (KeyPressedEvent&   event);
 

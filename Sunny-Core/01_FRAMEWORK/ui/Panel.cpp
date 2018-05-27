@@ -8,9 +8,9 @@ namespace sunny
 {
 	namespace ui
 	{
-		Panel::Panel() : Layer2D(maths::mat4::Orthographic(0.0f, 32.0f, 0.0f, 18.0f, -1.0f, 1.0f)), m_mouse(nullptr)
+		Panel::Panel() : Layer2D(maths::mat4::Orthographic(0.0f, 32.0f, 0.0f, 18.0f, -1.0f, 1.0f))
 		{
-			Application::GetApplication().PushOverlay(this);
+			Application::GetApplication().PushLayer(this);
 		}
 
 		Panel::~Panel()
@@ -18,7 +18,7 @@ namespace sunny
 			for (unsigned int i = 0; i < m_widgets.size(); ++i)
 				delete m_widgets[i];
 
-			Application::GetApplication().PopOverlay(this);
+			Application::GetApplication().PopLayer(this);
 		}
 
 		Widget* Panel::Add(Widget* widget)
@@ -28,12 +28,6 @@ namespace sunny
 			return widget;
 		}
 
-		Widget* Panel::SetMouse(Widget* widget)
-		{
-			m_mouse = widget;
-
-			return widget;
-		}
 
 		void Panel::Remove(Widget* widget)
 		{
@@ -76,9 +70,6 @@ namespace sunny
 				if (widget->IsActive())
 					widget->OnRender(renderer);
 			}
-
-			if (m_mouse)
-				m_mouse->OnRender(renderer);
 		}
 
 		void Panel::OnEvent(events::Event& e)

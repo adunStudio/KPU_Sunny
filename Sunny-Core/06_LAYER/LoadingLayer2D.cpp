@@ -31,8 +31,6 @@ LoadingLayer2D::~LoadingLayer2D()
 	delete m_logo;
 	delete m_state;
 	delete m_ing;
-	delete m_mouse;
-	delete m_mouseTexture;
 }
 
 void LoadingLayer2D::OnInit(Renderer2D& renderer)
@@ -148,11 +146,6 @@ void LoadingLayer2D::OnInit(Renderer2D& renderer)
 
 
 	m_panel->Add(m_loadingBar);
-
-	m_mouseTexture = new Texture2D("/TEXTURE/cursor1.png", DIMENSION::D2);
-	m_mouse = new Sprite(0, 0, m_mouseTexture);
-
-	m_panel->SetMouse(new Button(m_mouse));
 }
 
 void LoadingLayer2D::OnTick()
@@ -201,21 +194,8 @@ void LoadingLayer2D::OnEvent(Event& event)
 {
 	Layer2D::OnEvent(event);
 	EventDispatcher dispatcher(event);
-	dispatcher.Dispatch<MouseMovedEvent>(METHOD(&LoadingLayer2D::OnMouseMovedEvent));
 	dispatcher.Dispatch<MousePressedEvent>(METHOD(&LoadingLayer2D::OnMousePressedEvent));
 	dispatcher.Dispatch<KeyPressedEvent>(METHOD(&LoadingLayer2D::OnKeyPressedEvent));
-}
-
-bool LoadingLayer2D::OnMouseMovedEvent(MouseMovedEvent& event)
-{
-	float scaleX = Window::GetWindowClass()->GetResolutionWidth() / Window::GetWindowClass()->GetWidth();
-	float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
-
-	maths::vec2 mouse(event.GetX() * scaleX, (Window::GetWindowClass()->GetHeight() - event.GetY()) * scaleY);
-
-	m_mouse->SetPosition(vec2(mouse.x, mouse.y - (32 * scaleY)));
-
-	return false;
 }
 
 bool LoadingLayer2D::OnMousePressedEvent(MousePressedEvent& event)
@@ -243,7 +223,7 @@ void LoadingLayer2D::OnLoadingCompleted(float f)
 
 		m_ing->SetText("Completed");
 
-		delete Application::GetApplication().PopOverlay(m_panel);
+		delete m_panel;
 	}
 }
 
