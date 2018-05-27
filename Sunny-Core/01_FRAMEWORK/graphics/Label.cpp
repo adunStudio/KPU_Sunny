@@ -54,7 +54,7 @@ namespace sunny
 			switch (m_alignment)
 			{
 			case Alignment::LEFT:
-				m_alignmentOffset.x = size.x;  break;
+				m_alignmentOffset.x = 0;  break;
 			case Alignment::CENTER:
 				m_alignmentOffset.x = -size.x; /* 0.0f;*/    break;
 			case Alignment::RIGHT:

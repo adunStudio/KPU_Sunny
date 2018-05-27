@@ -44,7 +44,7 @@ namespace sunny
 		{
 			delete m_indexBuffer;
 			delete m_vertexArray;
-			delete m_screenQuad;
+			//delete m_screenQuad;
 		}
 
 		void Renderer2D::Push(const maths::mat4& matrix, bool override)
@@ -184,8 +184,8 @@ namespace sunny
 		void Renderer2D::Present()
 		{
 			// 2차원 렌더러이므로 스텐실/깊이 검사는 필요없다.
-			directx::Renderer::SetDepthTesting(false);
-			directx::Renderer::SetBlend(true);
+			directx::Renderer::SetDepthTesting(false, DIMENSION::D2);
+			directx::Renderer::SetBlend(true, DIMENSION::D2);
 
 			// 셰이더 연결
 			m_shader->Bind();
@@ -200,8 +200,6 @@ namespace sunny
 
 			m_indexBuffer->Bind(); // 인덱스 버퍼 연결
 			m_vertexArray->Draw(m_indexCount);
-
-			directx::Context::GetContext()->DeferredContextDraw();
 
 			// 텍스쳐 연결 해제
 			for (unsigned int i = 0; i < m_textures.size(); ++i)
@@ -251,7 +249,7 @@ namespace sunny
 
 			m_shader->Bind();
 
-			directx::VertexBuffer* buffer = new directx::VertexBuffer(DIMENSION::D3);
+			directx::VertexBuffer* buffer = new directx::VertexBuffer(DIMENSION::D2);
 			buffer->Resize(RENDERER_BUFFER_SIZE);
 
 			// 입력레이아웃 설정
@@ -264,7 +262,7 @@ namespace sunny
 			layout.Push<vec4>("COLOR");
 			buffer->SetLayout(layout);
 
-			m_vertexArray = new directx::VertexArray(DIMENSION::D3);
+			m_vertexArray = new directx::VertexArray(DIMENSION::D2);
 			m_vertexArray->PushBuffer(buffer);
 
 			unsigned int* indices = new unsigned int[RENDERER_INDICES_SIZE];
@@ -284,7 +282,7 @@ namespace sunny
 				offset += 4;
 			}
 
-			m_indexBuffer = new directx::IndexBuffer(indices, RENDERER_INDICES_SIZE, DIMENSION::D3);
+			m_indexBuffer = new directx::IndexBuffer(indices, RENDERER_INDICES_SIZE, DIMENSION::D2);
 		}
 
 		float Renderer2D::SubmitTexture(directx::Texture* texture)
@@ -561,6 +559,8 @@ namespace sunny
 			//std::wstring widestr = std::wstring(text.begin(), text.end());
 
 			wchar_t* ttext = CA2W(text.c_str());
+			const char* str = text.c_str();
+
 
 			for (unsigned int i = 0; i < wcslen(ttext); ++i)
 			{
@@ -570,7 +570,7 @@ namespace sunny
 				{
 					if (i > 0)
 					{
-						float kerning = texture_glyph_get_kerning(glyph, ttext[i - 1]);
+						float kerning = texture_glyph_get_kerning(glyph, ttext[i-1]);
 						x += kerning / scale.x;
 					}
 

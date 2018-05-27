@@ -6,7 +6,7 @@ namespace sunny
 {
 	namespace graphics
 	{
-		Renderable2D::Renderable2D() : m_texture(nullptr)
+		Renderable2D::Renderable2D() : m_texture(nullptr), m_visible(true)
 		{
 			m_UVs = GetDefaultUVs();
 		}

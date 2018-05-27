@@ -236,7 +236,6 @@ texture_font_generate_kerning( texture_font_t *self )
         for( j=1; j<self->glyphs->size; ++j )
         {
             prev_glyph = *(texture_glyph_t **) vector_get( self->glyphs, j );
-			if (prev_glyph == NULL) prev_glyph = glyph;
             prev_index = FT_Get_Char_Index( face, prev_glyph->charcode );
             FT_Get_Kerning( face, prev_index, glyph_index, FT_KERNING_UNFITTED, &kerning );
             // printf("%c(%d)-%c(%d): %ld\n",
@@ -287,7 +286,7 @@ texture_font_init(texture_font_t *self)
     self->lcd_weights[4] = 0x10;
 
     /* Get font metrics at high resolution */
-    if (!texture_font_load_face(self, self->size * 100.f, &library, &face))
+    if (!texture_font_get_hires_face(self, &library, &face))
         return -1;
 
     self->underline_position = face->underline_position / (float)(HRESf*HRESf) * self->size;

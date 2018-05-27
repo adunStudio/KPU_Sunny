@@ -35,10 +35,14 @@ namespace sunny
 				// StartIndexLocation : 사용할 첫 인덱스의 위치(버퍼 안에서의 인덱스). 
 				// BaseVertexLocation : 정점들을 가져오기 전에, 이 그리기 호출에서 사용할 인덱스들에 더해지는 정수 값.
 				if (m_dimension == DIMENSION::D3)
-					Context::GetDeviceContext()->DrawIndexed(count, 0, 0);
+				{
+					Context::GetDeviceContext3D()->DrawIndexed(count, 0, 0);
+				}
 				else
-					Context::GetDeferredDeviceContext()->DrawIndexed(count, 0, 0);
-
+				{
+					Context::GetDeviceContext2D()->DrawIndexed(count, 0, 0);
+				}
+		
 				//Context::GetDeviceContext()->DrawIndexedInstanced()
 			}
 		}
@@ -49,10 +53,15 @@ namespace sunny
 
 			buffer->Bind();
 
-			if(m_dimension == DIMENSION::D3)
-				Context::GetDeviceContext()->DrawIndexed(count, 0, 0);
+			if (m_dimension == DIMENSION::D3)
+			{
+				Context::GetDeviceContext3D()->DrawIndexed(count, 0, 0);
+			}
 			else
-				Context::GetDeferredDeviceContext()->DrawIndexed(count, 0, 0);
+			{
+				Context::GetDeviceContext2D()->DrawIndexed(count, 0, 0);
+			}
+	
 
 		}
 

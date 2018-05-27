@@ -18,6 +18,5 @@ namespace game
 
 		virtual void OnUpdate() override;
 		virtual void OnRender(Renderer2D& renderer) override;
-
 	};
 }

@@ -23,7 +23,9 @@ namespace sunny
 			m_FTAtlas = ftgl::texture_atlas_new(512, 512, 2);
 			m_FTFont  = ftgl::texture_font_new_from_file(m_FTAtlas, size, fileName.c_str());
 			
-			m_texture = new directx::Texture2D(512, 512);
+			m_texture = new directx::Texture2D(512, 512, DIMENSION::D2);
+			std::cout << "id: " << m_FTAtlas->id << std::endl;
+
 			m_texture->SetData(m_FTAtlas->data);
 		}
 
@@ -33,8 +35,10 @@ namespace sunny
 			m_FTAtlas = ftgl::texture_atlas_new(512, 512, 2);
 			m_FTFont = ftgl::texture_font_new_from_memory(m_FTAtlas, size, data, dataSize);
 
-			m_texture = new directx::Texture2D(512, 512);
+			m_texture = new directx::Texture2D(512, 512, DIMENSION::D2);
 			m_texture->SetData(m_FTAtlas->data);
+
+
 		}
 
 		void Font::SetScale(float x, float y)
@@ -44,9 +48,9 @@ namespace sunny
 
 		maths::vec2 Font::GetOffsets(const std::string& text) const
 		{
-			
 			if (text.empty())
 				return maths::vec2(0.0f, 0.0f);
+
 
 			texture_glyph_t* glyph = texture_font_get_glyph(m_FTFont, text[0]);
 
@@ -74,6 +78,7 @@ namespace sunny
 
 			for (int i = 0; i < text.size(); ++i)
 			{
+
 				texture_glyph_t* glyph = texture_font_get_glyph(m_FTFont, text[i]);
 				if (i > 0)
 				{
@@ -91,6 +96,8 @@ namespace sunny
 			float min = 0.0f, max = 0.0f;
 
 			const maths::vec2& scale = m_scale;
+
+			const char* str = text.c_str();
 
 			for (int i = 0; i < text.size(); ++i)
 			{
@@ -126,6 +133,7 @@ namespace sunny
 			if (m_FTAtlas->dirty)
 			{
 				m_texture->SetData(m_FTAtlas->data);
+
 				m_FTAtlas->dirty = false;
 			}
 		}

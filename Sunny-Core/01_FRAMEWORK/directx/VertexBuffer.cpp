@@ -1,5 +1,5 @@
 #include "VertexBuffer.h"
-
+#include "../graphics/shaders/ShaderFactory.h"
 namespace sunny
 {
 	namespace directx
@@ -64,7 +64,7 @@ namespace sunny
 				// InstanceDataStepRate : 보통 0의 값을 가진다.
 			}
 
-			const Shader* shader = Shader::CurrentlyBound();
+			const Shader* shader =  Shader::CurrentlyBound();
 			
 
 			// 입력 배치 서술 구조체 배열을 완성하고 입력 배치를 위한 ID3D11InputLayout 인터페이스를 얻었다면, 
@@ -83,9 +83,13 @@ namespace sunny
 			// 서브 리소스에 포함된 데이터에 대한 포인터를 얻어오기위해 ID3D11DeviceContext::Map() 함수를 사용한다. 이 함수를 호출하면 GPU는 서브 리소스에 접근할 수 없게 된다.
 			// 즉, 정점 버퍼에 대한 메모리 주소를 가져온다.
 			if (m_dimension == DIMENSION::D3)
-				Context::GetDeviceContext()->Map(m_bufferHandle, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &m_mappedSubresource);
+			{
+				Context::GetDeviceContext3D()->Map(m_bufferHandle, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &m_mappedSubresource);
+			}
 			else
-				Context::GetDeferredDeviceContext()->Map(m_bufferHandle, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &m_mappedSubresource);
+			{
+				Context::GetDeviceContext2D()->Map(m_bufferHandle, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &m_mappedSubresource);
+			}
 			// pResource       : ID3D11Resource 인터페이스에 대한 포인터다.
 			// SubResource     : 서브 리소스의 인덱스
 			// MapType         : 리소스에 대한 CPU의 읽기/쓰기 권한을 나타내는 D3D11_MAP 열겨형 상수다.        
@@ -99,9 +103,13 @@ namespace sunny
 		void VertexBuffer::ReleasePointer()
 		{
 			if (m_dimension == DIMENSION::D3)
-				Context::GetDeviceContext()->Unmap(m_bufferHandle, NULL);
+			{
+				Context::GetDeviceContext3D()->Unmap(m_bufferHandle, NULL);
+			}
 			else
-				Context::GetDeferredDeviceContext()->Unmap(m_bufferHandle, NULL);
+			{
+				Context::GetDeviceContext2D()->Unmap(m_bufferHandle, NULL);
+			}
 		}
 
 		void VertexBuffer::Bind()
@@ -114,13 +122,13 @@ namespace sunny
 			// 따라서 입력 배치 설정의 마지막 단계는 입력 배치를 사용하고자 하는 장치에 묶는 것이다.
 			if (m_dimension == DIMENSION::D3)
 			{
-				Context::GetDeviceContext()->IASetInputLayout(m_inputLayout);
-				Context::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_bufferHandle, &stride, &offset);
+				Context::GetDeviceContext3D()->IASetInputLayout(m_inputLayout);
+				Context::GetDeviceContext3D()->IASetVertexBuffers(0, 1, &m_bufferHandle, &stride, &offset);
 			}
 			else
 			{
-				Context::GetDeferredDeviceContext()->IASetInputLayout(m_inputLayout);
-				Context::GetDeferredDeviceContext()->IASetVertexBuffers(0, 1, &m_bufferHandle, &stride, &offset);
+				Context::GetDeviceContext2D()->IASetInputLayout(m_inputLayout);
+				Context::GetDeviceContext2D()->IASetVertexBuffers(0, 1, &m_bufferHandle, &stride, &offset);
 			}
 			
 

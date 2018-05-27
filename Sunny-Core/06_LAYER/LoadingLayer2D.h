@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include "../05_GAME/ui/Loadingbar.h"
 #include "../05_GAME/assets/AssetLoader.h"
+#include "../06_LAYER/RoomLayer2D.h"
 
 using namespace game;
 
@@ -14,8 +15,6 @@ class RoadingCircle;
 class LoadingLayer2D : public Layer2D
 {
 public:
-	Label* m_fps;
-
 	Panel* m_panel;
 
 	Texture2D* m_backgroundTexture;
@@ -27,15 +26,19 @@ public:
 	Texture2D* m_logoTexture;
 	Sprite*    m_logo;
 
-	Sprite* m_mouse;
+	Texture2D* m_mouseTexture;
+	Sprite*    m_mouse;
 
 	Label* m_state;
 	Loadingbar* m_loadingBar;
 	Label* m_ing;
 
 	int m_tickCount = 0;
+	int m_updateCount = 0;
 
 	thread* m_thread;
+
+	bool m_loadingCompleted;
 
 private:
 
@@ -52,6 +55,9 @@ public:
 	bool OnMouseMovedEvent  (MouseMovedEvent&   event);
 	bool OnMousePressedEvent(MousePressedEvent& event);
 	bool OnKeyPressedEvent  (KeyPressedEvent&   event);
+
+	void OnLoadingCompleted(float f);
+	void GoToRoom();
 };
 
 
@@ -70,7 +76,7 @@ private:
 	bool up;
 
 public:
-	float start = 27;
+	float start = 29;
 	float time  = 0;
 
 	RoadingCircle(float x, float y, float size, directx::Texture2D* texture)

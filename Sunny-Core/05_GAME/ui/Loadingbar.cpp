@@ -10,7 +10,7 @@ namespace game
 
 	void Loadingbar::OnUpdate()
 	{
-		if (m_value >= 1.0f)
+		if (m_currentValue >= 1.0f)
 		{
 			m_state = ProgressbarState::COMPLETED;
 			m_callback(m_value);

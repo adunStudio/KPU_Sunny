@@ -67,6 +67,7 @@ namespace sunny
 			inline void SetColor(const maths::vec4& color) { m_color = color; }
 
 			inline void SetVisible(bool visible) { m_visible = visible; }
+			inline bool GetVisible(void) const { return m_visible; }
 
 		public:
 			static const std::vector<maths::vec2>& GetDefaultUVs();

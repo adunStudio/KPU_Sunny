@@ -125,19 +125,21 @@ namespace sunny
 			srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 			srvDesc.Texture2D.MipLevels = m_desc.MipLevels;
 
-			Context::GetDevice()->CreateShaderResourceView(m_texture, &srvDesc, &m_resourceView);
+			auto  z = Context::GetDevice()->CreateShaderResourceView(m_texture, &srvDesc, &m_resourceView);
+
+			std::cout << "Z: " << z << std::endl;
 
 			if (generateMips)
 			{
 				if (m_dimension == DIMENSION::D3)
 				{
-					Context::GetDeviceContext()->UpdateSubresource(m_texture, 0, nullptr, initData.pSysMem, initData.SysMemPitch, initData.SysMemSlicePitch);
-					Context::GetDeviceContext()->GenerateMips(m_resourceView);
+					Context::GetDeviceContext3D()->UpdateSubresource(m_texture, 0, nullptr, initData.pSysMem, initData.SysMemPitch, initData.SysMemSlicePitch);
+					Context::GetDeviceContext3D()->GenerateMips(m_resourceView);
 				}
 				else
 				{
-					Context::GetDeferredDeviceContext()->UpdateSubresource(m_texture, 0, nullptr, initData.pSysMem, initData.SysMemPitch, initData.SysMemSlicePitch);
-					Context::GetDeferredDeviceContext()->GenerateMips(m_resourceView);
+					Context::GetDeviceContext2D()->UpdateSubresource(m_texture, 0, nullptr, initData.pSysMem, initData.SysMemPitch, initData.SysMemSlicePitch);
+					Context::GetDeviceContext2D()->GenerateMips(m_resourceView);
 				}
 			}
 
@@ -168,13 +170,13 @@ namespace sunny
 		{
 			if (m_dimension == DIMENSION::D3)
 			{
-				Context::GetDeviceContext()->PSSetShaderResources(slot, 1, &m_resourceView);
-				Context::GetDeviceContext()->PSSetSamplers(slot, 1, &m_samplerState);
+				Context::GetDeviceContext3D()->PSSetShaderResources(slot, 1, &m_resourceView);
+				Context::GetDeviceContext3D()->PSSetSamplers(slot, 1, &m_samplerState);
 			}
 			else
 			{
-				Context::GetDeferredDeviceContext()->PSSetShaderResources(slot, 1, &m_resourceView);
-				Context::GetDeferredDeviceContext()->PSSetSamplers(slot, 1, &m_samplerState);
+				Context::GetDeviceContext2D()->PSSetShaderResources(slot, 1, &m_resourceView);
+				Context::GetDeviceContext2D()->PSSetSamplers(slot, 1, &m_samplerState);
 			}
 		}
 
@@ -183,10 +185,13 @@ namespace sunny
 			ID3D11ShaderResourceView* rv = nullptr;
 
 			if (m_dimension == DIMENSION::D3)
-				Context::GetDeviceContext()->PSSetShaderResources(slot, 1, &rv);
+			{
+				Context::GetDeviceContext3D()->PSSetShaderResources(slot, 1, &rv);
+			}
 			else
-				Context::GetDeferredDeviceContext()->PSSetShaderResources(slot, 1, &rv);
-
+			{
+				Context::GetDeviceContext2D()->PSSetShaderResources(slot, 1, &rv);
+			}
 		}
 
 		void Texture2D::SetData(const void* pixels)
@@ -195,9 +200,13 @@ namespace sunny
 			memset(&msr, 0, sizeof(D3D11_MAPPED_SUBRESOURCE));
 
 			if (m_dimension == DIMENSION::D3)
-				Context::GetDeviceContext()->Map(m_texture, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			{
+				Context::GetDeviceContext3D()->Map(m_texture, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			}
 			else
-				Context::GetDeferredDeviceContext()->Map(m_texture, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			{
+				Context::GetDeviceContext2D()->Map(m_texture, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			}
 
 			for (unsigned int i = 0; i < m_width * m_height * GetStrideFromFormat(TextureFormat::RGBA); i += 4)
 			{
@@ -208,10 +217,13 @@ namespace sunny
 			}
 
 			if (m_dimension == DIMENSION::D3)
-				Context::GetDeviceContext()->Unmap(m_texture, NULL);
+			{
+				Context::GetDeviceContext3D()->Unmap(m_texture, NULL);
+			}
 			else
-				Context::GetDeferredDeviceContext()->Unmap(m_texture, NULL);
-
+			{
+				Context::GetDeviceContext2D()->Unmap(m_texture, NULL);
+			}
 		}
 	}
 }

@@ -33,18 +33,6 @@
     <ClCompile Include="01_FRAMEWORK\component\TransformComponent.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\platform.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\texture-atlas.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\texture-font.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\vector.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="01_FRAMEWORK\directx\BufferLayout.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -327,6 +315,18 @@
     <ClCompile Include="06_LAYER\TestGameLayer3D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\platform.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\texture-atlas.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\texture-font.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\vector.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="01_FRAMEWORK\app\Application.h">
@@ -348,27 +348,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="01_FRAMEWORK\dependency\freeimage\x32\FreeImage.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\common.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\freetype-gl.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\platform.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\texture-atlas.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\texture-font.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\vec234.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\vector.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="01_FRAMEWORK\directx\BufferLayout.h">
@@ -714,6 +693,27 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="06_LAYER\TestGameLayer3D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\common.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\freetype-gl.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\platform.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\texture-atlas.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\texture-font.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\vec234.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\vector.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

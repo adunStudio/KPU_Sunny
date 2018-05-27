@@ -106,19 +106,19 @@ namespace sunny
 
 			if (m_dimension == DIMENSION::D3)
 			{
-				Context::GetDeviceContext()->VSSetShader(m_data.vertexShader, NULL, 0);
-				Context::GetDeviceContext()->PSSetShader(m_data.pixelShader, NULL, 0);
+				Context::GetDeviceContext3D()->VSSetShader(m_data.vertexShader, NULL, 0);
+				Context::GetDeviceContext3D()->PSSetShader(m_data.pixelShader, NULL, 0);
 
-				Context::GetDeviceContext()->VSSetConstantBuffers(0, m_VSConstantBuffersCount, m_VSConstantBuffers);
-				Context::GetDeviceContext()->PSSetConstantBuffers(0, m_PSConstantBuffersCount, m_PSConstantBuffers);
+				Context::GetDeviceContext3D()->VSSetConstantBuffers(0, m_VSConstantBuffersCount, m_VSConstantBuffers);
+				Context::GetDeviceContext3D()->PSSetConstantBuffers(0, m_PSConstantBuffersCount, m_PSConstantBuffers);
 			}
 			else
 			{
-				Context::GetDeferredDeviceContext()->VSSetShader(m_data.vertexShader, NULL, 0);
-				Context::GetDeferredDeviceContext()->PSSetShader(m_data.pixelShader, NULL, 0);
+				Context::GetDeviceContext2D()->VSSetShader(m_data.vertexShader, NULL, 0);
+				Context::GetDeviceContext2D()->PSSetShader(m_data.pixelShader, NULL, 0);
 
-				Context::GetDeferredDeviceContext()->VSSetConstantBuffers(0, m_VSConstantBuffersCount, m_VSConstantBuffers);
-				Context::GetDeferredDeviceContext()->PSSetConstantBuffers(0, m_PSConstantBuffersCount, m_PSConstantBuffers);
+				Context::GetDeviceContext2D()->VSSetConstantBuffers(0, m_VSConstantBuffersCount, m_VSConstantBuffers);
+				Context::GetDeviceContext2D()->PSSetConstantBuffers(0, m_PSConstantBuffersCount, m_PSConstantBuffers);
 			}
 			
 		}
@@ -139,9 +139,14 @@ namespace sunny
 			D3D11_MAPPED_SUBRESOURCE msr;
 			ZeroMemory(&msr, sizeof(D3D11_MAPPED_SUBRESOURCE));
 			if (m_dimension == DIMENSION::D3)
-				Context::GetDeviceContext()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			{
+				Context::GetDeviceContext3D()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			}
 			else
-				Context::GetDeferredDeviceContext()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			{
+				Context::GetDeviceContext2D()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			}
+		
 
 			// pResource       : ID3D11Resource 인터페이스에 대한 포인터다.
 			// SubResource     : 서브 리소스의 인덱스
@@ -152,9 +157,13 @@ namespace sunny
 			memcpy(msr.pData, data, size);
 			
 			if (m_dimension == DIMENSION::D3)
-				Context::GetDeviceContext()->Unmap(cbuffer, NULL);
+			{
+				Context::GetDeviceContext3D()->Unmap(cbuffer, NULL);
+			}
 			else
-				Context::GetDeferredDeviceContext()->Unmap(cbuffer, NULL);
+			{
+				Context::GetDeviceContext2D()->Unmap(cbuffer, NULL);
+			}
 		}
 
 		void Shader::SetPSSystemUniformBuffer(unsigned char* data, unsigned int size, unsigned int slot)
@@ -175,9 +184,14 @@ namespace sunny
 			ZeroMemory(&msr, sizeof(D3D11_MAPPED_SUBRESOURCE));
 
 			if (m_dimension == DIMENSION::D3)
-				Context::GetDeviceContext()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			{
+				Context::GetDeviceContext3D()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			}
 			else
-				Context::GetDeferredDeviceContext()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			{
+				Context::GetDeviceContext2D()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			}
+			
 
 			// pResource       : ID3D11Resource 인터페이스에 대한 포인터다.
 			// SubResource     : 서브 리소스의 인덱스
@@ -189,9 +203,13 @@ namespace sunny
 			memcpy(msr.pData, data, size);
 			
 			if (m_dimension == DIMENSION::D3)
-				Context::GetDeviceContext()->Unmap(cbuffer, NULL);
+			{
+				Context::GetDeviceContext3D()->Unmap(cbuffer, NULL);
+			}
 			else
-				Context::GetDeferredDeviceContext()->Unmap(cbuffer, NULL);
+			{
+				Context::GetDeviceContext2D()->Unmap(cbuffer, NULL);
+			}
 		}
 
 		void Shader::SetVSUserUniformBuffer(unsigned char* data, unsigned int size)
@@ -201,16 +219,26 @@ namespace sunny
 			D3D11_MAPPED_SUBRESOURCE msr;
 			memset(&msr, 0, sizeof(D3D11_MAPPED_SUBRESOURCE));
 			if (m_dimension == DIMENSION::D3)
-				Context::GetDeviceContext()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			{
+				Context::GetDeviceContext3D()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			}
 			else
-				Context::GetDeferredDeviceContext()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			{
+				Context::GetDeviceContext2D()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			}
+			
 
 			memcpy(msr.pData, data, size);
 
 			if (m_dimension == DIMENSION::D3)
-				Context::GetDeviceContext()->Unmap(cbuffer, NULL);
+			{
+				Context::GetDeviceContext3D()->Unmap(cbuffer, NULL);
+			}
 			else
-				Context::GetDeferredDeviceContext()->Unmap(cbuffer, NULL);
+			{
+				Context::GetDeviceContext2D()->Unmap(cbuffer, NULL);
+			}
+			
 		}
 
 		void Shader::SetPSUserUniformBuffer(unsigned char* data, unsigned int size)
@@ -221,18 +249,24 @@ namespace sunny
 			memset(&msr, 0, sizeof(D3D11_MAPPED_SUBRESOURCE));
 
 			if (m_dimension == DIMENSION::D3)
-				Context::GetDeviceContext()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			{
+				Context::GetDeviceContext3D()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			}
 			else
-				Context::GetDeferredDeviceContext()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			{
+				Context::GetDeviceContext2D()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			}
+			
 
 			memcpy(msr.pData, data, size);
 
 			if (m_dimension == DIMENSION::D3)
-				Context::GetDeviceContext()->Unmap(cbuffer, NULL);
+			{
+				Context::GetDeviceContext3D()->Unmap(cbuffer, NULL);
+			}
 			else
 			{
-				Context::GetDeferredDeviceContext()->Unmap(cbuffer, NULL);
-
+				Context::GetDeviceContext2D()->Unmap(cbuffer, NULL);
 			}
 		}
 
@@ -260,10 +294,13 @@ namespace sunny
 			}
 
 			// 정점 셰이더를 생성한다.
-			Context::GetDevice()->CreateVertexShader(m_data.vs->GetBufferPointer(), m_data.vs->GetBufferSize(), NULL, &m_data.vertexShader);
+			auto a = Context::GetDevice()->CreateVertexShader(m_data.vs->GetBufferPointer(), m_data.vs->GetBufferSize(), NULL, &m_data.vertexShader);
 			
 			// 픽셀 셰이더를 생성한다.
-			Context::GetDevice()->CreatePixelShader(m_data.ps->GetBufferPointer(), m_data.ps->GetBufferSize(), NULL, &m_data.pixelShader);
+			auto b = Context::GetDevice()->CreatePixelShader(m_data.ps->GetBufferPointer(), m_data.ps->GetBufferSize(), NULL, &m_data.pixelShader);
+
+			std::cout << "a : " << a << std::endl;
+			std::cout << "b : " << a << std::endl;
 		}
 
 		// 셰이더 코드에 있는 주석을 제거한다.

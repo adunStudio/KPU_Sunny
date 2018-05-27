@@ -26,7 +26,7 @@ void RoomLayer2D::OnInit(Renderer2D & renderer)
 	m_windowWidth = Application::GetApplication().GetWindowWidth();
 	m_windowHeight = Application::GetApplication().GetWindowHeight();
 
-	m_mouse = new Sprite(new Texture2D("/TEXTURE/cursor1.png"));
+	m_mouse = new Sprite(new Texture2D("/TEXTURE/cursor1.png", DIMENSION::D2));
 
 
 	m_fps = new Label("fps", m_windowWidth - 5, m_windowHeight - 30, RGBA(1, 1, 1, 0.7), Label::Alignment::RIGHT);

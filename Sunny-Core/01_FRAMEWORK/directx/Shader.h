@@ -68,7 +68,7 @@ namespace sunny
 			DIMENSION m_dimension;
 
 		public:
-			Shader(const std::string& name, const std::string& source, DIMENSION dimension = DIMENSION::D2);
+			Shader(const std::string& name, const std::string& source, DIMENSION dimension = DIMENSION::D3);
 			~Shader();
 
 			inline Data& GetData() const { return m_data; }

@@ -11,6 +11,7 @@ void StartLoad(LoadingLayer2D* layer);
 
 LoadingLayer2D::LoadingLayer2D()
 : Layer2D(maths::mat4::Orthographic(0.0f, Application::GetApplication().GetWindowWidth(), 0.0f, Application::GetApplication().GetWindowHeight(), -1.0f, 1.0f))
+, m_loadingCompleted(false)
 {
 
 }
@@ -19,18 +20,30 @@ LoadingLayer2D::~LoadingLayer2D()
 {
 	m_thread->join();
 
+
+	std::cout << "DELETE: LoadingLayer2D" << std::endl;
+
+	delete m_backgroundTexture;
+	delete m_background;
+	delete m_circleTexture;
+	for (auto circle : m_circles) delete circle;
+	delete m_logoTexture;
+	delete m_logo;
+	delete m_state;
+	delete m_ing;
+	delete m_mouse;
+	delete m_mouseTexture;
 }
 
 void LoadingLayer2D::OnInit(Renderer2D& renderer)
 {
-	
 	AudioEngine::LoadSound("04_ASSET/MP3/sunny_loading.mp3", false, true);
 	AudioEngine::Play("04_ASSET/MP3/sunny_loading.mp3");
-	m_backgroundTexture = new Texture2D("/TEXTURE/Loadings/background.png", DIMENSION::D3);
+	m_backgroundTexture = new Texture2D("/TEXTURE/Loadings/background.png", DIMENSION::D2);
 	m_background = new Sprite(0, 0, m_windowWidth, m_windowHeight, m_backgroundTexture);
 	Add(m_background);
 
-	m_circleTexture = new Texture2D("/TEXTURE/Loadings/circle.png", DIMENSION::D3);
+	m_circleTexture = new Texture2D("/TEXTURE/Loadings/circle.png", DIMENSION::D2);
 
 	for (int i = 0; i < 13; ++i)
 	{
@@ -120,25 +133,26 @@ void LoadingLayer2D::OnInit(Renderer2D& renderer)
 	m_circles[40]->start = 17;
 	m_circles[52]->start = 17;
 
-	m_logoTexture = new Texture2D("/TEXTURE/Loadings/boo2.png", DIMENSION::D3);
+	m_logoTexture = new Texture2D("/TEXTURE/Loadings/boo2.png", DIMENSION::D2);
 	m_logo = new Sprite(m_windowWidth/ 2 , m_windowHeight / 2 + 65, m_logoTexture, PIVOT_CENTER);
-	//Add(m_logo);
 	
 	m_panel = new Panel();
 
-	m_state = new Label("LOADING...", m_windowWidth / 2, 107, "power", RGBA(1, 1, 1, 0.9), Label::Alignment::CENTER);
+	m_state = new Label("LOADING", m_windowWidth / 2 - 90, 107, "power", RGBA(1, 1, 1, 0.9), Label::Alignment::LEFT);
 	Add(m_state);
-	m_ing = new Label("Initialize", m_windowWidth / 2, 73, "power", 16, RGBA(0.9, 0.5, 0.5, 0.9), Label::Alignment::CENTER);
+	m_ing = new Label("Initialize", m_windowWidth / 2, 73, "power", 16, RGBA(0.9, 0.4, 0.4, 1.0), Label::Alignment::CENTER);
 	m_loadingBar = new Loadingbar(maths::Rectangle(400, 65, 400, 15), m_ing, RGBA(0.5, 0.5, 0.5, 0.7), RGBA(0.9, 0.9, 0.9, 0.7));
+	m_loadingBar->SetCallback(METHOD(&LoadingLayer2D::OnLoadingCompleted));
 	m_loadingBar->SetValue(0);
 
 
 
 	m_panel->Add(m_loadingBar);
 
+	m_mouseTexture = new Texture2D("/TEXTURE/cursor1.png", DIMENSION::D2);
+	m_mouse = new Sprite(0, 0, m_mouseTexture);
 
-	//std::async(std::launch::deferred, al, this);
-
+	m_panel->SetMouse(new Button(m_mouse));
 }
 
 void LoadingLayer2D::OnTick()
@@ -148,15 +162,34 @@ void LoadingLayer2D::OnTick()
 	if(m_tickCount == 1)
 		m_thread = new  thread(StartLoad, this);
 
+	if (!m_loadingCompleted)
+	{
+		string a = "Loading";
+		for (int i = 0; i < m_tickCount; ++i)
+			a += ".";
+		m_state->SetText(a);
+	}
+
 }
 
 void LoadingLayer2D::OnUpdate(const utils::Timestep& ts)
 {
+	m_updateCount++;
+
 	for (auto circle : m_circles)
 	{
 		circle->Update();
 	}
-	//m_circle->SetSize(vec2(m_circle->GetSize().x + 1, m_circle->GetSize().y + 1));
+
+	if (m_loadingCompleted &&  m_updateCount >= 50)
+	{
+		if (m_state->GetVisible())
+			m_state->SetVisible(false);
+		else
+			m_state->SetVisible(true);
+
+		m_updateCount = 0;
+	}
 }
 
 void LoadingLayer2D::OnRender(Renderer2D& renderer)
@@ -166,22 +199,60 @@ void LoadingLayer2D::OnRender(Renderer2D& renderer)
 
 void LoadingLayer2D::OnEvent(Event& event)
 {
-
+	Layer2D::OnEvent(event);
+	EventDispatcher dispatcher(event);
+	dispatcher.Dispatch<MouseMovedEvent>(METHOD(&LoadingLayer2D::OnMouseMovedEvent));
+	dispatcher.Dispatch<MousePressedEvent>(METHOD(&LoadingLayer2D::OnMousePressedEvent));
+	dispatcher.Dispatch<KeyPressedEvent>(METHOD(&LoadingLayer2D::OnKeyPressedEvent));
 }
 
 bool LoadingLayer2D::OnMouseMovedEvent(MouseMovedEvent& event)
 {
+	float scaleX = Window::GetWindowClass()->GetResolutionWidth() / Window::GetWindowClass()->GetWidth();
+	float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
 
+	maths::vec2 mouse(event.GetX() * scaleX, (Window::GetWindowClass()->GetHeight() - event.GetY()) * scaleY);
+
+	m_mouse->SetPosition(vec2(mouse.x, mouse.y - (32 * scaleY)));
+
+	return false;
 }
 
 bool LoadingLayer2D::OnMousePressedEvent(MousePressedEvent& event)
 {
-
+	GoToRoom();
+	return false;
 }
 
 bool LoadingLayer2D::OnKeyPressedEvent(KeyPressedEvent& event)
 {
+	GoToRoom();
+	return false;
+}
 
+void LoadingLayer2D::OnLoadingCompleted(float f)
+{
+	if (!m_loadingCompleted)
+	{
+		m_loadingCompleted = true;
+
+		m_state->SetText("Press any Key to start game");
+		m_state->SetAlignment(Label::Alignment::CENTER);
+		m_state->SetPosition(vec2(m_windowWidth / 2, 107));
+		m_state->SetColor(RGBA(1.f, 1.f, 1.f, 1.f));
+
+		m_ing->SetText("Completed");
+
+		delete Application::GetApplication().PopOverlay(m_panel);
+	}
+}
+
+void LoadingLayer2D::GoToRoom()
+{
+	if (m_loadingCompleted == false) return;
+
+	delete Application::GetApplication().PopLayer(this);
+	Application::GetApplication().PushLayer(new RoomLayer2D());
 }
 
 void StartLoad(LoadingLayer2D* layer)
@@ -197,10 +268,10 @@ void StartLoad(LoadingLayer2D* layer)
 	Model* a;
 
 	unordered_map<std::string, std::string> jsons;
+	jsons["Characters"] = sunny::system::FileSystem::ReadTextFile("/JSON/CHARACTER/Characters.json");
 
 	jsons["Trees"] = sunny::system::FileSystem::ReadTextFile("/JSON/MODEL/Trees.json");
 	jsons["Map"] = sunny::system::FileSystem::ReadTextFile("/JSON/MODEL/LowPolyNatures.json");
-	jsons["Characters"] = sunny::system::FileSystem::ReadTextFile("/JSON/CHARACTER/Characters.json");
 
 	for (auto& obj : jsons)
 	{
@@ -226,13 +297,12 @@ void StartLoad(LoadingLayer2D* layer)
 
 				data->textures.push_back(texture_path);
 
-				//if (!sunny::graphics::TextureManager::Get(texture_path))
-				//	sunny::graphics::TextureManager::Add(new sunny::directx::Texture2D(texture_path, DIMENSION::D3));
+				if (!sunny::graphics::TextureManager::Get(texture_path))
+					sunny::graphics::TextureManager::Add(new sunny::directx::Texture2D(texture_path));
 			}
 
-			/*
+			
 
-			Application::GetApplication().m_mutex.lock();
 
 			if (!sunny::graphics::ModelManager::Get(name))
 			{
@@ -244,15 +314,12 @@ void StartLoad(LoadingLayer2D* layer)
 
 			}
 
-			Application::GetApplication().m_mutex.unlock();
 
-			AssetData::AddModelData(name, data);*/
+			AssetData::AddModelData(name, data);
 
 			layer->m_loadingBar->SetValue(++count / ex);
 
 			layer->m_ing->SetText(obj.first + " Initialize (" + tostr(count) + "/" + tostr(ex) + string(")"));
-
-
 		}
 	}
 }

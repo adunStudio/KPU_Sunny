@@ -63,7 +63,7 @@ namespace sunny
 
 			for (const Renderable2D* renderable : m_renderables)
 			{
-				renderable->Submit(m_renderer);
+				if(renderable->IsVisible()) renderable->Submit(m_renderer);
 			}
 
 			m_renderer->End();
