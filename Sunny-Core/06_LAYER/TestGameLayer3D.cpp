@@ -191,7 +191,7 @@ void TestGameLayer3D::OnUpdate(const utils::Timestep& ts)
 		packet->size   = sizeof(packet);
 		packet->degree = m_degree;
 		m_send_wsabuf.len = sizeof(packet);
-
+		
 		DWORD ioByte;
 
 		WSASend(socket, &m_send_wsabuf, 1, &m_io_flag, 0, NULL, NULL);
@@ -265,9 +265,8 @@ bool TestGameLayer3D::OnMouseMovedEvent(MouseMovedEvent& event)
 		*/
 	m_degree = degree;
 
-	std::cout << m_degree << std::endl;
 
-	BossLocker::player->character->GetTransformComponent()->SetRotation(vec3( 0, m_degree, 0 ));
+	BossLocker::player->character->GetTransformComponent()->SetRotation(vec3( 0, m_degree + 90, 0 ));
 	
 
 

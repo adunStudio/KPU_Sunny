@@ -37,7 +37,7 @@ public:
 	vector<Model3D*> m_mapObjects;
 
 	float m_radian;
-	short m_degree;
+	float m_degree;
 
 public:
 	WSABUF m_send_wsabuf;
