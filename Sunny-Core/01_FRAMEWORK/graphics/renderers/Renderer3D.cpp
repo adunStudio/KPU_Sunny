@@ -20,15 +20,12 @@ namespace sunny
 
 		enum PSSunnyUniformIndices : int
 		{
-			PSSunnyUniformIndex_ProjectionMatrix      = 0,
-			PSSunnyUniformIndex_ViewMatrix            = 1,
-			PSSunnyUniformIndex_LightProjectionMatrix = 3,
-			PSSunnyUniformIndex_LightViewMatrix       = 4,
-			PSSunnyUniformIndex_Lights                = 5,
+			PSSunnyUniformIndex_Lights                = 0,
+			PSSunnyUniformIndex_Color                 = 1,
+			PSSunnyUniformIndex_HasTexture            = 2,
 			PSSunnyUniformIndex_Size
 		};
 
-		
 		enum VSSunnyShadowUniformIndices : int
 		{
 			VSSunnyShadowUniformIndex_ModelMatrix           = 0,
@@ -37,61 +34,37 @@ namespace sunny
 			VSSunnyShadowUniformIndex_Size
 		};
 
-		enum PSSunnyForwardUniformIndices : int
-		{
-			PSSunnyForwardUniformIndex_Lights      = 0,
-			PSSunnyForwardUniformIndex_Color       = 1,
-			PSSunnyForwardUniformIndex_HasTexture  = 2,
-			PSSunnyForwardUniformIndex_Size
-		};
-
-		enum PSSunnyGeometryUniformIndices : int
-		{
-			PSSunnyGeometryUniformIndex_Color      = 0,
-			PSSunnyGeometryUniformIndex_ID	       = 1,
-			PSSunnyGeometryUniformIndex_HasTexture = 2,
-			PSSunnyGeometryUniformIndex_Size
-		};
-
-		enum PSSunnyLightUniformIndices : int
-		{
-			PSSunnyLightUniformIndex_Lights         = 0,
-			PSSunnyLightUniformIndex_CameraPosition = 1,
-			PSSunnyLightUniformIndex_Size
-		};
-
 		Renderer3D::Renderer3D()
 		: m_skybox(nullptr)
 		{
 			SetScreenBufferSize(Application::GetApplication().GetWindowWidth(), Application::GetApplication().GetWindowHeight());
+			
 			Init();
 		}
 
 		Renderer3D::Renderer3D(unsigned width, unsigned height)
 		{
 			SetScreenBufferSize(width, height);
+			
 			Init();
 		}
 
 		void Renderer3D::Init()
 		{
-			m_renderCommandQueue.reserve(200);
+			m_renderCommandQueue.reserve(1000);
 			m_staticCommandQueue.reserve(200);
 
-			m_gBuffer   = new GBuffer();
+			m_gBuffer     = new GBuffer();
 
 			m_lightCamera = new LightCamera(maths::mat4::Perspective(65.0f, 1.0f, 0.1f, 10000.0f));
 
 			m_default_shadow_shader   = ShaderFactory::Default3DShadowShader();
 			m_default_forward_shader  = ShaderFactory::Default3DForwardShader();
-			m_default_geometry_shader = ShaderFactory::Default3DGeometryShader();
-			m_default_debug_shader    = ShaderFactory::DefaultDebugShader();
-			m_default_outline_shader  = ShaderFactory::Default3DOutLineShader();
 
 
 			/* ¹öÅØ½º ¼ÎÀÌ´õ (±âº») */
 			m_VSSunnyUniformBufferSize = sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::vec3);
-			m_VSSunnyUniformBuffer = new unsigned char[m_VSSunnyUniformBufferSize];
+			m_VSSunnyUniformBuffer     = new unsigned char[m_VSSunnyUniformBufferSize];
 			memset(m_VSSunnyUniformBuffer, 0, m_VSSunnyUniformBufferSize);
 
 			m_VSSunnyUniformBufferOffsets.resize(VSSunnyUniformIndex_Size);
@@ -103,47 +76,25 @@ namespace sunny
 			m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_CameraPosition]        = m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_LightViewMatrix]       + sizeof(maths::mat4);
 			
 			/* ÇÈ¼¿ ¼ÎÀÌ´õ (±âº») */
-			m_PSSunnyUniformBufferSize = sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(Light);
-			m_PSSunnyUniformBuffer = new unsigned char[m_PSSunnyUniformBufferSize];
+			m_PSSunnyUniformBufferSize = sizeof(Light) + sizeof(maths::vec4) + sizeof(float);
+			m_PSSunnyUniformBuffer     = new unsigned char[m_PSSunnyUniformBufferSize];
 			memset(m_PSSunnyUniformBuffer, 0, m_PSSunnyUniformBufferSize);
 
 			m_PSSunnyUniformBufferOffsets.resize(PSSunnyUniformIndex_Size);
-			m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_ProjectionMatrix]      = 0;
-			m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_ViewMatrix]            = m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_ProjectionMatrix]      + sizeof(maths::mat4);
-			m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_LightProjectionMatrix] = m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_ViewMatrix]            + sizeof(maths::mat4);
-			m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_LightViewMatrix]       = m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_LightProjectionMatrix] + sizeof(maths::mat4);
-			m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Lights]                = m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_LightViewMatrix]       + sizeof(maths::mat4);
+			m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Lights]                = 0;
+			m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Color]                 = m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Lights]                + sizeof(Light);
+			m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_HasTexture]            = m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Color]                 + sizeof(maths::vec4);
 
 
 			/* ¹öÅØ½º ¼ÎÀÌ´õ (±×¸²ÀÚ) */
 			m_VSSunnyShadowUniformBufferSize = sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4);
-			m_VSSunnyShadowUniformBuffer = new unsigned char[m_VSSunnyShadowUniformBufferSize];
+			m_VSSunnyShadowUniformBuffer     = new unsigned char[m_VSSunnyShadowUniformBufferSize];
 			memset(m_VSSunnyShadowUniformBuffer, 0, m_VSSunnyShadowUniformBufferSize);
 
 			m_VSSunnyShadowUniformBufferOffsets.resize(VSSunnyShadowUniformIndex_Size);
 			m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix]           = 0;
 			m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_LightProjectionMatrix] = m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix]            + sizeof(maths::mat4);
 			m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_LightViewMatrix]       = m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_LightProjectionMatrix]  + sizeof(maths::mat4);
-			
-			/* ÇÈ¼¿ ¼ÎÀÌ´õ (Forward) */
-			m_PSSunnyForwardUniformBufferSize = sizeof(Light) + sizeof(maths::vec4) + sizeof(float);
-			m_PSSunnyForwardUniformBuffer = new unsigned char[m_PSSunnyForwardUniformBufferSize];
-			memset(m_PSSunnyForwardUniformBuffer, 0, m_PSSunnyForwardUniformBufferSize);
-
-			m_PSSunnyForwardUniformBufferOffsets.resize(PSSunnyForwardUniformIndex_Size);
-			m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_Lights]     = 0;
-			m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_Color]      = m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_Lights] + sizeof(Light);
-			m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_HasTexture] = m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_Color]  + sizeof(maths::vec4);
-		
-			/* ÇÈ¼¿ ¼ÎÀÌ´õ (Geometry) */
-			m_PSSunnyGeometryUniformBufferSize = sizeof(maths::vec4) + sizeof(maths::vec4) + sizeof(float);
-			m_PSSunnyGeometryUniformBuffer = new unsigned char[m_PSSunnyGeometryUniformBufferSize];
-			memset(m_PSSunnyGeometryUniformBuffer, 0, m_PSSunnyGeometryUniformBufferSize);
-
-			m_PSSunnyGeometryUniformBufferOffsets.resize(PSSunnyGeometryUniformIndex_Size);
-			m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_Color]      = 0;
-			m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_ID]         = m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_Color] + sizeof(maths::vec4);
-			m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_HasTexture] = m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_ID]    + sizeof(maths::vec4);
 		}
 
 		void Renderer3D::Begin()
@@ -154,13 +105,9 @@ namespace sunny
 
 		void Renderer3D::BeginScene(Camera* camera)
 		{
-			
 			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ProjectionMatrix], &camera->GetProjectionMatrix(), sizeof(maths::mat4));
 			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ViewMatrix],       &camera->GetViewMatrix(),       sizeof(maths::mat4));
 			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_CameraPosition],   &camera->GetPosition(),         sizeof(maths::vec3));
-		
-			memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_ProjectionMatrix], &camera->GetProjectionMatrix(), sizeof(maths::mat4));
-			memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_ViewMatrix],       &camera->GetViewMatrix(),       sizeof(maths::mat4));
 		}
 
 		void Renderer3D::Submit(Renderable3D* renderable)
@@ -236,8 +183,9 @@ namespace sunny
 				std::cout << "one light is needed" << std::endl;
 				exit(1);
 			}
+
 			lights[0]->position = m_lightCamera->GetPosition().Normalize();
-			memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_Lights], lights[0], sizeof(Light));
+
 			memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Lights], lights[0], sizeof(Light));
 		}
 
@@ -254,15 +202,12 @@ namespace sunny
 
 		void Renderer3D::End()
 		{
-			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_LightProjectionMatrix], &m_lightCamera->GetProjectionMatrix(), sizeof(maths::mat4));
-			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_LightViewMatrix], &m_lightCamera->GetViewMatrix(), sizeof(maths::mat4));
+			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_LightProjectionMatrix],                   &m_lightCamera->GetProjectionMatrix(), sizeof(maths::mat4));
+			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_LightViewMatrix],                         &m_lightCamera->GetViewMatrix(),       sizeof(maths::mat4));
 
 			memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_LightProjectionMatrix], &m_lightCamera->GetProjectionMatrix(), sizeof(maths::mat4));
-			memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_LightViewMatrix], &m_lightCamera->GetViewMatrix(), sizeof(maths::mat4));
+			memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_LightViewMatrix],       &m_lightCamera->GetViewMatrix(),       sizeof(maths::mat4));
 			
-			memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_LightProjectionMatrix], &m_lightCamera->GetProjectionMatrix(), sizeof(maths::mat4));
-			memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_LightViewMatrix], &m_lightCamera->GetViewMatrix(), sizeof(maths::mat4));
-
 			MakeShadowGeometryBuffer();
 		}
 
@@ -304,24 +249,6 @@ namespace sunny
 				command.renderable3d->Render();
 			}
 
-			// Áö¿À¸ÞÆ®¸® »ý¼º
-			/*m_gBuffer->Bind(GBufferType::DEFERRED);
-			m_default_geometry_shader->Bind();
-
-			for (unsigned int i = 0; i < m_renderCommandQueue.size(); ++i)
-			{
-				RenderCommand& command = m_renderCommandQueue[i];
-
-				memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
-				memcpy(m_PSSunnyGeometryUniformBuffer + m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_Color],      &command.color, sizeof(maths::vec4));
-				memcpy(m_PSSunnyGeometryUniformBuffer + m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_ID],         &command.renderable3d->GetIDColor(), sizeof(maths::vec4));
-				memcpy(m_PSSunnyGeometryUniformBuffer + m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_HasTexture], &command.hasTexture, sizeof(float));
-				
-				SetSunnyVSUniforms(m_default_geometry_shader);
-				SetSunnyGeometryUniforms(m_default_geometry_shader);
-
-				command.renderable3d->Render();
-			}*/
 
 			m_gBuffer->UnBind();
 		}
@@ -335,16 +262,15 @@ namespace sunny
 			{
 				RenderCommand& command = m_staticCommandQueue[i];
 
-				memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
-				memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_Color], &command.color, sizeof(maths::vec4));
-				memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_HasTexture], &command.hasTexture, sizeof(float));
+				memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform,  sizeof(maths::mat4));
+				memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Color],       &command.color,      sizeof(maths::vec4));
+				memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_HasTexture],  &command.hasTexture, sizeof(float));
 
 				command.shader->Bind();
 
 				SetSunnyVSUniforms(command.shader);
-				SetSunnyForwardUniforms(command.shader);
+				SetSunnyPSUniforms(command.shader);
 				m_gBuffer->SetGBuffer(GBufferType::SHADOWMAP);
-				//m_gBuffer->SetGBuffer(GBufferType::DEFERRED);
 
 				command.renderable3d->Render();
 			}
@@ -353,31 +279,18 @@ namespace sunny
 			{
 				RenderCommand& command = m_renderCommandQueue[i];
 
-				memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
-				memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_Color], &command.color, sizeof(maths::vec4));
-				memcpy(m_PSSunnyForwardUniformBuffer + m_PSSunnyForwardUniformBufferOffsets[PSSunnyForwardUniformIndex_HasTexture], &command.hasTexture, sizeof(float));
+				memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform,  sizeof(maths::mat4));
+				memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_Color],       &command.color,      sizeof(maths::vec4));
+				memcpy(m_PSSunnyUniformBuffer + m_PSSunnyUniformBufferOffsets[PSSunnyUniformIndex_HasTexture],  &command.hasTexture, sizeof(float));
 
 				command.shader->Bind();
 
 				SetSunnyVSUniforms(command.shader);
-				SetSunnyForwardUniforms(command.shader);
+				SetSunnyPSUniforms(command.shader);
 				m_gBuffer->SetGBuffer(GBufferType::SHADOWMAP);
-				//m_gBuffer->SetGBuffer(GBufferType::DEFERRED);
 
 				command.renderable3d->Render();
 			}
-
-			/*directx::Renderer::SetDepthTesting(true);
-
-			m_default_outline_shader->Bind();
-			
-			SetSunnyPSUniforms(m_default_outline_shader);
-
-			m_gBuffer->SetGBuffer(GBufferType::DEFERRED);
-			
-			m_gBuffer->Draw();
-			*/
-			
 		}
 
 		void Renderer3D::SkyboxPresentInternal()
@@ -406,16 +319,6 @@ namespace sunny
 		void Renderer3D::SetSunnyShadowVSUniforms(directx::Shader* shader)
 		{
 			shader->SetVSSystemUniformBuffer(m_VSSunnyShadowUniformBuffer, m_VSSunnyShadowUniformBufferSize, 0);
-		}
-
-		void Renderer3D::SetSunnyForwardUniforms(directx::Shader* shader)
-		{
-			shader->SetPSSystemUniformBuffer(m_PSSunnyForwardUniformBuffer, m_PSSunnyForwardUniformBufferSize, 0);
-		}
-
-		void Renderer3D::SetSunnyGeometryUniforms(directx::Shader* shader)
-		{
-			shader->SetPSSystemUniformBuffer(m_PSSunnyGeometryUniformBuffer, m_PSSunnyGeometryUniformBufferSize, 0);
 		}
 	}
 }

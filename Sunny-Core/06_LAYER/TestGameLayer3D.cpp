@@ -1,5 +1,6 @@
 #include "TestGameLayer3D.h"
 #include "TestLayer2D.h"
+#include "MouseLayer2D.h"
 
 template <typename T> string tostr(const T& t) {
 	ostringstream os;
@@ -11,6 +12,8 @@ TestGameLayer3D::TestGameLayer3D()
 {
 	m_send_wsabuf.buf = m_send_buffer;
 	m_send_wsabuf.len = MAX_BUFF_SIZE;
+
+	MouseLayer2D::SetCursor("attack");
 }
 
 TestGameLayer3D::~TestGameLayer3D()
@@ -42,7 +45,7 @@ void TestGameLayer3D::OnInit(Renderer3D& renderer)
 	};
 
 	TextureCube* environment = new TextureCube("skybox", skyBoxFiles, 1);
-	Shader* skybox = Shader::CreateFromFile("skybox", "/HLSL/skybox.hlsl");
+	Shader* skybox = Shader::CreateFromFile("skybox", "/HLSL/03_skybox.hlsl");
 	Material* skyboxMaterial = new Material(skybox);
 	skybox->Bind();
 	m_SkyboxMaterial = new MaterialInstance(skyboxMaterial);
@@ -80,7 +83,7 @@ void TestGameLayer3D::OnInit(Renderer3D& renderer)
 			a->GetTransformComponent()->Rotate(rotation);
 			a->GetTransformComponent()->SetScale(scale);
 
-			//AddStatic(a);
+			AddStatic(a);
 		}
 	}
 
@@ -239,6 +242,7 @@ bool TestGameLayer3D::OnMouseMovedEvent(MouseMovedEvent& event)
 {
 	maths::vec2 mouse_xy(event.GetX(), Window::GetWindowClass()->GetHeight() - event.GetY());
 
+	//vec3 viewProjection = (BossLocker::player->character->GetTransformComponent()->GetTransform() * GetCamera()->GetViewMatrix() * GetCamera()->GetProjectionMatrix()).GetPosition();
 	vec3 viewProjection = (GetCamera()->GetProjectionMatrix() * GetCamera()->GetViewMatrix() * BossLocker::player->character->GetTransformComponent()->GetTransform()).GetPosition();
 	double x = viewProjection.x / viewProjection.z;
 	double y = viewProjection.y / viewProjection.z;
@@ -247,11 +251,23 @@ bool TestGameLayer3D::OnMouseMovedEvent(MouseMovedEvent& event)
 	double screenX = x * (Window::GetWindowClass()->GetWidth() / 2.0f) + 0 + (Window::GetWindowClass()->GetWidth() / 2.0f);
 	double screenY = y * (Window::GetWindowClass()->GetHeight() / 2.0f) + 0 + (Window::GetWindowClass()->GetHeight() / 2.0f);
 
+
+	m_layer2D->m_test->SetPosition(vec2(screenX - 16, screenY - 16));
+
+	//std::cout << "CH_X: " << screenX << ", CH_Y: " << screenY << endl;
+	//std::cout << "MO_X: " << mouse_xy.x << ", MO_Y: " << mouse_xy.y << endl;
+
 	m_radian = maths::atan2(mouse_xy.y - screenY, mouse_xy.x - screenX);
 
-	m_degree = m_radian * 180 / maths::SUNNY_PI;
+	float degree = m_radian * (180 / maths::SUNNY_PI);
+	/*if (degree < 0)
+		degree += 360;
+		*/
+	m_degree = degree;
 
-	BossLocker::player->character->GetTransformComponent()->SetRotation(vec3( 0, m_degree + 90, 0 ));
+	std::cout << m_degree << std::endl;
+
+	BossLocker::player->character->GetTransformComponent()->SetRotation(vec3( 0, m_degree, 0 ));
 	
 
 

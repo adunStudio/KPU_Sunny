@@ -126,7 +126,7 @@ struct cs_packet_player_degree
 {
 	unsigned char size;
 	unsigned char type;
-	short         degree;
+	int         degree;
 };
 
 struct cs_packet_player_roll
@@ -139,7 +139,7 @@ struct cs_packet_player_attack
 {
 	unsigned char size;
 	unsigned char type;
-	short         degree;
+	int         degree;
 };
 
 struct cs_packet_player_mouse_release
@@ -212,7 +212,7 @@ struct sc_packet_player_degree
 	unsigned char size;
 	unsigned char type;
 	unsigned short id;
-	short degree;
+	int degree;
 };
 
 struct sc_packet_player_animation

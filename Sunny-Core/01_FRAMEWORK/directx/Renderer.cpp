@@ -32,34 +32,15 @@ namespace sunny
 		void Renderer::ClearInternal(unsigned int buffer)
 		{
 			float color[4] = { 0.87f, 1.f, 1.f, 1.0f };
-			float color2[4] = { 0.5f, 0.f, 0.f, 1.0f };
-
 
 			if (buffer & RendererBufferType::RENDERER_BUFFER_COLOR)
 				Context::GetDeviceContext()->ClearRenderTargetView(Context::GetBackBuffer(), color);
 
 			if (buffer & RendererBufferType::RENDERER_BUFFER_DEPTH)
 				Context::GetDeviceContext()->ClearDepthStencilView(Context::GetDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-		
-			if (buffer & RendererBufferType::RENDERER_BUFFER_DEFERRED)
-			{
-				//Context::GetDeviceContext()->ClearRenderTargetView(GeometryBuffer::GetRenderTargeBuffer(GeometryTextureType::DIFFUSE),  color);
-				//Context::GetDeviceContext()->ClearRenderTargetView(GeometryBuffer::GetRenderTargeBuffer(GeometryTextureType::NORMAL),   color);
-				//Context::GetDeviceContext()->ClearRenderTargetView(GeometryBuffer::GetRenderTargeBuffer(GeometryTextureType::POSITION), color);
-				//Context::GetDeviceContext()->ClearRenderTargetView(GeometryBuffer::GetRenderTargeBuffer(GeometryTextureType::ID), color);
-				//Context::GetDeviceContext()->ClearDepthStencilView(GeometryBuffer::GetDepthStencilBuffer(0), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-			}
-
-		/*
+			
 			if (buffer & RendererBufferType::RENDERER_BUFFER_SHADOW)
 				Context::GetDeviceContext()->ClearDepthStencilView(GeometryBuffer::GetDepthStencilBuffer(1), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-			
-			
-			if (buffer & RendererBufferType::RENDERER_BUFFER_DEBUG)
-			{
-				Context::GetDeviceContext()->ClearRenderTargetView(DebugBuffer::GetBuffer(), color);
-				Context::GetDeviceContext()->ClearDepthStencilView(DebugBuffer::GetDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-			}*/
 		}
 
 		void Renderer::PresentInternal()

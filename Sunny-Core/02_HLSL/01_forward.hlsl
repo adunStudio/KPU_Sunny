@@ -3,7 +3,7 @@ struct VSInput
 	float4 position : POSITION;
 	float3 normal   : NORMAL;
 	float2 uv       : TEXCOORD;
-	float  tid : TID;
+	float  tid      : TID;
 };
 
 struct VSOutput
@@ -15,7 +15,7 @@ struct VSOutput
 	float2 uv             : TEXCOORD0;
 	float3 color          : COLOR;
 	float4 lightPosition  : LIGHT_POSITION;
-	float  tid : TID;
+	float  tid            : TID;
 };
 
 cbuffer VSSystemUniforms : register(b0)
@@ -34,12 +34,12 @@ VSOutput VSMain(in VSInput input)
 
 	VSOutput output;
 
-	output.position = mul(input.position, SUNNY_ModelMatrix);
-	output.positionCS = mul(output.position, mul(SUNNY_ViewMatrix, SUNNY_ProjectionMatrix));
-	output.normal = mul(input.normal, wsTransform);
-	output.uv = input.uv;
-	output.tid = input.tid;
-	output.lightPosition = mul(output.position, mul(SUNNY_LightViewMatrix, SUNNY_LightProjectionMatrix));
+	output.position       = mul(input.position, SUNNY_ModelMatrix);
+	output.positionCS     = mul(output.position, mul(SUNNY_ViewMatrix, SUNNY_ProjectionMatrix));
+	output.normal         = mul(input.normal, wsTransform);
+	output.uv             = input.uv;
+	output.tid            = input.tid;
+	output.lightPosition  = mul(output.position, mul(SUNNY_LightViewMatrix, SUNNY_LightProjectionMatrix));
 	output.cameraPosition = SUNNY_CameraPosition;
 
 	return output;
@@ -55,16 +55,6 @@ struct Light
 	float3 ambientRange;
 	float intensity;
 };
-
-struct Attributes
-{
-	float3 position;
-	float2 uv;
-	float3 normal;
-	float3 binormal;
-	float3 tangent;
-};
-
 
 cbuffer PSSystemUniforms : register(b0)
 {
@@ -100,16 +90,9 @@ float3 CalcDirectional(float3 worldPosition, float3 worldNormal, float4 diffuseC
 }
 
 Texture2D textures[6] : register(t0);
-Texture2D diffuseMap  : register(t7);
-Texture2D normalMap   : register(t8);
-Texture2D positionMap : register(t9);
-Texture2D depthMap    : register(t10);
-Texture2D idMap       : register(t11);
 Texture2D shadowMap   : register(t12);
 
-
 SamplerState samplers        : register(s0);
-SamplerState geometrySampler : register(s1);
 SamplerState shadowSampler   : register(s2);
 
 
@@ -117,8 +100,6 @@ float cellstep5(float x)
 {
 	return ceil(x * 5) / 5;
 }
-
-
 
 float cellsmooth3(float x)
 {
@@ -151,7 +132,7 @@ float4 PSMain(in VSOutput input) : SV_TARGET
 
 	}
 
-	return texColor;
+	
 
 	float3 color = texColor.xyz;
 

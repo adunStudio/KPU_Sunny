@@ -20,6 +20,8 @@ public:
 
 	Progressbar* m_bossHPBar;
 
+	Sprite* m_test;
+
 public:
 	WSABUF m_send_wsabuf;
 	char   m_send_buffer[MAX_BUFF_SIZE];

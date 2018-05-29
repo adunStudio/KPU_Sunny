@@ -29,7 +29,7 @@ namespace sunny
 					return shader;
 
 				//shader = directx::Shader::CreateFromSource("default3DForward", sunny::graphics::default3DForwardShader_src);
-				shader = directx::Shader::CreateFromFile("default3DForward", "02_HLSL/basic_light.hlsl");
+				shader = directx::Shader::CreateFromFile("default3DForward", "02_HLSL/01_forward.hlsl");
 				
 				ShaderManager::Add(shader);
 				
@@ -58,7 +58,7 @@ namespace sunny
 				if (shader)
 					return shader;
 
-				shader = directx::Shader::CreateFromFile("default3DShadow", "02_HLSL/shadow.hlsl");
+				shader = directx::Shader::CreateFromFile("default3DShadow", "02_HLSL/02_shadow.hlsl");
 
 				ShaderManager::Add(shader);
 

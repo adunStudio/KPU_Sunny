@@ -40,7 +40,7 @@ public:
 		
 		game::AssetLoader::LoadTexture("/JSON/TEXTURE/Rooms.json");
 
-		Input::GetInputManager()->SetMouseCursor(SUNNY_NO_CURSOR);
+		//Input::GetInputManager()->SetMouseCursor(SUNNY_NO_CURSOR);
 
 		PushOverlay(new FPSLayer2D());
 		PushOverlay(new MouseLayer2D());

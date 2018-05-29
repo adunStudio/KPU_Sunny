@@ -11,7 +11,7 @@ namespace sunny
 		{
 		
 			
-			m_position = maths::vec3(0.0f, 2800.0f, 465.0f);
+			m_position = maths::vec3(0.0f, 2500.0f, -1500.0f);
 			m_rotation = maths::vec3(90.0f, 0.0f, 0.0f);
 
 			m_focalPoint = maths::vec3::Zero();
@@ -19,11 +19,8 @@ namespace sunny
 			m_distance = m_position.Distance(m_focalPoint);
 
 			m_yaw = 0; //*maths::SUNNY_PI / 4.0f;
-			m_pitch = 1;// maths::SUNNY_PI / 4.0f;
+			m_pitch = -1;// maths::SUNNY_PI / 4.0f;
 			
-
-			m_position = CalcuatePosition();
-
 			maths::Quaternion orientation = GetOrientation();
 			m_rotation = orientation.ToEulerAngles() * (180.0f / maths::SUNNY_PI);
 

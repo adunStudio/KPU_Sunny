@@ -50,9 +50,9 @@ namespace sunny
 			m_width  = m_context->GetWindowProperties().width;
 			m_height = m_context->GetWindowProperties().height;
 
-			InitDeferredTarget();
+			//InitDeferredTarget();
 			InitShadowTarget();
-			InitCopyIDTarget();
+			//InitCopyIDTarget();
 		}
 
 		void GeometryBuffer::InitDeferredTarget()

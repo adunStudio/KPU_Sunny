@@ -21,6 +21,10 @@ void TestGameLayer2D::OnInit(Renderer2D& renderer)
 	m_bossHPBar = new Progressbar(maths::Rectangle(300, 830, 500, 20));
 	m_bossHPBar->SetValue(1);
 	m_panel->Add(m_bossHPBar);
+
+	m_test = new Sprite(new Texture2D("/TEXTURE/cursor2.png"));
+
+	Add(m_test);
 }
 
 void TestGameLayer2D::OnTick()

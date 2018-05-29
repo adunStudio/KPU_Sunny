@@ -155,11 +155,8 @@ namespace sunny
         ShowWindow(hWnd, SW_SHOW);
         SetFocus(hWnd);
 
-		directx::DebugBuffer::Init();
 		directx::GeometryBuffer::Init();
 		directx::Renderer::Init();
-
-		//directx::Context::GetContext()->Bind();
 
         SetTitle(m_title);
 
@@ -190,7 +187,7 @@ namespace sunny
     void Window::Clear() const
     {
 		// 화면을 지워주는 작업
-		directx::Renderer::Clear(RENDERER_BUFFER_COLOR | RENDERER_BUFFER_DEPTH | RENDERER_BUFFER_DEFERRED | RENDERER_BUFFER_SHADOW);
+		directx::Renderer::Clear(RENDERER_BUFFER_COLOR | RENDERER_BUFFER_DEPTH | RENDERER_BUFFER_SHADOW);
 	}
 
     bool Window::Closed() const

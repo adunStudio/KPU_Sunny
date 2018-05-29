@@ -32,7 +32,7 @@ namespace sunny
 
 		void QuaterCamera::Update()
 		{
-			//m_position = CalcuatePosition();
+			m_position = CalcuatePosition();
 			
 			m_position.x = m_renderable->GetTransformComponent()->GetPosition().x;
 			m_position.y = m_renderable->GetTransformComponent()->GetPosition().y + 1300;
@@ -82,7 +82,7 @@ namespace sunny
 
 		maths::vec3 QuaterCamera::GetForwardDirection()
 		{
-			return maths::Quaternion::Rotate(GetOrientation(), maths::vec3::ZAxis());
+			return maths::Quaternion::Rotate(GetOrientation(), -maths::vec3::ZAxis());
 		}
 
 		maths::vec3 QuaterCamera::CalcuatePosition()

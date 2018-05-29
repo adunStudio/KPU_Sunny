@@ -10,7 +10,7 @@ namespace sunny
 {
     namespace maths
     {
-        const float SUNNY_PI = 3.14159265358f;
+        const float SUNNY_PI = 3.14159265358979323846f;
 
         // 각도 단위로 지정된 인자를 라디안 단위로 환산하여 반환한다.
         inline float toRadians(float degree)
