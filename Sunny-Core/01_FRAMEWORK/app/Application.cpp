@@ -150,8 +150,6 @@ namespace sunny
         {
             window->Clear();
 
-			m_mutex.lock();
-
             float now = m_timer->ElapsedMillis();
 
             // updateTick(1000 / 60)마다 실행
@@ -191,8 +189,6 @@ namespace sunny
 
             if(window->Closed())
                 m_running = false;
-
-			m_mutex.unlock();
 		}
     }
 
@@ -231,6 +227,9 @@ namespace sunny
 		for (unsigned int i = 0; i < m_layer3DStack.size(); ++i)
 			if (m_layer3DStack[i]->IsVisible())
 				m_layer3DStack[i]->OnRender();
+
+		if (m_layer3DStack.size() >= 1)
+			directx::Context::GetContext()->Present3D();
 
 		for (unsigned int i = 0; i < m_layer2DStack.size(); ++i)
 			if (m_layer2DStack[i]->IsVisible())

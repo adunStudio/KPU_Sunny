@@ -168,6 +168,7 @@
     <ClInclude Include="01_FRAMEWORK\events\ServerEvent.h" />
     <ClInclude Include="01_FRAMEWORK\graphics\cameras\QuaterCamera.h" />
     <ClInclude Include="01_FRAMEWORK\graphics\ModelManager.h" />
+    <ClInclude Include="01_FRAMEWORK\graphics\Particle.h" />
     <ClInclude Include="01_FRAMEWORK\maths\OBB.h" />
     <ClInclude Include="01_FRAMEWORK\maths\Ray.h" />
     <ClInclude Include="05_GAME\graphics\Animation3D.h" />

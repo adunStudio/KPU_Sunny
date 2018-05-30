@@ -34,7 +34,7 @@ namespace sunny
 		class Shader
 		{
 		public:
-			static const Shader* s_currentlyBound;
+			static const Shader* s_currentlyBound[2];
 			
 		private:
 			struct Data
@@ -65,9 +65,13 @@ namespace sunny
 			ID3D11Buffer** m_PSConstantBuffers;                        // ÇÈ¼¿ ¼ÎÀÌ´õ »ó¼ö ¹öÆÛµé
 			unsigned int   m_PSConstantBuffersCount;
 
+
 		public:
-			Shader(const std::string& name, const std::string& source);
+			Shader(const std::string& name, const std::string& source, DIMENSION dimension = DIMENSION::D3);
 			~Shader();
+
+			DIMENSION m_dimension;
+
 
 			inline Data& GetData() const { return m_data; }
 
@@ -112,7 +116,7 @@ namespace sunny
 			static bool TryCompile        (const std::string& source  , std::string& error);
 			static bool TryCompileFromFile(const std::string& filepath, std::string& error);
 
-			static const Shader* CurrentlyBound() { return s_currentlyBound; }
+			static const Shader* CurrentlyBound(DIMENSION dimension = DIMENSION::D3) { return s_currentlyBound[dimension]; }
 		};
 	}
 }

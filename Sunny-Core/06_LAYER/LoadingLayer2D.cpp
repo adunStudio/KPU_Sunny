@@ -37,11 +37,11 @@ void LoadingLayer2D::OnInit(Renderer2D& renderer)
 {
 	AudioEngine::LoadSound("04_ASSET/MP3/sunny_loading.mp3", false, true);
 	AudioEngine::Play("04_ASSET/MP3/sunny_loading.mp3");
-	m_backgroundTexture = new Texture2D("/TEXTURE/Loadings/background.png");
+	m_backgroundTexture = new Texture2D("/TEXTURE/Loadings/background.png", DIMENSION::D2);
 	m_background = new Sprite(0, 0, m_windowWidth, m_windowHeight, m_backgroundTexture);
 	Add(m_background);
 
-	m_circleTexture = new Texture2D("/TEXTURE/Loadings/circle.png");
+	m_circleTexture = new Texture2D("/TEXTURE/Loadings/circle.png", DIMENSION::D2);
 
 	for (int i = 0; i < 13; ++i)
 	{
@@ -131,7 +131,7 @@ void LoadingLayer2D::OnInit(Renderer2D& renderer)
 	m_circles[40]->start = 17;
 	m_circles[52]->start = 17;
 
-	m_logoTexture = new Texture2D("/TEXTURE/Loadings/boo2.png");
+	m_logoTexture = new Texture2D("/TEXTURE/Loadings/boo2.png", DIMENSION::D2);
 	m_logo = new Sprite(m_windowWidth/ 2 , m_windowHeight / 2 + 65, m_logoTexture, PIVOT_CENTER);
 	
 	m_panel = new Panel();
@@ -235,6 +235,7 @@ void LoadingLayer2D::GoToRoom()
 
 void StartLoad(LoadingLayer2D* layer)
 {
+	
 	float count = 0;
 	float ex = 0;
 
@@ -275,26 +276,18 @@ void StartLoad(LoadingLayer2D* layer)
 
 				data->textures.push_back(texture_path);
 
-				Application::GetApplication().m_mutex.lock();
-
 				if (!sunny::graphics::TextureManager::Get(texture_path))
+				{
 					sunny::graphics::TextureManager::Add(new sunny::directx::Texture2D(texture_path));
-
-				Application::GetApplication().m_mutex.unlock();
+				}
 			}
-
-			
 
 
 			if (!sunny::graphics::ModelManager::Get(name))
 			{
-				Application::GetApplication().m_mutex.lock();
-
 				a = new sunny::graphics::Model(path);
 
 				sunny::graphics::ModelManager::Add(name, a);
-				
-				Application::GetApplication().m_mutex.unlock();
 			}
 
 

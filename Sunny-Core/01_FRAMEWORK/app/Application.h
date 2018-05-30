@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include <mutex>
 #include "../include.h"
 #include "Window.h"
 #include "../utils/Timer.h"
@@ -20,9 +19,8 @@ namespace sunny
 	public:
 		Window * window;
 
-		std::mutex m_mutex;
-
 		inline static Application& GetApplication() { return *s_instance; }
+
 	private:
 		static Application* s_instance;
 

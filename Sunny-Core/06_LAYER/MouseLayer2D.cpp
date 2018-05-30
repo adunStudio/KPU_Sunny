@@ -32,8 +32,8 @@ MouseLayer2D::MouseLayer2D()
 	: Layer2D(maths::mat4::Orthographic(0.0f, Application::GetApplication().GetWindowWidth(), 0.0f, Application::GetApplication().GetWindowHeight(), -1.0f, 1.0f))
 {
 
-	m_textures["cursor"]  = new Texture2D("/TEXTURE/cursor1.png");
-	m_textures["attack"]  = new Texture2D("/TEXTURE/cursor2.png");
+	m_textures["cursor"]  = new Texture2D("/TEXTURE/cursor1.png", DIMENSION::D2);
+	m_textures["attack"]  = new Texture2D("/TEXTURE/cursor2.png", DIMENSION::D2);
 
 	m_size = m_textures["cursor"]->GetHeight();
 	m_center = false;

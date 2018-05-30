@@ -138,15 +138,6 @@
     <ClCompile Include="01_FRAMEWORK\utils\Timer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="05_GAME\assets\AssetLoader.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="05_GAME\assets\AssetData.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="05_GAME\graphics\Model3D.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="01_FRAMEWORK\maths\Ray.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -273,16 +264,7 @@
     <ClCompile Include="01_FRAMEWORK\graphics\cameras\QuaterCamera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="05_GAME\graphics\Animation3D.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="06_LAYER\RoomLayer2D.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="05_GAME\shoot\BulletSystem.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="05_GAME\shoot\CBullet.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="06_LAYER\TestGameLayer2D.cpp">
@@ -309,9 +291,6 @@
     <ClCompile Include="01_FRAMEWORK\audio\AudioEngine.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="05_GAME\ui\Loadingbar.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="06_LAYER\TestGameLayer3D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -328,6 +307,27 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="06_LAYER\MouseLayer2D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="05_GAME\assets\AssetData.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="05_GAME\assets\AssetLoader.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="05_GAME\graphics\Animation3D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="05_GAME\graphics\Model3D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="05_GAME\shoot\BulletSystem.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="05_GAME\shoot\CBullet.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="05_GAME\ui\Loadingbar.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -494,15 +494,6 @@
     <ClInclude Include="01_FRAMEWORK\SUNNY.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="05_GAME\assets\AssetLoader.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="05_GAME\assets\AssetData.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="05_GAME\graphics\Model3D.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="01_FRAMEWORK\maths\Ray.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -510,9 +501,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="01_FRAMEWORK\maths\OBB.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="05_GAME\MousePicker.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="01_FRAMEWORK\directx\GeometryBuffer.h">
@@ -644,22 +632,7 @@
     <ClInclude Include="01_FRAMEWORK\graphics\cameras\QuaterCamera.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="05_GAME\graphics\Animation3D.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="05_GAME\graphics\Bullet.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="06_LAYER\RoomLayer2D.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="05_GAME\shoot\BulletSystem.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="05_GAME\shoot\CBullet.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="05_GAME\Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="06_LAYER\TestGameLayer2D.h">
@@ -687,9 +660,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="01_FRAMEWORK\audio\AudioEngine.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="05_GAME\ui\Loadingbar.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="01_FRAMEWORK\directx\DeferredContext.h">
@@ -720,6 +690,39 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="06_LAYER\MouseLayer2D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="01_FRAMEWORK\graphics\Particle.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\assets\AssetData.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\assets\AssetLoader.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\graphics\Animation3D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\graphics\Bullet.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\graphics\Model3D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\shoot\BulletSystem.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\shoot\CBullet.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\ui\Loadingbar.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\MousePicker.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

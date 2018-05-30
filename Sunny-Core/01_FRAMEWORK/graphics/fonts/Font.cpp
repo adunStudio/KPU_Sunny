@@ -23,7 +23,7 @@ namespace sunny
 			m_FTAtlas = ftgl::texture_atlas_new(512, 512, 2);
 			m_FTFont  = ftgl::texture_font_new_from_file(m_FTAtlas, size, fileName.c_str());
 			
-			m_texture = new directx::Texture2D(512, 512);
+			m_texture = new directx::Texture2D(512, 512, DIMENSION::D2);
 
 			m_texture->SetData(m_FTAtlas->data);
 		}
@@ -34,7 +34,7 @@ namespace sunny
 			m_FTAtlas = ftgl::texture_atlas_new(512, 512, 2);
 			m_FTFont = ftgl::texture_font_new_from_memory(m_FTAtlas, size, data, dataSize);
 
-			m_texture = new directx::Texture2D(512, 512);
+			m_texture = new directx::Texture2D(512, 512, DIMENSION::D2);
 			m_texture->SetData(m_FTAtlas->data);
 
 

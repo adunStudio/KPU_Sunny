@@ -1,4 +1,5 @@
 #include "Context.h"
+#include "Renderer.h"
 
 namespace sunny
 {
@@ -45,12 +46,15 @@ namespace sunny
 				D3D11_SDK_VERSION,           // SDKVersion     : 버전 (항상 D3D11_SDK_VERSION)      
 				&dev,                        // ppDevice       : 생성한 장치를 돌려준다.
 				&m_d3dFeatureLevel,          // pFeatureLevel  : 기능 수준을 돌려준다.
-				&devcon                      // ppImmediateContext: 생성된 장치 컨텍스트를 돌려준다.
+				&devcon[DIMENSION::D2]       // ppImmediateContext: 생성된 장치 컨텍스트를 돌려준다.
 			);
 
 			// 멀티샘플링 품질 지원 여부(지원하는 퀄리티 레벨)를 알아낸다. (지원 X → 0)
 			dev->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, 4, &m_MSAAQuality);
 
+
+			/* 디퍼트 콘텍스트 생성 */
+			dev->CreateDeferredContext(0, &devcon[DIMENSION::D3]);
 
 			/* 2. CreateSwapChain() 함수를 통하여 스왑 체인을 생성한다. */
 
@@ -187,7 +191,8 @@ namespace sunny
 
 			/* 5. 렌더 타겟을 디바이스 컨텍스트의 출력 병합 단계에 연결한다. */
 			//devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
-			devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
+			devcon[DIMENSION::D3]->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
+			devcon[DIMENSION::D2]->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
 			// NumViews : 뷰의 개수 (현재 1)
 			// ppRenderTargetViews: 렌더 뷰의 포인터        (CreateRenderTargetView 에서 생성)
 			// pDepthStencilView : DepthStencil 뷰의 포인터 (CreateDepthStencilView 에서 생성)
@@ -201,7 +206,8 @@ namespace sunny
 			m_screenViewport.MinDepth = 0.0f;
 			m_screenViewport.MaxDepth = 1.0f;
 			
-			devcon->RSSetViewports(1, &m_screenViewport);
+			devcon[DIMENSION::D3]->RSSetViewports(1, &m_screenViewport);
+			devcon[DIMENSION::D2]->RSSetViewports(1, &m_screenViewport);
 
 			/* 7. 래스터라이저를 설정하고 적용한다.(도형이 어떻게 그려지는지에 대한 제어) &*/
 			D3D11_RASTERIZER_DESC rasterDesc;
@@ -223,15 +229,32 @@ namespace sunny
 
 			ID3D11RasterizerState* rs;
 			dev->CreateRasterizerState(&rasterDesc, &rs);
-			devcon->RSSetState(rs);
+			devcon[DIMENSION::D3]->RSSetState(rs);
+			devcon[DIMENSION::D2]->RSSetState(rs);
 
 			ReleaseCOM(rs);
 		}
 
 		void Context::BindInternal()
 		{
-			devcon->RSSetViewports(1, &m_screenViewport);
-			devcon->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
+			devcon[DIMENSION::D3]->RSSetViewports(1, &m_screenViewport);
+			devcon[DIMENSION::D3]->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
+			devcon[DIMENSION::D2]->RSSetViewports(1, &m_screenViewport);
+			devcon[DIMENSION::D2]->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
+		}
+
+		void Context::Present3D()
+		{
+			ID3D11CommandList* commandList = nullptr;
+
+			HRESULT hr;
+
+			hr = devcon[DIMENSION::D3]->FinishCommandList(TRUE, &commandList);
+
+			if (hr == S_OK && commandList)
+			{
+				devcon[DIMENSION::D2]->ExecuteCommandList(commandList, TRUE);
+			}
 		}
 
 		void Context::Present()

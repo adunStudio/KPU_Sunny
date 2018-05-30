@@ -35,7 +35,7 @@ namespace sunny
 			ID3D11Device* dev;
 
 			// 디바이스 컨텍스트에 대한 포인터다.    주로 파이프라인을 설정하는 데 필요하다.
-			ID3D11DeviceContext* devcon;
+			ID3D11DeviceContext* devcon[2];
 
 			// 스왑 체인 인터페이스에 대한 포인터다. 주로 디스플레이를 제어하는 데 필요하다.
 			IDXGISwapChain* swapchain;
@@ -61,8 +61,9 @@ namespace sunny
 		public:
 			Context(WindowProperties properties, void* deviceContext);
 						
-			void Present();
+			void Present3D();
 
+			void Present();
 
 		private:		
 			void InitD3D(HWND hWnd);
@@ -78,7 +79,7 @@ namespace sunny
 
 			inline static IDXGISwapChain* GetSwapChain() { return GetContext()->swapchain; }
 			inline static ID3D11Device* GetDevice() { return GetContext()->dev; }
-			inline static ID3D11DeviceContext* GetDeviceContext() { return GetContext()->devcon; }
+			inline static ID3D11DeviceContext* GetDeviceContext(int dimension = DIMENSION::D3) { return GetContext()->devcon[dimension]; }
 			inline static ID3D11RenderTargetView* GetBackBuffer() { return GetContext()->m_renderTargetView; }
 			inline static ID3D11DepthStencilView* GetDepthStencilBuffer() { return GetContext()->m_depthStencilView; }
 

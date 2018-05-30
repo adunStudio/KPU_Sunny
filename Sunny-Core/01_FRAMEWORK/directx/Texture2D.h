@@ -30,13 +30,15 @@ namespace sunny
 			ID3D11SamplerState* m_samplerState;
 			D3D11_SAMPLER_DESC m_samplerDesc;
 
+			DIMENSION m_dimension;
+
 		private:
 			void Load();
 
 		public:
-			Texture2D(unsigned int width, unsigned int height             );
-			Texture2D(const std::string& name, const std::string& filename);
-			Texture2D(const std::string& filename                         );
+			Texture2D(unsigned int width, unsigned int height,              DIMENSION dimension = DIMENSION::D3);
+			Texture2D(const std::string& name, const std::string& filename, DIMENSION dimension = DIMENSION::D3);
+			Texture2D(const std::string& filename,                          DIMENSION dimension = DIMENSION::D3);
 
 			~Texture2D() override;
 

@@ -48,7 +48,7 @@ void TestLayer3D::OnInit(Renderer3D& renderer)
 	};
 
 	TextureCube* environment = new TextureCube("skybox", skyBoxFiles, 1);
-	Shader* skybox = Shader::CreateFromFile("skybox", "/HLSL/skybox.hlsl");
+	Shader* skybox = Shader::CreateFromFile("skybox", "/HLSL/03_skybox.hlsl");
 	Material* skyboxMaterial = new Material(skybox);
 	skybox->Bind();
 	m_SkyboxMaterial = new MaterialInstance(skyboxMaterial);

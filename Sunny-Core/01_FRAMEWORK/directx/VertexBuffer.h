@@ -60,12 +60,13 @@ namespace sunny
 
 			BufferLayout m_layout;
 
+			DIMENSION m_dimension;
 
 		protected:
 			void* GetPointerInternal();
 
 		public:
-			VertexBuffer();
+			VertexBuffer(DIMENSION dimension = DIMENSION::D3);
 			~VertexBuffer();
 
 			void Resize(unsigned int size);

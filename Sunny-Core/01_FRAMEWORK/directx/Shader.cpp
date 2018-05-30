@@ -5,7 +5,7 @@ namespace sunny
 	namespace directx
 	{
 		/* STATIC */
-		const Shader* Shader::s_currentlyBound = nullptr;
+		const Shader* Shader::s_currentlyBound[2] = { nullptr, nullptr };
 
 		Shader* Shader::CreateFromFile(const std::string& name, const std::string& filepath, void* address)
 		{
@@ -19,7 +19,7 @@ namespace sunny
 
 		Shader* Shader::CreateFromSource(const std::string& name, const std::string& source)
 		{
-			return new Shader(name, source);
+			return new Shader(name, source, DIMENSION::D2);
 		}
 
 		bool Shader::TryCompile(const std::string& source, std::string& error)
@@ -84,7 +84,7 @@ namespace sunny
 		}
 
 		/* PUBLIC */
-		Shader::Shader(const std::string& name, const std::string& source) : m_name(name)
+		Shader::Shader(const std::string& name, const std::string& source, DIMENSION dimension) : m_name(name), m_dimension(dimension)
 		{
 			m_VSUserUniformBuffer = nullptr;
 			m_PSUserUniformBuffer = nullptr;
@@ -102,13 +102,13 @@ namespace sunny
 
 		void Shader::Bind() const
 		{
-			s_currentlyBound = this;
+			s_currentlyBound[m_dimension] = this;
 
-			Context::GetDeviceContext()->VSSetShader(m_data.vertexShader, NULL, 0);
-			Context::GetDeviceContext()->PSSetShader(m_data.pixelShader, NULL, 0);
+			Context::GetDeviceContext(m_dimension)->VSSetShader(m_data.vertexShader, NULL, 0);
+			Context::GetDeviceContext(m_dimension)->PSSetShader(m_data.pixelShader, NULL, 0);
 
-			Context::GetDeviceContext()->VSSetConstantBuffers(0, m_VSConstantBuffersCount, m_VSConstantBuffers);
-			Context::GetDeviceContext()->PSSetConstantBuffers(0, m_PSConstantBuffersCount, m_PSConstantBuffers);
+			Context::GetDeviceContext(m_dimension)->VSSetConstantBuffers(0, m_VSConstantBuffersCount, m_VSConstantBuffers);
+			Context::GetDeviceContext(m_dimension)->PSSetConstantBuffers(0, m_PSConstantBuffersCount, m_PSConstantBuffers);
 		}
 
 		void Shader::SetVSSystemUniformBuffer(unsigned char* data, unsigned int size, unsigned int slot)
@@ -126,7 +126,7 @@ namespace sunny
 			
 			D3D11_MAPPED_SUBRESOURCE msr;
 			ZeroMemory(&msr, sizeof(D3D11_MAPPED_SUBRESOURCE));
-			Context::GetDeviceContext()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			Context::GetDeviceContext(m_dimension)->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
 			// pResource       : ID3D11Resource 인터페이스에 대한 포인터다.
 			// SubResource     : 서브 리소스의 인덱스
 			// MapType         : 리소스에 대한 CPU의 읽기/쓰기 권한을 나타내는 D3D11_MAP 열겨형 상수다.        
@@ -135,7 +135,7 @@ namespace sunny
 			// pMappedResource : 맵핑된 서브 리소스에 대한 포인터다.
 			memcpy(msr.pData, data, size);
 			
-			Context::GetDeviceContext()->Unmap(cbuffer, NULL);
+			Context::GetDeviceContext(m_dimension)->Unmap(cbuffer, NULL);
 		}
 
 		void Shader::SetPSSystemUniformBuffer(unsigned char* data, unsigned int size, unsigned int slot)
@@ -155,7 +155,7 @@ namespace sunny
 			D3D11_MAPPED_SUBRESOURCE msr;
 			ZeroMemory(&msr, sizeof(D3D11_MAPPED_SUBRESOURCE));
 
-			Context::GetDeviceContext()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			Context::GetDeviceContext(m_dimension)->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
 			// pResource       : ID3D11Resource 인터페이스에 대한 포인터다.
 			// SubResource     : 서브 리소스의 인덱스
 			// MapType         : 리소스에 대한 CPU의 읽기/쓰기 권한을 나타내는 D3D11_MAP 열겨형 상수다.        
@@ -165,7 +165,7 @@ namespace sunny
 
 			memcpy(msr.pData, data, size);
 			
-			Context::GetDeviceContext()->Unmap(cbuffer, NULL);
+			Context::GetDeviceContext(m_dimension)->Unmap(cbuffer, NULL);
 		}
 
 		void Shader::SetVSUserUniformBuffer(unsigned char* data, unsigned int size)
@@ -175,12 +175,12 @@ namespace sunny
 			D3D11_MAPPED_SUBRESOURCE msr;
 			memset(&msr, 0, sizeof(D3D11_MAPPED_SUBRESOURCE));
 			
-			Context::GetDeviceContext()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			Context::GetDeviceContext(m_dimension)->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
 
 
 			memcpy(msr.pData, data, size);
 
-			Context::GetDeviceContext()->Unmap(cbuffer, NULL);
+			Context::GetDeviceContext(m_dimension)->Unmap(cbuffer, NULL);
 		}
 
 		void Shader::SetPSUserUniformBuffer(unsigned char* data, unsigned int size)
@@ -190,11 +190,11 @@ namespace sunny
 			D3D11_MAPPED_SUBRESOURCE msr;
 			memset(&msr, 0, sizeof(D3D11_MAPPED_SUBRESOURCE));
 
-			Context::GetDeviceContext()->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			Context::GetDeviceContext(m_dimension)->Map(cbuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
 
 			memcpy(msr.pData, data, size);
 
-			Context::GetDeviceContext()->Unmap(cbuffer, NULL);
+			Context::GetDeviceContext(m_dimension)->Unmap(cbuffer, NULL);
 		}
 
 		/* PRIVATE */

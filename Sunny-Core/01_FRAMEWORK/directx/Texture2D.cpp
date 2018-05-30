@@ -21,20 +21,20 @@ namespace sunny
 
 		/* »ý¼ºÀÚ */
 
-		Texture2D::Texture2D(unsigned int width, unsigned int height)
-			: m_fileName("NULL"), m_width(width), m_height(height)
+		Texture2D::Texture2D(unsigned int width, unsigned int height, DIMENSION dimension)
+			: m_fileName("NULL"), m_width(width), m_height(height), m_dimension(dimension)
 		{
 			Load();
 		}
 
-		Texture2D::Texture2D(const std::string& name, const std::string& filename)
-			: m_fileName(filename), m_name(name)
+		Texture2D::Texture2D(const std::string& name, const std::string& filename, DIMENSION dimension)
+			: m_fileName(filename), m_name(name), m_dimension(dimension)
 		{
 			Load();
 		}
 
-		Texture2D::Texture2D(const std::string& filename)
-			: m_fileName(filename), m_name(filename)
+		Texture2D::Texture2D(const std::string& filename, DIMENSION dimension)
+			: m_fileName(filename), m_name(filename), m_dimension(dimension)
 		{
 			Load();
 		}
@@ -127,8 +127,8 @@ namespace sunny
 
 			if (generateMips)
 			{
-				Context::GetDeviceContext()->UpdateSubresource(m_texture, 0, nullptr, initData.pSysMem, initData.SysMemPitch, initData.SysMemSlicePitch);
-				Context::GetDeviceContext()->GenerateMips(m_resourceView);
+				Context::GetDeviceContext(m_dimension)->UpdateSubresource(m_texture, 0, nullptr, initData.pSysMem, initData.SysMemPitch, initData.SysMemSlicePitch);
+				Context::GetDeviceContext(m_dimension)->GenerateMips(m_resourceView);
 			}
 			
 			m_desc.Usage = D3D11_USAGE_DEFAULT;
@@ -156,15 +156,15 @@ namespace sunny
 
 		void Texture2D::Bind(unsigned int slot) const
 		{
-			Context::GetDeviceContext()->PSSetShaderResources(slot, 1, &m_resourceView);
-			Context::GetDeviceContext()->PSSetSamplers(slot, 1, &m_samplerState);
+			Context::GetDeviceContext(m_dimension)->PSSetShaderResources(slot, 1, &m_resourceView);
+			Context::GetDeviceContext(m_dimension)->PSSetSamplers(slot, 1, &m_samplerState);
 		}
 
 		void Texture2D::UnBind(unsigned int slot) const
 		{
 			ID3D11ShaderResourceView* rv = nullptr;
 
-			Context::GetDeviceContext()->PSSetShaderResources(slot, 1, &rv);
+			Context::GetDeviceContext(m_dimension)->PSSetShaderResources(slot, 1, &rv);
 		}
 
 		void Texture2D::SetData(const void* pixels)
@@ -172,7 +172,7 @@ namespace sunny
 			D3D11_MAPPED_SUBRESOURCE msr;
 			memset(&msr, 0, sizeof(D3D11_MAPPED_SUBRESOURCE));
 
-			Context::GetDeviceContext()->Map(m_texture, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
+			Context::GetDeviceContext(m_dimension)->Map(m_texture, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &msr);
 
 			for (unsigned int i = 0; i < m_width * m_height * GetStrideFromFormat(TextureFormat::RGBA); i += 4)
 			{
@@ -182,7 +182,7 @@ namespace sunny
 				((byte*)msr.pData)[i + 3] = ((byte*)pixels)[i / 2 + 1];
 			}
 
-			Context::GetDeviceContext()->Unmap(m_texture, NULL);
+			Context::GetDeviceContext(m_dimension)->Unmap(m_texture, NULL);
 		}
 	}
 }

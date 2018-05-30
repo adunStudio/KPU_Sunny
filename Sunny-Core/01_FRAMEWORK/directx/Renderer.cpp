@@ -34,13 +34,13 @@ namespace sunny
 			float color[4] = { 0.87f, 1.f, 1.f, 1.0f };
 
 			if (buffer & RendererBufferType::RENDERER_BUFFER_COLOR)
-				Context::GetDeviceContext()->ClearRenderTargetView(Context::GetBackBuffer(), color);
+				Context::GetDeviceContext(D2)->ClearRenderTargetView(Context::GetBackBuffer(), color);
 
 			if (buffer & RendererBufferType::RENDERER_BUFFER_DEPTH)
-				Context::GetDeviceContext()->ClearDepthStencilView(Context::GetDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+				Context::GetDeviceContext(D2)->ClearDepthStencilView(Context::GetDepthStencilBuffer(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 			
 			if (buffer & RendererBufferType::RENDERER_BUFFER_SHADOW)
-				Context::GetDeviceContext()->ClearDepthStencilView(GeometryBuffer::GetDepthStencilBuffer(1), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+				Context::GetDeviceContext(D2)->ClearDepthStencilView(GeometryBuffer::GetDepthStencilBuffer(1), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 		}
 
 		void Renderer::PresentInternal()
@@ -49,15 +49,15 @@ namespace sunny
 		}
 
 		// 깊이/스텐실 상태를 출력 병합기 단계에 묶는다.
-		void Renderer::SetDepthTestingInternal(bool enabled)
+		void Renderer::SetDepthTestingInternal(bool enabled, DIMENSION dimension)
 		{
-			Context::GetDeviceContext()->OMSetDepthStencilState(enabled ? s_depthStencilStates[0] : s_depthStencilStates[1], NULL);
+			Context::GetDeviceContext(dimension)->OMSetDepthStencilState(enabled ? s_depthStencilStates[0] : s_depthStencilStates[1], NULL);
 		}
 
 		// 혼합 상태를 출력 병합기 단계에 묶는다.
-		void Renderer::SetBlendInternal(bool enabled)
+		void Renderer::SetBlendInternal(bool enabled, DIMENSION dimension)
 		{
-			Context::GetDeviceContext()->OMSetBlendState(enabled ? s_blendStates[1] : s_blendStates[0], NULL, 0xffffffff);
+			Context::GetDeviceContext(dimension)->OMSetBlendState(enabled ? s_blendStates[1] : s_blendStates[0], NULL, 0xffffffff);
 		}
 
 		// 혼합 설정 및 상태 생성

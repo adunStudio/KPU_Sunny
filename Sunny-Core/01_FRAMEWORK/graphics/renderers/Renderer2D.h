@@ -58,7 +58,6 @@ namespace sunny
 
 			directx::VertexArray* m_vertexArray;
 			directx::IndexBuffer* m_indexBuffer;
-			directx::IndexBuffer* m_lineIBO;
 
 			unsigned int m_indexCount, m_lineIndexCount;
 

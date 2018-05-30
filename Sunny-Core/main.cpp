@@ -38,10 +38,11 @@ public:
 		VFS::Get()->Mount("TEXTURE", "04_ASSET/TEXTURE");
 		VFS::Get()->Mount("RAW",     "04_ASSET/RAW");
 		
-		game::AssetLoader::LoadTexture("/JSON/TEXTURE/Rooms.json");
+		game::AssetLoader::LoadTexture("/JSON/TEXTURE/Rooms.json", DIMENSION::D2);
 
-		//Input::GetInputManager()->SetMouseCursor(SUNNY_NO_CURSOR);
+		Input::GetInputManager()->SetMouseCursor(SUNNY_NO_CURSOR);
 
+		//PushOverlay(new TestLayer2D());
 		PushOverlay(new FPSLayer2D());
 		PushOverlay(new MouseLayer2D());
 		FPSLayer2D::SetColor(RGBA(0.f, 0.f, 0.f, 0.7f));

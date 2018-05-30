@@ -12,7 +12,7 @@ FPSLayer2D::FPSLayer2D()
 : Layer2D(maths::mat4::Orthographic(0.0f, Application::GetApplication().GetWindowWidth(), 0.0f, Application::GetApplication().GetWindowHeight(), -1.0f, 1.0f))
 {
 
-	Texture2D* sunny_engine_mark = new Texture2D("/TEXTURE/Loadings/sunny_engine.png");
+	Texture2D* sunny_engine_mark = new Texture2D("/TEXTURE/Loadings/sunny_engine.png", DIMENSION::D2);
 	Sprite* mark = new Sprite(m_windowWidth - 83, m_windowHeight - 18, sunny_engine_mark);
 	Add(mark);
 
