@@ -35,8 +35,8 @@ LoadingLayer2D::~LoadingLayer2D()
 
 void LoadingLayer2D::OnInit(Renderer2D& renderer)
 {
-	AudioEngine::LoadSound("04_ASSET/MP3/sunny_loading.mp3", false, true);
-	AudioEngine::Play("04_ASSET/MP3/sunny_loading.mp3");
+	MusicManager::Get("loading")->Loop();
+
 	m_backgroundTexture = new Texture2D("/TEXTURE/Loadings/background.png", DIMENSION::D2);
 	m_background = new Sprite(0, 0, m_windowWidth, m_windowHeight, m_backgroundTexture);
 	Add(m_background);
@@ -229,13 +229,15 @@ void LoadingLayer2D::GoToRoom()
 {
 	if (m_loadingCompleted == false) return;
 
-	delete Application::GetApplication().PopLayer(this);
 	Application::GetApplication().PushLayer2D(new RoomLayer2D());
+
+	delete Application::GetApplication().PopLayer(this);
+
+	MusicManager::Get("loading")->Stop();
 }
 
 void StartLoad(LoadingLayer2D* layer)
 {
-	
 	float count = 0;
 	float ex = 0;
 

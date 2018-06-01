@@ -37,7 +37,10 @@ public:
 		VFS::Get()->Mount("SUN",     "04_ASSET/SUN");
 		VFS::Get()->Mount("TEXTURE", "04_ASSET/TEXTURE");
 		VFS::Get()->Mount("RAW",     "04_ASSET/RAW");
+		VFS::Get()->Mount("SOUND",   "04_ASSET/SOUND");
 		
+		new Music("loading", "/SOUND/sunny_loading.mp3");
+
 		game::AssetLoader::LoadTexture("/JSON/TEXTURE/Rooms.json", DIMENSION::D2);
 
 		Input::GetInputManager()->SetMouseCursor(SUNNY_NO_CURSOR);
@@ -45,8 +48,9 @@ public:
 		//PushOverlay(new TestLayer2D());
 		PushOverlay(new FPSLayer2D());
 		PushOverlay(new MouseLayer2D());
-		FPSLayer2D::SetColor(RGBA(0.f, 0.f, 0.f, 0.7f));
 		PushLayer2D(new LoadingLayer2D());
+
+		FPSLayer2D::SetColor(RGBA(0.f, 0.f, 0.f, 0.7f));
 	}
 };
 

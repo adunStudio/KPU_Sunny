@@ -6,7 +6,7 @@
 #include "../directx/Context.h"
 #include "../directx/Renderer.h"
 #include "../graphics/fonts/FontManager.h"
-#include "../audio/AudioEngine.h"
+#include "../audio/MusicManager.h"
 #include <atlstr.h>
 
 EXTERN_C IMAGE_DOS_HEADER __ImageBase;
@@ -80,13 +80,12 @@ namespace sunny
 		
 		m_inputManager  = new InputManager();
 		m_serverManager = new ServerManager();
-		audio::AudioEngine::Init();
-
+		audio::MusicManager::Init();
     }
 
     Window::~Window()
     {
-		audio::AudioEngine::Clear();
+		audio::MusicManager::Clean();
     }
 
     bool Window::Init()
@@ -179,7 +178,7 @@ namespace sunny
             DispatchMessage(&message);
         }
 
-		audio::AudioEngine::Update();
+		audio::MusicManager::Update();
 		m_inputManager->Update();
 		directx::Renderer::Present();
     }

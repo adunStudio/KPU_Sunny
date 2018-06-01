@@ -16,7 +16,7 @@
 #include "graphics/ModelManager.h"
 #include "graphics/TextureManager.h"
 
-#include "audio/AudioEngine.h"
+#include "audio/MusicManager.h"
 
 using namespace std;
 using namespace sunny;

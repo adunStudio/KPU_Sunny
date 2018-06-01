@@ -23,7 +23,8 @@
     <ClCompile Include="01_FRAMEWORK\app\Input.cpp" />
     <ClCompile Include="01_FRAMEWORK\app\Server.cpp" />
     <ClCompile Include="01_FRAMEWORK\app\Window.cpp" />
-    <ClCompile Include="01_FRAMEWORK\audio\AudioEngine.cpp" />
+    <ClCompile Include="01_FRAMEWORK\audio\Music.cpp" />
+    <ClCompile Include="01_FRAMEWORK\audio\MusicManager.cpp" />
     <ClCompile Include="01_FRAMEWORK\component\Component.cpp" />
     <ClCompile Include="01_FRAMEWORK\component\TransformComponent.cpp" />
     <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\platform.c" />
@@ -130,7 +131,8 @@
     <ClInclude Include="01_FRAMEWORK\app\Input.h" />
     <ClInclude Include="01_FRAMEWORK\app\Server.h" />
     <ClInclude Include="01_FRAMEWORK\app\Window.h" />
-    <ClInclude Include="01_FRAMEWORK\audio\AudioEngine.h" />
+    <ClInclude Include="01_FRAMEWORK\audio\Music.h" />
+    <ClInclude Include="01_FRAMEWORK\audio\MusicManager.h" />
     <ClInclude Include="01_FRAMEWORK\component\Component.h" />
     <ClInclude Include="01_FRAMEWORK\component\Components.h" />
     <ClInclude Include="01_FRAMEWORK\component\TransformComponent.h" />
