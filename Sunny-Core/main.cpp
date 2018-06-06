@@ -9,6 +9,8 @@
 #include "06_LAYER/MouseLayer2D.h"
 #include "06_LAYER/LoadingLayer2D.h"
 
+#include "06_LAYER/MapGUILayer2D.h"
+
 #include "06_LAYER/RoomLayer2D.h"
 #include "06_LAYER/TestLayer2D.h"
 #include "06_LAYER/TestLayer3D.h"
@@ -48,7 +50,8 @@ public:
 		//PushOverlay(new TestLayer2D());
 		PushOverlay(new FPSLayer2D());
 		PushOverlay(new MouseLayer2D());
-		PushLayer2D(new LoadingLayer2D());
+		//PushLayer2D(new LoadingLayer2D());
+		PushLayer2D(new MapGUILayer2D());
 
 		FPSLayer2D::SetColor(RGBA(0.f, 0.f, 0.f, 0.7f));
 	}

@@ -13,8 +13,12 @@
 #include "../events/Events.h"
 #include "input.h"
 #include "server.h"
+#include "../imgui/imgui.h"
+#include "../imgui/imgui_impl_dx11.h"
+#include <atlstr.h>
 
 #define	WM_SOCKET WM_USER + 1
+#define DIRECTINPUT_VERSION 0x0800
 
 namespace sunny
 {

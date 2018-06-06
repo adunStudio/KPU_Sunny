@@ -7,9 +7,11 @@
 #include "../directx/Renderer.h"
 #include "../graphics/fonts/FontManager.h"
 #include "../audio/MusicManager.h"
-#include <atlstr.h>
+
 
 EXTERN_C IMAGE_DOS_HEADER __ImageBase;
+
+extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 namespace sunny
 {
@@ -159,6 +161,14 @@ namespace sunny
 
         SetTitle(m_title);
 
+		// imGui
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		ImFont* pFont = io.Fonts->AddFontFromFileTTF("04_ASSET/FONT/NanumGothic.ttf", 17, NULL, io.Fonts->GetGlyphRangesKorean());
+		ImGui_ImplDX11_Init(hWnd, directx::Context::GetDevice(), directx::Context::GetDeviceContext(DIMENSION::D2));
+		ImGui::StyleColorsDark();
+
         return true;
     }
 
@@ -201,8 +211,12 @@ namespace sunny
         SetWindowText(hWnd, text);
     }
 
+	
     LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
+		if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+			return true;
+
 		LRESULT result = NULL;
 
         Window* window = Window::GetWindowClass(hWnd);

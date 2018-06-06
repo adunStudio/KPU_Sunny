@@ -34,9 +34,9 @@ void TestGameLayer3D::OnInit(Renderer3D& renderer)
 	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
 	Entity* yAxis = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
 	Entity* zAxis = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
-	AddStatic(xAxis);
-	AddStatic(yAxis);
-	AddStatic(zAxis);
+	//AddStatic(xAxis);
+	//AddStatic(yAxis);
+	//AddStatic(zAxis);
 
 
 	std::string skyBoxFiles[1] =
@@ -54,7 +54,7 @@ void TestGameLayer3D::OnInit(Renderer3D& renderer)
 	skyboxEntity->SetMaterial(m_SkyboxMaterial);
 	SetSkybox(skyboxEntity);
 
-	std::string mapData = system::FileSystem::ReadTextFile("/JSON/MAP/map1.json");
+	std::string mapData = system::FileSystem::ReadTextFile("/JSON/MAP/map2.json");
 
 	Json::Value root;
 	Json::Reader reader;
@@ -79,7 +79,7 @@ void TestGameLayer3D::OnInit(Renderer3D& renderer)
 
 			m_mapObjects.push_back(a);
 
-			a->GetTransformComponent()->SetPosition(translation * 100);
+			a->GetTransformComponent()->SetPosition(translation);
 			a->GetTransformComponent()->Rotate(rotation);
 			a->GetTransformComponent()->SetScale(scale);
 
@@ -162,9 +162,9 @@ void TestGameLayer3D::OnInit(Renderer3D& renderer)
 	m_boss->GetTransformComponent()->SetRotation(vec3(0, -90, 0));
 	m_boss->GetTransformComponent()->SetPosition(vec3(1000, 0, 0));
 	
-	Add(m_boss);
+	//Add(m_boss);
 
-	SetCamera(new QuaterCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.0f), BossLocker::player->character));
+	//SetCamera(new QuaterCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.0f), BossLocker::player->character));
 }
 
 void TestGameLayer3D::OnTick()
@@ -174,7 +174,7 @@ void TestGameLayer3D::OnTick()
 
 void TestGameLayer3D::OnUpdate(const utils::Timestep& ts)
 {
-	m_boss->PlayAnimation();
+//	m_boss->PlayAnimation();
 
 	for (int i = 0; i < MAX_USER; ++i)
 	{
