@@ -39,8 +39,11 @@ namespace sunny
 			}
 
 
-			directx::Context::GetDevice()->CreateSamplerState(&renderTargetSamplerDesc, &m_samplers[0]);
-			directx::Context::GetDevice()->CreateSamplerState(&depthStencilSamplerDesc, &m_samplers[1]);
+			auto a = directx::Context::GetDevice()->CreateSamplerState(&renderTargetSamplerDesc, &m_samplers[0]);
+			auto b = directx::Context::GetDevice()->CreateSamplerState(&depthStencilSamplerDesc, &m_samplers[1]);
+
+			std::cout <<"a: "<<  a << std::endl;
+			std::cout <<"b: " << b << std::endl;
 
 			Resize();
 		}
@@ -50,9 +53,9 @@ namespace sunny
 			m_width  = m_context->GetWindowProperties().width;
 			m_height = m_context->GetWindowProperties().height;
 
-			//InitDeferredTarget();
+			InitDeferredTarget();
 			InitShadowTarget();
-			//InitCopyIDTarget();
+			InitCopyIDTarget();
 		}
 
 		void GeometryBuffer::InitDeferredTarget()

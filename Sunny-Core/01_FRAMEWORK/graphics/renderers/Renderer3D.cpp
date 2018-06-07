@@ -34,6 +34,14 @@ namespace sunny
 			VSSunnyShadowUniformIndex_Size
 		};
 
+		enum PSSunnyGeometryUniformIndices : int
+		{
+			PSSunnyGeometryUniformIndex_Color               = 0,
+			PSSunnyGeometryUniformIndex_ID                  = 1,
+			PSSunnyGeometryUniformIndex_HasTexture          = 2,
+			PSSunnyGeometryUniformIndex_Size
+		};
+
 		Renderer3D::Renderer3D()
 		: m_skybox(nullptr)
 		{
@@ -60,6 +68,8 @@ namespace sunny
 
 			m_default_shadow_shader   = ShaderFactory::Default3DShadowShader();
 			m_default_forward_shader  = ShaderFactory::Default3DForwardShader();
+			m_default_geometry_shader = ShaderFactory::Default3DGeometryShader();
+			m_default_outline_shader  = ShaderFactory::Default3DOutLineShader();
 
 
 			/* 버텍스 셰이더 (기본) */
@@ -95,6 +105,17 @@ namespace sunny
 			m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix]           = 0;
 			m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_LightProjectionMatrix] = m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix]            + sizeof(maths::mat4);
 			m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_LightViewMatrix]       = m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_LightProjectionMatrix]  + sizeof(maths::mat4);
+		
+		
+			/* 픽셀 셰이더 (Geometry) */
+			m_PSSunnyGeometryUniformBufferSize = sizeof(maths::vec4) + sizeof(maths::vec4) + sizeof(float);
+			m_PSSunnyGeometryUniformBuffer     = new unsigned char[m_PSSunnyGeometryUniformBufferSize];
+			memset(m_PSSunnyGeometryUniformBuffer, 0, m_PSSunnyGeometryUniformBufferSize);
+
+			m_PSSunnyGeometryUniformBufferOffsets.resize(PSSunnyGeometryUniformIndex_Size);
+			m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_Color]      = 0;
+			m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_ID]         = m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_Color] + sizeof(maths::vec4);
+			m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_HasTexture] = m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_ID] + sizeof(maths::vec4);
 		}
 
 		void Renderer3D::Begin()
@@ -224,31 +245,70 @@ namespace sunny
 			directx::Renderer::SetBlend(true);
 		
 			// 그림자 생성
-			m_gBuffer->Bind(GBufferType::SHADOWMAP);
-			m_default_shadow_shader->Bind();;
-
-			for (unsigned int i = 0; i < m_staticCommandQueue.size(); ++i)
 			{
-				RenderCommand& command = m_staticCommandQueue[i];
+				m_gBuffer->Bind(GBufferType::SHADOWMAP);
+				m_default_shadow_shader->Bind();
 
-				memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
+				for (unsigned int i = 0; i < m_staticCommandQueue.size(); ++i)
+				{
+					RenderCommand& command = m_staticCommandQueue[i];
 
-				SetSunnyShadowVSUniforms(m_default_shadow_shader);
+					memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
 
-				command.renderable3d->Render();
+					SetSunnyShadowVSUniforms(m_default_shadow_shader);
+
+					command.renderable3d->Render();
+				}
+
+				for (unsigned int i = 0; i < m_renderCommandQueue.size(); ++i)
+				{
+					RenderCommand& command = m_renderCommandQueue[i];
+
+					memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
+
+					SetSunnyShadowVSUniforms(m_default_shadow_shader);
+
+					command.renderable3d->Render();
+				}
 			}
+			
 
-			for (unsigned int i = 0; i < m_renderCommandQueue.size(); ++i)
+			// 지오메트리 생성{
 			{
-				RenderCommand& command = m_renderCommandQueue[i];
-				
-				memcpy(m_VSSunnyShadowUniformBuffer + m_VSSunnyShadowUniformBufferOffsets[VSSunnyShadowUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
-				
-				SetSunnyShadowVSUniforms(m_default_shadow_shader);
-				
-				command.renderable3d->Render();
-			}
+				m_gBuffer->Bind(GBufferType::DEFERRED);
+				m_default_geometry_shader->Bind();
 
+				for (unsigned int i = 0; i < m_staticCommandQueue.size(); ++i)
+				{
+					RenderCommand& command = m_staticCommandQueue[i];
+
+					memcpy(m_VSSunnyUniformBuffer         + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
+					memcpy(m_PSSunnyGeometryUniformBuffer + m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_Color], &command.color, sizeof(maths::vec4));
+					memcpy(m_PSSunnyGeometryUniformBuffer + m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_ID], &command.renderable3d->GetIDColor(), sizeof(maths::vec4));
+					memcpy(m_PSSunnyGeometryUniformBuffer + m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_HasTexture], &command.hasTexture, sizeof(float));
+
+					SetSunnyVSUniforms(m_default_geometry_shader);
+					SetSunnyGeometryPSUniforms(m_default_geometry_shader);
+
+					command.renderable3d->Render();
+				}
+
+				for (unsigned int i = 0; i < m_renderCommandQueue.size(); ++i)
+				{
+					RenderCommand& command = m_renderCommandQueue[i];
+
+					memcpy(m_VSSunnyUniformBuffer         + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ModelMatrix], &command.transform, sizeof(maths::mat4));
+					memcpy(m_PSSunnyGeometryUniformBuffer + m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_Color], &command.color, sizeof(maths::vec4));
+					memcpy(m_PSSunnyGeometryUniformBuffer + m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_ID], &command.renderable3d->GetIDColor(), sizeof(maths::vec4));
+					memcpy(m_PSSunnyGeometryUniformBuffer + m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_HasTexture], &command.hasTexture, sizeof(float));
+
+					SetSunnyVSUniforms        (m_default_geometry_shader);
+					SetSunnyGeometryPSUniforms(m_default_geometry_shader);
+
+					command.renderable3d->Render();
+				}
+			}
+			
 
 			m_gBuffer->UnBind();
 		}
@@ -291,6 +351,15 @@ namespace sunny
 
 				command.renderable3d->Render();
 			}
+
+			// 아웃라인 그리기
+			m_default_outline_shader->Bind();
+
+			SetSunnyPSUniforms(m_default_outline_shader);
+
+			m_gBuffer->SetGBuffer(GBufferType::DEFERRED);
+
+			m_gBuffer->Draw();
 		}
 
 		void Renderer3D::SkyboxPresentInternal()
@@ -319,6 +388,11 @@ namespace sunny
 		void Renderer3D::SetSunnyShadowVSUniforms(directx::Shader* shader)
 		{
 			shader->SetVSSystemUniformBuffer(m_VSSunnyShadowUniformBuffer, m_VSSunnyShadowUniformBufferSize, 0);
+		}
+
+		void Renderer3D::SetSunnyGeometryPSUniforms(directx::Shader* shader)
+		{
+			shader->SetPSSystemUniformBuffer(m_PSSunnyGeometryUniformBuffer, m_PSSunnyGeometryUniformBufferSize, 0);
 		}
 	}
 }

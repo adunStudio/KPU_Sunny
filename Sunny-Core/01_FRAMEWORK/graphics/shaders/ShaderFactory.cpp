@@ -44,7 +44,7 @@ namespace sunny
 					return shader;
 
 				//shader = directx::Shader::CreateFromSource("default3DDeferred", sunny::graphics::default3DDeferredShader_src);
-				shader = directx::Shader::CreateFromFile("default3DDeferred", "02_HLSL/geometry.hlsl");
+				shader = directx::Shader::CreateFromFile("default3DDeferred", "02_HLSL/04_geometry.hlsl");
 
 				ShaderManager::Add(shader);
 
@@ -71,7 +71,7 @@ namespace sunny
 				if (shader)
 					return shader;
 
-				shader = directx::Shader::CreateFromFile("defaultOutLine", "02_HLSL/outline.hlsl");
+				shader = directx::Shader::CreateFromFile("defaultOutLine", "02_HLSL/05_outline.hlsl");
 
 				ShaderManager::Add(shader);
 

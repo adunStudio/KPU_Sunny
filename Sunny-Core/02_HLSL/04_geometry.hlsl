@@ -8,16 +8,14 @@ struct VSInput
 
 struct VSOutput
 {
-	float4 positionCS : SV_POSITION;
+	float4 positionCS     : SV_POSITION;
 	float3 cameraPosition : CAMERA_POSITION;
-	float4 position : POSITION;
-	float3 normal : NORMAL;
-	float2 uv : TEXCOORD;
-	float3 binormal : BINORMAL;
-	float3 tangent : TANGENT;
-	float3 color : COLOR;
-	float4 shadowCoord : SHADOW_POSITION;
-	int    tid : TEXTURE_CASE;
+	float4 position       : POSITION;
+	float3 normal         : NORMAL;
+	float2 uv             : TEXCOORD0;
+	float3 color          : COLOR;
+	float4 lightPosition  : LIGHT_POSITION;
+	float  tid            : TID;
 };
 
 cbuffer VSSystemUniforms : register(b0)
@@ -25,8 +23,9 @@ cbuffer VSSystemUniforms : register(b0)
 	float4x4 SUNNY_ProjectionMatrix;
 	float4x4 SUNNY_ViewMatrix;
 	float4x4 SUNNY_ModelMatrix;
+	float4x4 SUNNY_LightProjectionMatrix;
+	float4x4 SUNNY_LightViewMatrix;
 	float3	 SUNNY_CameraPosition;
-	// float4x4 SUNNY_DepthBiasMatrix;
 };
 
 VSOutput VSMain(in VSInput input)
@@ -34,14 +33,13 @@ VSOutput VSMain(in VSInput input)
 	float3x3 wsTransform = (float3x3)SUNNY_ModelMatrix;
 
 	VSOutput output;
+
 	output.position = mul(input.position, SUNNY_ModelMatrix);
-	output.positionCS =  mul(output.position, mul(SUNNY_ViewMatrix, SUNNY_ProjectionMatrix));
+	output.positionCS = mul(output.position, mul(SUNNY_ViewMatrix, SUNNY_ProjectionMatrix));
 	output.normal = mul(input.normal, wsTransform);
 	output.uv = input.uv;
-	output.color = float3(1.0f, 1.0f, 1.0f);
-	output.shadowCoord = float4(0.0f, 0.0f, 0.0f, 0.0f); // output.shadowCoord = mul(output.position, depthBias);
-	output.tid = 0;
-
+	output.tid = input.tid;
+	output.lightPosition = mul(output.position, mul(SUNNY_LightViewMatrix, SUNNY_LightProjectionMatrix));
 	output.cameraPosition = SUNNY_CameraPosition;
 
 	return output;
@@ -52,7 +50,7 @@ struct PSOutput
 	float4 diffuse  :  SV_TARGET0;
 	float4 normal   :  SV_TARGET1;
 	float4 position :  SV_TARGET2;
-	float4 id       :  SV_TARGET3;
+	//float4 id       :  SV_TARGET3;
 };
 
 Texture2D textures[6] : register(t0);
@@ -97,7 +95,7 @@ PSOutput PSMain(in VSOutput input)
 	output.diffuse = texColor;
 	output.normal = float4(input.normal, s_id);
 	output.position = input.position;
-	output.id      = id;
+	//output.id      = id;
 
 	return output;
 }

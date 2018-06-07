@@ -2,8 +2,21 @@
 
 #include <SUNNY.h>
 
+
 class MapGUILayer2D : public Layer2D
 {
+public:
+	vec3 model_position;
+	vec3 model_rotation;
+	vec3 model_scale;
+
+	vec3 camera_position;
+	vec3 camera_focalPoint;
+	
+private:
+	bool open_transform = true;
+	bool open_camera    = true;
+
 public:
 	MapGUILayer2D();
 	~MapGUILayer2D();

@@ -70,6 +70,15 @@ namespace sunny
             vec3& operator*=(float other);
             vec3& operator/=(float other);
 
+			float& operator[] (int idx) {
+				switch (idx)
+				{
+				case 0: return x;
+				case 1: return y;
+				case 2: return z;
+				}
+			}
+
             bool operator<(const vec3& other) const;
             bool operator<=(const vec3& other) const;
             bool operator>(const vec3& other) const;

@@ -7,6 +7,7 @@
 #include "../05_GAME/ui/Loadingbar.h"
 #include "../05_GAME/assets/AssetLoader.h"
 #include "../06_LAYER/RoomLayer2D.h"
+#include "../06_LAYER/MapGUILayer2D.h"
 
 using namespace game;
 

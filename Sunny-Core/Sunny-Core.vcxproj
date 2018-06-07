@@ -68,6 +68,7 @@
     <ClCompile Include="06_LAYER\FPSLayer2D.cpp" />
     <ClCompile Include="06_LAYER\LoadingLayer2D.cpp" />
     <ClCompile Include="06_LAYER\MapGUILayer2D.cpp" />
+    <ClCompile Include="06_LAYER\MapGUILayer3D.cpp" />
     <ClCompile Include="06_LAYER\MouseLayer2D.cpp" />
     <ClCompile Include="06_LAYER\RoomLayer2D.cpp" />
     <ClCompile Include="06_LAYER\ShootingLayer3D.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="06_LAYER\FPSLayer2D.h" />
     <ClInclude Include="06_LAYER\LoadingLayer2D.h" />
     <ClInclude Include="06_LAYER\MapGUILayer2D.h" />
+    <ClInclude Include="06_LAYER\MapGUILayer3D.h" />
     <ClInclude Include="06_LAYER\MouseLayer2D.h" />
     <ClInclude Include="06_LAYER\RoomLayer2D.h" />
     <ClInclude Include="06_LAYER\ShootingLaye3D.h" />

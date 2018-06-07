@@ -41,6 +41,8 @@ namespace sunny
 
 			directx::Shader* m_default_forward_shader;          // 포워드     셰이더
 			directx::Shader* m_default_shadow_shader;           // 그림자     셰이더 
+			directx::Shader* m_default_geometry_shader;         // 지오메트리 셰이더
+			directx::Shader* m_default_outline_shader;          // 아웃라인   셰이더
 
 			std::vector<Renderable3D*> m_renderables;
 
@@ -60,10 +62,14 @@ namespace sunny
 			unsigned char* m_VSSunnyShadowUniformBuffer;                            // 그림자 버텍스 셰이더 CBuffer                    
 			unsigned int   m_VSSunnyShadowUniformBufferSize;
 
+			unsigned char* m_PSSunnyGeometryUniformBuffer;                         // 지오메트리 버텍스 셰이더
+			unsigned int   m_PSSunnyGeometryUniformBufferSize;
+
 
 			std::vector<unsigned int> m_VSSunnyUniformBufferOffsets;                   // 기본   버텍스 셰이더 CBuffer 오프셋
 			std::vector<unsigned int> m_PSSunnyUniformBufferOffsets;                   // 기본   픽셀   셰이더 CBuffer 오프셋
 			std::vector<unsigned int> m_VSSunnyShadowUniformBufferOffsets;             // 그림자 버텍스 셰이더 CBuffer 오프셋
+			std::vector<unsigned int> m_PSSunnyGeometryUniformBufferOffsets;           // 지오메트리 픽셀 셰이더 CBuffer 오프셋
 
 		public:
 			Renderer3D();
@@ -95,9 +101,10 @@ namespace sunny
 
 			void SkyboxPresentInternal();
 
-			void SetSunnyVSUniforms      (directx::Shader* shader);
-			void SetSunnyPSUniforms      (directx::Shader* shader);
-			void SetSunnyShadowVSUniforms(directx::Shader* shader);
+			void SetSunnyVSUniforms        (directx::Shader* shader);
+			void SetSunnyPSUniforms        (directx::Shader* shader);
+			void SetSunnyShadowVSUniforms  (directx::Shader* shader);
+			void SetSunnyGeometryPSUniforms(directx::Shader* shader);
 		};
 	}
 }

@@ -1,5 +1,7 @@
 #include "MapGUILayer2D.h"
 
+#include "../06_LAYER/MapGUILayer3D.h"
+
 MapGUILayer2D::MapGUILayer2D() 
 : Layer2D(maths::mat4::Orthographic(0.0f, Application::GetApplication().GetWindowWidth(), 0.0f, Application::GetApplication().GetWindowHeight(), -1.0f, 1.0f))
 {
@@ -13,9 +15,8 @@ MapGUILayer2D::~MapGUILayer2D()
 
 void MapGUILayer2D::OnInit(Renderer2D& renderer)
 {
-	
-
-	
+	Application::GetApplication().PushLayer3D(new MapGUILayer3D(*this));
+	ImGui::GetStyle().WindowRounding = 3.0f;
 }
 
 void MapGUILayer2D::OnTick()
@@ -32,10 +33,11 @@ void MapGUILayer2D::OnRender(Renderer2D& renderer)
 {
 	ImGui_ImplDX11_NewFrame();
 
-	bool show_demo_window = true;
-	bool show_another_window = false;
+	static bool show_demo_window = true;
+	static bool show_another_window = false;
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
+	ImGui::SetWindowSize(ImVec2((float)Window::GetWindowClass()->GetWidth(), (float)Window::GetWindowClass()->GetHeight()));
 
 	{
 		static float f = 0.0f;
@@ -71,6 +73,66 @@ void MapGUILayer2D::OnRender(Renderer2D& renderer)
 		ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver); // Normally user code doesn't need/want to call this because positions are saved in .ini file anyway. Here we just want to make the demo initial state a bit more friendly!
 		ImGui::ShowDemoWindow(&show_demo_window);
 	}
+	float str0;
+
+
+	/* Map Editor */
+	ImGui::Begin("Map Editor", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
+	{
+		ImGui::SetWindowSize(ImVec2(300, 350));
+
+		if (ImGui::CollapsingHeader("Transform Component", &open_transform, ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			ImGui::Text("Position");
+			ImGui::SameLine(80);
+			ImGui::PushItemWidth(-1);
+			ImGui::InputFloat3("#model_position", &model_position[0], 2);
+			ImGui::PopItemWidth();
+
+			ImGui::Text("Rotation");
+			ImGui::SameLine(80);
+			ImGui::PushItemWidth(-1);
+			ImGui::InputFloat3("#model_rotation", &model_rotation[0], 2);
+			ImGui::PopItemWidth();
+
+			ImGui::Text("Scale");
+			ImGui::SameLine(80);
+			ImGui::PushItemWidth(-1);
+			ImGui::InputFloat3("#model_scale", &model_scale[0], 2);
+			ImGui::PopItemWidth();
+		}
+
+		if (ImGui::CollapsingHeader("Camera Component", &open_transform, ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			ImGui::Text("Position");
+			ImGui::SameLine(80);
+			ImGui::PushItemWidth(-1);
+			ImGui::InputFloat3("#camera_position", &camera_position[0], 2);
+			ImGui::PopItemWidth();
+
+			ImGui::Text("FocalPoint");
+			ImGui::SameLine(80);
+			ImGui::PushItemWidth(-1);
+			ImGui::InputFloat3("#camera_focalPoint", &camera_focalPoint[0], 2);
+			ImGui::PopItemWidth();
+
+			ImGui::Text("Scale");
+			ImGui::SameLine(80);
+			ImGui::PushItemWidth(-1);
+			ImGui::InputFloat3("#model_scale", &model_scale[0], 2);
+			ImGui::PopItemWidth();
+		}
+	}
+	ImGui::End();
+
+	/* Asset */
+	ImGui::Begin("Asset", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
+	{
+		ImGui::SetWindowPos(ImVec2(5, 700));
+		ImGui::SetWindowSize(ImVec2(900, 195));
+	}
+	ImGui::End();
+
 
 	// Rendering
 	ImGui::Render();
