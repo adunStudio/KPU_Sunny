@@ -32,6 +32,7 @@ public:
 
 		ShaderFactory::Default3DForwardShader();
 		ShaderFactory::Default2DShader();
+		ShaderFactory::Default3DOutLineShader();
 
 		VFS::Get()->Mount("HLSL",    "02_HLSL");
 		VFS::Get()->Mount("JSON",    "03_JSON");

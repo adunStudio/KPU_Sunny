@@ -156,8 +156,8 @@ namespace sunny
         ShowWindow(hWnd, SW_SHOW);
         SetFocus(hWnd);
 
-		directx::GeometryBuffer::Init();
 		directx::Renderer::Init();
+		directx::GeometryBuffer::Init();
 
         SetTitle(m_title);
 

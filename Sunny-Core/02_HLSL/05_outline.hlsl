@@ -15,11 +15,11 @@ VSOutput VSMain(uint id : SV_VertexID)
 	output.position = float4(uv, 0, 1);
 	output.position.x = output.position.x * 2 - 1;
 	output.position.y = output.position.y * -2 + 1;
+	output.position.z = 0;
+	output.position.w = 1;
 
 	return output;
 }
-
-
 
 Texture2D diffuseMap  : register(t7);
 Texture2D normalMap   : register(t8);

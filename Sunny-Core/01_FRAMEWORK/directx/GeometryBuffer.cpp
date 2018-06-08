@@ -13,7 +13,7 @@ namespace sunny
 
 		void GeometryBuffer::Init()
 		{
-			if (s_instance) return;
+			//if (s_instance) return;
 
 			s_instance = new GeometryBuffer();
 			s_instance->InitInternal();
@@ -40,7 +40,8 @@ namespace sunny
 
 
 			auto a = directx::Context::GetDevice()->CreateSamplerState(&renderTargetSamplerDesc, &m_samplers[0]);
-			auto b = directx::Context::GetDevice()->CreateSamplerState(&depthStencilSamplerDesc, &m_samplers[1]);
+			auto b = directx::Context::GetDevice()->CreateSamplerState(&renderTargetSamplerDesc, &m_samplers[1]);
+			//auto b = directx::Context::GetDevice()->CreateSamplerState(&depthStencilSamplerDesc, &m_samplers[1]);
 
 			std::cout <<"a: "<<  a << std::endl;
 			std::cout <<"b: " << b << std::endl;
@@ -81,7 +82,7 @@ namespace sunny
 			m_context->GetDevice()->CreateTexture2D(&diffuseNormalTextureDesc, NULL, &m_textures[GeometryTextureType::DIFFUSE]);
 			m_context->GetDevice()->CreateTexture2D(&diffuseNormalTextureDesc, NULL, &m_textures[GeometryTextureType::NORMAL]);
 			m_context->GetDevice()->CreateTexture2D(&diffuseNormalTextureDesc, NULL, &m_textures[GeometryTextureType::POSITION]);
-			m_context->GetDevice()->CreateTexture2D(&diffuseNormalTextureDesc, NULL, &m_textures[GeometryTextureType::ID]);
+			//m_context->GetDevice()->CreateTexture2D(&diffuseNormalTextureDesc, NULL, &m_textures[GeometryTextureType::ID]);
 
 
 			// 디퓨즈/노말/포지션/아이디 렌더 타겟 뷰 설명 구조체
@@ -97,7 +98,7 @@ namespace sunny
 			m_context->GetDevice()->CreateRenderTargetView(m_textures[GeometryTextureType::DIFFUSE],   &diffuseNormalRenderTargetViewDesc, &m_renderTargetViews[GeometryTextureType::DIFFUSE]);
 			m_context->GetDevice()->CreateRenderTargetView(m_textures[GeometryTextureType::NORMAL],    &diffuseNormalRenderTargetViewDesc, &m_renderTargetViews[GeometryTextureType::NORMAL]);
 			m_context->GetDevice()->CreateRenderTargetView(m_textures[GeometryTextureType::POSITION],  &diffuseNormalRenderTargetViewDesc, &m_renderTargetViews[GeometryTextureType::POSITION]);
-			m_context->GetDevice()->CreateRenderTargetView(m_textures[GeometryTextureType::ID],        &diffuseNormalRenderTargetViewDesc, &m_renderTargetViews[GeometryTextureType::ID]);
+			//m_context->GetDevice()->CreateRenderTargetView(m_textures[GeometryTextureType::ID],        &diffuseNormalRenderTargetViewDesc, &m_renderTargetViews[GeometryTextureType::ID]);
 
 
 			// 디퓨즈/노말 셰이더 리소스 뷰 설명 구조체
@@ -111,12 +112,15 @@ namespace sunny
 			}
 			
 			// 셰이더 리소스 뷰 생성
-			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::DIFFUSE], &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::DIFFUSE]);
-			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::NORMAL],  &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::NORMAL]);
-			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::POSITION],&diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::POSITION]);
-			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::ID],      &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::ID]);
+			auto d = m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::DIFFUSE], &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::DIFFUSE]);
+			auto d2 = m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::NORMAL],  &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::NORMAL]);
+			auto d3 = m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::POSITION],&diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::POSITION]);
+			//m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::ID],      &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::ID]);
 		
-		
+			std::cout << d << std::endl;
+			std::cout << d2 << std::endl;
+			std::cout << d3 << std::endl;
+
 			// 깊이/스텐실 텍스쳐 설명 구조체
 			D3D11_TEXTURE2D_DESC depthStencilTextureDesc;
 			ZeroMemory(&depthStencilTextureDesc, sizeof(depthStencilTextureDesc));
@@ -246,7 +250,7 @@ namespace sunny
 		void GeometryBuffer::BindInternal(GeometryTextureType type)
 		{
 			if( type == GeometryTextureType::DIFFUSE || type == GeometryTextureType::NORMAL || type==GeometryTextureType::POSITION || type == GeometryTextureType::ID )
-				m_context->GetDeviceContext()->OMSetRenderTargets(4, m_renderTargetViews, m_depthStencilView[0]);
+				m_context->GetDeviceContext()->OMSetRenderTargets(3, m_renderTargetViews, m_depthStencilView[0]);
 			else if ( type == GeometryTextureType::SHADOW_DEPTH )
 				m_context->GetDeviceContext()->OMSetRenderTargets(0, NULL, m_depthStencilView[1]);			
 		}

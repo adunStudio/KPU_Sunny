@@ -87,7 +87,7 @@ namespace sunny
 
 			inline static ID3D11SamplerState* GetSamplerState(GeometryTextureType type)
 			{ 
-				if (type == GeometryTextureType::SHADOW_DEPTH) s_instance->m_samplers[1];
+				if (type == GeometryTextureType::SHADOW_DEPTH) return s_instance->m_samplers[1];
 
 				return s_instance->m_samplers[0];
 			}

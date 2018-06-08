@@ -31,12 +31,14 @@ namespace sunny
 				
 				ID3D11SamplerState* sampler = directx::GeometryBuffer::GetSamplerState(GeometryTextureType::DIFFUSE);
 
-				directx::Context::GetDeviceContext()->PSSetShaderResources(GBufferTextureIndex::DIFFUSE, 1, &diffuse_rv);
-				directx::Context::GetDeviceContext()->PSSetShaderResources(GBufferTextureIndex::NORMAL,  1, &normal_rv);
-				directx::Context::GetDeviceContext()->PSSetShaderResources(GBufferTextureIndex::POSITION,1, &position_rv);
-				directx::Context::GetDeviceContext()->PSSetShaderResources(GBufferTextureIndex::DEPTH,   1, &depth_rv);
-				//directx::Context::GetDeviceContext()->PSSetShaderResources(GBufferTextureIndex::ID ,     1, &id_rv);
-				directx::Context::GetDeviceContext()->PSSetSamplers(GBufferSapmaerIndex::DEFERRED_SAMPLER, 1, &sampler);
+				if(diffuse_rv)
+				directx::Context::GetDeviceContext(D3)->PSSetShaderResources(GBufferTextureIndex::DIFFUSE, 1, &diffuse_rv);
+				if (normal_rv)
+				directx::Context::GetDeviceContext(D3)->PSSetShaderResources(GBufferTextureIndex::NORMAL,  1, &normal_rv);
+				if (position_rv)
+				directx::Context::GetDeviceContext(D3)->PSSetShaderResources(GBufferTextureIndex::POSITION,1, &position_rv);
+				if(sampler)
+				directx::Context::GetDeviceContext(D3)->PSSetSamplers(GBufferSapmaerIndex::DEFERRED_SAMPLER, 1, &sampler);
 			}
 
 			if (buffer & GBufferType::SHADOWMAP)
