@@ -280,6 +280,81 @@ namespace sunny
 				return new Mesh(va, ib);
 			}
 
+			
+			Mesh* CreateGeometry(float width, float depth, int m, int n)
+			{
+				int vertexCount = m * n;
+				int indicesCount = (m - 1) * (n - 1) * 2;
+
+				Vertex3D* data = new Vertex3D[vertexCount];
+
+				float halfWidth = 0.5f * width;
+				float halfDepth = 0.5f * depth;
+
+				float dx = width / (n - 1);
+				float dz = depth / (m - 1);
+
+				float du = 1.0f / (n - 1);
+				float dv = 1.0f / (m - 1);
+
+				for (int i = 0; i < m; ++i)
+				{
+					float z = halfDepth - i * dz;
+					//float z = i * dz;
+
+					for (int j = 0; j < n; ++j)
+					{
+						float x = -halfWidth + j * dx;
+						//float x = j * dx;
+
+						float y = 0;// 0.3f * (z * sinf(0.1f * x) + x * cosf(0.1f * z));
+
+						data[i * n + j].position = maths::vec3(x, y, z);
+						data[i * n + j].normal = maths::vec3(0, 1, 0);
+						data[i * n + j].uv = maths::vec2(j * du, i * dv);
+						data[i * n + j].tid = 0;
+					}
+				}
+
+				ShaderFactory::Default3DForwardShader()->Bind();
+
+				directx::VertexBuffer* buffer = new directx::VertexBuffer();
+				buffer->SetData(sizeof(Vertex3D) * vertexCount, data);
+
+				directx::BufferLayout layout;
+				layout.Push<maths::vec3>("POSITION");
+				layout.Push<maths::vec3>("NORMAL");
+				layout.Push<maths::vec2>("TEXCOORD");
+				layout.Push<float      >("TID");
+				buffer->SetLayout(layout);
+
+				directx::VertexArray* va = new directx::VertexArray();
+				va->PushBuffer(buffer);
+
+				unsigned int* indices = new unsigned int[indicesCount * 3];// { 0, 1, 2, 2, 3, 0 };
+
+				int k = 0;
+
+				for (int i = 0; i < m - 1; ++i)
+				{
+					for (int j = 0; j < n - 1; ++j)
+					{
+						indices[k]     = i * n + j;
+						indices[k + 1] = i * n + j + 1;
+						indices[k + 2] = (i + 1) * n + j;
+						indices[k + 3] = (i + 1) * n + j;
+						indices[k + 4] = i * n + j + 1;
+						indices[k + 5] = (i + 1) * n + j + 1;
+
+						k += 6;
+					}
+				}
+
+				directx::IndexBuffer* ib = new directx::IndexBuffer(indices, indicesCount * 3);
+
+				return new Mesh(va, ib);
+			}
+
 		}
 	}
 }

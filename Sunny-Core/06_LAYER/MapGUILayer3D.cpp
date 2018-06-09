@@ -12,8 +12,7 @@ MapGUILayer3D::MapGUILayer3D()
 
 	Application::GetApplication().PushLayer2D(m_layer2D);
 
-	m_layer2D->camera_position = GetCamera()->GetPosition();
-	m_layer2D->camera_focalPoint = GetCamera()->GetFocalPoint();
+	
 }
 
 MapGUILayer3D::~MapGUILayer3D()
@@ -36,12 +35,25 @@ void MapGUILayer3D::OnInit(Renderer3D& renderer)
 	PushLightSetup(lights);
 
 
-	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
-	Entity* yAxis = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
-	Entity* zAxis = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
+	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 0), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
+	Entity* yAxis = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 0), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
+	Entity* zAxis = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 0), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
 	Add(xAxis);
 	Add(yAxis);
 	Add(zAxis);
+
+	model_axis = new Group3D();
+
+	Entity* model_x = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 0));
+	Entity* model_y = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 0));
+	Entity* model_z = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 0));
+	model_axis->Add(model_x);
+	model_axis->Add(model_y);
+	model_axis->Add(model_z);
+
+	model_axis->GetTransformComponent()->SetScale(vec3(100, 100, 100));
+	
+	Add(model_axis);
 
 
 
@@ -79,6 +91,11 @@ void MapGUILayer3D::OnInit(Renderer3D& renderer)
 		}
 	}
 
+	Mesh* g = MeshFactory::CreateGeometry(7000, 7000, 100, 100);
+
+	Entity* geom = new Entity(g, new Texture2D("/TEXTURE/02_body.png"));
+
+	Add(geom);
 }
 
 void MapGUILayer3D::OnTick()
@@ -88,7 +105,8 @@ void MapGUILayer3D::OnTick()
 
 void MapGUILayer3D::OnUpdate(const utils::Timestep& ts)
 {
-	
+	m_layer2D->camera_position = GetCamera()->GetPosition();
+	m_layer2D->camera_focalPoint = GetCamera()->GetFocalPoint();
 
 	if (m_pickedModel)
 	{
@@ -98,7 +116,8 @@ void MapGUILayer3D::OnUpdate(const utils::Timestep& ts)
 		auto r = a->GetRotation();
 		auto s = a->GetScale();
 
-
+	
+		model_axis->GetTransformComponent()->SetPosition(a->GetPosition() + m_pickedModel->GetMesh()->center);
 	}
 
 }
@@ -120,7 +139,7 @@ bool MapGUILayer3D::OnKeyPressedEvent(KeyPressedEvent& event)
 
 	auto a = m_pickedModel->GetTransformComponent();
 
-	if (event.GetKeyCode() == SUNNY_KEY_W) a->Translate(vec3(0, 0, 10));
+	/*if (event.GetKeyCode() == SUNNY_KEY_W) a->Translate(vec3(0, 0, 10));
 	if (event.GetKeyCode() == SUNNY_KEY_S) a->Translate(vec3(0, 0, -10));
 	if (event.GetKeyCode() == SUNNY_KEY_A) a->Translate(vec3(-10, 0, 0));
 	if (event.GetKeyCode() == SUNNY_KEY_D) a->Translate(vec3(10, 0, 0));
@@ -139,7 +158,7 @@ bool MapGUILayer3D::OnKeyPressedEvent(KeyPressedEvent& event)
 		if (event.GetKeyCode() == SUNNY_KEY_1) a->Rotate(vec3(-1, 0, 0));
 		if (event.GetKeyCode() == SUNNY_KEY_2) a->Rotate(vec3(0, -1, 0));
 		if (event.GetKeyCode() == SUNNY_KEY_3) a->Rotate(vec3(0, 0, -1));
-	}
+	}*/
 
 	return false;
 }
@@ -153,22 +172,19 @@ bool MapGUILayer3D::OnKeyReleasedEvent(KeyReleasedEvent& event)
 
 bool MapGUILayer3D::OnMousePressedEvent(MousePressedEvent& event)
 {
-	//std::cout << "pressed (" << event.GetX()  << ", " << event.GetY() << ")" << std::endl;
+	if (!Input::IsKeyPressed(SUNNY_KEY_CONTROL)) return false;
 
 	float scaleX = Window::GetWindowClass()->GetResolutionWidth() / Window::GetWindowClass()->GetWidth();
 	float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
 
 	maths::vec2 mouse(event.GetX() * scaleX, event.GetY() * scaleY);
 
-	//std::cout << m_mousePicker->GetRay() << std::endl;
-
-	// 성능 저하의 원인 (레이캐스트 피킹방식으로 바꿔야 한다.)
 	
 	const unsigned char* diffuseData = directx::GeometryBuffer::GetIDData();
 	int rowPitch = directx::GeometryBuffer::GetMapRowPitch();
 
 	int col = event.GetX();
-	int row = Window::GetWindowClass()->GetHeight() - event.GetY();
+	int row = /*Window::GetWindowClass()->GetHeight() - */event.GetY();
 
 	int rowStart = row * rowPitch;
 	int colStart = col * 4;
@@ -187,7 +203,10 @@ bool MapGUILayer3D::OnMousePressedEvent(MousePressedEvent& event)
 	for (auto object : m_mapObjects)
 	{
 		if (object->GetID() == id)
+		{
 			m_pickedModel = object;
+			m_layer2D->SetPickedModel(m_pickedModel);
+		}
 	}
 	
 	return false;
@@ -199,6 +218,6 @@ bool MapGUILayer3D::OnMouseReleasedEvent(MouseReleasedEvent& event)
 	{
 		object->picked = false;
 	}
-
 	return false;
 }
+

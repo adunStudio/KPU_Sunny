@@ -39,12 +39,11 @@ namespace sunny
 			}
 
 
-			auto a = directx::Context::GetDevice()->CreateSamplerState(&renderTargetSamplerDesc, &m_samplers[0]);
-			auto b = directx::Context::GetDevice()->CreateSamplerState(&renderTargetSamplerDesc, &m_samplers[1]);
+			directx::Context::GetDevice()->CreateSamplerState(&renderTargetSamplerDesc, &m_samplers[0]);
+			directx::Context::GetDevice()->CreateSamplerState(&renderTargetSamplerDesc, &m_samplers[1]);
 			//auto b = directx::Context::GetDevice()->CreateSamplerState(&depthStencilSamplerDesc, &m_samplers[1]);
 
-			std::cout <<"a: "<<  a << std::endl;
-			std::cout <<"b: " << b << std::endl;
+			
 
 			Resize();
 		}
@@ -112,14 +111,12 @@ namespace sunny
 			}
 			
 			// 셰이더 리소스 뷰 생성
-			auto d = m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::DIFFUSE], &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::DIFFUSE]);
-			auto d2 = m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::NORMAL],  &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::NORMAL]);
-			auto d3 = m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::POSITION],&diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::POSITION]);
+			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::DIFFUSE], &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::DIFFUSE]);
+			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::NORMAL],  &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::NORMAL]);
+			m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::POSITION],&diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::POSITION]);
 			//m_context->GetDevice()->CreateShaderResourceView(m_textures[GeometryTextureType::ID],      &diffuseNormalShaderResourceViewDesc, &m_shaderResourceViews[GeometryTextureType::ID]);
 		
-			std::cout << d << std::endl;
-			std::cout << d2 << std::endl;
-			std::cout << d3 << std::endl;
+			
 
 			// 깊이/스텐실 텍스쳐 설명 구조체
 			D3D11_TEXTURE2D_DESC depthStencilTextureDesc;
@@ -226,27 +223,24 @@ namespace sunny
 				copyTextureDesc.MiscFlags = 0;
 			}
 
-			auto z = m_context->GetDevice()->CreateTexture2D(&copyTextureDesc, NULL, &m_copyTexture);
-
-			std::cout << "z: " << z << std::endl;
+			 m_context->GetDevice()->CreateTexture2D(&copyTextureDesc, NULL, &m_copyTexture);
 		}
 
 		void GeometryBuffer::CopyIDInternal()
 		{
-			m_context->GetDeviceContext(D3)->CopyResource(m_copyTexture, m_textures[GeometryTextureType::DIFFUSE]);
+			m_context->GetDeviceContext(D2)->CopyResource(m_copyTexture, m_textures[GeometryTextureType::DIFFUSE]);
 		}
 
 		const unsigned char* GeometryBuffer::GetIDDataInternal()
 		{
 			CopyIDInternal();
 
-			auto aa = m_context->GetDeviceContext(D3)->Map(m_copyTexture, NULL, D3D11_MAP_READ, NULL, &m_mappedSubresource);
+			m_context->GetDeviceContext(D2)->Map(m_copyTexture, NULL, D3D11_MAP_READ, NULL, &m_mappedSubresource);
 		
 			const unsigned char* data = reinterpret_cast<const unsigned char*>(m_mappedSubresource.pData);
 			
-			m_context->GetDeviceContext(D3)->Unmap(m_copyTexture, NULL);
+			m_context->GetDeviceContext(D2)->Unmap(m_copyTexture, NULL);
 
-			std::cout << "aa : " << aa << std::endl;
 
 			return data;
 		}

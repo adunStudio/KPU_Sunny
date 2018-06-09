@@ -74,6 +74,8 @@ cbuffer PSSystemUniforms : register(b0)
 
 float4 PSMain(VSOutput input) : SV_TARGET
 {
+	//return diffuseMap.Load(float3(input.position.x, input.position.y, 0)).xyzw;
+
 	if ( CheckOutLine(input) > 0 )
 		return float4(0.1f, 0.1f, 0.1f, 0.89f);
 

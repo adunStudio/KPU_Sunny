@@ -16,6 +16,8 @@ public:
 
 	Model3D* m_pickedModel = nullptr;
 
+	Group3D* model_axis = nullptr;
+
 public:
 	MapGUILayer3D();
 	~MapGUILayer3D();

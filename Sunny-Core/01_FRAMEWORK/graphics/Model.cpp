@@ -110,12 +110,6 @@ namespace sunny
 				ReadBytes(f, m_format->vertexData[i], m_format->vertexBufferSize);
 			}
 
-			// Á¤Á¡¹öÆÛ ÆÄ½Ì
-			/*{
-				format.vertexData = new unsigned char[format.vertexBufferSize];
-				ReadBytes(f, format.vertexData, format.vertexBufferSize);
-			}*/
-
 			// ÀÎµ¦½º¹öÆÛ Å©±â ÆÄ½Ì
 			{
 				unsigned char buffer[4];
@@ -262,6 +256,13 @@ namespace sunny
 
 		void Model::LoadMesh()
 		{
+			float min_x =  999999;
+			float max_x = -999999;
+			float min_y =  999999;
+			float max_y = -999999;
+			float min_z =  999999;
+			float max_z = -999999;
+
 			if (m_type == SUN)
 			{
 				ShaderFactory::Default3DForwardShader()->Bind();
@@ -272,6 +273,14 @@ namespace sunny
 				{
 					directx::VertexBuffer* buffer = new directx::VertexBuffer();
 					buffer->SetData(m_format->vertexBufferSize, m_format->vertexData[i]);
+
+					Vertex3D* a = reinterpret_cast<Vertex3D*>(m_format->vertexData[i]);
+					if (a->position.x < min_x) min_x = a->position.x;
+					if (a->position.y < min_y) min_y = a->position.y;
+					if (a->position.z < min_z) min_z = a->position.z;
+					if (a->position.x > max_x) max_x = a->position.x;
+					if (a->position.y > max_y) max_y = a->position.y;
+					if (a->position.z > max_z) max_z = a->position.z;
 
 					directx::BufferLayout layout;
 					layout.Push<maths::vec3>("POSITION");
@@ -289,6 +298,10 @@ namespace sunny
 					m_mesh = new AnimationMesh(va, ib, m_format->animationLength);
 				else
 					m_mesh = new Mesh(va, ib);
+
+				m_mesh->center.x = (min_x + max_x) / 2.0f;
+				m_mesh->center.y = (min_y + max_y) / 2.0f;
+				m_mesh->center.z = (min_z + max_z) / 2.0f;
 
 				delete m_format;
 			}

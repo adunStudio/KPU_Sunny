@@ -132,7 +132,11 @@ float4 PSMain(in VSOutput input) : SV_TARGET
 
 	}
 
-	
+	if (texColor.w == 0)
+	{
+		texColor.w = 1;
+		return texColor;
+	}
 
 	float3 color = texColor.xyz;
 

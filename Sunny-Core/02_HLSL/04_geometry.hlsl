@@ -92,7 +92,7 @@ PSOutput PSMain(in VSOutput input)
 	float4 id = (float4)SUNNY_ID;
 	float s_id = id.r + id.g * 256 + id.b * 256 * 256;
 
-	output.diffuse = texColor;
+	output.diffuse = id;
 	output.normal = float4(input.normal, s_id);
 	output.position = input.position;
 	//output.id      = id;

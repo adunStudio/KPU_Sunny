@@ -22,13 +22,14 @@ namespace sunny
 		private:
 			void InitTransform();
 
-			void CalTransform();
 
 		private:
 			inline void SetTransform(const mat4& transform) { m_transform = transform; }
 
 		public:
 			TransformComponent(const mat4& transform);
+
+			void CalTransform();
 
 			inline const mat4& GetTransform() const { return m_transform; }
 

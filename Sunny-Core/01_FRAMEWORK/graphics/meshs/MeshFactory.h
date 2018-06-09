@@ -21,6 +21,8 @@ namespace sunny
 			Mesh* CreateXAxis();
 			Mesh* CreateYAxis();
 			Mesh* CreateZAxis();
+
+			Mesh* CreateGeometry(float width, float depth, int m, int n);
 		}
 	}
 }

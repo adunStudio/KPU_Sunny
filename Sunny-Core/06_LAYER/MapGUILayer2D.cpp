@@ -25,7 +25,13 @@ void MapGUILayer2D::OnTick()
 
 void MapGUILayer2D::OnUpdate(const utils::Timestep& ts)
 {
-
+	if (m_pickedModel)
+	{
+		auto component = m_pickedModel->GetTransformComponent();
+		component->SetPosition(model_position);
+		component->SetRotation(model_rotation);
+		component->SetScale(model_scale);
+	}
 }
 
 void MapGUILayer2D::OnRender(Renderer2D& renderer)
@@ -37,7 +43,7 @@ void MapGUILayer2D::OnRender(Renderer2D& renderer)
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 	ImGui::SetWindowSize(ImVec2((float)Window::GetWindowClass()->GetWidth(), (float)Window::GetWindowClass()->GetHeight()));
-
+	/*
 	{
 		static float f = 0.0f;
 		static int counter = 0;
@@ -54,9 +60,10 @@ void MapGUILayer2D::OnRender(Renderer2D& renderer)
 		ImGui::Text("counter = %d", counter);
 
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-	}
+	}*/
 
 	// 2. Show another simple window. In most cases you will use an explicit Begin/End pair to name your windows.
+	/*
 	if (show_another_window)
 	{
 		ImGui::Begin("Another Window", &show_another_window);
@@ -65,15 +72,36 @@ void MapGUILayer2D::OnRender(Renderer2D& renderer)
 			show_another_window = false;
 		ImGui::End();
 	}
+	*/
 
 	// 3. Show the ImGui demo window. Most of the sample code is in ImGui::ShowDemoWindow(). Read its code to learn more about Dear ImGui!
-	if (show_demo_window)
+	/*if (show_demo_window)
 	{
 		ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver); // Normally user code doesn't need/want to call this because positions are saved in .ini file anyway. Here we just want to make the demo initial state a bit more friendly!
 		ImGui::ShowDemoWindow(&show_demo_window);
 	}
-	float str0;
+	*/
 
+	/* Setting */
+	ImGui::Begin("Setting", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+	{
+		ImGui::SetWindowPos(ImVec2(5, 5));
+		if (ImGui::Button("Save"))
+		{
+
+		}
+
+		ImGui::SameLine();
+
+		char* label = directx::Context::s_solidFrame ? "Solid" : "WireFrame";
+
+		if (ImGui::Button(label))
+		{
+			directx::Context::s_solidFrame = !directx::Context::s_solidFrame;
+			directx::Context::GetContext()->SetSolid();
+		}
+	}
+	ImGui::End();
 
 	/* Map Editor */
 	ImGui::Begin("Map Editor", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
@@ -101,24 +129,24 @@ void MapGUILayer2D::OnRender(Renderer2D& renderer)
 			ImGui::PopItemWidth();
 		}
 
+		if (ImGui::CollapsingHeader("Terrain Component", &open_transform, ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			
+	
+		}
+
 		if (ImGui::CollapsingHeader("Camera Component", &open_transform, ImGuiTreeNodeFlags_DefaultOpen))
 		{
 			ImGui::Text("Position");
 			ImGui::SameLine(80);
 			ImGui::PushItemWidth(-1);
-			ImGui::InputFloat3("#camera_position", &camera_position[0], 2);
+			ImGui::InputFloat3("#camera_position",   &camera_position[0], 2);
 			ImGui::PopItemWidth();
 
 			ImGui::Text("FocalPoint");
 			ImGui::SameLine(80);
 			ImGui::PushItemWidth(-1);
 			ImGui::InputFloat3("#camera_focalPoint", &camera_focalPoint[0], 2);
-			ImGui::PopItemWidth();
-
-			ImGui::Text("Scale");
-			ImGui::SameLine(80);
-			ImGui::PushItemWidth(-1);
-			ImGui::InputFloat3("#model_scale", &model_scale[0], 2);
 			ImGui::PopItemWidth();
 		}
 	}
@@ -136,4 +164,15 @@ void MapGUILayer2D::OnRender(Renderer2D& renderer)
 	// Rendering
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+}
+
+void MapGUILayer2D::SetPickedModel(Model3D* model)
+{
+	m_pickedModel = model;
+
+	auto component = m_pickedModel->GetTransformComponent();
+
+	model_position = vec3(component->GetPosition());
+	model_rotation = vec3(component->GetRotation());
+	model_scale    = vec3(component->GetScale());
 }

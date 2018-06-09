@@ -30,6 +30,9 @@ namespace sunny
 			directx::IndexBuffer* m_indexBuffer;
 
 		public:
+			maths::vec3 center;
+
+		public:
 			Mesh(directx::VertexArray* vertexArray, directx::IndexBuffer* indexBuffer);
 
 			virtual ~Mesh();

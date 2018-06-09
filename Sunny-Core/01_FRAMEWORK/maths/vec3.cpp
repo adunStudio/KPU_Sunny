@@ -28,6 +28,11 @@ namespace sunny
         {
         }
 
+		vec3::vec3(const vec3& other) : x(other.x), y(other.y), z(other.z)
+		{
+
+		}
+
         vec3::vec3(float x, float y) : x(x), y(y), z(0.0f)
         {
         }

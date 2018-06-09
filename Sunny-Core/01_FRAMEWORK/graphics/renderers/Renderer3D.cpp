@@ -216,7 +216,7 @@ namespace sunny
 
 			// 카메라 위치와  객체 위치의 거리에 따라 정렬
 			std::sort(m_renderCommandQueue.begin(), m_renderCommandQueue.end(), [&cameraPosition](const RenderCommand& a, RenderCommand& b) {
-				return  cameraPosition.Distance(a.transform.GetPosition()) >
+				return  cameraPosition.Distance(a.transform.GetPosition()) <
 					cameraPosition.Distance(b.transform.GetPosition());
 			});
 		}

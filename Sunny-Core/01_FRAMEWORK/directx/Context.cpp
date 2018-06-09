@@ -15,6 +15,8 @@ namespace sunny
 
 		Context* Context::s_context = nullptr;
 
+		bool Context::s_solidFrame = true;
+
 		void Context::Create(WindowProperties properties, void* deviceContext)
 		{
 			s_context = new Context(properties, deviceContext);
@@ -219,9 +221,36 @@ namespace sunny
 				rasterDesc.DepthBias = 0;
 				rasterDesc.DepthBiasClamp = 0.0f;
 				rasterDesc.DepthClipEnable = true;
-				rasterDesc.FillMode =/* D3D11_FILL_WIREFRAME;//*/ D3D11_FILL_SOLID;       // 와이어 프레임 or 솔리드 프레임
+				rasterDesc.FillMode = s_solidFrame ? D3D11_FILL_SOLID : D3D11_FILL_WIREFRAME;/* D3D11_FILL_SOLID;*/       // 와이어 프레임 or 솔리드 프레임
 				rasterDesc.FrontCounterClockwise = false;      // 시계 방향 삼각형 전면(true), 반시계 방향 삼각형 전면(false)
 				// http://hns17.tistory.com/entry/Common3%EC%B0%A8%EC%9B%90-%EA%B3%B5%EA%B0%84-%EC%A2%8C%ED%91%9C%EA%B3%84
+				rasterDesc.MultisampleEnable = true;
+				rasterDesc.ScissorEnable = false;
+				rasterDesc.SlopeScaledDepthBias = 0.0f;
+			}
+
+			ID3D11RasterizerState* rs;
+			dev->CreateRasterizerState(&rasterDesc, &rs);
+			devcon[DIMENSION::D3]->RSSetState(rs);
+			devcon[DIMENSION::D2]->RSSetState(rs);
+
+			ReleaseCOM(rs);
+		}
+
+		void Context::SetSolid()
+		{
+			D3D11_RASTERIZER_DESC rasterDesc;
+			{
+				// 고급 기술을 위한 것이므로 그리 자주 쓰이지 않는다.
+				// 자세한 설명은 SDK 문서를 참고 바랍니다.
+				rasterDesc.AntialiasedLineEnable = false;
+				rasterDesc.CullMode = D3D11_CULL_NONE;         // NONE: 삼각형 선별 비활성화, BACK: 후면 삼각형 제외, FRONT: 전면 삼각형 제외
+				rasterDesc.DepthBias = 0;
+				rasterDesc.DepthBiasClamp = 0.0f;
+				rasterDesc.DepthClipEnable = true;
+				rasterDesc.FillMode = s_solidFrame ? D3D11_FILL_SOLID : D3D11_FILL_WIREFRAME;/* D3D11_FILL_SOLID;*/       // 와이어 프레임 or 솔리드 프레임
+				rasterDesc.FrontCounterClockwise = false;      // 시계 방향 삼각형 전면(true), 반시계 방향 삼각형 전면(false)
+															   // http://hns17.tistory.com/entry/Common3%EC%B0%A8%EC%9B%90-%EA%B3%B5%EA%B0%84-%EC%A2%8C%ED%91%9C%EA%B3%84
 				rasterDesc.MultisampleEnable = true;
 				rasterDesc.ScissorEnable = false;
 				rasterDesc.SlopeScaledDepthBias = 0.0f;

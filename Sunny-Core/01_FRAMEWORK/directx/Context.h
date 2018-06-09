@@ -28,6 +28,10 @@ namespace sunny
 			static Context* s_context;
 
 		public:
+
+			static bool s_solidFrame;
+
+		public:
 			static void Create(WindowProperties properties, void* deviceContext);
 
 		public:
@@ -64,6 +68,8 @@ namespace sunny
 			void Present3D();
 
 			void Present();
+
+			void SetSolid();
 
 		private:		
 			void InitD3D(HWND hWnd);
