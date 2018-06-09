@@ -10,14 +10,14 @@ using namespace game;
 class MapGUILayer3D : public Layer3D
 {
 public:
-	MapGUILayer2D& m_layer2D;
+	MapGUILayer2D* m_layer2D;
 
 	vector<Model3D*> m_mapObjects;
 
 	Model3D* m_pickedModel = nullptr;
 
 public:
-	MapGUILayer3D(MapGUILayer2D& layer);
+	MapGUILayer3D();
 	~MapGUILayer3D();
 
 	void OnInit(Renderer3D& renderer) override;

@@ -15,7 +15,6 @@ MapGUILayer2D::~MapGUILayer2D()
 
 void MapGUILayer2D::OnInit(Renderer2D& renderer)
 {
-	Application::GetApplication().PushLayer3D(new MapGUILayer3D(*this));
 	ImGui::GetStyle().WindowRounding = 3.0f;
 }
 

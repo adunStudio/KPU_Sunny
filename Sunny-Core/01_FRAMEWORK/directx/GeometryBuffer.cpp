@@ -13,7 +13,7 @@ namespace sunny
 
 		void GeometryBuffer::Init()
 		{
-			//if (s_instance) return;
+			if (s_instance) return;
 
 			s_instance = new GeometryBuffer();
 			s_instance->InitInternal();
@@ -226,23 +226,27 @@ namespace sunny
 				copyTextureDesc.MiscFlags = 0;
 			}
 
-			m_context->GetDevice()->CreateTexture2D(&copyTextureDesc, NULL, &m_copyTexture);
+			auto z = m_context->GetDevice()->CreateTexture2D(&copyTextureDesc, NULL, &m_copyTexture);
+
+			std::cout << "z: " << z << std::endl;
 		}
 
 		void GeometryBuffer::CopyIDInternal()
 		{
-			m_context->GetDeviceContext()->CopyResource(m_copyTexture, m_textures[GeometryTextureType::ID]);
+			m_context->GetDeviceContext(D3)->CopyResource(m_copyTexture, m_textures[GeometryTextureType::DIFFUSE]);
 		}
 
 		const unsigned char* GeometryBuffer::GetIDDataInternal()
 		{
 			CopyIDInternal();
 
-			m_context->GetDeviceContext()->Map(m_copyTexture, NULL, D3D11_MAP_READ, NULL, &m_mappedSubresource);
+			auto aa = m_context->GetDeviceContext(D3)->Map(m_copyTexture, NULL, D3D11_MAP_READ, NULL, &m_mappedSubresource);
 		
 			const unsigned char* data = reinterpret_cast<const unsigned char*>(m_mappedSubresource.pData);
 			
-			m_context->GetDeviceContext()->Unmap(m_copyTexture, NULL);
+			m_context->GetDeviceContext(D3)->Unmap(m_copyTexture, NULL);
+
+			std::cout << "aa : " << aa << std::endl;
 
 			return data;
 		}
