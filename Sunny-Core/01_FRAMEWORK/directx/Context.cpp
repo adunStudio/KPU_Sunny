@@ -283,6 +283,8 @@ namespace sunny
 			if (hr == S_OK && commandList)
 			{
 				devcon[DIMENSION::D2]->ExecuteCommandList(commandList, TRUE);
+
+				commandList->Release();
 			}
 		}
 
