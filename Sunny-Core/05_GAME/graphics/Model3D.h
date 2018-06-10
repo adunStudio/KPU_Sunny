@@ -12,6 +12,7 @@ namespace game
 	{
 	public:
 		bool picked;
+		std::string name;
 
 	private:
 		maths::vec2 m_initialMousePosition;

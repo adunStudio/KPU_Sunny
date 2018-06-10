@@ -8,7 +8,7 @@ template <typename T> string tostr(const T& t) {
 
 MapGUILayer3D::MapGUILayer3D()
 {
-	m_layer2D = new MapGUILayer2D();
+	m_layer2D = new MapGUILayer2D(this);
 
 	Application::GetApplication().PushLayer2D(m_layer2D);
 
@@ -44,14 +44,15 @@ void MapGUILayer3D::OnInit(Renderer3D& renderer)
 
 	model_axis = new Group3D();
 
-	Entity* model_x = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 0));
-	Entity* model_y = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 0));
-	Entity* model_z = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 0));
+	model_x = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 0));
+	model_y = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 0));
+	model_z = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 0));
+
 	model_axis->Add(model_x);
 	model_axis->Add(model_y);
 	model_axis->Add(model_z);
 
-	model_axis->GetTransformComponent()->SetScale(vec3(100, 100, 100));
+	model_axis->GetTransformComponent()->SetScale(vec3(300, 300, 300));
 	
 	Add(model_axis);
 
@@ -93,7 +94,7 @@ void MapGUILayer3D::OnInit(Renderer3D& renderer)
 
 	Mesh* g = MeshFactory::CreateGeometry(7000, 7000, 100, 100);
 
-	Entity* geom = new Entity(g, new Texture2D("/TEXTURE/02_body.png"));
+	Entity* geom = new Entity(g, new Texture2D("/TEXTURE/terrain_basic.png"));
 
 	Add(geom);
 }
@@ -130,7 +131,9 @@ void MapGUILayer3D::OnEvent(Event& event)
 	dispatcher.Dispatch<KeyReleasedEvent>(METHOD(&MapGUILayer3D::OnKeyReleasedEvent));
 	dispatcher.Dispatch<MousePressedEvent>(METHOD(&MapGUILayer3D::OnMousePressedEvent));
 	dispatcher.Dispatch<MouseReleasedEvent>(METHOD(&MapGUILayer3D::OnMouseReleasedEvent));
+	dispatcher.Dispatch<MouseMovedEvent>(METHOD(&MapGUILayer3D::OnMouseMovedEvent));
 }
+
 
 bool MapGUILayer3D::OnKeyPressedEvent(KeyPressedEvent& event)
 {
@@ -172,14 +175,13 @@ bool MapGUILayer3D::OnKeyReleasedEvent(KeyReleasedEvent& event)
 
 bool MapGUILayer3D::OnMousePressedEvent(MousePressedEvent& event)
 {
-	if (!Input::IsKeyPressed(SUNNY_KEY_CONTROL)) return false;
-
 	float scaleX = Window::GetWindowClass()->GetResolutionWidth() / Window::GetWindowClass()->GetWidth();
 	float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
 
 	maths::vec2 mouse(event.GetX() * scaleX, event.GetY() * scaleY);
 
-	
+	prevMouse = mouse;
+
 	const unsigned char* diffuseData = directx::GeometryBuffer::GetIDData();
 	int rowPitch = directx::GeometryBuffer::GetMapRowPitch();
 
@@ -198,12 +200,32 @@ bool MapGUILayer3D::OnMousePressedEvent(MousePressedEvent& event)
 	unsigned int aa = (A << 24) | (R << 16) | (G << 8) | B;
 	unsigned int id = R + G * 256 + B * 256 * 256;
 
-	std::cout << id << std::endl;
+	if (!Input::IsKeyPressed(SUNNY_KEY_CONTROL))
+	{
+		if (m_pickedModel)
+		{
+			if (id == model_x->GetID())
+				x_position_mode = true;
+
+			if (id == model_y->GetID())
+				y_position_mode = true;
+
+			if (id == model_z->GetID())
+				z_position_mode = true;
+		}
+
+		return false;
+	}
+
 
 	for (auto object : m_mapObjects)
 	{
 		if (object->GetID() == id)
 		{
+			if (m_pickedModel)
+				m_pickedModel->picked = false;
+
+			object->picked = true;
 			m_pickedModel = object;
 			m_layer2D->SetPickedModel(m_pickedModel);
 		}
@@ -212,12 +234,34 @@ bool MapGUILayer3D::OnMousePressedEvent(MousePressedEvent& event)
 	return false;
 }
 
+bool MapGUILayer3D::OnMouseMovedEvent(MouseMovedEvent& event)
+{
+	float scaleX = Window::GetWindowClass()->GetResolutionWidth() / Window::GetWindowClass()->GetWidth();
+	float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
+
+	maths::vec2 mouse(event.GetX() * scaleX, event.GetY() * scaleY);
+
+
+	if (x_position_mode)
+		m_layer2D->model_position.x += (mouse.x - prevMouse.x) * 2;
+	if (y_position_mode)
+		m_layer2D->model_position.y += (prevMouse.y - mouse.y) * 2;
+	if (z_position_mode)
+		m_layer2D->model_position.z += (prevMouse.y - mouse.y) * 2;
+
+
+	prevMouse = mouse;
+
+	return false;
+}
+
+
 bool MapGUILayer3D::OnMouseReleasedEvent(MouseReleasedEvent& event)
 {
-	for (auto object : m_mapObjects)
-	{
-		object->picked = false;
-	}
+	x_position_mode = false;
+	y_position_mode = false;
+	z_position_mode = false;
+
 	return false;
 }
 

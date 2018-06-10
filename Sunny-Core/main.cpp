@@ -44,6 +44,7 @@ public:
 		VFS::Get()->Mount("SOUND",   "04_ASSET/SOUND");
 		
 		new Music("loading", "/SOUND/sunny_loading.mp3");
+		new Music("room",    "/SOUND/sunny_room.mp3");
 
 		game::AssetLoader::LoadTexture("/JSON/TEXTURE/Rooms.json", DIMENSION::D2);
 

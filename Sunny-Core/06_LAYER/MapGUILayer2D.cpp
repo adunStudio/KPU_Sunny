@@ -1,9 +1,16 @@
 #include "MapGUILayer2D.h"
-
+#include "MapGUILayer3D.h"
 #include "../06_LAYER/MapGUILayer3D.h"
 
-MapGUILayer2D::MapGUILayer2D() 
+template <typename T> string tostr(const T& t) {
+	ostringstream os;
+	os << t;
+	return os.str();
+}
+
+MapGUILayer2D::MapGUILayer2D(MapGUILayer3D* layer)
 : Layer2D(maths::mat4::Orthographic(0.0f, Application::GetApplication().GetWindowWidth(), 0.0f, Application::GetApplication().GetWindowHeight(), -1.0f, 1.0f))
+, m_layer3D(layer)
 {
 
 }
@@ -81,16 +88,17 @@ void MapGUILayer2D::OnRender(Renderer2D& renderer)
 		ImGui::ShowDemoWindow(&show_demo_window);
 	}
 	*/
-
+	ImGui::ShowDemoWindow(&show_demo_window);
 	/* Setting */
-	ImGui::Begin("Setting", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+	ImGui::Begin("Option", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
 	{
 		ImGui::SetWindowPos(ImVec2(5, 5));
+		ImGui::SetWindowSize(ImVec2(175, 65));
+
 		if (ImGui::Button("Save"))
 		{
 
 		}
-
 		ImGui::SameLine();
 
 		char* label = directx::Context::s_solidFrame ? "Solid" : "WireFrame";
@@ -99,6 +107,71 @@ void MapGUILayer2D::OnRender(Renderer2D& renderer)
 		{
 			directx::Context::s_solidFrame = !directx::Context::s_solidFrame;
 			directx::Context::GetContext()->SetSolid();
+		}
+	}
+	ImGui::End();
+
+	/* Object */
+	ImGui::Begin("Objects", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
+	{
+		ImGui::SetWindowPos(ImVec2(5, 75));
+		ImGui::SetWindowSize(ImVec2(240, 620));
+
+		vector<Model3D*>& mapObjects = m_layer3D->m_mapObjects;
+
+		int number = 1;
+		string name = "";
+		string del_name = "";
+
+		bool push = false;
+		for (auto object : mapObjects)
+		{
+			name = tostr(number) + "." + object->name;
+			del_name = "X       " + tostr(number); //
+			
+			if (object->picked) push = true;
+			else push = false;
+
+			if(push)
+			{
+				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(ImColor(150, 140, 61, 255)));
+				ImGui::SetScrollHere();
+			}
+
+			if (ImGui::Button(name.c_str()))
+			{
+				if (m_pickedModel)
+					m_pickedModel->picked = false;
+
+				m_layer3D->m_pickedModel = object;
+				SetPickedModel(object);
+
+				object->picked = true;
+
+			}
+			ImGui::SameLine(200);
+			
+			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(ImColor(153, 61, 61, 255)));
+			if (ImGui::Button(del_name.c_str()))
+			{
+				if (m_pickedModel == object)
+				{
+					m_pickedModel = nullptr;
+					m_layer3D->m_pickedModel = nullptr;
+				}
+				
+				m_layer3D->Remove(object);
+
+				delete object;
+
+				mapObjects.erase(std::remove(mapObjects.begin(), mapObjects.end(), object), mapObjects.end());
+			}
+			ImGui::PopStyleColor();
+
+			if(push)
+				ImGui::PopStyleColor();
+
+			number++;
 		}
 	}
 	ImGui::End();
@@ -168,11 +241,16 @@ void MapGUILayer2D::OnRender(Renderer2D& renderer)
 
 void MapGUILayer2D::SetPickedModel(Model3D* model)
 {
-	m_pickedModel = model;
+	m_pickedModel = nullptr;
+	
 
-	auto component = m_pickedModel->GetTransformComponent();
+	auto component = model->GetTransformComponent();
 
 	model_position = vec3(component->GetPosition());
 	model_rotation = vec3(component->GetRotation());
 	model_scale    = vec3(component->GetScale());
+
+	m_first = true;
+	
+	m_pickedModel = model;
 }

@@ -256,12 +256,12 @@ namespace sunny
 
 		void Model::LoadMesh()
 		{
-			float min_x =  999999;
-			float max_x = -999999;
-			float min_y =  999999;
-			float max_y = -999999;
-			float min_z =  999999;
-			float max_z = -999999;
+			float min_x =  99999999;
+			float max_x = -99999999;
+			float min_y =  99999999;
+			float max_y = -99999999;
+			float min_z =  99999999;
+			float max_z = -99999999;
 
 			if (m_type == SUN)
 			{

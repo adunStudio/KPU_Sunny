@@ -27,6 +27,19 @@ namespace sunny
 			return renderable;
 		}
 
+		Renderable3D* Layer3D::Remove(Renderable3D* renderable)
+		{
+			for (unsigned int i = 0; i < m_renderables.size(); ++i)
+			{
+				if (m_renderables[i] == renderable)
+				{
+					m_renderables.erase(m_renderables.begin() + i);
+				}
+			}
+
+			return renderable;
+		}
+
 		Renderable3D* Layer3D::AddStatic(Renderable3D* renderable)
 		{
 			m_renderer->SubmitStatic3D(renderable);

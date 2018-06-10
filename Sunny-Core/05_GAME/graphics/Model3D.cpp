@@ -3,7 +3,7 @@
 namespace game
 {
 	Model3D::Model3D(const std::string& name, const mat4& transform)
-	: Entity(transform), picked(false)
+	: Entity(transform), picked(false), name(name)
 	{
 		ModelData* data = AssetData::GetModelData(name);
 		

@@ -17,6 +17,16 @@ public:
 	Model3D* m_pickedModel = nullptr;
 
 	Group3D* model_axis = nullptr;
+	
+	Entity* model_x;
+	Entity* model_y;
+	Entity* model_z;
+
+	vec3 prevMouse;
+
+	bool x_position_mode = false;
+	bool y_position_mode = false;
+	bool z_position_mode = false;
 
 public:
 	MapGUILayer3D();
@@ -32,4 +42,5 @@ public:
 	bool OnKeyReleasedEvent(KeyReleasedEvent& event);
 	bool OnMousePressedEvent(MousePressedEvent& event);
 	bool OnMouseReleasedEvent(MouseReleasedEvent& event);
+	bool OnMouseMovedEvent(MouseMovedEvent& event);
 };

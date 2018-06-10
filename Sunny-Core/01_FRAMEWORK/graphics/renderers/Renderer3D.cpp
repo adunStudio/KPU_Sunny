@@ -64,7 +64,7 @@ namespace sunny
 
 			m_gBuffer     = new GBuffer();
 
-			m_lightCamera = new LightCamera(maths::mat4::Perspective(65.0f, 1.0f, 0.1f, 10000.0f));
+			m_lightCamera = new LightCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.0f));
 
 			m_default_shadow_shader   = ShaderFactory::Default3DShadowShader();
 			m_default_forward_shader  = ShaderFactory::Default3DForwardShader();

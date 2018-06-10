@@ -235,6 +235,7 @@ void LoadingLayer2D::GoToRoom()
 	delete Application::GetApplication().PopLayer(this);
 
 	MusicManager::Get("loading")->Stop();
+	MusicManager::Get("room")->Loop();
 }
 
 void StartLoad(LoadingLayer2D* layer)
