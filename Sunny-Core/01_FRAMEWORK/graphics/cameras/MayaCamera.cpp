@@ -33,9 +33,6 @@ namespace sunny
 
 		void MayaCamera::Update()
 		{
-			std::cout << "yaw: "<<  m_yaw << std::endl;
-			std::cout << "pitch: " << m_yaw << std::endl;
-			std::cout << m_rotation<< std::endl;
 			if (Input::IsKeyPressed(SUNNY_KEY_ALT))
 			{
 				const maths::vec2& mouse = Input::GetMousePosition();
