@@ -6,7 +6,7 @@ namespace sunny
 	namespace graphics
 	{
 		ParticleSystem::ParticleSystem(directx::Texture* texture)
-		: m_texture(texture), m_currentParticleCount(0), m_maxParticleCount(100), m_accumulatedTime(0.0f)
+		: m_texture(texture), m_currentParticleCount(0), m_maxParticleCount(100), m_accumulatedTime(0.0f), m_visible(true)
 		{
 			m_particleList     = new Particle[m_maxParticleCount];
 			m_particleVertices = new ParticleVertex[m_maxParticleCount];

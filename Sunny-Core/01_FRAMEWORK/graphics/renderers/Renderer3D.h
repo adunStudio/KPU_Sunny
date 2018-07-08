@@ -9,6 +9,7 @@
 #include "../shaders/ShaderFactory.h"
 #include "../GBuffer.h"
 #include "../../directx/DebugBuffer.h"
+#include "../particles/ParticleSystem.h"
 
 namespace sunny
 {
@@ -43,8 +44,11 @@ namespace sunny
 			directx::Shader* m_default_shadow_shader;           // 그림자     셰이더 
 			directx::Shader* m_default_geometry_shader;         // 지오메트리 셰이더
 			directx::Shader* m_default_outline_shader;          // 아웃라인   셰이더
+			directx::Shader* m_default_particle_shader;         // 파티클     셰이더
 
 			std::vector<Renderable3D*> m_renderables;
+
+			std::vector<ParticleSystem*> m_particles;
 
 			std::vector<RenderCommand> m_renderCommandQueue;
 			std::vector<RenderCommand> m_staticCommandQueue;
@@ -62,14 +66,17 @@ namespace sunny
 			unsigned char* m_VSSunnyShadowUniformBuffer;                            // 그림자 버텍스 셰이더 CBuffer                    
 			unsigned int   m_VSSunnyShadowUniformBufferSize;
 
-			unsigned char* m_PSSunnyGeometryUniformBuffer;                         // 지오메트리 버텍스 셰이더
+			unsigned char* m_PSSunnyGeometryUniformBuffer;                          // 지오메트리 버텍스 셰이더
 			unsigned int   m_PSSunnyGeometryUniformBufferSize;
 
+			unsigned char* m_VSSunnyParticleUniformBuffer;                          // 파티클 버텍스 셰이더 CBuffer                    
+			unsigned int   m_VSSunnyParticleUniformBufferSize;
 
 			std::vector<unsigned int> m_VSSunnyUniformBufferOffsets;                   // 기본   버텍스 셰이더 CBuffer 오프셋
 			std::vector<unsigned int> m_PSSunnyUniformBufferOffsets;                   // 기본   픽셀   셰이더 CBuffer 오프셋
 			std::vector<unsigned int> m_VSSunnyShadowUniformBufferOffsets;             // 그림자 버텍스 셰이더 CBuffer 오프셋
 			std::vector<unsigned int> m_PSSunnyGeometryUniformBufferOffsets;           // 지오메트리 픽셀 셰이더 CBuffer 오프셋
+			std::vector<unsigned int> m_VSSunnyParticleUniformBufferOffsets;           // 파티클 버텍스 셰이더 CBuffer 오프셋
 
 		public:
 			Renderer3D();
@@ -80,6 +87,7 @@ namespace sunny
 			void Begin();
 			void BeginScene(Camera* camera);
 			void Submit(Renderable3D* renderable);
+			void SubmitParticle(ParticleSystem* particle);
 			void Submit(const RenderCommand& command);
 			void SubmitStatic(const RenderCommand& command);
 			void SubmitRenderable3D(Renderable3D* renderable);
@@ -101,10 +109,13 @@ namespace sunny
 
 			void SkyboxPresentInternal();
 
+			void ParticlePresentInternal();
+
 			void SetSunnyVSUniforms        (directx::Shader* shader);
 			void SetSunnyPSUniforms        (directx::Shader* shader);
 			void SetSunnyShadowVSUniforms  (directx::Shader* shader);
 			void SetSunnyGeometryPSUniforms(directx::Shader* shader);
+			void SetSunnyParticleVSUniforms(directx::Shader* shader);
 		};
 	}
 }

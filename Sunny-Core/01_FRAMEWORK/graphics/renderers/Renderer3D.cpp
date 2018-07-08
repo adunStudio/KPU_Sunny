@@ -42,6 +42,14 @@ namespace sunny
 			PSSunnyGeometryUniformIndex_Size
 		};
 
+		enum VSSunnyParticleUniformIndices : int
+		{
+			VSSunnyParticleUniformIndex_ProjectionMatrix    = 0,
+			VSSunnyParticleUniformIndex_ViewMatrix          = 1,
+			VSSunnyParticleUniformIndex_ModelMatrix         = 2,
+			VSSunnyParticleUniformIndex_Size
+		};
+
 		Renderer3D::Renderer3D()
 		: m_skybox(nullptr)
 		{
@@ -59,6 +67,7 @@ namespace sunny
 
 		void Renderer3D::Init()
 		{
+			m_particles.reserve(100);
 			m_renderCommandQueue.reserve(1000);
 			m_staticCommandQueue.reserve(200);
 
@@ -70,6 +79,7 @@ namespace sunny
 			m_default_forward_shader  = ShaderFactory::Default3DForwardShader();
 			m_default_geometry_shader = ShaderFactory::Default3DGeometryShader();
 			m_default_outline_shader  = ShaderFactory::Default3DOutLineShader();
+			m_default_particle_shader = ShaderFactory::DefaultParticleShader();
 
 
 			/* 버텍스 셰이더 (기본) */
@@ -116,12 +126,23 @@ namespace sunny
 			m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_Color]      = 0;
 			m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_ID]         = m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_Color] + sizeof(maths::vec4);
 			m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_HasTexture] = m_PSSunnyGeometryUniformBufferOffsets[PSSunnyGeometryUniformIndex_ID] + sizeof(maths::vec4);
+
+
+			/* 버텍스 셰이더 (파티클) */
+			m_VSSunnyParticleUniformBufferSize = sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4);
+			m_VSSunnyParticleUniformBuffer     = new unsigned char[m_VSSunnyParticleUniformBufferSize];
+			memset(m_VSSunnyParticleUniformBuffer, 0, m_VSSunnyParticleUniformBufferSize);
+			m_VSSunnyParticleUniformBufferOffsets.resize(VSSunnyParticleUniformIndex_Size);
+			m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ProjectionMatrix] = 0;
+			m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ViewMatrix]       = m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ProjectionMatrix] + sizeof(maths::mat4);
+			m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ModelMatrix]      = m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ViewMatrix] + sizeof(maths::mat4);
 		}
 
 		void Renderer3D::Begin()
 		{
 			m_renderCommandQueue.clear();
 			m_sunnyUniforms.clear();
+			m_particles.clear();
 		}
 
 		void Renderer3D::BeginScene(Camera* camera)
@@ -129,6 +150,10 @@ namespace sunny
 			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ProjectionMatrix], &camera->GetProjectionMatrix(), sizeof(maths::mat4));
 			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_ViewMatrix],       &camera->GetViewMatrix(),       sizeof(maths::mat4));
 			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_CameraPosition],   &camera->GetPosition(),         sizeof(maths::vec3));
+
+			memcpy(m_VSSunnyParticleUniformBuffer + m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ProjectionMatrix], &camera->GetProjectionMatrix(), sizeof(maths::mat4));
+			memcpy(m_VSSunnyParticleUniformBuffer + m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ViewMatrix], &camera->GetViewMatrix(), sizeof(maths::mat4));
+			memcpy(m_VSSunnyParticleUniformBuffer + m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ModelMatrix], &(maths::mat4::Identity()), sizeof(maths::mat4));
 		}
 
 		void Renderer3D::Submit(Renderable3D* renderable)
@@ -144,6 +169,11 @@ namespace sunny
 		void Renderer3D::SubmitStatic(const RenderCommand& command)
 		{
 			m_staticCommandQueue.push_back(command);
+		}
+
+		void Renderer3D::SubmitParticle(ParticleSystem* particle)
+		{
+			m_particles.push_back(particle);
 		}
 
 		void Renderer3D::SubmitRenderable3D(Renderable3D* renderable)
@@ -237,6 +267,8 @@ namespace sunny
 			SkyboxPresentInternal();
 
 			ForwardPresentInternal();
+
+			ParticlePresentInternal();
 		}
 
 		void Renderer3D::MakeShadowGeometryBuffer()
@@ -375,6 +407,16 @@ namespace sunny
 			m_skybox->Render();
 		}
 
+		void Renderer3D::ParticlePresentInternal()
+		{
+			m_default_particle_shader->Bind();
+
+			SetSunnyParticleVSUniforms(m_default_particle_shader);
+
+			for (ParticleSystem* particle : m_particles)
+				particle->Render();
+		}
+
 		void Renderer3D::SetSunnyVSUniforms(directx::Shader* shader)
 		{
 			shader->SetVSSystemUniformBuffer(m_VSSunnyUniformBuffer, m_VSSunnyUniformBufferSize, 0);
@@ -393,6 +435,11 @@ namespace sunny
 		void Renderer3D::SetSunnyGeometryPSUniforms(directx::Shader* shader)
 		{
 			shader->SetPSSystemUniformBuffer(m_PSSunnyGeometryUniformBuffer, m_PSSunnyGeometryUniformBufferSize, 0);
+		}
+
+		void Renderer3D::SetSunnyParticleVSUniforms(directx::Shader* shader)
+		{
+			shader->SetVSSystemUniformBuffer(m_VSSunnyParticleUniformBuffer, m_VSSunnyParticleUniformBufferSize, 0);
 		}
 	}
 }

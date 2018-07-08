@@ -16,6 +16,7 @@
 #include "../cameras/FPSCamera.h"
 #include "../cameras/LightCamera.h"
 #include "../cameras/QuaterCamera.h"
+#include "../particles/ParticleSystem.h"
 
 
 typedef sunny::maths::vec4 RGBA;
@@ -30,6 +31,7 @@ namespace sunny
 			Camera* m_camera;
 
 			std::vector<Renderable3D*> m_renderables;
+			std::vector<ParticleSystem*> m_particles;
 			std::vector<Group3D*> m_group3ds;
 
 			std::vector<LightSetup*> m_lightSetupStack;
@@ -42,6 +44,7 @@ namespace sunny
 			virtual ~Layer3D();
 
 			virtual Renderable3D* Add(Renderable3D* renderable);
+			virtual ParticleSystem* Add(ParticleSystem* particle);
 			virtual Renderable3D* Remove(Renderable3D* renderable);
 
 			virtual Renderable3D* AddStatic(Renderable3D* renderable);

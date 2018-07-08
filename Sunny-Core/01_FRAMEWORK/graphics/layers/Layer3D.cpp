@@ -27,6 +27,13 @@ namespace sunny
 			return renderable;
 		}
 
+		ParticleSystem* Layer3D::Add(ParticleSystem* particle)
+		{
+			m_particles.push_back(particle);
+
+			return particle;
+		}
+
 		Renderable3D* Layer3D::Remove(Renderable3D* renderable)
 		{
 			for (unsigned int i = 0; i < m_renderables.size(); ++i)
@@ -105,6 +112,12 @@ namespace sunny
 			{
 				if (group3d->GetVisible())
 					m_renderer->SubmitGroup3D(group3d);
+			}
+
+			for (ParticleSystem* particle : m_particles)
+			{
+				if (particle->GetVisible())
+					m_renderer->SubmitParticle(particle);
 			}
 
 			m_renderer->EndScene(m_camera);
