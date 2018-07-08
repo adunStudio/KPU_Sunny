@@ -71,6 +71,7 @@
     <ClCompile Include="06_LAYER\MapGUILayer2D.cpp" />
     <ClCompile Include="06_LAYER\MapGUILayer3D.cpp" />
     <ClCompile Include="06_LAYER\MouseLayer2D.cpp" />
+    <ClCompile Include="06_LAYER\ParticleLayer3D.cpp" />
     <ClCompile Include="06_LAYER\RoomLayer2D.cpp" />
     <ClCompile Include="06_LAYER\ShootingLayer3D.cpp" />
     <ClCompile Include="06_LAYER\TestGameLayer2D.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="06_LAYER\MapGUILayer2D.h" />
     <ClInclude Include="06_LAYER\MapGUILayer3D.h" />
     <ClInclude Include="06_LAYER\MouseLayer2D.h" />
+    <ClInclude Include="06_LAYER\ParticleLayer3D.h" />
     <ClInclude Include="06_LAYER\RoomLayer2D.h" />
     <ClInclude Include="06_LAYER\ShootingLaye3D.h" />
     <ClInclude Include="06_LAYER\TestGameLayer2D.h" />
@@ -284,7 +286,7 @@
     <ProjectGuid>{AAB474A1-A034-48B7-9834-E7EBD9703DB9}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>SunnyCore</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

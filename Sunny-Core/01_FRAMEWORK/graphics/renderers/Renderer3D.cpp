@@ -132,6 +132,7 @@ namespace sunny
 			m_VSSunnyParticleUniformBufferSize = sizeof(maths::mat4) + sizeof(maths::mat4) + sizeof(maths::mat4);
 			m_VSSunnyParticleUniformBuffer     = new unsigned char[m_VSSunnyParticleUniformBufferSize];
 			memset(m_VSSunnyParticleUniformBuffer, 0, m_VSSunnyParticleUniformBufferSize);
+
 			m_VSSunnyParticleUniformBufferOffsets.resize(VSSunnyParticleUniformIndex_Size);
 			m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ProjectionMatrix] = 0;
 			m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ViewMatrix]       = m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ProjectionMatrix] + sizeof(maths::mat4);
@@ -385,13 +386,13 @@ namespace sunny
 			}
 
 			// 아웃라인 그리기
-			m_default_outline_shader->Bind();
+			//m_default_outline_shader->Bind();
 
 			//SetSunnyPSUniforms(m_default_outline_shader);
 
-			m_gBuffer->SetGBuffer(GBufferType::DEFERRED);
+			//m_gBuffer->SetGBuffer(GBufferType::DEFERRED);
 
-			m_gBuffer->Draw();
+			//m_gBuffer->Draw();
 		}
 
 		void Renderer3D::SkyboxPresentInternal()
@@ -409,12 +410,18 @@ namespace sunny
 
 		void Renderer3D::ParticlePresentInternal()
 		{
-			m_default_particle_shader->Bind();
-
-			SetSunnyParticleVSUniforms(m_default_particle_shader);
+			m_gBuffer->UnBind();
+			directx::Renderer::SetDepthTesting(true);
+			directx::Renderer::SetBlend(true);
 
 			for (ParticleSystem* particle : m_particles)
+			{
+				m_default_particle_shader->Bind();
+
+				SetSunnyParticleVSUniforms(m_default_particle_shader);
+				
 				particle->Render();
+			}
 		}
 
 		void Renderer3D::SetSunnyVSUniforms(directx::Shader* shader)

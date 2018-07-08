@@ -22,15 +22,15 @@ namespace sunny
 		struct ParticleVertex
 		{
 			maths::vec3 position;          // 위치
-			maths::vec2 uv;                // 텍스처 위치
 			maths::vec3 color;             // 색깔
+			maths::vec2 uv;                // 텍스처 위치
 		};
 
 
 		class ParticleSystem
 		{
 		private:
-			unsigned int m_currentParticleCount;
+			int m_currentParticleCount;
 
 			directx::Texture* m_texture;                      // 텍스처 
 
@@ -52,12 +52,12 @@ namespace sunny
 			maths::vec3 m_accelaration;                       // 가속도
 			maths::vec4 m_color;                              // 컬러
 			
-			float m_size;                                     // 크기 
+			float m_size = 20.0f;                                     // 크기 
 			float m_fade;                                     // 퇴색 정도
 			float m_age;                                      // 나이
 			
-			float m_accumulatedTime;                          // 파티클이 방출되는 속도 누적 시간
-			float m_particlePerSecond;                        // 초당 방출 할 파티클 수
+			float m_accumulatedTime = 0;                          // 파티클이 방출되는 속도 누적 시간
+			float m_particlePerSecond = 250.0f;                        // 초당 방출 할 파티클 수
 			float m_lifeTime;                                 // 파티클이 소멸될때까지 유지되는 시간
 
 			bool m_visible;                                

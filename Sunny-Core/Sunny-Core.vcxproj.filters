@@ -354,6 +354,9 @@
     <ClCompile Include="01_FRAMEWORK\graphics\particles\ParticleSystem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="06_LAYER\ParticleLayer3D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="01_FRAMEWORK\app\Application.h">
@@ -777,6 +780,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="01_FRAMEWORK\graphics\particles\ParticleSystem.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="06_LAYER\ParticleLayer3D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
