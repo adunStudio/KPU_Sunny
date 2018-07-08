@@ -226,12 +226,12 @@ void MapGUILayer2D::OnRender(Renderer2D& renderer)
 	ImGui::End();
 
 	/* Asset */
-	ImGui::Begin("Asset", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
+	/*ImGui::Begin("Asset", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
 	{
 		ImGui::SetWindowPos(ImVec2(5, 700));
 		ImGui::SetWindowSize(ImVec2(900, 195));
 	}
-	ImGui::End();
+	ImGui::End();*/
 
 
 	// Rendering

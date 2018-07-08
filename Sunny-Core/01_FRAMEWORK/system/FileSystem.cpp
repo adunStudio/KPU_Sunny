@@ -31,7 +31,7 @@ namespace sunny
 
             if(length < 1) // TODO: Debug System
             {
-                std::cout << "file not" << std::endl;
+                std::cout << path << ": "  << "file not" << std::endl;
                 exit(0);
             }
 

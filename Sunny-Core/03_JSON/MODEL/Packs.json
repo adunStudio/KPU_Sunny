@@ -1,0 +1,577 @@
+[
+  {
+    "name": "AgaveHigh",
+    "path": "/OBJ/Packs/AgaveHigh.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "AgaveLow",
+    "path": "/OBJ/Packs/AgaveLow.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Barrel",
+    "path": "/OBJ/Packs/Barrel.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "BASE_TERRAIN",
+    "path": "/OBJ/Packs/BASE_TERRAIN.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Bench1",
+    "path": "/OBJ/Packs/Bench1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Bench1",
+    "path": "/OBJ/Packs/Bench1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "BigCliff",
+    "path": "/OBJ/Packs/BigCliff.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "CactusMini",
+    "path": "/OBJ/Packs/CactusMini.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "CactusSmall",
+    "path": "/OBJ/Packs/CactusSmall.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Campfire",
+    "path": "/OBJ/Packs/Campfire.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "CampFireWinter",
+    "path": "/OBJ/Packs/CampFireWinter.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Cart",
+    "path": "/OBJ/Packs/Cart.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "CastleCliff",
+    "path": "/OBJ/Packs/CastleCliff.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "CookingFireplace",
+    "path": "/OBJ/Packs/CookingFireplace.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "CookingPot",
+    "path": "/OBJ/Packs/CookingPot.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "CookingPotHanging",
+    "path": "/OBJ/Packs/CookingPotHanging.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "CubicRocksGrey",
+    "path": "/OBJ/Packs/CubicRocksGrey.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "DistantBackgroundMountains",
+    "path": "/OBJ/Packs/DistantBackgroundMountains.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "DoubleRockShape",
+    "path": "/OBJ/Packs/DoubleRockShape.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "DoubleRockShape_High",
+    "path": "/OBJ/Packs/DoubleRockShape_High.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Fence1",
+    "path": "/OBJ/Packs/Fence1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "GlacierWall",
+    "path": "/OBJ/Packs/GlacierWall.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "GrassCliff",
+    "path": "/OBJ/Packs/GrassCliff.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "GrassHillFlat",
+    "path": "/OBJ/Packs/GlacierWall.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "HangingBridge",
+    "path": "/OBJ/Packs/HangingBridge.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "House1",
+    "path": "/OBJ/Packs/House1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "House2",
+    "path": "/OBJ/Packs/House2.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "IceBerg",
+    "path": "/OBJ/Packs/IceBerg.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "IceFloeLow",
+    "path": "/OBJ/Packs/IceFloeLow.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "JoshuaTree1",
+    "path": "/OBJ/Packs/JoshuaTree1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "JoshuaTree2",
+    "path": "/OBJ/Packs/JoshuaTree2.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "JoshuaTree3",
+    "path": "/OBJ/Packs/JoshuaTree3.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Ladder",
+    "path": "/OBJ/Packs/Ladder.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "MarketStand",
+    "path": "/OBJ/Packs/MarketStand.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "MarketStandClosed",
+    "path": "/OBJ/Packs/MarketStandClosed.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "MarketStandRed",
+    "path": "/OBJ/Packs/MarketStandRed.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "MarketStandSmall",
+    "path": "/OBJ/Packs/MarketStandSmall.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Mushroom",
+    "path": "/OBJ/Packs/Mushroom.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Mushrooms",
+    "path": "/OBJ/Packs/Mushrooms.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "OldStoneWall",
+    "path": "/OBJ/Packs/OldStoneWall.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "OldWall1",
+    "path": "/OBJ/Packs/OldWall1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "OldWall2",
+    "path": "/OBJ/Packs/OldWall2.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "OldWall3",
+    "path": "/OBJ/Packs/OldWall3.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "OldWoodPlank1",
+    "path": "/OBJ/Packs/OldWoodPlank1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "OldWoodPlank2",
+    "path": "/OBJ/Packs/OldWoodPlank2.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Palmtree1",
+    "path": "/OBJ/Packs/Palmtree1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Palmtree1_low",
+    "path": "/OBJ/Packs/Palmtree1_low.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "PierPole",
+    "path": "/OBJ/Packs/PierPole.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "PierStart",
+    "path": "/OBJ/Packs/PierStart.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "PierTile",
+    "path": "/OBJ/Packs/PierTile.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "QubicRocks1",
+    "path": "/OBJ/Packs/QubicRocks1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Reed",
+    "path": "/OBJ/Packs/Reed.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "ReedBig",
+    "path": "/OBJ/Packs/ReedBig.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "RockGrey1",
+    "path": "/OBJ/Packs/RockGrey1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "RockGrey1_high",
+    "path": "/OBJ/Packs/RockGrey1_high.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "RockGrey2",
+    "path": "/OBJ/Packs/RockGrey2.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "RockGrey2_high",
+    "path": "/OBJ/Packs/RockGrey2_high.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SaguaroCactus1",
+    "path": "/OBJ/Packs/SaguaroCactus1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SaguaroCactus2",
+    "path": "/OBJ/Packs/SaguaroCactus2.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SandduneHigh1",
+    "path": "/OBJ/Packs/SandduneHigh1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SandduneLow1",
+    "path": "/OBJ/Packs/SandduneLow1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SharpRock1",
+    "path": "/OBJ/Packs/SharpRock1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SharpRock2",
+    "path": "/OBJ/Packs/SharpRock2.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Signpost1",
+    "path": "/OBJ/Packs/Signpost1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Signpost2",
+    "path": "/OBJ/Packs/Signpost2.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyBarrel1",
+    "path": "/OBJ/Packs/SnowyBarrel1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyBarrels3",
+    "path": "/OBJ/Packs/SnowyBarrels3.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyCart",
+    "path": "/OBJ/Packs/SnowyCart.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyCliff",
+    "path": "/OBJ/Packs/SnowyCliff.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyDeadTree1",
+    "path": "/OBJ/Packs/SnowyDeadTree1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyDeadTree2",
+    "path": "/OBJ/Packs/SnowyDeadTree2.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyHillFlat",
+    "path": "/OBJ/Packs/SnowyHillFlat.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyHouse1",
+    "path": "/OBJ/Packs/SnowyHouse1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyMarketStand",
+    "path": "/OBJ/Packs/SnowyMarketStand.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyMarketStandRed",
+    "path": "/OBJ/Packs/SnowyMarketStandRed.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyMarketStandSmall",
+    "path": "/OBJ/Packs/SnowyMarketStandSmall.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyOldStoneWall",
+    "path": "/OBJ/Packs/SnowyOldStoneWall.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyPier",
+    "path": "/OBJ/Packs/SnowyPier.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyPierPole",
+    "path": "/OBJ/Packs/SnowyPierPole.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyPierStart",
+    "path": "/OBJ/Packs/SnowyPierStart.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyRock1",
+    "path": "/OBJ/Packs/SnowyRock1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowySignpost",
+    "path": "/OBJ/Packs/SnowySignpost.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyTent",
+    "path": "/OBJ/Packs/SnowyTent.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyTownHouse1",
+    "path": "/OBJ/Packs/SnowyTownHouse1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyTownHouse2",
+    "path": "/OBJ/Packs/SnowyTownHouse2.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyTownHouseTower",
+    "path": "/OBJ/Packs/SnowyTownHouseTower.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyTree",
+    "path": "/OBJ/Packs/SnowyTree.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyTreeLog",
+    "path": "/OBJ/Packs/SnowyTreeLog.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyTreeStump",
+    "path": "/OBJ/Packs/SnowyTreeStump.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "SnowyWell",
+    "path": "/OBJ/Packs/SnowyWell.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "StonePath",
+    "path": "/OBJ/Packs/StonePath.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Street",
+    "path": "/OBJ/Packs/Street.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Tent1",
+    "path": "/OBJ/Packs/Tent1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "TorchBig",
+    "path": "/OBJ/Packs/TorchBig.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "TorchSmall",
+    "path": "/OBJ/Packs/TorchSmall.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Tree1",
+    "path": "/OBJ/Packs/Tree1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Tree2",
+    "path": "/OBJ/Packs/Tree2.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Tree3_BirchYoung",
+    "path": "/OBJ/Packs/Tree3_BirchYoung.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "TreeDead1",
+    "path": "/OBJ/Packs/TreeDead1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "TreeDead2",
+    "path": "/OBJ/Packs/TreeDead2.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "TreeTrunk1",
+    "path": "/OBJ/Packs/TreeTrunk1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "TreeTrunk2",
+    "path": "/OBJ/Packs/TreeTrunk2.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Wagon",
+    "path": "/OBJ/Packs/Wagon.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "WaterLilies",
+    "path": "/OBJ/Packs/WaterLilies.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "WATERPLANE",
+    "path": "/OBJ/Packs/WATERPLANE.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "Well",
+    "path": "/OBJ/Packs/Well.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "WoodenHouse1",
+    "path": "/OBJ/Packs/WoodenHouse1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "WoodenHouse2",
+    "path": "/OBJ/Packs/WoodenHouse2.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "WoodenHouse3",
+    "path": "/OBJ/Packs/WoodenHouse3.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "WoodenPole1",
+    "path": "/OBJ/Packs/WoodenPole1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "WoodenTable",
+    "path": "/OBJ/Packs/WoodenTable.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "WoodenWall_TowerLong",
+    "path": "/OBJ/Packs/WoodenWall_TowerLong.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "WoodenWall_TowerShort",
+    "path": "/OBJ/Packs/WoodenWall_TowerShort.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "WoodenWall1",
+    "path": "/OBJ/Packs/WoodenWall1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  },
+  {
+    "name": "WoodenWallDamaged1",
+    "path": "/OBJ/Packs/WoodenWallDamaged1.obj",
+    "textures": [ "/TEXTURE/Packs/Main.png" ]
+  }
+]

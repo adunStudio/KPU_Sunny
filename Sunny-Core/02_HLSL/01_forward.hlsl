@@ -132,6 +132,7 @@ float4 PSMain(in VSOutput input) : SV_TARGET
 
 	}
 
+	return texColor;
 	if (texColor.w == 0)
 	{
 		texColor.w = 1;
@@ -195,6 +196,8 @@ float4 PSMain(in VSOutput input) : SV_TARGET
 	float3 finalColor = texColor.xyz * diffuse;
 
 	finalColor += CalcDirectional(input.positionCS, world_normal, texColor, input.cameraPosition);
+
+	return float4(finalColor, 1);
 
 	float bias = 0.000005;
 

@@ -173,6 +173,7 @@ namespace sunny
 						int result = sscanf(cstr, "%*s %f %f", &uv.x, &uv.y);
 						if (result == 0) continue;
 						uv.y = 1.0f - uv.y;
+					//	uv.x = 1.0f - uv.x
 						inputVertices.uvs.push_back(uv);
 					}
 					else if (strstr(cstr, "vn")) // ³ë¸»

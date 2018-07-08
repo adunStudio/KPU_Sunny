@@ -91,6 +91,20 @@ namespace sunny
 
 				return shader;
 			}
+
+			directx::Shader* DefaultParticleShader()
+			{
+				directx::Shader* shader;
+				shader = ShaderManager::Get("defaultParticle");
+				if (shader)
+					return shader;
+
+				shader = directx::Shader::CreateFromFile("defaultParticle", "02_HLSL/06_particle.hlsl");
+
+				ShaderManager::Add(shader);
+
+				return shader;
+			}
 		}
 	}
 }

@@ -251,10 +251,11 @@ void StartLoad(LoadingLayer2D* layer)
 	Model* a;
 
 	unordered_map<std::string, std::string> jsons;
-	//jsons["Characters"] = sunny::system::FileSystem::ReadTextFile("/JSON/CHARACTER/Characters.json");
+	jsons["Characters"] = sunny::system::FileSystem::ReadTextFile("/JSON/CHARACTER/Characters.json");
 
-	//jsons["Trees"] = sunny::system::FileSystem::ReadTextFile("/JSON/MODEL/Trees.json");
-	jsons["Map"] = sunny::system::FileSystem::ReadTextFile("/JSON/MODEL/LowPolyNatures.json");
+	jsons["Trees"] = sunny::system::FileSystem::ReadTextFile("/JSON/MODEL/Trees.json");
+	jsons["LowPolyNatures"] = sunny::system::FileSystem::ReadTextFile("/JSON/MODEL/LowPolyNatures.json");
+	jsons["Packs"] = sunny::system::FileSystem::ReadTextFile("/JSON/MODEL/Packs.json");
 
 	for (auto& obj : jsons)
 	{
@@ -272,7 +273,7 @@ void StartLoad(LoadingLayer2D* layer)
 			name = root[i]["name"].asString();
 			path = root[i]["path"].asString();
 			textureLen = root[i]["textures"].size();
-
+			
 
 			for (int texture_i = 0; texture_i < textureLen; ++texture_i)
 			{

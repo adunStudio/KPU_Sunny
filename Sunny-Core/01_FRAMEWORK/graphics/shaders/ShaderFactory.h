@@ -17,6 +17,7 @@ namespace sunny
 			directx::Shader* Default3DShadowShader();
 			directx::Shader* Default3DOutLineShader();
 			directx::Shader* DefaultDebugShader();
+			directx::Shader* DefaultParticleShader();
 		}
 	}
 }

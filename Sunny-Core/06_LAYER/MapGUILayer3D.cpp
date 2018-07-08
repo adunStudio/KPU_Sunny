@@ -58,7 +58,7 @@ void MapGUILayer3D::OnInit(Renderer3D& renderer)
 
 
 
-	std::string mapData = system::FileSystem::ReadTextFile("/JSON/MAP/map1.json");
+	std::string mapData = system::FileSystem::ReadTextFile("/JSON/MAP/Tundra.json");
 
 	Json::Value root;
 	Json::Reader reader;
@@ -83,8 +83,9 @@ void MapGUILayer3D::OnInit(Renderer3D& renderer)
 
 			m_mapObjects.push_back(a);
 
+			scale.z *= -1;
 
-			a->GetTransformComponent()->SetPosition(translation * 100);
+			a->GetTransformComponent()->SetPosition(translation);
 			a->GetTransformComponent()->Rotate(rotation);
 			a->GetTransformComponent()->SetScale(scale);
 

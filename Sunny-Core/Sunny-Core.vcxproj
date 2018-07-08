@@ -52,6 +52,7 @@
     <ClCompile Include="01_FRAMEWORK\events\ServerEvent.cpp" />
     <ClCompile Include="01_FRAMEWORK\graphics\cameras\QuaterCamera.cpp" />
     <ClCompile Include="01_FRAMEWORK\graphics\ModelManager.cpp" />
+    <ClCompile Include="01_FRAMEWORK\graphics\particles\ParticleSystem.cpp" />
     <ClCompile Include="01_FRAMEWORK\imgui\imgui.cpp" />
     <ClCompile Include="01_FRAMEWORK\imgui\imgui_demo.cpp" />
     <ClCompile Include="01_FRAMEWORK\imgui\imgui_draw.cpp" />
@@ -176,7 +177,7 @@
     <ClInclude Include="01_FRAMEWORK\events\ServerEvent.h" />
     <ClInclude Include="01_FRAMEWORK\graphics\cameras\QuaterCamera.h" />
     <ClInclude Include="01_FRAMEWORK\graphics\ModelManager.h" />
-    <ClInclude Include="01_FRAMEWORK\graphics\Particle.h" />
+    <ClInclude Include="01_FRAMEWORK\graphics\particles\ParticleSystem.h" />
     <ClInclude Include="01_FRAMEWORK\imgui\imconfig.h" />
     <ClInclude Include="01_FRAMEWORK\imgui\imgui.h" />
     <ClInclude Include="01_FRAMEWORK\imgui\imgui_impl_dx11.h" />
