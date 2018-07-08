@@ -22,6 +22,7 @@ namespace sunny
 		struct ParticleVertex
 		{
 			maths::vec3 position;          // 위치
+			maths::vec2 uv;                // 텍스처 위치
 			maths::vec3 color;             // 색깔
 		};
 
@@ -33,8 +34,9 @@ namespace sunny
 
 			directx::Texture* m_texture;                      // 텍스처 
 
-			directx::VertexArray* m_vertexArray;
-			directx::IndexBuffer* m_indexBuffer;
+			directx::VertexArray*  m_vertexArray;
+			directx::VertexBuffer* m_vertexBuffer;
+			directx::IndexBuffer*  m_indexBuffer;
 
 			Particle* m_particleList;
 			ParticleVertex* m_particleVertices;
@@ -55,16 +57,21 @@ namespace sunny
 			float m_age;                                      // 나이
 			
 			float m_accumulatedTime;                          // 파티클이 방출되는 속도 누적 시간
+			float m_particlePerSecond;                        // 초당 방출 할 파티클 수
 			float m_lifeTime;                                 // 파티클이 소멸될때까지 유지되는 시간
 
 			bool m_visible;                                
 		
-			
+		private:
+			void KillParticles();
+			void EmitParticles(const utils::Timestep& ts);
+			void UpdateBuffers();
 
 		public:
 			ParticleSystem(directx::Texture* texture);
 			~ParticleSystem();
 			
+			virtual void Update(const utils::Timestep& ts);
 			virtual void Render();
 
 		public:

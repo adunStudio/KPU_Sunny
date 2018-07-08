@@ -52,7 +52,6 @@ float4 PSMain(in VSOutput input) : SV_TARGET
 	textureColor = particleTexture.Sample(particleSampler, input.uv);
 	finalColor = textureColor * input.color;
 
-
 	return finalColor;
 }
 
