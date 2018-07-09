@@ -153,8 +153,16 @@ namespace sunny
 			memcpy(m_VSSunnyUniformBuffer + m_VSSunnyUniformBufferOffsets[VSSunnyUniformIndex_CameraPosition],   &camera->GetPosition(),         sizeof(maths::vec3));
 
 			memcpy(m_VSSunnyParticleUniformBuffer + m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ProjectionMatrix], &camera->GetProjectionMatrix(), sizeof(maths::mat4));
+			
+
+			// ºôº¸µå
+			maths::mat4 matView = maths::mat4(camera->GetViewMatrix());
+			matView.SetPosition(maths::vec3(0));
+			matView = matView.Invert();
+
+		
 			memcpy(m_VSSunnyParticleUniformBuffer + m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ViewMatrix], &camera->GetViewMatrix(), sizeof(maths::mat4));
-			memcpy(m_VSSunnyParticleUniformBuffer + m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ModelMatrix], &(maths::mat4::Identity()), sizeof(maths::mat4));
+			memcpy(m_VSSunnyParticleUniformBuffer + m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ModelMatrix], &(matView), sizeof(maths::mat4));
 		}
 
 		void Renderer3D::Submit(Renderable3D* renderable)
@@ -265,11 +273,13 @@ namespace sunny
 
 		void Renderer3D::Present()
 		{		
-			SkyboxPresentInternal();
 
 			ForwardPresentInternal();
 
 			ParticlePresentInternal();
+
+			SkyboxPresentInternal();
+
 		}
 
 		void Renderer3D::MakeShadowGeometryBuffer()
@@ -410,13 +420,13 @@ namespace sunny
 
 		void Renderer3D::ParticlePresentInternal()
 		{
-			m_gBuffer->UnBind();
 			directx::Renderer::SetDepthTesting(true);
-			directx::Renderer::SetBlend(true);
+			//directx::Renderer::SetBlend(true);
 
 			for (ParticleSystem* particle : m_particles)
 			{
 				m_default_particle_shader->Bind();
+				//memcpy(m_VSSunnyParticleUniformBuffer + m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ModelMatrix], &(maths::mat4::Identity()), sizeof(maths::mat4));
 
 				SetSunnyParticleVSUniforms(m_default_particle_shader);
 				

@@ -18,7 +18,7 @@ namespace sunny
 
 		void Material::Bind()
 		{
-			//m_shader->Bind();
+			m_shader->Bind();
 
 			if (m_VSUserUniformBuffer)
 				m_shader->SetVSUserUniformBuffer(m_VSUserUniformBuffer, m_VSUserUniformBufferSize);

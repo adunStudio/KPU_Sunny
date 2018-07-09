@@ -22,7 +22,7 @@ namespace sunny
 		struct ParticleVertex
 		{
 			maths::vec3 position;          // 위치
-			maths::vec3 color;             // 색깔
+			maths::vec4 color;             // 색깔
 			maths::vec2 uv;                // 텍스처 위치
 		};
 
@@ -57,7 +57,7 @@ namespace sunny
 			float m_age;                                      // 나이
 			
 			float m_accumulatedTime = 0;                          // 파티클이 방출되는 속도 누적 시간
-			float m_particlePerSecond = 250.0f;                        // 초당 방출 할 파티클 수
+			float m_particlePerSecond = 650.0f;                        // 초당 방출 할 파티클 수
 			float m_lifeTime;                                 // 파티클이 소멸될때까지 유지되는 시간
 
 			bool m_visible;                                

@@ -14,6 +14,7 @@ class ParticleLayer3D : public Layer3D
 {
 private:
 	ParticleSystem * m_particle;
+	MaterialInstance* m_SkyboxMaterial;
 
 public:
 	ParticleLayer3D();
