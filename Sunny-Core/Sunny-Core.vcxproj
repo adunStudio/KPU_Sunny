@@ -59,6 +59,7 @@
     <ClCompile Include="01_FRAMEWORK\imgui\imgui_impl_dx11.cpp" />
     <ClCompile Include="01_FRAMEWORK\maths\OBB.cpp" />
     <ClCompile Include="01_FRAMEWORK\maths\Ray.cpp" />
+    <ClCompile Include="01_FRAMEWORK\utils\Task.cpp" />
     <ClCompile Include="05_GAME\assets\AssetData.cpp" />
     <ClCompile Include="05_GAME\assets\AssetLoader.cpp" />
     <ClCompile Include="05_GAME\graphics\Animation3D.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="01_FRAMEWORK\imgui\stb_truetype.h" />
     <ClInclude Include="01_FRAMEWORK\maths\OBB.h" />
     <ClInclude Include="01_FRAMEWORK\maths\Ray.h" />
+    <ClInclude Include="01_FRAMEWORK\utils\Task.h" />
     <ClInclude Include="05_GAME\graphics\Animation3D.h" />
     <ClInclude Include="05_GAME\graphics\Bullet.h" />
     <ClInclude Include="05_GAME\Player.h" />
