@@ -357,6 +357,12 @@
     <ClCompile Include="06_LAYER\ParticleLayer3D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="05_GAME\shoot\Bullet.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="05_GAME\shoot\BulletShooter.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="01_FRAMEWORK\app\Application.h">
@@ -783,6 +789,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="06_LAYER\ParticleLayer3D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\shoot\Bullet.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\shoot\BulletShooter.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
