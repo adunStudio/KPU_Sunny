@@ -48,16 +48,17 @@ namespace sunny
 			unsigned int m_maxParticleCount;
 
 			maths::vec3 m_position;                           // 위치
+			maths::vec3 m_rotate;                             // 회전
 			maths::vec3 m_speed;                              // 속도
 			maths::vec3 m_accelaration;                       // 가속도
 			maths::vec4 m_color;                              // 컬러
 			
-			float m_size = 20.0f;                                     // 크기 
+			float m_size = 20.0f;                             // 크기 
 			float m_fade;                                     // 퇴색 정도
 			float m_age;                                      // 나이
 			
-			float m_accumulatedTime = 0;                          // 파티클이 방출되는 속도 누적 시간
-			float m_particlePerSecond = 650.0f;                        // 초당 방출 할 파티클 수
+			float m_accumulatedTime = 0;                      // 파티클이 방출되는 속도 누적 시간
+			float m_particlePerSecond = 650.0f;               // 초당 방출 할 파티클 수
 			float m_lifeTime;                                 // 파티클이 소멸될때까지 유지되는 시간
 
 			bool m_visible;                                

@@ -273,13 +273,11 @@ namespace sunny
 
 		void Renderer3D::Present()
 		{		
+			SkyboxPresentInternal();
 
 			ForwardPresentInternal();
 
 			ParticlePresentInternal();
-
-			SkyboxPresentInternal();
-
 		}
 
 		void Renderer3D::MakeShadowGeometryBuffer()
