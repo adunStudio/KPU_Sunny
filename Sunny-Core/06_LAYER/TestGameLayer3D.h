@@ -6,7 +6,7 @@
 #include "../06_LAYER/TestGameLayer2D.h"
 #include "../05_GAME/graphics/Model3D.h"
 #include "../05_GAME/graphics/Animation3D.h"
-#include "../05_GAME/graphics/Bullet.h"
+#include "../05_GAME/graphics/BulletM.h"
 #include "../07_SERVER/BossLockerProtocol.h"
 #include "../07_SERVER/BossLocker.h"
 

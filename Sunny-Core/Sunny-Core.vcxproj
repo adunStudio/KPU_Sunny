@@ -59,12 +59,13 @@
     <ClCompile Include="01_FRAMEWORK\imgui\imgui_impl_dx11.cpp" />
     <ClCompile Include="01_FRAMEWORK\maths\OBB.cpp" />
     <ClCompile Include="01_FRAMEWORK\maths\Ray.cpp" />
-    <ClCompile Include="01_FRAMEWORK\utils\Task.cpp" />
+    <ClCompile Include="01_FRAMEWORK\utils\Pool.cpp" />
     <ClCompile Include="05_GAME\assets\AssetData.cpp" />
     <ClCompile Include="05_GAME\assets\AssetLoader.cpp" />
     <ClCompile Include="05_GAME\graphics\Animation3D.cpp" />
     <ClCompile Include="05_GAME\graphics\Model3D.cpp" />
     <ClCompile Include="05_GAME\shoot\Bullet.cpp" />
+    <ClCompile Include="05_GAME\shoot\BulletParticle.cpp" />
     <ClCompile Include="05_GAME\shoot\BulletShooter.cpp" />
     <ClCompile Include="05_GAME\shoot\BulletSystem.cpp" />
     <ClCompile Include="05_GAME\shoot\CBullet.cpp" />
@@ -191,11 +192,12 @@
     <ClInclude Include="01_FRAMEWORK\imgui\stb_truetype.h" />
     <ClInclude Include="01_FRAMEWORK\maths\OBB.h" />
     <ClInclude Include="01_FRAMEWORK\maths\Ray.h" />
-    <ClInclude Include="01_FRAMEWORK\utils\Task.h" />
+    <ClInclude Include="01_FRAMEWORK\utils\Pool.h" />
     <ClInclude Include="05_GAME\graphics\Animation3D.h" />
-    <ClInclude Include="05_GAME\graphics\Bullet.h" />
+    <ClInclude Include="05_GAME\graphics\BulletM.h" />
     <ClInclude Include="05_GAME\Player.h" />
     <ClInclude Include="05_GAME\shoot\Bullet.h" />
+    <ClInclude Include="05_GAME\shoot\BulletParticle.h" />
     <ClInclude Include="05_GAME\shoot\BulletShooter.h" />
     <ClInclude Include="05_GAME\shoot\BulletSystem.h" />
     <ClInclude Include="05_GAME\shoot\CBullet.h" />
@@ -283,6 +285,7 @@
     <ClInclude Include="01_FRAMEWORK\utils\String.h" />
     <ClInclude Include="01_FRAMEWORK\utils\Timer.h" />
     <ClInclude Include="01_FRAMEWORK\utils\Timestep.h" />
+    <ClInclude Include="common.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\textures\time.PNG" />

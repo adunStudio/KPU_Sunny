@@ -16,6 +16,7 @@
 #include "06_LAYER/TestLayer2D.h"
 #include "06_LAYER/TestLayer3D.h"
 
+#include "07_SERVER/BossLocker.h"
 
 class Game : public Application
 {
@@ -29,6 +30,8 @@ public:
 	void Init() override
 	{
 		Application::Init();
+
+		BossLocker::bulletList = new PoolList(100, 5000);
 
 		ShaderFactory::Default3DForwardShader();
 		ShaderFactory::Default2DShader();

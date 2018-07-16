@@ -29,9 +29,7 @@ namespace sunny
 
 		class ParticleSystem
 		{
-		private:
-			int m_currentParticleCount;
-
+		protected:
 			directx::Texture* m_texture;                      // 텍스처 
 
 			directx::VertexArray*  m_vertexArray;
@@ -45,6 +43,8 @@ namespace sunny
 			unsigned int m_indexCount;
 
 		protected:
+			int m_currentParticleCount;
+
 			unsigned int m_maxParticleCount;
 
 			maths::vec3 m_position;                           // 위치
@@ -63,7 +63,7 @@ namespace sunny
 
 			bool m_visible;                                
 		
-		private:
+		protected:
 			void KillParticles();
 			void EmitParticles(const utils::Timestep& ts);
 			void UpdateBuffers();

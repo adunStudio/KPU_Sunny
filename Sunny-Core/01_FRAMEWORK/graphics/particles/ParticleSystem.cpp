@@ -77,8 +77,8 @@ namespace sunny
 		
 			m_texture->Bind();
 			m_indexBuffer->Bind();
-			m_vertexArray->Draw(m_indexBuffer->GetCount());
-			//m_vertexArray->Draw(m_currentParticleCount * 6);
+			//m_vertexArray->Draw(m_indexBuffer->GetCount());
+			m_vertexArray->Draw(m_currentParticleCount * 6);
 			m_texture->UnBind();
 		}
 

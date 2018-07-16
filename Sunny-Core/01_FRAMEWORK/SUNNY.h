@@ -21,6 +21,8 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_dx11.h"
 
+#include "utils/Pool.h"
+
 using namespace std;
 using namespace sunny;
 using namespace sunny::maths;
@@ -30,3 +32,4 @@ using namespace sunny::system;
 using namespace sunny::ui;
 using namespace sunny::events;
 using namespace sunny::audio;
+using namespace sunny::utils;

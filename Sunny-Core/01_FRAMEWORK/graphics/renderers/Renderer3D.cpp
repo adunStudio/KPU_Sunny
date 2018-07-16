@@ -157,12 +157,16 @@ namespace sunny
 
 			// ºôº¸µå
 			maths::mat4 matView = maths::mat4(camera->GetViewMatrix());
+			auto pos = maths::vec3(matView.GetPosition());
+			
 			matView.SetPosition(maths::vec3(0));
 			matView = matView.Invert();
+			matView.SetPosition(pos);
 
 		
 			memcpy(m_VSSunnyParticleUniformBuffer + m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ViewMatrix], &camera->GetViewMatrix(), sizeof(maths::mat4));
-			memcpy(m_VSSunnyParticleUniformBuffer + m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ModelMatrix], &(matView), sizeof(maths::mat4));
+			//memcpy(m_VSSunnyParticleUniformBuffer + m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ModelMatrix], &(matView), sizeof(maths::mat4));
+			memcpy(m_VSSunnyParticleUniformBuffer + m_VSSunnyParticleUniformBufferOffsets[VSSunnyParticleUniformIndex_ModelMatrix], &(maths::mat4::Identity()), sizeof(maths::mat4));
 		}
 
 		void Renderer3D::Submit(Renderable3D* renderable)
@@ -418,6 +422,8 @@ namespace sunny
 
 		void Renderer3D::ParticlePresentInternal()
 		{
+			m_gBuffer->UnBind();
+
 			directx::Renderer::SetDepthTesting(true);
 			//directx::Renderer::SetBlend(true);
 

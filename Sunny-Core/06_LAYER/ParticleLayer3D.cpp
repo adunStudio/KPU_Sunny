@@ -12,10 +12,15 @@ ParticleLayer3D::~ParticleLayer3D()
 
 void ParticleLayer3D::ParticleLayer3D::OnInit(Renderer3D& renderer)
 {
+	start = chrono::high_resolution_clock::now();
+
 	MouseLayer2D::SetCursor("attack");
 
 	m_particle = new ParticleSystem(new directx::Texture2D("/TEXTURE/particle.png"));
 	Add(m_particle);
+
+	m_bulletParticle = new BulletParticle(new directx::Texture2D("/TEXTURE/particle.png"));
+	Add(m_bulletParticle);
 
 	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
 	Entity* yAxis = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 1), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
@@ -69,6 +74,8 @@ void ParticleLayer3D::ParticleLayer3D::OnInit(Renderer3D& renderer)
 	Add(m_boss);
 
 	SetCamera(new QuaterCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.0f), m_player));
+
+	m_shooter = BulletSpiralShooter::Get5(m_boss->GetTransformComponent()->GetPosition());
 }
 
 void ParticleLayer3D::ParticleLayer3D::OnTick()
@@ -78,9 +85,12 @@ void ParticleLayer3D::ParticleLayer3D::OnTick()
 
 void ParticleLayer3D::ParticleLayer3D::OnUpdate(const utils::Timestep& ts)
 {
+	chrono::duration<double> diff = chrono::high_resolution_clock::now() - start;
+
 	m_player->PlayAnimation();
 
 	m_particle->Update(ts);
+	m_bulletParticle->Update(ts);
 
 	mat4 vp = GetCamera()->GetProjectionMatrix() * GetCamera()->GetViewMatrix();
 	m_SkyboxMaterial->SetUniform("invViewProjMatrix", mat4::Invert(vp));
@@ -94,6 +104,19 @@ void ParticleLayer3D::ParticleLayer3D::OnUpdate(const utils::Timestep& ts)
 		m_player->SetAnimation(0);
 	else
 		m_player->SetAnimation(5);
+
+	m_shooter->Update();
+
+	for (PoolIter i(BossLocker::bulletList); i.HasNext(); ) 
+	{
+		Bullet* bullet = static_cast<Bullet*>(i.Next());
+		
+		bullet->Update(diff.count());
+
+		if (!bullet->alive) i.Remove();
+	}
+
+	start = chrono::high_resolution_clock::now();
 }
 
 void ParticleLayer3D::OnEvent(Event& event)

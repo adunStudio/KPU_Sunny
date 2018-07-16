@@ -24,7 +24,7 @@ namespace sunny
 			return (Pool*)(buffer + PoolSize * index);
 		}
 
-		PoolList::PoolList(size_t size, size_t count) : PoolSize(size), PoolCount(count)
+		PoolList::PoolList(size_t size, size_t count) : PoolSize(size), PoolCount(count), length(0)
 		{
 			buffer = new char[PoolSize * (PoolCount + 2)];     // 2개는 더미
 
@@ -62,6 +62,8 @@ namespace sunny
 			Pool* Pool = freePool->next;                     // free에서 하나 빼온다.
 			freePool->next = Pool->next;
 
+			length++;
+
 			return Pool;
 		}
 
@@ -79,6 +81,8 @@ namespace sunny
 			pool->prev = nullptr;
 			pool->next = freePool->next;
 			freePool->next = pool;
+
+			length--;
 		}
 
 		// PoolIter

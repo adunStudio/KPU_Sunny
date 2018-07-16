@@ -4,12 +4,12 @@
 
 namespace game
 {
-	class Bullet : public Entity
+	class BulletM : public Entity
 	{
 	public:
 		float m_angle = 0;
 
-		Bullet(Mesh* mesh, float angle)
+		BulletM(Mesh* mesh, float angle)
 		: Entity(mesh, RGBA(1, 0, 0, 1)), m_angle(angle)
 		{
 

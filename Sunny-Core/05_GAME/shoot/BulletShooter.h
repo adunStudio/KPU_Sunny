@@ -12,11 +12,11 @@ namespace game
 	public:
 		BulletShooter(const maths::vec3& position) : m_position(position) { };
 
-		virtual void Update() = 0;
+		virtual void Update() { };
 	};
 
 	// Á÷¼±Åº
-	class BulletDirectionalShooter : BulletShooter
+	class BulletDirectionalShooter : public BulletShooter
 	{
 	public:
 		static BulletDirectionalShooter* Get1(const maths::vec3& position);
@@ -35,7 +35,7 @@ namespace game
 	};
 
 	// ½ºÆÄÀÌ·²Åº
-	class BulletSpiralShooter : BulletShooter
+	class BulletSpiralShooter : public BulletShooter
 	{
 	public:
 		static BulletSpiralShooter* Get1(const maths::vec3& position);

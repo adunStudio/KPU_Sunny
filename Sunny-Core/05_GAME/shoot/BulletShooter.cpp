@@ -10,15 +10,15 @@ namespace game
 	}
 	BulletDirectionalShooter* BulletDirectionalShooter::Get1(const maths::vec3& position)
 	{
-		return new BulletDirectionalShooter(position, 0.25f, 0.1f);
+		return new BulletDirectionalShooter(position, 0.25f, 500);
 	}
 	BulletDirectionalShooter* BulletDirectionalShooter::Get2(const maths::vec3& position)
 	{
-		return new BulletDirectionalShooter(position, 0.5f, 0.1f);
+		return new BulletDirectionalShooter(position, 0.5f, 500);
 	}
 	BulletDirectionalShooter* BulletDirectionalShooter::Get3(const maths::vec3& position)
 	{
-		return new BulletDirectionalShooter(position, 0.375f, 0.1f);
+		return new BulletDirectionalShooter(position, 0.375f, 500);
 	}
 	void BulletDirectionalShooter::Update()
 	{
@@ -33,23 +33,23 @@ namespace game
 	}
 	BulletSpiralShooter* BulletSpiralShooter::Get1(const maths::vec3& position)
 	{
-		return new BulletSpiralShooter(position, 0, 0.02f, 0.01f);
+		return new BulletSpiralShooter(position, 0, 0.02f, 500);
 	}
 	BulletSpiralShooter* BulletSpiralShooter::Get2(const maths::vec3& position)
 	{
-		return new BulletSpiralShooter(position, 0, 0.01f, 0.01f);
+		return new BulletSpiralShooter(position, 0, 0.01f, 500);
 	}
 	BulletSpiralShooter* BulletSpiralShooter::Get3(const maths::vec3& position)
 	{
-		return new BulletSpiralShooter(position, 0, 0.03f, 0.01f);
+		return new BulletSpiralShooter(position, 0, 0.03f, 500);
 	}
 	BulletSpiralShooter* BulletSpiralShooter::Get4(const maths::vec3& position)
 	{
-		return new BulletSpiralShooter(position, 0, 0.02f, 0.005f);
+		return new BulletSpiralShooter(position, 0, 0.02f, 260);
 	}
 	BulletSpiralShooter* BulletSpiralShooter::Get5(const maths::vec3& position)
 	{
-		return new BulletSpiralShooter(position, 0, 0.02f, 0.02f);
+		return new BulletSpiralShooter(position, 0, 0.02f, 1000);
 	}
 	void BulletSpiralShooter::Update()
 	{

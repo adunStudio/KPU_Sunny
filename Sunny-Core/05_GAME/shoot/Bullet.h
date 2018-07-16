@@ -1,5 +1,6 @@
 #pragma once
 #include <SUNNY.h>
+#include "../07_SERVER/BossLocker.h"
 
 using namespace std;
 using namespace sunny;
@@ -16,7 +17,7 @@ namespace game
 		SPIRAL
 	};
 
-	class Bullet
+	class Bullet : public Pool
 	{
 	private:
 		const int MAX_X = 1500;
@@ -40,7 +41,10 @@ namespace game
 
 	public:
 		Bullet(BULLET_TYPE type, const maths::vec3& position, float angle, float angleRate, float speed, float speedRate);
-		~Bullet();
+
+		void* operator new(size_t n);
+
+		void operator delete(void* p);
 
 		virtual void Update(float elapsedTime);
 

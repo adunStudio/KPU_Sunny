@@ -47,6 +47,8 @@ namespace sunny
 			Pool* GetPool(size_t index);
 
 		public:
+			int length;
+
 			PoolList(size_t size, size_t count);
 			~PoolList();
 
@@ -60,7 +62,7 @@ namespace sunny
 			PoolList* list;
 			Pool* pool;
 
-		private:
+		public:
 			PoolIter(PoolList* list);
 
 			bool HasNext();

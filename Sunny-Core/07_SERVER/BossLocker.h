@@ -15,4 +15,6 @@ public:
 	static int id;
 
 	static vector<Entity*> player_bullets;
+
+	static PoolList* bulletList;
 };

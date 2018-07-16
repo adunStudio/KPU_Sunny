@@ -363,7 +363,10 @@
     <ClCompile Include="05_GAME\shoot\BulletShooter.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="01_FRAMEWORK\utils\Task.cpp">
+    <ClCompile Include="01_FRAMEWORK\utils\Pool.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="05_GAME\shoot\BulletParticle.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -734,9 +737,6 @@
     <ClInclude Include="05_GAME\graphics\Animation3D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="05_GAME\graphics\Bullet.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="05_GAME\graphics\Model3D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -800,7 +800,16 @@
     <ClInclude Include="05_GAME\shoot\BulletShooter.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="01_FRAMEWORK\utils\Task.h">
+    <ClInclude Include="01_FRAMEWORK\utils\Pool.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\graphics\BulletM.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\shoot\BulletParticle.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

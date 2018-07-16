@@ -5,7 +5,7 @@
 
 #include "../05_GAME/graphics/Model3D.h"
 #include "../05_GAME/graphics/Animation3D.h"
-#include "../05_GAME/graphics/Bullet.h"
+#include "../05_GAME/graphics/BulletM.h"
 #include "../05_GAME/MousePicker.h"
 
 using namespace std;
@@ -24,7 +24,7 @@ class TestLayer3D : public Layer3D
 public:
 	Entity* m_entity;
 	Animation3D* m_character;
-	vector<Bullet*> m_bullets;
+	vector<BulletM	*> m_bullets;
 	Model* m_sphere;
 
 	MaterialInstance* m_SkyboxMaterial;
