@@ -279,9 +279,9 @@ namespace sunny
 		{		
 			SkyboxPresentInternal();
 
-			ForwardPresentInternal();
-
 			ParticlePresentInternal();
+
+			ForwardPresentInternal();
 		}
 
 		void Renderer3D::MakeShadowGeometryBuffer()
@@ -398,13 +398,13 @@ namespace sunny
 			}
 
 			// 아웃라인 그리기
-			//m_default_outline_shader->Bind();
+			m_default_outline_shader->Bind();
 
-			//SetSunnyPSUniforms(m_default_outline_shader);
+			SetSunnyPSUniforms(m_default_outline_shader);
 
-			//m_gBuffer->SetGBuffer(GBufferType::DEFERRED);
+			m_gBuffer->SetGBuffer(GBufferType::DEFERRED);
 
-			//m_gBuffer->Draw();
+			m_gBuffer->Draw();
 		}
 
 		void Renderer3D::SkyboxPresentInternal()

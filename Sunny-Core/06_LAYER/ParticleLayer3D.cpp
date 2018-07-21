@@ -75,7 +75,7 @@ void ParticleLayer3D::ParticleLayer3D::OnInit(Renderer3D& renderer)
 
 	SetCamera(new QuaterCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.0f), m_player));
 
-	m_shooter = BulletSpiralShooter::Get5(m_boss->GetTransformComponent()->GetPosition());
+	m_shooter = BulletCombinedSpiralShooter::Get(m_boss->GetTransformComponent()->GetPosition());
 }
 
 void ParticleLayer3D::ParticleLayer3D::OnTick()

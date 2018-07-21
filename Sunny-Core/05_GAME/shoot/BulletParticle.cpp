@@ -21,7 +21,15 @@ namespace game
 			m_particleList[index].position.x = bullet->GetPosition().x;;
 			m_particleList[index].position.y = 30;
 			m_particleList[index].position.z = bullet->GetPosition().z;;
-			m_particleList[index].color = maths::vec4(1, 0, 0, 1);
+
+			switch (bullet->type)
+			{
+			case BULLET_TYPE::DIRECTIONAL:
+				m_particleList[index].color = maths::vec4(1, 1, 0, 1); break;
+			case BULLET_TYPE::SPIRAL:
+				m_particleList[index].color = maths::vec4(1, 0, 0, 1); break;
+
+			}
 
 			++index;
 		}

@@ -51,4 +51,15 @@ namespace game
 	public:
 		inline const maths::vec3& GetPosition() const { return m_position; }
 	};
+
+	class BulletShooter
+	{
+	protected:
+		maths::vec3 m_position;
+
+	public:
+		BulletShooter(const maths::vec3& position) : m_position(position) { };
+
+		virtual void Update() { };
+	};
 }
