@@ -20,13 +20,14 @@ namespace game
 		LINE,
 	};
 
+	// ±âº»Åº
 	class Bullet : public Pool
 	{
-	private:
+	protected:
 		const int MAX_X = 1500;
 		const int MAX_Z = 1500;
 
-	private:
+	protected:
 		maths::vec3 m_position;
 		
 		float m_speed;
@@ -51,8 +52,46 @@ namespace game
 
 		virtual void Update(float elapsedTime);
 
+		float GetMyShipAngle(maths::vec3& enemy, maths::vec3& shooter)
+		{
+			return atan2f(enemy.z - shooter.z, enemy.x - shooter.x) / maths::SUNNY_PI / 2 * -1.0f;
+		}
+
 	public:
 		inline const maths::vec3& GetPosition() const { return m_position; }
+	};
+
+	// ½ÉÇÃÈ¨À×Åº
+	class SimpleHomingBullet : public Bullet
+	{
+	private:
+		TransformComponent* m_transformComponent;
+
+	public:
+		SimpleHomingBullet(BULLET_TYPE type, const maths::vec3& position, float angle, float speed, TransformComponent* transformComponent)
+			: Bullet(type, position, angle, 0, speed, 0), m_transformComponent(transformComponent)
+		{
+	
+		}
+
+		virtual void Update(float elapsedTime);
+	};
+
+	// ÄÁ½ºÆ®·¹ÀÎµåÈ¨À×Åº
+	class ConstrainedHomingBullet : public Bullet
+	{
+	private:
+		TransformComponent* m_transformComponent;
+		float m_maxAngleRate;
+
+	public:
+		ConstrainedHomingBullet(BULLET_TYPE type, const maths::vec3& position, float angle, float speed, float maxAngleRate, TransformComponent* transformComponent)
+			: Bullet(type, position, angle, 0, speed, 0), m_maxAngleRate(maxAngleRate), m_transformComponent(transformComponent)
+		{
+
+		}
+
+		virtual void Update(float elapsedTime);
 	};
 
 	class BulletShooter

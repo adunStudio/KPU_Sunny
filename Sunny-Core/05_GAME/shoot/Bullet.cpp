@@ -37,4 +37,28 @@ namespace game
 	}
 
 
+	void SimpleHomingBullet::Update(float elapsedTime)
+	{
+		if (!m_transformComponent) return;
+
+		m_angle = GetMyShipAngle(m_transformComponent->GetPosition(), m_position);
+		Bullet::Update(elapsedTime);
+	}
+
+	void ConstrainedHomingBullet::Update(float elapsedTime)
+	{
+		if (!m_transformComponent) return;
+
+		float angle_rate = GetMyShipAngle(m_transformComponent->GetPosition(), m_position) - m_angle;
+		angle_rate -= floor(angle_rate);
+
+		if (angle_rate <= m_maxAngleRate || 1 - angle_rate <= m_maxAngleRate)
+			m_angle += angle_rate;
+		else
+			m_angle += (angle_rate < 0.5f) ? m_maxAngleRate : -m_maxAngleRate;
+
+		m_angle -= floor(m_angle);
+
+		Bullet::Update(elapsedTime);
+	}
 }

@@ -10,6 +10,7 @@
 #include "../05_GAME/shoot/BulletShooter.h"
 #include "../05_GAME/shoot/BulletShooter2.h"
 #include "../05_GAME/shoot/BulletShooter3.h"
+#include "../05_GAME/shoot/BulletShooter4.h"
 #include "../05_GAME/shoot/BulletParticle.h"
 
 using namespace std;

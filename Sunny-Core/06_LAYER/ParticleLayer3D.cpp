@@ -75,7 +75,7 @@ void ParticleLayer3D::ParticleLayer3D::OnInit(Renderer3D& renderer)
 
 	SetCamera(new QuaterCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.0f), m_player));
 
-	m_shooter = BulletRandomNWayShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooter = BulletGapShooter::Get(m_boss->GetTransformComponent()->GetPosition());
 	m_shooter->SetEnemyTransform(m_player->GetTransformComponent());
 }
 
