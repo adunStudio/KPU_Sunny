@@ -28,6 +28,11 @@ namespace game
 				m_particleList[index].color = maths::vec4(1, 1, 0, 1); break;
 			case BULLET_TYPE::SPIRAL:
 				m_particleList[index].color = maths::vec4(1, 0, 0, 1); break;
+			case BULLET_TYPE::NWAY:
+				m_particleList[index].color = maths::vec4(0, 0, 1, 1); break;
+			default:
+				m_particleList[index].color = maths::vec4(0, 1, 0, 1); break;
+
 
 			}
 

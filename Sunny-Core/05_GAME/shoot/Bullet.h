@@ -14,7 +14,8 @@ namespace game
 	enum BULLET_TYPE
 	{
 		DIRECTIONAL,
-		SPIRAL
+		SPIRAL,
+		NWAY
 	};
 
 	class Bullet : public Pool
@@ -56,9 +57,17 @@ namespace game
 	{
 	protected:
 		maths::vec3 m_position;
+		TransformComponent* m_transformComponent;
+
+	protected:
+		float GetMyShipAngle(maths::vec3& enemy, maths::vec3& shooter) {
+			return atan2f(enemy.z - shooter.z, enemy.x - shooter.x) / maths::SUNNY_PI / 2 * -1.0f;
+		}
 
 	public:
-		BulletShooter(const maths::vec3& position) : m_position(position) { };
+		BulletShooter(const maths::vec3& position) : m_position(position), m_transformComponent(nullptr) { };
+
+		inline void SetEnemyTransform(TransformComponent* transformComponent) { m_transformComponent = transformComponent; }
 
 		virtual void Update() { };
 	};
