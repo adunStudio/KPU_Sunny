@@ -62,6 +62,7 @@
     <ClCompile Include="01_FRAMEWORK\utils\Pool.cpp" />
     <ClCompile Include="05_GAME\assets\AssetData.cpp" />
     <ClCompile Include="05_GAME\assets\AssetLoader.cpp" />
+    <ClCompile Include="05_GAME\shoot\BulletShooter3.cpp" />
     <ClCompile Include="05_GAME\graphics\Animation3D.cpp" />
     <ClCompile Include="05_GAME\graphics\Model3D.cpp" />
     <ClCompile Include="05_GAME\shoot\Bullet.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="05_GAME\shoot\BulletParticle.h" />
     <ClInclude Include="05_GAME\shoot\BulletShooter.h" />
     <ClInclude Include="05_GAME\shoot\BulletShooter2.h" />
+    <ClInclude Include="05_GAME\shoot\BulletShooter3.h" />
     <ClInclude Include="05_GAME\shoot\BulletSystem.h" />
     <ClInclude Include="05_GAME\shoot\CBullet.h" />
     <ClInclude Include="05_GAME\ui\Loadingbar.h" />

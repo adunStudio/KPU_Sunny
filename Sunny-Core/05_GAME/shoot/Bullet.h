@@ -15,7 +15,9 @@ namespace game
 	{
 		DIRECTIONAL,
 		SPIRAL,
-		NWAY
+		NWAY,
+		AIMING,
+		LINE,
 	};
 
 	class Bullet : public Pool
