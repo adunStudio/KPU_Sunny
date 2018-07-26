@@ -61,4 +61,67 @@ namespace game
 
 		Bullet::Update(elapsedTime);
 	}
+
+	void SteppingBullet::Update(float elapsedTime)
+	{
+		if (m_time == 0)
+		{
+			m_speed = m_initialSpeed;
+		}
+		else
+		{
+			if (m_time == m_moveTime)
+			{
+				m_speed = 0;
+			}
+		}
+
+
+		m_time = (m_time + 1) % (m_moveTime + m_stopTime);
+		
+		Bullet::Update(elapsedTime);
+	}
+
+	void SplittingBullet::Update(float elapsedTime)
+	{
+		if (m_time == m_splitTime && m_transformComponent)
+		{
+			m_shootAngle = GetMyShipAngle(m_transformComponent->GetPosition(), m_position);
+		}
+
+		if (m_time < m_splitTime)
+		{
+			Bullet::Update(elapsedTime);
+		}
+		else
+		{
+			if (m_time < m_splitTime + m_splitCount * m_splitInterval)
+			{
+				if (((m_time - m_splitTime) % m_splitInterval) == 0)
+				{
+					new Bullet(BULLET_TYPE::DIRECTIONAL, m_position, m_shootAngle, 0, m_speed, 0);
+				}
+			}
+			else
+			{
+				alive = false;
+			}
+		}
+
+		m_time++;
+	}
+
+	void PlacedBullet::Update(float elapsedTime)
+	{
+		if (m_time == m_moveTime)
+			m_speed = 0;
+
+		if (m_time == m_moveTime + m_stopTime)
+			m_speed = m_initialSpeed;
+
+		m_time++;
+
+		Bullet::Update(elapsedTime);
+	}
+
 }

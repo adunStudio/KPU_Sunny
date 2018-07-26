@@ -18,6 +18,10 @@ namespace game
 		NWAY,
 		AIMING,
 		LINE,
+		PATTERN,
+		STEP,
+		STAR_RED,
+		STAR_BLUE
 	};
 
 	// ±âº»Åº
@@ -94,6 +98,64 @@ namespace game
 		virtual void Update(float elapsedTime);
 	};
 
+	// ½ºÅÜÅº
+	class SteppingBullet : public Bullet
+	{
+	private:
+		float m_initialSpeed;
+		int   m_moveTime;
+		int   m_stopTime;
+		int   m_time;
+
+	public:
+		SteppingBullet(BULLET_TYPE type, const maths::vec3& position, float angle, float speed, int moveTime, int stopTime)
+			: Bullet(type, position, angle, 0, speed, 0), m_initialSpeed(speed), m_moveTime(moveTime), m_stopTime(stopTime), m_time(0)
+		{
+
+		}
+
+		virtual void Update(float elapsedTime);
+	};
+
+	// ½ºÇÃ¸´Åº
+	class SplittingBullet : public Bullet
+	{
+	private:
+		int m_splitTime;
+		int m_splitCount;
+		int m_splitInterval;
+		int m_time;
+		float m_shootAngle;
+		TransformComponent* m_transformComponent;
+
+	public:
+		SplittingBullet(BULLET_TYPE type, const maths::vec3& position, float angle, float speed, int splitTime, int splitCount, int splitInterval, TransformComponent* transformComponent)
+			: Bullet(type, position, angle, 0, speed, 0), m_splitTime(splitTime), m_splitCount(splitCount), m_splitInterval(splitInterval), m_time(0), m_transformComponent(transformComponent)
+		{
+		}
+
+		virtual void Update(float elapsedTime);
+	};
+
+	// ÇÃ·¹ÀÌ½ºÅº
+	class PlacedBullet : public Bullet
+	{
+	private:
+		float m_initialSpeed;
+		int   m_moveTime;
+		int   m_stopTime;
+		int   m_time;
+
+	public:
+		PlacedBullet(BULLET_TYPE type, const maths::vec3& position, float angle, float speed, int moveTime, int stopTime)
+			: Bullet(type, position, angle, 0, speed, 0), m_initialSpeed(speed), m_moveTime(moveTime), m_stopTime(stopTime), m_time(0)
+		{
+		}
+
+		virtual void Update(float elapsedTime);
+	};
+
+	// ÃÑ¾Ë»ý¼º±â
 	class BulletShooter
 	{
 	protected:

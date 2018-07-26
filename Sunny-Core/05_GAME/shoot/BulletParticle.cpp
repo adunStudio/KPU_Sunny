@@ -5,7 +5,7 @@ namespace game
 	BulletParticle::BulletParticle(directx::Texture* texture)
 	: ParticleSystem(texture)
 	{
-		m_maxParticleCount = 5000;
+		m_maxParticleCount = 50000;
 	}
 
 	void BulletParticle::Update(const utils::Timestep& ts)

@@ -70,6 +70,7 @@
     <ClCompile Include="05_GAME\shoot\BulletShooter.cpp" />
     <ClCompile Include="05_GAME\shoot\BulletShooter2.cpp" />
     <ClCompile Include="05_GAME\shoot\BulletShooter4.cpp" />
+    <ClCompile Include="05_GAME\shoot\BulletShooter5.cpp" />
     <ClCompile Include="05_GAME\shoot\BulletSystem.cpp" />
     <ClCompile Include="05_GAME\shoot\CBullet.cpp" />
     <ClCompile Include="05_GAME\ui\Loadingbar.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="05_GAME\shoot\BulletShooter2.h" />
     <ClInclude Include="05_GAME\shoot\BulletShooter3.h" />
     <ClInclude Include="05_GAME\shoot\BulletShooter4.h" />
+    <ClInclude Include="05_GAME\shoot\BulletShooter5.h" />
     <ClInclude Include="05_GAME\shoot\BulletSystem.h" />
     <ClInclude Include="05_GAME\shoot\CBullet.h" />
     <ClInclude Include="05_GAME\ui\Loadingbar.h" />

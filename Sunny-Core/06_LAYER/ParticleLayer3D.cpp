@@ -55,7 +55,7 @@ void ParticleLayer3D::ParticleLayer3D::OnInit(Renderer3D& renderer)
 	m_player = new Animation3D(m_animations, new Texture2D("/TEXTURE/14_body.png"), new Texture2D("/TEXTURE/14_face.png"));
 	m_player->GetTransformComponent()->SetPosition(vec3(0, 0, 0));
 	m_player->GetTransformComponent()->SetRotation(vec3(0, 0, 0));
-	m_player->GetTransformComponent()->SetScale(vec3(100, 100, 100));
+	m_player->GetTransformComponent()->SetScale(vec3(-100, 100, 100));
 
 	m_boss_animations.push_back(ModelManager::GetMesh("20_idle_basic"));
 	m_boss_animations.push_back(ModelManager::GetMesh("20_dead"));
@@ -75,8 +75,38 @@ void ParticleLayer3D::ParticleLayer3D::OnInit(Renderer3D& renderer)
 
 	SetCamera(new QuaterCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.0f), m_player));
 
-	m_shooter = BulletGapShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooter = BulletPatternShooter::Get(m_boss->GetTransformComponent()->GetPosition());
 	m_shooter->SetEnemyTransform(m_player->GetTransformComponent());
+
+	m_shooters[0] = BulletStarShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[1] = BulletSpiralShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[2] = BulletMultipleSpiralShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[3] = BulletIntervalMultipleSpiralShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[4] = BulletBiDirectionalSpiralShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[5] = BulletBentSpiralShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[6] = BulletCombinedSpiralShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[7] = BulletNWayShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[8] = BulletCircleNWayShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[9] = BulletBentCircleNWayShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[10] = BulletAimingNWayShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[11] = BulletIntermittentAimingNWayShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[12] = BulletRandomNWayShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[13] = BulletAimingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[14] = BulletLineShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[15] = BulletSpreadingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[16] = BulletRandomSpreadingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[17] = BulletOvertakingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[18] = BulletSimpleHomingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[19] = BulletConstrainedHomingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[20] = BulletGapShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[21] = BulletPatternShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[22] = BulletSteppingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[23] = BulletSplittingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+
+	for (int i = 0; i <= 23; ++i)
+	{
+		m_shooters[i]->SetEnemyTransform(m_player->GetTransformComponent());
+	}
 }
 
 void ParticleLayer3D::ParticleLayer3D::OnTick()
@@ -106,7 +136,7 @@ void ParticleLayer3D::ParticleLayer3D::OnUpdate(const utils::Timestep& ts)
 	else
 		m_player->SetAnimation(5);
 
-	m_shooter->Update();
+	m_shooters[m_shooterIndex]->Update();
 
 	for (PoolIter i(BossLocker::bulletList); i.HasNext(); ) 
 	{
@@ -133,6 +163,13 @@ void ParticleLayer3D::OnEvent(Event& event)
 
 bool ParticleLayer3D::OnKeyPressedEvent(KeyPressedEvent& event)
 {
+	if (event.GetKeyCode() == SUNNY_KEY_1)
+	{
+		m_shooterIndex++;
+		if (m_shooterIndex == 24)
+			m_shooterIndex = 0;
+	}
+
 	return false;
 }
 

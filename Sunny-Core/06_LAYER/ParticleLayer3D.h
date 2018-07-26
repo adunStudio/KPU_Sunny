@@ -11,6 +11,7 @@
 #include "../05_GAME/shoot/BulletShooter2.h"
 #include "../05_GAME/shoot/BulletShooter3.h"
 #include "../05_GAME/shoot/BulletShooter4.h"
+#include "../05_GAME/shoot/BulletShooter5.h"
 #include "../05_GAME/shoot/BulletParticle.h"
 
 using namespace std;
@@ -39,6 +40,8 @@ private:
 	Animation3D* m_boss;
 
 	BulletShooter* m_shooter;
+	unordered_map<int, BulletShooter*> m_shooters;
+	int m_shooterIndex = 0;
 
 public:
 	ParticleLayer3D();
