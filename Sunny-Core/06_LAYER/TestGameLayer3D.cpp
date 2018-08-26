@@ -12,8 +12,6 @@ TestGameLayer3D::TestGameLayer3D()
 {
 	m_send_wsabuf.buf = m_send_buffer;
 	m_send_wsabuf.len = MAX_BUFF_SIZE;
-
-	MouseLayer2D::SetCursor("attack");
 }
 
 TestGameLayer3D::~TestGameLayer3D()
@@ -26,18 +24,13 @@ void TestGameLayer3D::OnInit(Renderer3D& renderer)
 	m_layer2D = new TestGameLayer2D();
 	Application::GetApplication().PushLayer2D(m_layer2D);
 
+	MouseLayer2D::SetCursor("attack");
+
+	// ¶óÀÌÆ®
 	LightSetup* lights = new LightSetup();
 	Light* light = new Light(vec3(0.3, 0.3, 0.3), 2, vec4(1.f, 1.f, 1.f, 1.f));
 	lights->Add(light);
 	PushLightSetup(lights);
-
-	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 0), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
-	Entity* yAxis = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 0), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
-	Entity* zAxis = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 0), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
-	//AddStatic(xAxis);
-	//AddStatic(yAxis);
-	//AddStatic(zAxis);
-
 
 	std::string skyBoxFiles[1] =
 	{
@@ -54,7 +47,7 @@ void TestGameLayer3D::OnInit(Renderer3D& renderer)
 	skyboxEntity->SetMaterial(m_SkyboxMaterial);
 	SetSkybox(skyboxEntity);
 
-	std::string mapData = system::FileSystem::ReadTextFile("/JSON/MAP/map2.json");
+	std::string mapData = system::FileSystem::ReadTextFile("/JSON/MAP/map1.json");
 
 	Json::Value root;
 	Json::Reader reader;
@@ -63,23 +56,26 @@ void TestGameLayer3D::OnInit(Renderer3D& renderer)
 
 	if (parsingSuccessful)
 	{
+		std::cout << "ÆÄ½ÌÆÄ½Ì" << std::endl;
+
 		for (int i = 0; i < root.size(); ++i)
 		{
 			std::string name = root[i]["name"].asString();
 
 			name[0] = toupper(name[0]);
 
-			maths::vec3 translation = vec3(root[i]["position"]["x"].asFloat() + 10.0f, root[i]["position"]["y"].asFloat(), root[i]["position"]["z"].asFloat());
+			maths::vec3 translation = vec3(root[i]["position"]["x"].asFloat(), root[i]["position"]["y"].asFloat(), root[i]["position"]["z"].asFloat());
 			maths::vec3 rotation = vec3(root[i]["rotation"]["x"].asFloat(), root[i]["rotation"]["y"].asFloat(), root[i]["rotation"]["z"].asFloat());
 			maths::vec3 scale = vec3(root[i]["scale"]["x"].asFloat(), root[i]["scale"]["y"].asFloat(), root[i]["scale"]["z"].asFloat());
 
-			translation *= 1000;
+			translation *= 100;
+			translation.x += 900;
 
 			mat4 position = mat4::Identity();
 
 			auto a = new Model3D(name);
 
-			m_mapObjects.push_back(a);
+			//m_mapObjects.push_back(a);
 
 			a->GetTransformComponent()->SetPosition(translation);
 			a->GetTransformComponent()->Rotate(rotation);
@@ -157,15 +153,14 @@ void TestGameLayer3D::OnInit(Renderer3D& renderer)
 		Add(b);
 	}
 	
-	Model* boss_model = new Model("/SUN/Characters/boss_attack01.sun");
-	m_boss = new Entity(boss_model->GetMesh(), new Texture2D("/TEXTURE/boss_texture.png"));
-	m_boss->GetTransformComponent()->SetScale(vec3(1.5, 1.5, 1.5));
-	m_boss->GetTransformComponent()->SetRotation(vec3(0, -90, 0));
-	m_boss->GetTransformComponent()->SetPosition(vec3(1000, 0, 0));
-	
-	//Add(m_boss);
+	//Model* boss_model = new Model("/SUN/Characters/b20_idle_basic");
+	m_boss = new Entity(ModelManager::GetMesh("20_idle_basic"), new Texture2D("/TEXTURE/boss_texture.png"));
+	m_boss->GetTransformComponent()->SetPosition(vec3(-300, 0, 0));
+	m_boss->GetTransformComponent()->SetRotation(vec3(0, 180, 0));
+	m_boss->GetTransformComponent()->SetScale(vec3(100, 100, 100));
+	Add(m_boss);
 
-	//SetCamera(new QuaterCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.0f), BossLocker::player->character));
+	SetCamera(new QuaterCamera(maths::mat4::Perspective(65.0f, 1600.0f / 900.0f, 0.1f, 1000.0f), BossLocker::player->character));
 }
 
 void TestGameLayer3D::OnTick()
@@ -175,8 +170,6 @@ void TestGameLayer3D::OnTick()
 
 void TestGameLayer3D::OnUpdate(const utils::Timestep& ts)
 {
-//	m_boss->PlayAnimation();
-
 	for (int i = 0; i < MAX_USER; ++i)
 	{
 		if (!BossLocker::players[i]) continue;
@@ -199,8 +192,8 @@ void TestGameLayer3D::OnUpdate(const utils::Timestep& ts)
 	}
 
 
-	//mat4 vp = GetCamera()->GetProjectionMatrix() * GetCamera()->GetViewMatrix();
-	//m_SkyboxMaterial->SetUniform("invViewProjMatrix", mat4::Invert(vp));
+	mat4 vp = GetCamera()->GetProjectionMatrix() * GetCamera()->GetViewMatrix();
+	m_SkyboxMaterial->SetUniform("invViewProjMatrix", mat4::Invert(vp));
 }
 
 void TestGameLayer3D::OnEvent(Event& event)
@@ -241,42 +234,39 @@ bool TestGameLayer3D::OnMouseReleasedEvent(MouseReleasedEvent& event)
 
 bool TestGameLayer3D::OnMouseMovedEvent(MouseMovedEvent& event)
 {
-	maths::vec2 mouse_xy(event.GetX(), Window::GetWindowClass()->GetHeight() - event.GetY());
 
-	//vec3 viewProjection = (BossLocker::player->character->GetTransformComponent()->GetTransform() * GetCamera()->GetViewMatrix() * GetCamera()->GetProjectionMatrix()).GetPosition();
-	vec3 viewProjection = (GetCamera()->GetProjectionMatrix() * GetCamera()->GetViewMatrix() * BossLocker::player->character->GetTransformComponent()->GetTransform()).GetPosition();
-	double x = viewProjection.x / viewProjection.z;
-	double y = viewProjection.y / viewProjection.z;
-	double z = viewProjection.z / viewProjection.z;
+	maths::vec2 mouse_xy(event.GetX(), event.GetY());
 
-	double screenX = x * (Window::GetWindowClass()->GetWidth() / 2.0f) + 0 + (Window::GetWindowClass()->GetWidth() / 2.0f);
-	double screenY = y * (Window::GetWindowClass()->GetHeight() / 2.0f) + 0 + (Window::GetWindowClass()->GetHeight() / 2.0f);
+	vec3 P = BossLocker::player->character->GetTransformComponent()->GetPosition();
+	mat4 VP = GetCamera()->GetViewMatrix() * GetCamera()->GetProjectionMatrix();
+
+	float x = P.x * VP.a11 + P.y * VP.a21 + P.z * VP.a31 + VP.a41;
+	float y = P.x * VP.a12 + P.y * VP.a22 + P.z * VP.a31 + VP.a42;
+	float z = P.x * VP.a13 + P.y * VP.a23 + P.z * VP.a31 + VP.a43;
+	float w = P.x * VP.a14 + P.y * VP.a24 + P.z * VP.a31 + VP.a44;
+
+	x /= w;
+	y /= w;
+	z /= w;
+
+	double screenX = Window::GetWindowClass()->GetWidth()   * (x + 1.0f) / 2.0f + 0;
+	double screenY = Window::GetWindowClass()->GetHeight()  * (2.0f - (y + 1.0f)) / 2.0f + 0;
 
 
-	m_layer2D->m_test->SetPosition(vec2(screenX - 16, screenY - 16));
-
-	//std::cout << "CH_X: " << screenX << ", CH_Y: " << screenY << endl;
-	//std::cout << "MO_X: " << mouse_xy.x << ", MO_Y: " << mouse_xy.y << endl;
 
 	m_radian = maths::atan2(mouse_xy.y - screenY, mouse_xy.x - screenX);
 
-	float degree = m_radian * (180 / maths::SUNNY_PI);
-	/*if (degree < 0)
-		degree += 360;
-		*/
-	m_degree = degree;
+	m_degree = m_radian * 180 / maths::SUNNY_PI;
 
-
-	BossLocker::player->character->GetTransformComponent()->SetRotation(vec3( 0, m_degree + 90, 0 ));
-	
+	BossLocker::player->character->GetTransformComponent()->SetRotation(vec3(0, m_degree + 90, 0));
 
 
 	SOCKET socket = Server::GetSocket();
 
 	cs_packet_player_degree* packet = reinterpret_cast<cs_packet_player_degree*>(m_send_buffer);
-	packet->type      = CS_PLAYER_DEGREE;
-	packet->size      = sizeof(packet);
-	packet->degree    = m_degree;
+	packet->type = CS_PLAYER_DEGREE;
+	packet->size = sizeof(packet);
+	packet->degree = m_degree;
 	m_send_wsabuf.len = sizeof(packet);
 
 	DWORD ioByte;

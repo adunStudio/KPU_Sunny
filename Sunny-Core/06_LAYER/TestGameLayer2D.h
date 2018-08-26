@@ -5,6 +5,7 @@
 #include "../05_GAME/Player.h"
 #include "../07_SERVER/BossLocker.h"
 #include "../07_SERVER/BossLockerProtocol.h"
+#include "../05_GAME/shoot/BulletShooter.h"
 
 using namespace std;
 using namespace sunny;

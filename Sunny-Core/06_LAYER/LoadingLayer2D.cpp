@@ -230,9 +230,9 @@ void LoadingLayer2D::GoToRoom()
 	if (m_loadingCompleted == false) return;
 
 	//Application::GetApplication().PushLayer2D(new RoomLayer2D());
-	//Application::GetApplication().PushLayer3D(new MapGUILayer3D());
+	Application::GetApplication().PushLayer3D(new MapGUILayer3D());
 	//Application::GetApplication().PushLayer3D(new ParticleLayer3D());
-	Application::GetApplication().PushLayer2D(new FinalRoom2DLayer());
+	//Application::GetApplication().PushLayer2D(new RoomLayer2D());
 
 	delete Application::GetApplication().PopLayer(this);
 

@@ -149,6 +149,24 @@ void TestGameLayer2D::ProcessPacket(char* ptr)
 			m_bossHPBar->SetValue(hp / max );
 			break;
 		}
+
+		case SC_PARTICLE_PUT:
+		{
+			std::cout << 1 << std::endl;
+
+			sc_packet_particle_put* packet = reinterpret_cast<sc_packet_particle_put*>(ptr);
+
+			vec3 pos = vec3(packet->x, 20, packet->z);
+
+			if (!BossLocker::sc_bulletList[packet->id])
+				BossLocker::sc_bulletList[packet->id] = new SCBullet(pos, packet->bullet_type);
+			else
+				BossLocker::sc_bulletList[packet->id]->m_position = pos;
+
+			//new Bullet(BULLET_TYPE::DIRECTIONAL, pos, 0, 0, 0, 0);
+
+			break;
+		}
 	}
 }
 bool TestGameLayer2D::OnMouseReleasedEvent(MouseReleasedEvent& event)

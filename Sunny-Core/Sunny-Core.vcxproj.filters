@@ -854,6 +854,9 @@
     <ClInclude Include="01_FRAMEWORK\graphics\TextureManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="05_GAME\shoot\SCBulletParticleSystem.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\textures\time.PNG">

@@ -36,6 +36,8 @@
 #define CS_PLAYER_ROLL     6
 #define CS_PLAYER_ATTACK   7
 #define CS_PLAYER_MOUSE_RELEASE   8
+#define CS_PARTICLE_COLLISION     9
+
 
 #define SC_PLAYER_PUT       0
 #define SC_PLAYER_REMOVE    1
@@ -50,6 +52,8 @@
 #define SC_BULLET_POS      10
 #define SC_BULLET_REMOVE   11
 #define SC_BOSS_HP         12
+#define SC_PARTICLE_PUT    13
+#define SC_PARTICLE_REMOVE 14
 
 #define SC_CHAT            4
 
@@ -258,5 +262,24 @@ struct sc_packet_boss_hp
 	unsigned short hp;
 };
 
+struct sc_packet_particle_put
+{
+	unsigned char size;
+	unsigned char type;
+	unsigned int  id;
+	unsigned char bullet_type;
+	float x;
+	float z;
+};
+
+struct sc_packet_particle_remove
+{
+	unsigned char size;
+	unsigned char type;
+	unsigned char id;
+};
+
+//#define SC_PARTICLE_PUT    13
+//#define SC_PARTICLE_REMOVE 14
 
 #pragma pack (pop)

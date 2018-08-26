@@ -32,6 +32,7 @@ public:
 		Application::Init();
 
 		BossLocker::bulletList = new PoolList(110, 50000);
+		BossLocker::sc_bulletList;
 
 		ShaderFactory::Default3DForwardShader();
 		ShaderFactory::Default2DShader();

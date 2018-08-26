@@ -212,6 +212,7 @@
     <ClInclude Include="05_GAME\shoot\BulletShooter5.h" />
     <ClInclude Include="05_GAME\shoot\BulletSystem.h" />
     <ClInclude Include="05_GAME\shoot\CBullet.h" />
+    <ClInclude Include="05_GAME\shoot\SCBulletParticleSystem.h" />
     <ClInclude Include="05_GAME\ui\Loadingbar.h" />
     <ClInclude Include="06_LAYER\FinalGame.h" />
     <ClInclude Include="06_LAYER\FinalGameLayer2D.h" />
