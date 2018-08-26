@@ -62,6 +62,7 @@ namespace sunny
             vec2 Normalise() const;
             float Distance(const vec2& other) const;
             float Dot(const vec2& other) const;
+			vec2 Lerp(const vec2& other, float amount);
 
             std::string ToString() const;
 

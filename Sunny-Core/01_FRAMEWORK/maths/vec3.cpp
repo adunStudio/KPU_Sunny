@@ -306,6 +306,15 @@ namespace sunny
             return sqrt(a * a + b * b + c * c);
         }
 
+		vec3 vec3::Lerp(const vec3& other, float amount)
+		{
+			float a = lerp(x, other.x, amount);
+			float b = lerp(y, other.y, amount);
+			float c = lerp(z, other.z, amount);
+
+			return vec3(a, b, c);
+		}
+
         std::ostream& operator<<(std::ostream& stream, const vec3& vector)
         {
             stream << "vec3: (" << vector.x << ", " << vector.y << ", " << vector.z << ")";

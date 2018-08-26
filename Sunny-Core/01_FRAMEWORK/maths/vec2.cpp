@@ -223,6 +223,14 @@ namespace sunny
             return vec2(x / length, y / length);
         }
 
+		vec2 vec2::Lerp(const vec2& other, float amount)
+		{
+			float a = lerp(x, other.x, amount);
+			float b = lerp(y, other.y, amount);
+
+			return vec2(a, b);
+		}
+
         std::string vec2::ToString() const
         {
             std::stringstream result;

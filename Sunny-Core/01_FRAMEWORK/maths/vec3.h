@@ -5,6 +5,7 @@
 #pragma once
 
 #include "../include.h"
+#include "maths_func.h"
 
 namespace sunny
 {
@@ -93,6 +94,7 @@ namespace sunny
             float Magnitude() const;
             vec3 Normalize() const;
             float Distance(const vec3& other) const;
+			vec3 Lerp(const vec3& other, float amount);
 
             friend std::ostream& operator<<(std::ostream& stream, const vec3& vector);
         };

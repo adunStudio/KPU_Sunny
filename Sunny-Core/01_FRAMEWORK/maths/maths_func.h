@@ -104,5 +104,13 @@ namespace sunny
         {
             return (value > minimum) ? (value < maximum) ? value : maximum : minimum;
         }
+
+		// 선형보간 linear interpolation
+		inline float lerp(float value1, float value2, float amount)
+		{
+			amount = clamp(amount, 0, 1);
+
+			return float(value1 + ((float)(value2 - value1) * amount));
+		}
     }
 }

@@ -10,6 +10,8 @@ namespace sunny
 		QuaterCamera::QuaterCamera(const maths::mat4& projectionMatrix, Renderable3D* renderable)
 		: Camera(projectionMatrix), m_renderable(renderable)
 		{
+			m_transform = m_renderable->GetTransformComponent();
+
 			m_panSpeed = 0.0015f;
 			m_rotationSpeed = 0.002f;
 			m_zoomSpeed = 0.2f;
@@ -32,12 +34,9 @@ namespace sunny
 
 		void QuaterCamera::Update()
 		{
-			m_position = CalcuatePosition();
+			vec3 to = vec3(m_transform->GetPosition().x, m_transform->GetPosition().y + 1300, m_transform->GetPosition().z - 800);
 			
-			m_position.x = m_renderable->GetTransformComponent()->GetPosition().x;
-			m_position.y = m_renderable->GetTransformComponent()->GetPosition().y + 1300;
-			m_position.z = m_renderable->GetTransformComponent()->GetPosition().z - 800;
-			
+			m_position = m_position.Lerp(to, Application::GetApplication().GetFrameTime() / 1000.0f * m_speed);
 
 			maths::Quaternion orientation = GetOrientation();
 			m_rotation = orientation.ToEulerAngles() * (180.0f / maths::SUNNY_PI);

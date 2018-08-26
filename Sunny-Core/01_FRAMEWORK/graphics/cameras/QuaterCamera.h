@@ -8,13 +8,18 @@ namespace sunny
 {
 	namespace graphics
 	{
+		using namespace component;
+
 		class QuaterCamera : public Camera
 		{
 		private:
+			const float m_speed = 3.0f;
+
 			bool m_panning;
 			bool m_rotating;
 			
 			Renderable3D* m_renderable;
+			TransformComponent* m_transform;
 
 			maths::vec2 m_initialMousePosition;
 			maths::vec3 m_initialFocalPoint;

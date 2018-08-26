@@ -9,8 +9,7 @@ namespace sunny
 	{
 		MayaCamera::MayaCamera(const maths::mat4& projectionMatrix) : Camera(projectionMatrix)
 		{
-		
-
+			// https://www.3dgep.com/understanding-the-view-matrix/
 			m_panSpeed = 0.0015f;
 			m_rotationSpeed = 0.002f;
 			m_zoomSpeed = 1.0f;
