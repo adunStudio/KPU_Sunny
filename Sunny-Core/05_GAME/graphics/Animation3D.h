@@ -6,6 +6,9 @@ namespace game
 {
 	class Animation3D : public Entity
 	{
+	public:
+		float hp;
+
 	private:
 		vector<Mesh*> m_meshs;
 		

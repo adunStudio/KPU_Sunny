@@ -425,7 +425,7 @@ namespace sunny
 			m_gBuffer->UnBind();
 
 			directx::Renderer::SetDepthTesting(true);
-			//directx::Renderer::SetBlend(true);
+			directx::Renderer::SetBlend(true);
 
 			for (ParticleSystem* particle : m_particles)
 			{

@@ -102,7 +102,7 @@ namespace sunny
 			dev->QueryInterface(__uuidof(IDXGIDevice), (void**)&dxgiDevice);      // (1) DirectX 장치에서 IDXGIDevice 를 얻어온다.
 			dxgiDevice->GetParent(__uuidof(IDXGIAdapter), (void**)&dxgiAdapter);  // (2) IDXGIDevice 에서 어뎁터를 얻어온다.
 			dxgiAdapter->GetParent(__uuidof(IDXGIFactory), (void**)&dxgiFactory); // (3) 어뎁터에서 IDXDIFactory 를 얻어온다.
-
+			
 																				  // 스왑체인을 생성한다.
 																				  // (디바이스 포인터,  스왑체인 정보 구조체 포인터, 스왑체인 인터페이스를 받아오는 포인터)
 			dxgiFactory->CreateSwapChain(dev, &scd, &swapchain);

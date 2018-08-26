@@ -94,7 +94,6 @@ void TestGameLayer3D::OnInit(Renderer3D& renderer)
 	Entity* e = new Entity(m_sphere->GetMesh(), RGBA(1.0, 0, 0, 1.0));
 	Add(e);
 
-
 	m_animations[14].push_back(ModelManager::GetMesh("14_idle_basic"));
 	m_animations[14].push_back(ModelManager::GetMesh("14_dead"));
 	m_animations[14].push_back(ModelManager::GetMesh("14_attack_basic"));

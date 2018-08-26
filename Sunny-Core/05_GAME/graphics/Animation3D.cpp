@@ -3,7 +3,7 @@
 namespace game
 {
 	Animation3D::Animation3D(vector<Mesh*>& meshs, directx::Texture* texture1, directx::Texture* texture2)
-		: Entity(meshs[0], texture1, texture2), m_meshs(meshs), m_preAnimationIndex(0), m_roll(false), m_coolTime(0)
+		: Entity(meshs[0], texture1, texture2), m_meshs(meshs), m_preAnimationIndex(0), m_roll(false), m_coolTime(0), hp(100)
 	{
 
 	}

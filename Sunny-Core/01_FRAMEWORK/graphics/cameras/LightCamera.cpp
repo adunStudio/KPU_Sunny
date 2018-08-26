@@ -11,7 +11,7 @@ namespace sunny
 		{
 		
 			
-			m_position = maths::vec3(0.0f, 3700.0f, -3700.0f);
+			m_position = maths::vec3(0.0f, 2500.0f, -1500.0f);
 			m_rotation = maths::vec3(90.0f, 0.0f, 0.0f);
 
 			m_focalPoint = maths::vec3::Zero();

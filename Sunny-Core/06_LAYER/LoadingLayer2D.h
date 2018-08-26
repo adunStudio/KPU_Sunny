@@ -9,6 +9,7 @@
 #include "../06_LAYER/RoomLayer2D.h"
 #include "../06_LAYER/MapGUILayer3D.h"
 #include "../06_LAYER/ParticleLayer3D.h"
+#include "../06_LAYER/FinalRoom2DLayer.h"
 
 using namespace game;
 
