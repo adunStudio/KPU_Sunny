@@ -111,6 +111,8 @@ namespace sunny
 
 			void ParticlePresentInternal();
 
+			void DrawOutLine();
+
 			void SetSunnyVSUniforms        (directx::Shader* shader);
 			void SetSunnyPSUniforms        (directx::Shader* shader);
 			void SetSunnyShadowVSUniforms  (directx::Shader* shader);
