@@ -97,7 +97,7 @@ void MapGUILayer2D::OnRender(Renderer2D& renderer)
 
 		if (ImGui::Button("Save"))
 		{
-
+			Save();
 		}
 		ImGui::SameLine();
 
@@ -253,4 +253,46 @@ void MapGUILayer2D::SetPickedModel(Model3D* model)
 	m_first = true;
 	
 	m_pickedModel = model;
+}
+
+void MapGUILayer2D::Save()
+{
+	Json::Value root(Json::arrayValue);
+
+	//root.append
+
+	string name;
+	TransformComponent* transformComponent = nullptr;
+	vec3 position, rotation, scale;
+
+	for (auto& object : m_layer3D->m_mapObjects)
+	{
+		Json::Value val(Json::objectValue);
+
+		name = object->name;
+		transformComponent = object->GetTransformComponent();
+		position = transformComponent->GetPosition();
+		rotation = transformComponent->GetRotation();
+		scale = transformComponent->GetScale();
+
+		val["name"] = name;
+		
+		val["position"]["x"] = position.x;
+		val["position"]["y"] = position.y;
+		val["position"]["z"] = position.z;
+		
+		val["rotation"]["x"] = rotation.x;
+		val["rotation"]["y"] = rotation.y;
+		val["rotation"]["z"] = rotation.z;
+		
+		val["scale"]["x"] = scale.x;
+		val["scale"]["y"] = scale.y;
+		val["scale"]["z"] = scale.z;
+
+		root.append(val);
+	}
+
+	
+	//system::FileSystem::ReadTextFile("/JSON/MAP/map1.json");
+	system::FileSystem::WriteTextFile("03_JSON/MAP/map3.json", root.toStyledString(), true);
 }

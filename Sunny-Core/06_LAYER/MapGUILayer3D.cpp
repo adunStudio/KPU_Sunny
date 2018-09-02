@@ -52,6 +52,11 @@ void MapGUILayer3D::OnInit(Renderer3D& renderer)
 	model_axis->Add(model_y);
 	model_axis->Add(model_z);
 
+
+
+
+
+
 	model_axis->GetTransformComponent()->SetScale(vec3(300, 300, 300));
 	
 	Add(model_axis);

@@ -230,8 +230,9 @@ void LoadingLayer2D::GoToRoom()
 	if (m_loadingCompleted == false) return;
 
 	//Application::GetApplication().PushLayer2D(new RoomLayer2D());
-	Application::GetApplication().PushLayer3D(new MapGUILayer3D());
-	//Application::GetApplication().PushLayer3D(new ParticleLayer3D());
+	//Application::GetApplication().PushLayer3D(new MapGUILayer3D());
+
+	Application::GetApplication().PushLayer3D(new ParticleLayer3D());
 	//Application::GetApplication().PushLayer2D(new RoomLayer2D());
 
 	delete Application::GetApplication().PopLayer(this);
@@ -251,13 +252,14 @@ void StartLoad(LoadingLayer2D* layer)
 	int textureLen;
 
 	Model* a;
-
+	
 	unordered_map<std::string, std::string> jsons;
 	jsons["Characters"] = sunny::system::FileSystem::ReadTextFile("/JSON/CHARACTER/Characters.json");
 
 	jsons["Trees"] = sunny::system::FileSystem::ReadTextFile("/JSON/MODEL/Trees.json");
 	jsons["LowPolyNatures"] = sunny::system::FileSystem::ReadTextFile("/JSON/MODEL/LowPolyNatures.json");
 	jsons["Packs"] = sunny::system::FileSystem::ReadTextFile("/JSON/MODEL/Packs.json");
+
 
 	for (auto& obj : jsons)
 	{

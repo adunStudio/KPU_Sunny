@@ -37,4 +37,6 @@ public:
 	void OnRender(Renderer2D& renderer);
 
 	void SetPickedModel(Model3D* model);
+
+	void Save();
 };

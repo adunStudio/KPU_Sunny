@@ -167,7 +167,7 @@ void ParticleLayer3D::ParticleLayer3D::OnInit(Renderer3D& renderer)
 	}
 
 
-	std::string mapData = system::FileSystem::ReadTextFile("/JSON/MAP/map1.json");
+	std::string mapData = system::FileSystem::ReadTextFile("/JSON/MAP/map3.json");
 
 	Json::Value root;
 	Json::Reader reader;
@@ -188,8 +188,8 @@ void ParticleLayer3D::ParticleLayer3D::OnInit(Renderer3D& renderer)
 			maths::vec3 rotation = vec3(root[i]["rotation"]["x"].asFloat(), root[i]["rotation"]["y"].asFloat(), root[i]["rotation"]["z"].asFloat());
 			maths::vec3 scale = vec3(root[i]["scale"]["x"].asFloat(), root[i]["scale"]["y"].asFloat(), root[i]["scale"]["z"].asFloat());
 
-			translation *= 100;
-			translation.x += 900;
+			//translation *= 100;
+			//translation.x += 900;
 
 			mat4 position = mat4::Identity();
 
