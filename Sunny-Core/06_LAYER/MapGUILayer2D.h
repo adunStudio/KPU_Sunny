@@ -36,6 +36,10 @@ public:
 	void OnUpdate(const utils::Timestep& ts) override;
 	void OnRender(Renderer2D& renderer);
 
+	void OnEvent(Event& event) override;
+
+	bool OnKeyPressedEvent(KeyPressedEvent& event);
+
 	void SetPickedModel(Model3D* model);
 
 	void Save();

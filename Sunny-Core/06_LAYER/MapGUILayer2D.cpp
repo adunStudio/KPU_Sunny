@@ -255,6 +255,31 @@ void MapGUILayer2D::SetPickedModel(Model3D* model)
 	m_pickedModel = model;
 }
 
+void MapGUILayer2D::OnEvent(Event& event)
+{
+	Layer2D::OnEvent(event);
+	EventDispatcher dispatcher(event);
+	dispatcher.Dispatch<KeyPressedEvent>(METHOD(&MapGUILayer2D::OnKeyPressedEvent));;
+}
+
+bool MapGUILayer2D::OnKeyPressedEvent(KeyPressedEvent& event)
+{
+	if (event.GetRepeat()) return false;
+
+	if (!m_pickedModel) return false;
+
+	if (event.GetKeyCode() == SUNNY_KEY_C)
+	{
+		// copy
+
+		Model3D* newModel = new Model3D(m_pickedModel->name, m_pickedModel->GetTransformComponent()->GetTransform());
+
+		m_layer3D->m_mapObjects.push_back(newModel);
+
+		m_layer3D->Add(newModel);
+	}
+}
+
 void MapGUILayer2D::Save()
 {
 	Json::Value root(Json::arrayValue);

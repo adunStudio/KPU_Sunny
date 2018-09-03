@@ -63,7 +63,7 @@ void MapGUILayer3D::OnInit(Renderer3D& renderer)
 
 
 
-	std::string mapData = system::FileSystem::ReadTextFile("/JSON/MAP/map1.json");
+	std::string mapData = system::FileSystem::ReadTextFile("/JSON/MAP/map3.json");
 
 	Json::Value root;
 	Json::Reader reader;
@@ -84,9 +84,7 @@ void MapGUILayer3D::OnInit(Renderer3D& renderer)
 
 			mat4 position = mat4::Identity();
 
-			translation *= 100;
-			translation.x += 900;
-
+	
 			auto a = new Model3D(name);
 
 			m_mapObjects.push_back(a);
