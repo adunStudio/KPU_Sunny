@@ -1,8 +1,9 @@
-#include "TestGameLayer2D.h"
+#include "BossLockerLayer2D.h"
+#include "BossLockerLayer3D.h"
 
-TestGameLayer2D::TestGameLayer2D()
+BossLockerLayer2D::BossLockerLayer2D(BossLockerLayer3D* layer)
 : Layer2D(maths::mat4::Orthographic(0.0f, Application::GetApplication().GetWindowWidth(), 0.0f, Application::GetApplication().GetWindowHeight(), -1.0f, 1.0f))
-, m_saved_packet_size(0), m_packet_size(0), m_io_flag(0)
+, m_saved_packet_size(0), m_packet_size(0), m_io_flag(0), m_layer3D(layer)
 {
 	m_send_wsabuf.buf = m_send_buffer;
 	m_send_wsabuf.len = MAX_BUFF_SIZE;
@@ -10,54 +11,73 @@ TestGameLayer2D::TestGameLayer2D()
 	m_recv_wsabuf.len = MAX_BUFF_SIZE;
 }
 
-TestGameLayer2D::~TestGameLayer2D()
+BossLockerLayer2D::~BossLockerLayer2D()
 {
 
 }
 
-void TestGameLayer2D::OnInit(Renderer2D& renderer)
+void BossLockerLayer2D::OnInit(Renderer2D& renderer)
 {
 	m_panel = new Panel();
 	m_bossHPBar = new Progressbar(maths::Rectangle(300, 830, 500, 20));
 	m_bossHPBar->SetValue(1);
 	m_panel->Add(m_bossHPBar);
 
-	m_test = new Sprite(new Texture2D("/TEXTURE/cursor2.png"));
+	for (int i = 0; i < MAX_USER; ++i)
+	{
+		if (!BossLocker::players[i]) continue;
 
-	Add(m_test);
+		CharacterHpBar* hpBar = new CharacterHpBar(maths::Rectangle(38, 20 + i * 40, 100, 15), BossLocker::players[i]);
+		hpBar->SetValue(1);
+		m_panel->Add(hpBar);
+
+		switch (BossLocker::players[i]->player_type)
+		{
+		case CHARACTER_14:
+
+			Add(new Sprite(5, 20 + i * 40, 30, 30, TextureManager::Get2D("face_14")));
+			break;
+		case CHARACTER_15:
+			Add(new Sprite(5, 20 + i * 40, 30, 30, TextureManager::Get2D("face_15")));
+			break;
+		case CHARACTER_20:
+			Add(new Sprite(5, 20 + i * 40, 30, 30, TextureManager::Get2D("face_20")));
+			break;
+		}
+	}
 }
 
-void TestGameLayer2D::OnTick()
+void BossLockerLayer2D::OnTick()
 {
 
 }
 
-void TestGameLayer2D::OnUpdate(const utils::Timestep& ts)
+void BossLockerLayer2D::OnUpdate(const utils::Timestep& ts)
 {
 	InputProcess();
 }
 
-void TestGameLayer2D::OnRender(Renderer2D& renderer)
+void BossLockerLayer2D::OnRender(Renderer2D& renderer)
 {
 
 }
 
-void TestGameLayer2D::OnEvent(Event& event)
+void BossLockerLayer2D::OnEvent(Event& event)
 {
 	Layer2D::OnEvent(event);
 	EventDispatcher dispatcher(event);
-	dispatcher.Dispatch<ServerPacketEvent>(METHOD(&TestGameLayer2D::OnServerPacketEvent));
-	dispatcher.Dispatch<MouseMovedEvent>(METHOD(&TestGameLayer2D::OnMouseMovedEvent));
-	dispatcher.Dispatch<KeyPressedEvent>(METHOD(&TestGameLayer2D::OnKeyPressedEvent));
-	dispatcher.Dispatch<MouseReleasedEvent>(METHOD(&TestGameLayer2D::OnMouseReleasedEvent));
+	dispatcher.Dispatch<ServerPacketEvent>(METHOD(&BossLockerLayer2D::OnServerPacketEvent));
+	dispatcher.Dispatch<MouseMovedEvent>(METHOD(&BossLockerLayer2D::OnMouseMovedEvent));
+	dispatcher.Dispatch<KeyPressedEvent>(METHOD(&BossLockerLayer2D::OnKeyPressedEvent));
+	dispatcher.Dispatch<MouseReleasedEvent>(METHOD(&BossLockerLayer2D::OnMouseReleasedEvent));
 }
 
-bool TestGameLayer2D::OnMouseMovedEvent(MouseMovedEvent& event)
+bool BossLockerLayer2D::OnMouseMovedEvent(MouseMovedEvent& event)
 {
 	return false;
 }
 
-void TestGameLayer2D::ProcessPacket(char* ptr)
+void BossLockerLayer2D::ProcessPacket(char* ptr)
 {
 	switch (ptr[1])
 	{
@@ -150,26 +170,26 @@ void TestGameLayer2D::ProcessPacket(char* ptr)
 			break;
 		}
 
-		case SC_PARTICLE_PUT:
+		case SC_PLAYER_HP:
 		{
-			std::cout << 1 << std::endl;
+			sc_packet_player_hp* packet = reinterpret_cast<sc_packet_player_hp*>(ptr);
 
-			sc_packet_particle_put* packet = reinterpret_cast<sc_packet_particle_put*>(ptr);
-
-			vec3 pos = vec3(packet->x, 20, packet->z);
-
-			if (!BossLocker::sc_bulletList[packet->id])
-				BossLocker::sc_bulletList[packet->id] = new SCBullet(pos, packet->bullet_type);
-			else
-				BossLocker::sc_bulletList[packet->id]->m_position = pos;
-
-			//new Bullet(BULLET_TYPE::DIRECTIONAL, pos, 0, 0, 0, 0);
+			BossLocker::players[packet->id]->hp = packet->hp;
 
 			break;
 		}
+
+		case SC_SHOOTER_CHANGE:
+		{
+			sc_packet_shooter_change* packet = reinterpret_cast<sc_packet_shooter_change*>(ptr);
+
+			BossLocker::shooterIndex = packet->shooter;
+
+			m_layer3D->m_shooters[BossLocker::shooterIndex]->SetEnemyTransform(BossLocker::players[packet->target]->character->GetTransformComponent());
+		}
 	}
 }
-bool TestGameLayer2D::OnMouseReleasedEvent(MouseReleasedEvent& event)
+bool BossLockerLayer2D::OnMouseReleasedEvent(MouseReleasedEvent& event)
 {
 	SOCKET socket = Server::GetSocket();
 
@@ -184,7 +204,7 @@ bool TestGameLayer2D::OnMouseReleasedEvent(MouseReleasedEvent& event)
 	return false;
 }
 
-bool TestGameLayer2D::OnKeyPressedEvent(KeyPressedEvent& event)
+bool BossLockerLayer2D::OnKeyPressedEvent(KeyPressedEvent& event)
 {
 	switch (event.GetKeyCode())
 	{
@@ -210,7 +230,7 @@ bool TestGameLayer2D::OnKeyPressedEvent(KeyPressedEvent& event)
 	return false;
 }
 
-void TestGameLayer2D::InputProcess()
+void BossLockerLayer2D::InputProcess()
 {
 	SOCKET socket = Server::GetSocket();
 	
@@ -328,7 +348,7 @@ void TestGameLayer2D::InputProcess()
 
 
 
-bool TestGameLayer2D::OnServerPacketEvent(ServerPacketEvent& event)
+bool BossLockerLayer2D::OnServerPacketEvent(ServerPacketEvent& event)
 {
 	unsigned long ioByte = 0;
 

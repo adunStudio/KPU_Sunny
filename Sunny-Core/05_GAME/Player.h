@@ -9,6 +9,7 @@ namespace game
 	class Player
 	{
 	public:
+		int hp;
 		int id;
 		bool isConnected;
 		bool isReady;
@@ -19,6 +20,6 @@ namespace game
 		Animation3D* character;
 
 	public:
-		Player(int id) : id(id) {};
+		Player(int id) : id(id), hp(100) {};
 	};
 }

@@ -159,9 +159,6 @@
     <ClCompile Include="06_LAYER\RoomLayer2D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="06_LAYER\TestGameLayer2D.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="07_SERVER\BossLocker.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -178,9 +175,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="06_LAYER\FPSLayer2D.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="06_LAYER\TestGameLayer3D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="01_FRAMEWORK\dependency\freetype\freetype-gl\platform.c">
@@ -390,6 +384,12 @@
     <ClCompile Include="01_FRAMEWORK\graphics\TextureManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="06_LAYER\BossLockerLayer2D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="06_LAYER\BossLockerLayer3D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="01_FRAMEWORK\app\Application.h">
@@ -575,9 +575,6 @@
     <ClInclude Include="06_LAYER\RoomLayer2D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="06_LAYER\TestGameLayer2D.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="07_SERVER\BossLocker.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -600,9 +597,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="01_FRAMEWORK\directx\DeferredContext.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="06_LAYER\TestGameLayer3D.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="01_FRAMEWORK\dependency\freetype\freetype-gl\common.h">
@@ -855,6 +849,15 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="05_GAME\shoot\SCBulletParticleSystem.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="06_LAYER\BossLockerLayer2D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="06_LAYER\BossLockerLayer3D.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="05_GAME\graphics\CharacterHpBar.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

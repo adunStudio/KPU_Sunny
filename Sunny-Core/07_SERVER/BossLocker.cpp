@@ -8,3 +8,5 @@ PoolList* BossLocker::bulletList = nullptr;
 
 unordered_map<int, SCBullet*> BossLocker::sc_bulletList;
 
+int BossLocker::shooterIndex = 0;
+

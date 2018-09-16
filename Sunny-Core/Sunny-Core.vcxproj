@@ -85,7 +85,7 @@
     <ClCompile Include="06_LAYER\ParticleLayer3D.cpp" />
     <ClCompile Include="06_LAYER\RoomLayer2D.cpp" />
     <ClCompile Include="06_LAYER\ShootingLayer3D.cpp" />
-    <ClCompile Include="06_LAYER\TestGameLayer2D.cpp" />
+    <ClCompile Include="06_LAYER\BossLockerLayer2D.cpp" />
     <ClCompile Include="01_FRAMEWORK\graphics\cameras\Camera.cpp" />
     <ClCompile Include="01_FRAMEWORK\graphics\cameras\FPSCamera.cpp" />
     <ClCompile Include="01_FRAMEWORK\graphics\cameras\LightCamera.cpp" />
@@ -126,7 +126,7 @@
     <ClCompile Include="01_FRAMEWORK\ui\Progressbar.cpp" />
     <ClCompile Include="01_FRAMEWORK\ui\Slider.cpp" />
     <ClCompile Include="01_FRAMEWORK\ui\Widget.cpp" />
-    <ClCompile Include="06_LAYER\TestGameLayer3D.cpp" />
+    <ClCompile Include="06_LAYER\BossLockerLayer3D.cpp" />
     <ClCompile Include="06_LAYER\TestLayer2D.cpp" />
     <ClCompile Include="06_LAYER\TestLayer3D.cpp" />
     <ClCompile Include="07_SERVER\BossLocker.cpp" />
@@ -202,6 +202,7 @@
     <ClInclude Include="01_FRAMEWORK\utils\Pool.h" />
     <ClInclude Include="05_GAME\graphics\Animation3D.h" />
     <ClInclude Include="05_GAME\graphics\BulletM.h" />
+    <ClInclude Include="05_GAME\graphics\CharacterHpBar.h" />
     <ClInclude Include="05_GAME\Player.h" />
     <ClInclude Include="05_GAME\shoot\Bullet.h" />
     <ClInclude Include="05_GAME\shoot\BulletParticle.h" />
@@ -225,8 +226,8 @@
     <ClInclude Include="06_LAYER\ParticleLayer3D.h" />
     <ClInclude Include="06_LAYER\RoomLayer2D.h" />
     <ClInclude Include="06_LAYER\ShootingLaye3D.h" />
-    <ClInclude Include="06_LAYER\TestGameLayer2D.h" />
-    <ClInclude Include="06_LAYER\TestGameLayer3D.h" />
+    <ClInclude Include="06_LAYER\BossLockerLayer2D.h" />
+    <ClInclude Include="06_LAYER\BossLockerLayer3D.h" />
     <ClInclude Include="06_LAYER\TestLayer2D.h" />
     <ClInclude Include="06_LAYER\TestLayer3D.h" />
     <ClInclude Include="07_SERVER\BossLocker.h" />

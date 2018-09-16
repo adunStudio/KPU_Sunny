@@ -15,6 +15,7 @@
 #define MAX_ENEMY_BULLET   500
 
 #define BOSS_HP           3000
+#define BOSS_DAMAGE        2
 
 #define CHARACTER_14      14
 #define CHARACTER_15      15
@@ -35,8 +36,8 @@
 #define CS_PLAYER_DEGREE   5
 #define CS_PLAYER_ROLL     6
 #define CS_PLAYER_ATTACK   7
-#define CS_PLAYER_MOUSE_RELEASE   8
-#define CS_PARTICLE_COLLISION     9
+#define CS_PLAYER_MOUSE_RELEASE  8
+#define CS_PARTICLE_COLLISION    9
 
 
 #define SC_PLAYER_PUT       0
@@ -54,6 +55,8 @@
 #define SC_BOSS_HP         12
 #define SC_PARTICLE_PUT    13
 #define SC_PARTICLE_REMOVE 14
+#define SC_PLAYER_HP       15
+#define SC_SHOOTER_CHANGE  16
 
 #define SC_CHAT            4
 
@@ -68,7 +71,7 @@
 #define MOVE_STOP          8
 
 #define COOLTIME_MOVE      3
-#define COOLTIME_ROLL    100
+#define COOLTIME_ROLL     50
 #define COOLTIME_ATTACK	  15
 
 #define SPEED             15
@@ -152,6 +155,12 @@ struct cs_packet_player_mouse_release
 	unsigned char type;
 };
 
+struct cs_packet_particle_collision
+{
+	unsigned char size;
+	unsigned char type;
+};
+
 struct sc_packet_player_put
 {
 	unsigned char  size;
@@ -219,6 +228,14 @@ struct sc_packet_player_degree
 	float degree;
 };
 
+struct sc_packet_player_hp
+{
+	unsigned char size;
+	unsigned char type;
+	unsigned short id;
+	int            hp;
+};
+
 struct sc_packet_player_animation
 {
 	unsigned char size;
@@ -277,6 +294,14 @@ struct sc_packet_particle_remove
 	unsigned char size;
 	unsigned char type;
 	unsigned char id;
+};
+
+struct sc_packet_shooter_change
+{
+	unsigned char size;
+	unsigned char type;
+	unsigned char shooter;
+	unsigned char target;
 };
 
 //#define SC_PARTICLE_PUT    13

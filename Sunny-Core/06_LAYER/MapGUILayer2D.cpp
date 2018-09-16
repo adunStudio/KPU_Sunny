@@ -277,6 +277,8 @@ bool MapGUILayer2D::OnKeyPressedEvent(KeyPressedEvent& event)
 		m_layer3D->m_mapObjects.push_back(newModel);
 
 		m_layer3D->Add(newModel);
+
+		std::cout << m_layer3D->m_mapObjects.size() << std::endl;
 	}
 }
 
@@ -317,7 +319,10 @@ void MapGUILayer2D::Save()
 		root.append(val);
 	}
 
-	
+	std::cout << m_layer3D->m_mapObjects.size() << std::endl;
+
 	//system::FileSystem::ReadTextFile("/JSON/MAP/map1.json");
-	system::FileSystem::WriteTextFile("03_JSON/MAP/map3.json", root.toStyledString(), true);
+	system::FileSystem::WriteTextFile("03_JSON/MAP/map5.json", root.toStyledString(), true);
+
+	std::cout << "SAVE!" << std::endl;
 }

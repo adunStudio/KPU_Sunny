@@ -3,12 +3,19 @@
 #include <iostream>
 #include <SUNNY.h>
 
-#include "../06_LAYER/TestGameLayer2D.h"
+#include "../06_LAYER/BossLockerLayer2D.h"
 #include "../05_GAME/graphics/Model3D.h"
 #include "../05_GAME/graphics/Animation3D.h"
 #include "../05_GAME/graphics/BulletM.h"
 #include "../07_SERVER/BossLockerProtocol.h"
 #include "../07_SERVER/BossLocker.h"
+
+#include "../05_GAME/shoot/BulletShooter.h"
+#include "../05_GAME/shoot/BulletShooter2.h"
+#include "../05_GAME/shoot/BulletShooter3.h"
+#include "../05_GAME/shoot/BulletShooter4.h"
+#include "../05_GAME/shoot/BulletShooter5.h"
+#include "../05_GAME/shoot/BulletParticle.h"
 
 using namespace std;
 using namespace sunny;
@@ -19,22 +26,28 @@ using namespace game;
 using namespace maths;
 
 
-class TestGameLayer3D : public Layer3D
+class BossLockerLayer3D : public Layer3D
 {
 public:
-	int m_windowWidth, m_windowHeight;
+	unordered_map<int, BulletShooter*> m_shooters;
 
-	TestGameLayer2D* m_layer2D;
+private:
+	BossLockerLayer2D * m_layer2D;
+	SOCKET m_socket;
+
+	ParticleSystem* m_bulletParticle;
 
 	unordered_map<int, vector<Mesh*>> m_animations;
 
 	Entity * m_entity;
-	Model* m_sphere;
-	Entity* m_boss;
+	Entity*  m_boss;
 
-	MaterialInstance* m_SkyboxMaterial;
+	MaterialInstance* m_skyboxMaterial;
 
 	vector<Model3D*> m_mapObjects;
+
+
+	chrono::steady_clock::time_point start;
 
 	float m_radian;
 	float m_degree;
@@ -45,8 +58,8 @@ public:
 	unsigned long m_io_flag = 0;
 
 public:
-	TestGameLayer3D();
-	~TestGameLayer3D();
+	BossLockerLayer3D();
+	~BossLockerLayer3D();
 
 	void OnInit(Renderer3D& renderer) override;
 	void OnTick() override;

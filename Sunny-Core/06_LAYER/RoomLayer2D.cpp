@@ -294,7 +294,7 @@ void RoomLayer2D::ProcessPacket(char* ptr)
 		std::cout << "START!!!" << std::endl;
 		delete m_panel;
 		Application::GetApplication().PopLayer(this);
-		Application::GetApplication().PushLayer3D(new TestGameLayer3D());
+		Application::GetApplication().PushLayer3D(new BossLockerLayer3D());
 		break;
 	}
 }

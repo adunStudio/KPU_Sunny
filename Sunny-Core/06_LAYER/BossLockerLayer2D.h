@@ -6,6 +6,7 @@
 #include "../07_SERVER/BossLocker.h"
 #include "../07_SERVER/BossLockerProtocol.h"
 #include "../05_GAME/shoot/BulletShooter.h"
+#include "../05_GAME/graphics/CharacterHpBar.h"
 
 using namespace std;
 using namespace sunny;
@@ -14,14 +15,21 @@ using namespace events;
 using namespace ui;
 using namespace game;
 
-class TestGameLayer2D : public Layer2D
+class BossLockerLayer3D;
+
+class BossLockerLayer2D : public Layer2D
 {
 public:
+	BossLockerLayer3D * m_layer3D;
+
 	Panel* m_panel;
 
 	Progressbar* m_bossHPBar;
 
 	Sprite* m_test;
+
+	std::vector<CharacterHpBar*> characterHpBars;
+	
 
 public:
 	WSABUF m_send_wsabuf;
@@ -38,8 +46,8 @@ public:
 	unsigned long m_io_flag = 0;
 
 public:
-	TestGameLayer2D();
-	~TestGameLayer2D();
+	BossLockerLayer2D(BossLockerLayer3D* layer);
+	~BossLockerLayer2D();
 
 	void OnInit(Renderer2D& renderer);
 	void OnTick() override;

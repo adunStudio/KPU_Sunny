@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <SUNNY.h>
-#include "../06_LAYER/TestGameLayer3D.h"
+#include "../06_LAYER/BossLockerLayer3D.h"
 #include "../07_SERVER/BossLockerProtocol.h"
 #include "../07_SERVER/BossLocker.h"
 #include "../05_GAME/Player.h"

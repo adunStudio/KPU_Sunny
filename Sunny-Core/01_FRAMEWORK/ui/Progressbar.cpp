@@ -25,7 +25,6 @@ namespace sunny
 
 			m_progressBounds.width = m_value * m_bounds.width;
 			//m_progressBounds.x = m_bounds.GetMinimumBound().x + m_progressBounds.width;
-
 		}
 
 		void Progressbar::OnRender(Renderer2D& renderer)

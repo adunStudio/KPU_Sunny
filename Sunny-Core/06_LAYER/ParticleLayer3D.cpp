@@ -136,7 +136,7 @@ void ParticleLayer3D::ParticleLayer3D::OnInit(Renderer3D& renderer)
 	m_shooter = BulletPatternShooter::Get(m_boss->GetTransformComponent()->GetPosition());
 	m_shooter->SetEnemyTransform(m_player->GetTransformComponent());
 
-	m_shooters[0] = BulletStarShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	/*m_shooters[0] = BulletStarShooter::Get(m_boss->GetTransformComponent()->GetPosition());
 	m_shooters[1] = BulletSpiralShooter::Get(m_boss->GetTransformComponent()->GetPosition());
 	m_shooters[2] = BulletMultipleSpiralShooter::Get(m_boss->GetTransformComponent()->GetPosition());
 	m_shooters[3] = BulletIntervalMultipleSpiralShooter::Get(m_boss->GetTransformComponent()->GetPosition());
@@ -146,22 +146,22 @@ void ParticleLayer3D::ParticleLayer3D::OnInit(Renderer3D& renderer)
 	m_shooters[7] = BulletNWayShooter::Get(m_boss->GetTransformComponent()->GetPosition());
 	m_shooters[8] = BulletCircleNWayShooter::Get(m_boss->GetTransformComponent()->GetPosition());
 	m_shooters[9] = BulletBentCircleNWayShooter::Get(m_boss->GetTransformComponent()->GetPosition());
-	m_shooters[10] = BulletAimingNWayShooter::Get(m_boss->GetTransformComponent()->GetPosition());
-	m_shooters[11] = BulletIntermittentAimingNWayShooter::Get(m_boss->GetTransformComponent()->GetPosition());
-	m_shooters[12] = BulletRandomNWayShooter::Get(m_boss->GetTransformComponent()->GetPosition());
-	m_shooters[13] = BulletAimingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
-	m_shooters[14] = BulletLineShooter::Get(m_boss->GetTransformComponent()->GetPosition());
-	m_shooters[15] = BulletSpreadingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
-	m_shooters[16] = BulletRandomSpreadingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
-	m_shooters[17] = BulletOvertakingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
-	m_shooters[18] = BulletSimpleHomingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
-	m_shooters[19] = BulletConstrainedHomingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
-	m_shooters[20] = BulletGapShooter::Get(m_boss->GetTransformComponent()->GetPosition());
-	m_shooters[21] = BulletPatternShooter::Get(m_boss->GetTransformComponent()->GetPosition());
-	m_shooters[22] = BulletSteppingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
-	m_shooters[23] = BulletSplittingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[10] = BulletAimingNWayShooter::Get(m_boss->GetTransformComponent()->GetPosition());*/
+	m_shooters[0] = BulletIntermittentAimingNWayShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[1] = BulletRandomNWayShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[2] = BulletAimingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[3] = BulletLineShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[4] = BulletSpreadingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[5] = BulletRandomSpreadingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[6] = BulletOvertakingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[7] = BulletSimpleHomingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[8] = BulletConstrainedHomingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[9] = BulletGapShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[10] = BulletPatternShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[11] = BulletSteppingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
+	m_shooters[12] = BulletSplittingShooter::Get(m_boss->GetTransformComponent()->GetPosition());
 
-	for (int i = 0; i <= 23; ++i)
+	for (int i = 0; i <= 12; ++i)
 	{
 		m_shooters[i]->SetEnemyTransform(m_player->GetTransformComponent());
 	}
@@ -201,7 +201,7 @@ void ParticleLayer3D::ParticleLayer3D::OnInit(Renderer3D& renderer)
 			a->GetTransformComponent()->Rotate(rotation);
 			a->GetTransformComponent()->SetScale(scale);
 
-			AddStatic(a);
+			//AddStatic(a);
 		}
 	}
 
@@ -262,7 +262,7 @@ void ParticleLayer3D::ParticleLayer3D::OnUpdate(const utils::Timestep& ts)
 		if (!m_player->IsRoll() && maths::sqrt( pow(mx - m_player->GetTransformComponent()->GetPosition().x, 2) + pow(mz - m_player->GetTransformComponent()->GetPosition().z, 2 )) < 50)
 		{
 			bullet->alive = false;
-			m_player->hp -= 1;
+			//m_player->hp -= 1;
 		}
 
 	
@@ -322,7 +322,7 @@ bool ParticleLayer3D::OnKeyPressedEvent(KeyPressedEvent& event)
 		case SUNNY_KEY_1:
 		{
 			m_shooterIndex++;
-			if (m_shooterIndex == 24)
+			if (m_shooterIndex == 13)
 				m_shooterIndex = 0;
 		}
 		break;
