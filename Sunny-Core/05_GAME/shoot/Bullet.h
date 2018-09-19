@@ -44,6 +44,7 @@ namespace game
 
 	public:
 		bool alive;
+		bool isCon = false;
 
 		BULLET_TYPE type;
 

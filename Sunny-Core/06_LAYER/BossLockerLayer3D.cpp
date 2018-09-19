@@ -242,6 +242,7 @@ void BossLockerLayer3D::OnUpdate(const utils::Timestep& ts)
 	m_shooters[BossLocker::shooterIndex]->Update();
 
 	float mx, mz;
+
 	auto position = BossLocker::player->character->GetTransformComponent()->GetPosition();
 	bool isRoll = BossLocker::player->character->GetAnimation() == ANIMATION_ROLL_BASIC;
 
@@ -254,18 +255,40 @@ void BossLockerLayer3D::OnUpdate(const utils::Timestep& ts)
 		mx = bullet->GetPosition().x;
 		mz = bullet->GetPosition().z;
 
+
+
 		if (!isRoll && maths::sqrt(pow(mx - position.x, 2) + pow(mz - position.z, 2)) < 50)
 		{
 			bullet->alive = false;
 
-			cs_packet_particle_collision* packet = reinterpret_cast<cs_packet_particle_collision*>(m_send_buffer);
-			packet->type = CS_PARTICLE_COLLISION;
-			packet->size = sizeof(packet);
-			m_send_wsabuf.len = sizeof(packet);
+			if (bullet->isCon == false)
+			{
+				cs_packet_particle_collision* packet = reinterpret_cast<cs_packet_particle_collision*>(m_send_buffer);
+				packet->type = CS_PARTICLE_COLLISION;
+				packet->size = sizeof(packet);
+				m_send_wsabuf.len = sizeof(packet);
 
-			DWORD ioByte;
+				DWORD ioByte;
 
-			WSASend(m_socket, &m_send_wsabuf, 1, &m_io_flag, 0, NULL, NULL);
+				WSASend(m_socket, &m_send_wsabuf, 1, &m_io_flag, 0, NULL, NULL);
+
+				bullet->isCon = true;
+			}
+			
+		}
+
+		for (int i = 0; i < MAX_USER; ++i)
+		{
+			if (!BossLocker::players[i]) continue;
+			//if (BossLocker::players[i] == BossLocker::player) continue;
+
+			position = BossLocker::players[i]->character->GetTransformComponent()->GetPosition();
+			isRoll = BossLocker::players[i]->character->GetAnimation() == ANIMATION_ROLL_BASIC;
+
+			if (!isRoll && maths::sqrt(pow(mx - position.x, 2) + pow(mz - position.z, 2)) < 50)
+			{
+				bullet->alive = false;
+			}
 		}
 
 		if (!bullet->alive)
