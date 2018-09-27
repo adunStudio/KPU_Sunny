@@ -10,7 +10,7 @@ namespace sunny
 	ServerManager* Server::s_serverManager = nullptr;
 
 	ServerManager::ServerManager()
-	: connected(false), m_ip("172.31.30.150"), m_port("7711")
+	: connected(false), m_ip("127.0.0.1"), m_port("7711")
 	{
 		Server::s_serverManager = this;
 	}

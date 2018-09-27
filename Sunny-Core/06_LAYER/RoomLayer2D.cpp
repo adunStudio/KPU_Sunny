@@ -14,7 +14,25 @@ RoomLayer2D::RoomLayer2D()
 	m_recv_wsabuf.buf = m_recv_buffer;
 	m_recv_wsabuf.len = MAX_BUFF_SIZE;
 
-	Server::Connect("127.0.0.1", "7711");
+	std::string serverData = system::FileSystem::ReadTextFile("/JSON/server.json");
+	Json::Value root;
+	Json::Reader reader;
+
+	bool parsingSuccessful = reader.parse(serverData.c_str(), root);
+	if (parsingSuccessful)
+	{
+		const char* ip = root["ip"].asCString();
+		const char* port = root["port"].asCString();
+
+		cout << "ip: " << ip << endl;
+		cout << "port: " << port << endl;
+
+
+		Server::Connect((char*)ip, (char*)port);
+	}
+
+	// 문제의 코드..
+	// 하 슈발 이거 왜 발견 못했지?
 
 	if (Server::IsConnected())
 		cout << "서버 연결 완료" << endl;
