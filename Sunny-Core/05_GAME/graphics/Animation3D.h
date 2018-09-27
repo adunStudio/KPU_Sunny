@@ -15,6 +15,7 @@ namespace game
 		int m_preAnimationIndex;
 
 		bool m_roll;
+		bool m_die = false;
 
 		int m_coolTime;
 	
@@ -28,6 +29,7 @@ namespace game
 		virtual void PlayAnimation() override;
 
 		inline void SetRoll(bool isRoll) { m_roll = isRoll; }
+		inline void SetDie(bool isDie) { m_die = isDie; }
 
 		inline bool IsRoll() { return m_roll; }
 

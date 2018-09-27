@@ -272,13 +272,13 @@ bool MapGUILayer2D::OnKeyPressedEvent(KeyPressedEvent& event)
 	{
 		// copy
 
-		Model3D* newModel = new Model3D(m_pickedModel->name, m_pickedModel->GetTransformComponent()->GetTransform());
+		Model3D* newModel = new Model3D(m_pickedModel->name, m_pickedModel->GetTransformComponent()->GetCopyTransform());
 
 		m_layer3D->m_mapObjects.push_back(newModel);
 
 		m_layer3D->Add(newModel);
 
-		std::cout << m_layer3D->m_mapObjects.size() << std::endl;
+		m_pickedModel = newModel;
 	}
 }
 
@@ -322,7 +322,7 @@ void MapGUILayer2D::Save()
 	std::cout << m_layer3D->m_mapObjects.size() << std::endl;
 
 	//system::FileSystem::ReadTextFile("/JSON/MAP/map1.json");
-	system::FileSystem::WriteTextFile("03_JSON/MAP/map5.json", root.toStyledString(), true);
+	system::FileSystem::WriteTextFile("03_JSON/MAP/map4.json", root.toStyledString(), true);
 
 	std::cout << "SAVE!" << std::endl;
 }

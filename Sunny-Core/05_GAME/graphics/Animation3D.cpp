@@ -25,6 +25,9 @@ namespace game
 		if (m_mesh->GetType() == MESH_TYPE::STATIC)
 			return;
 
+		if (m_die == true && m_frame == m_mesh->GetAnimationLength() - 1)
+			return;
+		
 		m_frame++;
 
 		if (m_frame > m_mesh->GetAnimationLength() - 1)

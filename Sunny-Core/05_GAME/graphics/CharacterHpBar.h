@@ -36,7 +36,7 @@ namespace game
 			renderer.FillRect(m_bounds, RGBA(0.5, 0.5, 0.5, 0.7));
 			renderer.DrawRect(m_bounds, RGBA(0.9, 0.9, 0.9, 0.7));
 
-			renderer.FillRect(m_progressBounds, RGBA(0.7, 0.7, 0.7, 0.5));
+			renderer.FillRect(m_progressBounds, RGBA(1, 0.2, 0.1, 0.7));
 		}
 	};
 }

@@ -216,6 +216,9 @@ void BossLockerLayer3D::OnUpdate(const utils::Timestep& ts)
 {
 	chrono::duration<double> diff = chrono::high_resolution_clock::now() - start;
 
+
+	std::cout << BossLocker::player->character->GetTransformComponent()->GetPosition() << std::endl;
+
 	for (int i = 0; i < MAX_USER; ++i)
 	{
 		if (!BossLocker::players[i]) continue;
@@ -224,17 +227,22 @@ void BossLockerLayer3D::OnUpdate(const utils::Timestep& ts)
 
 	if (Input::IsMouseButtonPressed(SUNNY_MOUSE_LEFT) && BossLocker::player->character->GetAnimation() != ANIMATION_ROLL_BASIC)
 	{
-		SOCKET socket = Server::GetSocket();
+		if (BossLocker::player->alive == true)
+		{
 
-		cs_packet_player_attack* packet = reinterpret_cast<cs_packet_player_attack*>(m_send_buffer);
-		packet->type   = CS_PLAYER_ATTACK;
-		packet->size   = sizeof(packet);
-		packet->degree = m_degree;
-		m_send_wsabuf.len = sizeof(packet);
-		
-		DWORD ioByte;
+			SOCKET socket = Server::GetSocket();
 
-		WSASend(socket, &m_send_wsabuf, 1, &m_io_flag, 0, NULL, NULL);
+			cs_packet_player_attack* packet = reinterpret_cast<cs_packet_player_attack*>(m_send_buffer);
+			packet->type = CS_PLAYER_ATTACK;
+			packet->size = sizeof(packet);
+			packet->degree = m_degree;
+			m_send_wsabuf.len = sizeof(packet);
+
+			DWORD ioByte;
+
+			WSASend(socket, &m_send_wsabuf, 1, &m_io_flag, 0, NULL, NULL);
+		}
+
 	}
 
 	m_bulletParticle->Update(ts);
@@ -341,6 +349,7 @@ bool BossLockerLayer3D::OnMouseReleasedEvent(MouseReleasedEvent& event)
 
 bool BossLockerLayer3D::OnMouseMovedEvent(MouseMovedEvent& event)
 {
+	if (BossLocker::player->alive == false) return false;
 
 	maths::vec2 mouse_xy(event.GetX(), event.GetY());
 

@@ -113,6 +113,13 @@ void BossLockerLayer2D::ProcessPacket(char* ptr)
 			int           id = packet->id;
 			int    animation = packet->animation;
 
+
+			if (animation == ANIMATION_DEAD)
+			{
+				BossLocker::players[id]->alive = false;
+				BossLocker::players[id]->character->SetDie(true);
+			}
+
 			BossLocker::players[id]->character->SetAnimation(animation);
 			break;
 		}
@@ -206,6 +213,7 @@ bool BossLockerLayer2D::OnMouseReleasedEvent(MouseReleasedEvent& event)
 
 bool BossLockerLayer2D::OnKeyPressedEvent(KeyPressedEvent& event)
 {
+	if (BossLocker::player->alive == false) return false;
 	switch (event.GetKeyCode())
 	{
 		case SUNNY_KEY_SPACE:
@@ -232,6 +240,8 @@ bool BossLockerLayer2D::OnKeyPressedEvent(KeyPressedEvent& event)
 
 void BossLockerLayer2D::InputProcess()
 {
+	if (BossLocker::player->alive == false) return;
+
 	SOCKET socket = Server::GetSocket();
 	
 	cs_packet_player_move* packet = reinterpret_cast<cs_packet_player_move*>(m_send_buffer);
@@ -240,8 +250,12 @@ void BossLockerLayer2D::InputProcess()
 	packet->dir = MOVE_LEFT;
 	m_send_wsabuf.len = sizeof(packet);
 	
+	auto position = BossLocker::player->character->GetTransformComponent()->GetPosition();
+
 	if (Input::IsKeyPressed(SUNNY_KEY_A) && Input::IsKeyPressed(SUNNY_KEY_W))
 	{
+		if (position.x < -900 || position.z > 1250) return;
+
 		packet->dir = MOVE_LEFT_UP;
 
 		DWORD ioByte;
@@ -253,6 +267,8 @@ void BossLockerLayer2D::InputProcess()
 
 	if (Input::IsKeyPressed(SUNNY_KEY_A) && Input::IsKeyPressed(SUNNY_KEY_S))
 	{
+		if (position.x < -900 || position.z < -570) return;
+
 		packet->dir = MOVE_LEFT_DOWN;
 
 		DWORD ioByte;
@@ -264,6 +280,8 @@ void BossLockerLayer2D::InputProcess()
 
 	if (Input::IsKeyPressed(SUNNY_KEY_D) && Input::IsKeyPressed(SUNNY_KEY_W))
 	{
+		if (position.x > 1305 || position.z > 1250) return;
+
 		packet->dir = MOVE_RIGHT_UP;
 
 		DWORD ioByte;
@@ -275,6 +293,8 @@ void BossLockerLayer2D::InputProcess()
 
 	if (Input::IsKeyPressed(SUNNY_KEY_D) && Input::IsKeyPressed(SUNNY_KEY_S))
 	{
+		if (position.x > 1305 || position.z < -570) return;
+
 		packet->dir = MOVE_RIGHT_DOWN;
 
 		DWORD ioByte;
@@ -286,6 +306,8 @@ void BossLockerLayer2D::InputProcess()
 
 	if (Input::IsKeyPressed(SUNNY_KEY_W))
 	{
+		if (position.z > 1250) return;
+
 		packet->dir = MOVE_UP;
 
 		DWORD ioByte;
@@ -297,6 +319,8 @@ void BossLockerLayer2D::InputProcess()
 
 	if (Input::IsKeyPressed(SUNNY_KEY_S))
 	{
+		if (position.z < -570) return;
+
 		packet->dir = MOVE_DOWN;
 
 		DWORD ioByte;
@@ -308,6 +332,8 @@ void BossLockerLayer2D::InputProcess()
 
 	if (Input::IsKeyPressed(SUNNY_KEY_A))
 	{
+		if (position.x < -900) return;
+
 		packet->dir = MOVE_LEFT;
 
 		DWORD ioByte;
@@ -319,6 +345,8 @@ void BossLockerLayer2D::InputProcess()
 
 	if (Input::IsKeyPressed(SUNNY_KEY_D))
 	{
+		if (position.x > 1305) return;
+
 		packet->dir = MOVE_RIGHT;
 
 		DWORD ioByte;

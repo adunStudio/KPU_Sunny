@@ -10,7 +10,7 @@ namespace sunny
 	ServerManager* Server::s_serverManager = nullptr;
 
 	ServerManager::ServerManager()
-	: connected(false), m_ip("127.0.0.1"), m_port("7711")
+	: connected(false), m_ip("172.31.30.150"), m_port("7711")
 	{
 		Server::s_serverManager = this;
 	}
@@ -29,6 +29,10 @@ namespace sunny
 		serverAddr.sin_addr.s_addr = inet_addr(m_ip);
 
 		int result = WSAConnect(m_socket, (sockaddr*)&serverAddr, sizeof(serverAddr), NULL, NULL, NULL, NULL);
+		if (result == SOCKET_ERROR)
+		{
+			std::cout << "???? ½ÇÆÐ " << std::endl;
+		}
 		if (result == SOCKET_ERROR) return false;;
 
 		WSAAsyncSelect(m_socket, hWnd, WM_SOCKET, FD_CLOSE | FD_READ);

@@ -15,6 +15,7 @@ namespace game
 		bool isReady;
 		bool isMaster;
 		short player_type;
+		bool alive = true;
 	
 
 		Animation3D* character;

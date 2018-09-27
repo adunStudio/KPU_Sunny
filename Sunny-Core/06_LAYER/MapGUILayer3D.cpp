@@ -63,7 +63,7 @@ void MapGUILayer3D::OnInit(Renderer3D& renderer)
 
 
 
-	std::string mapData = system::FileSystem::ReadTextFile("/JSON/MAP/map5.json");
+	std::string mapData = system::FileSystem::ReadTextFile("/JSON/MAP/map4.json");
 
 	Json::Value root;
 	Json::Reader reader;
@@ -101,7 +101,7 @@ void MapGUILayer3D::OnInit(Renderer3D& renderer)
 
 	Entity* geom = new Entity(g, new Texture2D("/TEXTURE/terrain_basic.png"));
 
-	Add(geom);
+	//Add(geom);
 }
 
 void MapGUILayer3D::OnTick()

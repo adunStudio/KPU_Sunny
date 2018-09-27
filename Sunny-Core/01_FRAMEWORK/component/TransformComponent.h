@@ -32,6 +32,7 @@ namespace sunny
 			void CalTransform();
 
 			inline const mat4& GetTransform() const { return m_transform; }
+			inline const mat4 GetCopyTransform() const { return m_transform; }
 
 			void Translate(const vec3& translation);
 			void Rotate(const maths::vec3& rotation);
