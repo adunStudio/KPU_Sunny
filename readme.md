@@ -6,13 +6,13 @@
 
 ![SunnyLogo](/Resources/20180316.gif?raw=true&date=20180318_a "preview")
 
-![SunnyLogo](/Resources/loading.jpg?raw=true&date=20180318_a "preview")
+![SunnyLogo](/Resources/loading.JPG?raw=true&date=20180318_a "preview")
 
-![room](/Resources/room.jpg?raw=true&date=20180318_a "preview")
+![room](/Resources/room.JPG?raw=true&date=20180318_a "preview")
 
-![SunnyLogo](/Resources/maptool.jpg?raw=true&date=20180318_a "preview")
+![SunnyLogo](/Resources/maptool.JPG?raw=true&date=20180318_a "preview")
 
-![SunnyLogo](/Resources/gameover.jpg?raw=true&date=20180318_a "preview")
+![SunnyLogo](/Resources/gameover.JPG?raw=true&date=20180318_a "preview")
 
 ##### 졸업작품, 화창하게 진행 중이십니까?
 
