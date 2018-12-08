@@ -57,6 +57,7 @@
 #define SC_PARTICLE_REMOVE 14
 #define SC_PLAYER_HP       15
 #define SC_SHOOTER_CHANGE  16
+#define SC_PLAYER_EXIT     17
 
 #define SC_CHAT            4
 
@@ -249,7 +250,9 @@ struct sc_packet_bullet_put
 	unsigned char size;
 	unsigned char type;
 	unsigned char id;
-	unsigned char kind;
+	unsigned char pattern;
+	float         speed;
+	float         angle;
 	float         x;
 	float         z;
 };
@@ -302,6 +305,12 @@ struct sc_packet_shooter_change
 	unsigned char type;
 	unsigned char shooter;
 	unsigned char target;
+};
+
+struct sc_packet_player_exit
+{
+	unsigned char size;
+	unsigned char type;
 };
 
 //#define SC_PARTICLE_PUT    13

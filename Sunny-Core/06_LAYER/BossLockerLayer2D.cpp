@@ -79,8 +79,21 @@ bool BossLockerLayer2D::OnMouseMovedEvent(MouseMovedEvent& event)
 
 void BossLockerLayer2D::ProcessPacket(char* ptr)
 {
+	if(m_layer3D->stop) return;
+
 	switch (ptr[1])
 	{
+		case SC_PLAYER_EXIT:
+		{
+			m_layer3D->stop = true;
+
+			delete Application::GetApplication().PopLayer(this);
+
+			Application::GetApplication().PushLayer2D(new GameOverLayer2D(m_layer3D));
+
+			break;
+		}
+
 		case SC_PLAYER_DEGREE:
 		{
 			sc_packet_player_degree* packet = reinterpret_cast<sc_packet_player_degree*>(ptr);
@@ -128,7 +141,7 @@ void BossLockerLayer2D::ProcessPacket(char* ptr)
 		{
 			sc_packet_bullet_put* packet = reinterpret_cast<sc_packet_bullet_put*>(ptr);
 			int           id = packet->id;
-			int         kind = packet->kind;
+			int         kind = packet->pattern;
 			float         x  = packet->x;
 			float         z  = packet->z;
 

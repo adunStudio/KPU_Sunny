@@ -15,6 +15,7 @@
 #include "06_LAYER/RoomLayer2D.h"
 #include "06_LAYER/TestLayer2D.h"
 #include "06_LAYER/TestLayer3D.h"
+#include "06_LAYER/GameOverLayer2D.h"
 
 #include "07_SERVER/BossLocker.h"
 
@@ -55,7 +56,6 @@ public:
 
 		Input::GetInputManager()->SetMouseCursor(SUNNY_NO_CURSOR);
 
-		//PushOverlay(new TestLayer2D());
 		PushOverlay(new FPSLayer2D());
 		PushOverlay(new MouseLayer2D());
 		PushLayer2D(new LoadingLayer2D());

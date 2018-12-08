@@ -7,6 +7,7 @@
 #include "../07_SERVER/BossLockerProtocol.h"
 #include "../05_GAME/shoot/BulletShooter.h"
 #include "../05_GAME/graphics/CharacterHpBar.h"
+#include "GameOverLayer2D.h"
 
 using namespace std;
 using namespace sunny;

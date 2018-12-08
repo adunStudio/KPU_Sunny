@@ -16,7 +16,7 @@ BossLockerLayer3D::BossLockerLayer3D()
 
 BossLockerLayer3D::~BossLockerLayer3D()
 {
-
+	
 }
 
 void BossLockerLayer3D::OnInit(Renderer3D& renderer)
@@ -214,10 +214,10 @@ void BossLockerLayer3D::OnTick()
 
 void BossLockerLayer3D::OnUpdate(const utils::Timestep& ts)
 {
+	if (stop) return;
+
 	chrono::duration<double> diff = chrono::high_resolution_clock::now() - start;
 
-
-	std::cout << BossLocker::player->character->GetTransformComponent()->GetPosition() << std::endl;
 
 	for (int i = 0; i < MAX_USER; ++i)
 	{
@@ -290,10 +290,10 @@ void BossLockerLayer3D::OnUpdate(const utils::Timestep& ts)
 			if (!BossLocker::players[i]) continue;
 			//if (BossLocker::players[i] == BossLocker::player) continue;
 
-			position = BossLocker::players[i]->character->GetTransformComponent()->GetPosition();
+			auto position2 = BossLocker::players[i]->character->GetTransformComponent()->GetPosition();
 			isRoll = BossLocker::players[i]->character->GetAnimation() == ANIMATION_ROLL_BASIC;
 
-			if (!isRoll && maths::sqrt(pow(mx - position.x, 2) + pow(mz - position.z, 2)) < 50)
+			if (!isRoll && maths::sqrt(pow(mx - position2.x, 2) + pow(mz - position2.z, 2)) < 50)
 			{
 				bullet->alive = false;
 			}
@@ -334,6 +334,8 @@ bool BossLockerLayer3D::OnKeyReleasedEvent(KeyReleasedEvent& event)
 
 bool BossLockerLayer3D::OnMousePressedEvent(MousePressedEvent& event)
 {
+	if (stop) return false;
+
 	float scaleX = Window::GetWindowClass()->GetResolutionWidth() / Window::GetWindowClass()->GetWidth();
 	float scaleY = Window::GetWindowClass()->GetResolutionHeight() / Window::GetWindowClass()->GetHeight();
 
@@ -349,6 +351,8 @@ bool BossLockerLayer3D::OnMouseReleasedEvent(MouseReleasedEvent& event)
 
 bool BossLockerLayer3D::OnMouseMovedEvent(MouseMovedEvent& event)
 {
+	if (stop) return false;
+
 	if (BossLocker::player->alive == false) return false;
 
 	maths::vec2 mouse_xy(event.GetX(), event.GetY());

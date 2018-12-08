@@ -29,6 +29,7 @@ using namespace maths;
 class BossLockerLayer3D : public Layer3D
 {
 public:
+	bool stop = false;
 	unordered_map<int, BulletShooter*> m_shooters;
 
 private:

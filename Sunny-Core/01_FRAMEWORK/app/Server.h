@@ -30,6 +30,7 @@ namespace sunny
 
 	private:
 		bool Connect();
+		void DisConnect();
 
 		inline void SetIP(char* ip) { m_ip = ip; }
 		inline void SetPORT(char* port) { m_port = port; }
@@ -62,6 +63,11 @@ namespace sunny
 			s_serverManager->SetPORT(port);
 			
 			return s_serverManager->Connect();
+		}
+
+		inline static void DisConnect()
+		{
+			s_serverManager->DisConnect();
 		}
 
 		inline static bool IsConnected() { return s_serverManager->connected; }

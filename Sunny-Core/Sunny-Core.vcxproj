@@ -78,6 +78,7 @@
     <ClCompile Include="06_LAYER\FinalGameLayer2D.cpp" />
     <ClCompile Include="06_LAYER\FinalRoom2DLayer.cpp" />
     <ClCompile Include="06_LAYER\FPSLayer2D.cpp" />
+    <ClCompile Include="06_LAYER\GameOverLayer2D.cpp" />
     <ClCompile Include="06_LAYER\LoadingLayer2D.cpp" />
     <ClCompile Include="06_LAYER\MapGUILayer2D.cpp" />
     <ClCompile Include="06_LAYER\MapGUILayer3D.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="06_LAYER\FinalGameLayer2D.h" />
     <ClInclude Include="06_LAYER\FinalRoom2DLayer.h" />
     <ClInclude Include="06_LAYER\FPSLayer2D.h" />
+    <ClInclude Include="06_LAYER\GameOverLayer2D.h" />
     <ClInclude Include="06_LAYER\LoadingLayer2D.h" />
     <ClInclude Include="06_LAYER\MapGUILayer2D.h" />
     <ClInclude Include="06_LAYER\MapGUILayer3D.h" />

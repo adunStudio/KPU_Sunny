@@ -42,6 +42,13 @@ namespace sunny
 		return true;
 	}
 
+	void ServerManager::DisConnect()
+	{
+		closesocket(m_socket);
+		WSACleanup();
+		connected = false;
+	}
+
 	void ServerPacketCallback(ServerManager* serverManager, SOCKET socket)
 	{
 		serverManager->m_eventCallback(events::ServerPacketEvent(socket));

@@ -6,12 +6,18 @@
 
 ![SunnyLogo](/Resources/20180316.gif?raw=true&date=20180318_a "preview")
 
+![SunnyLogo](/Resources/loading.jpg?raw=true&date=20180318_a "preview")
+
+![room](/Resources/room.jpg?raw=true&date=20180318_a "preview")
+
+![SunnyLogo](/Resources/maptool.jpg?raw=true&date=20180318_a "preview")
+
+![SunnyLogo](/Resources/gameover.jpg?raw=true&date=20180318_a "preview")
 
 ##### 졸업작품, 화창하게 진행 중이십니까?
 
 ##### [Sunny](https://github.com/adunStudio/Sunny)와 함께 화창해지세요! :sunny:
 
-##### (Sunny는 [Sparky](https://github.com/TheCherno/Sparky)를 모태로 진화 중 입니다.!)
 ---
 
 #### Required knowledge
@@ -158,3 +164,16 @@ Sunny Engine 어렵지 않아요!
 ### Step 22. Shadows
 - [ShadowBuffer]()
 - [ShadowMap]()
+
+### Step 23. OutLine
+
+### Step 24. Event & Server
+
+### Step 25. Music
+- [FMOD]()
+
+### Step 26. Particle & Billboard
+
+### Step 27. DeferredContext & MultiThread
+
+### Step 28. Final

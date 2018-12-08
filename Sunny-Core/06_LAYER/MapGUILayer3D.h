@@ -4,6 +4,8 @@
 
 #include "MapGUILayer2D.h"
 #include "../05_GAME/graphics/Model3D.h"
+#include "../05_GAME/graphics/Animation3D.h"
+
 
 using namespace game;
 

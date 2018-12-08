@@ -69,7 +69,6 @@ namespace game
 			for (int i = 0; i < m_shootCount; ++i)
 				new Bullet(BULLET_TYPE::SPIRAL, m_position, m_shootAngle + static_cast<float>(i) / static_cast<float>(m_shootCount), 0, m_shootSpeed, 0);
 
-			std::cout << m_shootAngle << std::endl;
 			m_shootAngle += m_shootAngleRate;
 			m_shootAngle -= floor(m_shootAngle);
 		}

@@ -24,7 +24,7 @@ void MapGUILayer3D::OnInit(Renderer3D& renderer)
 {
 	Model* a = new Model("/OBJ/sphere.obj");
 	Entity* e = new Entity(a->GetMesh(), RGBA(1.0, 0, 0, 1.0));
-	Add(e);
+	//Add(e);
 
 
 	LightSetup* lights = new LightSetup();
@@ -38,9 +38,9 @@ void MapGUILayer3D::OnInit(Renderer3D& renderer)
 	Entity* xAxis = new Entity(MeshFactory::CreateXAxis(), RGBA(1, 0, 0, 0), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
 	Entity* yAxis = new Entity(MeshFactory::CreateYAxis(), RGBA(0, 1, 0, 0), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
 	Entity* zAxis = new Entity(MeshFactory::CreateZAxis(), RGBA(0, 0, 1, 0), mat4::Identity() * mat4::Scale(vec3(100, 100, 100)));
-	Add(xAxis);
-	Add(yAxis);
-	Add(zAxis);
+	//Add(xAxis);
+	//Add(yAxis);
+	//Add(zAxis);
 
 	model_axis = new Group3D();
 
@@ -59,7 +59,7 @@ void MapGUILayer3D::OnInit(Renderer3D& renderer)
 
 	model_axis->GetTransformComponent()->SetScale(vec3(300, 300, 300));
 	
-	Add(model_axis);
+	//Add(model_axis);
 
 
 
@@ -100,6 +100,52 @@ void MapGUILayer3D::OnInit(Renderer3D& renderer)
 	Mesh* g = MeshFactory::CreateGeometry(7000, 7000, 100, 100);
 
 	Entity* geom = new Entity(g, new Texture2D("/TEXTURE/terrain_basic.png"));
+
+	unordered_map<int, vector<Mesh*>> m_animations;
+
+	m_animations[14].push_back(ModelManager::GetMesh("14_idle_basic"));
+	m_animations[14].push_back(ModelManager::GetMesh("14_dead"));
+	m_animations[14].push_back(ModelManager::GetMesh("14_attack_basic"));
+	m_animations[14].push_back(ModelManager::GetMesh("14_roll_basic"));
+	m_animations[14].push_back(ModelManager::GetMesh("14_run_attack"));
+	m_animations[14].push_back(ModelManager::GetMesh("14_run_basic"));
+	m_animations[14].push_back(ModelManager::GetMesh("14_idle_attack"));
+
+	m_animations[15].push_back(ModelManager::GetMesh("15_idle_basic"));
+	m_animations[15].push_back(ModelManager::GetMesh("15_dead"));
+	m_animations[15].push_back(ModelManager::GetMesh("15_attack_basic"));
+	m_animations[15].push_back(ModelManager::GetMesh("15_roll_basic"));
+	m_animations[15].push_back(ModelManager::GetMesh("15_run_attack"));
+	m_animations[15].push_back(ModelManager::GetMesh("15_run_basic"));
+	m_animations[15].push_back(ModelManager::GetMesh("15_idle_attack"));
+
+	m_animations[20].push_back(ModelManager::GetMesh("20_idle_basic"));
+	m_animations[20].push_back(ModelManager::GetMesh("20_dead"));
+	m_animations[20].push_back(ModelManager::GetMesh("20_attack_basic"));
+	m_animations[20].push_back(ModelManager::GetMesh("20_roll_basic"));
+	m_animations[20].push_back(ModelManager::GetMesh("20_run_attack"));
+	m_animations[20].push_back(ModelManager::GetMesh("20_run_basic"));
+	m_animations[20].push_back(ModelManager::GetMesh("20_idle_attack"));
+
+	auto a1 = new Animation3D(m_animations[14], new Texture2D("/TEXTURE/14_body.png"), new Texture2D("/TEXTURE/14_face.png"));
+	a1->GetTransformComponent()->SetScale(vec3(100, 100, 100));
+	a1->GetTransformComponent()->Translate(vec3(150, 0, 0));
+	a1->GetTransformComponent()->Rotate(vec3(0, 210, 0));
+	Add(a1);
+
+	auto a2 = new Animation3D(m_animations[15], new Texture2D("/TEXTURE/15_body.png"), new Texture2D("/TEXTURE/15_face.png"));
+	a2->GetTransformComponent()->SetScale(vec3(100, 100, 100));
+	a2->GetTransformComponent()->Rotate(vec3(0, 210, 0));
+
+	Add(a2);
+
+	auto a3 = new Animation3D(m_animations[20], new Texture2D("/TEXTURE/20_body.png"), new Texture2D("/TEXTURE/20_face.png"));
+	a3->GetTransformComponent()->SetScale(vec3(100, 100, 100));
+	a3->GetTransformComponent()->Translate(vec3(-150, 0, 0));
+	a3->GetTransformComponent()->Rotate(vec3(0, 210, 0));
+
+
+	Add(a3);
 
 	//Add(geom);
 }
